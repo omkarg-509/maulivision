@@ -14,7 +14,7 @@ class Auth
     public static function isLoggedIn(){
          session_start();
         if(isset($_SESSION['vendor']) || isset($_COOKIE['vendor'])){
-            // $_SESSION['vendor'] = $_SESSION['vendor'] ?? $_COOKIE['vendor'];
+            $_SESSION['vendor'] = $_SESSION['vendor'] ?? $_COOKIE['vendor'];
             // Optional: Regenerate session ID for security
             header("Location: /public/dashboard");
             exit;
