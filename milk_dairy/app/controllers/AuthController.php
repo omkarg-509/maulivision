@@ -15,9 +15,9 @@ class AuthController extends Controller
             $user = $userModel->findByEmail($email);
 
             if ($user && password_verify($password, $user['password'])) {
-                // if (session_status() === PHP_SESSION_NONE) {
-                //     session_start();
-                // }
+               if (session_status() === PHP_SESSION_NONE) {
+                   session_start();
+               }
                 $_SESSION['vendor'] = $user;
 
                 setcookie("vendor", $user['id'], time() + (7 * 24 * 60 * 60), "/");
