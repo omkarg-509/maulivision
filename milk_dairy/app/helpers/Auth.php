@@ -7,7 +7,7 @@ class Auth
         session_start();
          Auth::isLoggedIn(); // Check if user is already logged in
         if (!isset($_SESSION['vendor'])) {
-            header("Location: /public/auth/logout");
+            header("Location: /public/auth/login");
             exit;
         }
     }
