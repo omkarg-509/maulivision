@@ -5,7 +5,7 @@ class AuthController extends Controller
 {
     public function login()
     {
-       // Auth::isLoggedIn();
+        Auth::isLoggedIn();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
