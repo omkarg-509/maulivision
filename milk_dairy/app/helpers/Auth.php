@@ -16,7 +16,7 @@ class Auth
         if(isset($_SESSION['vendor']) || isset($_COOKIE['vendor'])){
             $_SESSION['vendor'] = $_SESSION['vendor'] ?? $_COOKIE['vendor'];
             // Optional: Regenerate session ID for security
-            header("Location: /public/dashboard");
+            header("Location: /public/auth/logout");
             exit;
         }
     }
