@@ -11,14 +11,11 @@ class Auth
             exit;
         }
     }
-    public static function isLoggedIn(){
-         session_start();
-        if(isset($_SESSION['vendor']) || isset($_COOKIE['vendor'])){
-            $_SESSION['vendor'] = $_SESSION['vendor'] ?? $_COOKIE['vendor'];
-            // Optional: Regenerate session ID for security
-            header("Location: /public/auth/login");
-            exit;
-        }
+    public static function isLoggedIn()
+    {
+        session_start();
+        
+        return isset($_SESSION['vendor']);
     }
 
     public static function user()
