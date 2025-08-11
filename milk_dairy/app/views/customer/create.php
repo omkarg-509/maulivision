@@ -61,7 +61,7 @@
             <th scope="col">#</th>
             <th scope="col">Full Name</th>
             <th scope="col">Mobile Number</th>
-            <th scope="col">Address</th>
+            <!-- <th scope="col">Address</th> -->
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -72,7 +72,7 @@
                 <td><?= $index + 1 ?></td>
                 <td><?= htmlspecialchars($cust['name']) ?></td>
                 <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                <td><?= htmlspecialchars(ucfirst($cust['address'])) ?></td>
+                <!-- <td><?//= htmlspecialchars(ucfirst($cust['address'])) ?></td> -->
                 <td>
                   <a href="/public/customer/delete/<?= urlencode($cust['id']) ?>" 
                      onclick="return confirm('Are you sure you want to delete this customer?');" 
