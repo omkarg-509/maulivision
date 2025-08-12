@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Replace with your actual admin credentials
-    $admin_user = 'admin';
-    $admin_pass = 'password123';
+    $admin_user = 'omkarg509';
+    $admin_pass = 'omkarg509';
 
     if ($username === $admin_user && $password === $admin_pass) {
         $_SESSION['admin_logged_in'] = true;
