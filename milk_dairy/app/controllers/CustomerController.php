@@ -65,10 +65,21 @@ public function show($id)
     }
 }
 
+public function update($id)
+{
+    Auth::check(); // ✅ session check
+    $customerModel = $this->model('Customer');
+    $customer = $customerModel->getById($id);
 
-
-
-
-
-
+    if ($customer) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $customerModel->update($id, $_POST);
+            header("Location: /public/customer/show/{$id}");
+        } else {
+            $this->view('customer/view', ['customer' => $customer]);
+        }
+    } else {
+        echo "Customer data not found.";
+    }
+}
 }

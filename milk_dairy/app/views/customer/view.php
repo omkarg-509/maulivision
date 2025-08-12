@@ -18,7 +18,7 @@
                     <h4>Add Customer</h4>
                   </div>
                   <?php if (!empty($data['customer'])): ?>
-                  <form method="POST" action="/public/customer/store">
+                  <form method="POST" action=" /public/customer/show/<?= $data['customer']['id']; ?>">
                     <div class="card-body">
                       <div class="form-group row mb-3">
                         
@@ -27,19 +27,19 @@
                         <input type="hidden" name="vid" value="<?= $data['customer']['id']; ?>">
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="name" placeholder="<?=$data['customer']['name']; ?>">
+                          <input type="text" class="form-control" required name="name" value="<?= htmlspecialchars($data['customer']['name']); ?>">
                         </div>
                       </div>
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="mobile" placeholder="<?=$data['customer']['mobile']; ?>">
+                          <input type="text" class="form-control" required name="mobile" value="<?= htmlspecialchars($data['customer']['mobile']); ?>">
                         </div>
                       </div>
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Address</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" required name="address" rows="2" placeholder="<?=$data['customer']['address']; ?>"></textarea>
+                          <textarea class="form-control" required name="address" rows="2"><?= htmlspecialchars($data['customer']['address']); ?></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
