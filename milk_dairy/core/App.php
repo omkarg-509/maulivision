@@ -3,7 +3,7 @@
 class App
 {
     protected $controller = 'HomeController'; // Default controller
-    protected $method = '';              // Default method
+    protected $method = 'index';              // Default method
     protected $params = [];
 
     public function __construct()
