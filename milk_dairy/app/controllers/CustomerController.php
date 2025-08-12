@@ -77,6 +77,7 @@ public function update($id)
             echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
             exit;
         } else {
+            echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
             $this->view('customer/view', ['customer' => $customer]);
         }
     } else {
