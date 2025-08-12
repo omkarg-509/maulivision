@@ -21,7 +21,7 @@
                  <form method="POST" action="/public/customer/update/<?= urlencode($data['customer']['id']); ?>">
                     <div class="card-body">
                       <div class="form-group row mb-3">
-                        <input type="text" name="id" value="<?= htmlspecialchars($data['customer']['id']); ?>">
+                        <input type="text" name="id" value="<?= htmlspecialchars($data['customer']['vid']); ?>">
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" required name="name" value="<?= htmlspecialchars($data['customer']['name']); ?>">

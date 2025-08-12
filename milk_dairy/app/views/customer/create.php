@@ -20,7 +20,7 @@
                   <form method="POST" action="/public/customer/store">
                     <div class="card-body">
                       <div class="form-group row mb-3">
-                        <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
+                        <input type="text" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" required name="name" placeholder="Enter full name">
