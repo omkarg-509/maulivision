@@ -75,13 +75,22 @@ public function updateData($id, $data)
     $stmt->execute();   
     return $stmt->affected_rows > 0;
 }
+// public function getDailyEntries($vid, $cid)
+// {
+//     $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE DATE(created_at) = CURDATE() AND vid = ? AND cid = ?");
+//     $stmt->bind_param("ii", $vid, $cid);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     return $result->fetch_all(MYSQLI_ASSOC);
+// }
 public function getDailyEntries($vid, $cid)
 {
-    $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE DATE(created_at) = CURDATE() AND vid = ? AND cid = ?");
+    $stmt = $this->db->prepare("SELECT * FROM milk_entries WHERE vid = ? AND cid = ?");
     $stmt->bind_param("ii", $vid, $cid);
     $stmt->execute();
     $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
+    return $result->fetch_all(MYSQLI_ASSOC); // Array return करायला पाहिजे
 }
+
     
 }
