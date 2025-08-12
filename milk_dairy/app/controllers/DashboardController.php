@@ -10,11 +10,11 @@ class DashboardController extends Controller
         Auth::check(); // If using auth
 
         $customerModel = new Customer();
-        $customerCount = $customerModel->countAll();
-        $countDailyEntries = $customerModel->countDailyEntry();
+        // $customerCount = $customerModel->countAll();
+        // $countDailyEntries = $customerModel->countDailyEntry();
         $this->view('dashboard/index', [
-            'customerCount' => $customerCount,
-            'dailyentry' => $countDailyEntries
+            // 'customerCount' => $customerCount,
+            // 'dailyentry' => $countDailyEntries
         ]);
     }
 }

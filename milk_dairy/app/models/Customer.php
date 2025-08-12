@@ -6,21 +6,21 @@ class Customer extends Database
 {
 
 
- public function countDailyEntry()
-    {
-        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM daily_entries WHERE DATE(created_at) = CURDATE()");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc()['total'];
-    }
+//  public function countDailyEntry()
+//     {
+//         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM daily_entries WHERE DATE(created_at) = CURDATE()");
+//         $stmt->execute();
+//         $result = $stmt->get_result();
+//         return $result->fetch_assoc()['total'];
+//     }
 
-    public function countAll()
-    {
-        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM customers");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc()['total'];
-    }
+//     public function countAll()
+//     {
+//         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM customers");
+//         $stmt->execute();
+//         $result = $stmt->get_result();
+//         return $result->fetch_assoc()['total'];
+//     }
 
 
     public function getAll()

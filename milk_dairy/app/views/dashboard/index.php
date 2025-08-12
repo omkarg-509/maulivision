@@ -12,14 +12,14 @@
           <div class="row">
 
         
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
               <div class="card card-statistic-1"><a href="../loan/loan.php">
                 <i class="fas fa-book-open card-icon col-green"></i>
                 <div class="card-wrap">
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0 text-dark">
-                        <i class="ti-arrow-up text-success"></i><?= $data['customerCount'] ?>
+                        <i class="ti-arrow-up text-success"></i><?//= $data['customerCount'] ?>
                     </div>
                   </div>
                 </div> </a>
@@ -32,13 +32,13 @@
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0 text-dark">
-                        <i class="ti-arrow-up text-success"></i><?= $data['dailyentry'] ?>
+                        <i class="ti-arrow-up text-success"></i><?//= $data['dailyentry'] ?>
                     </div>
                   </div>
                 </div> </a>
               </div>
             </div>
-        
+         -->
 
         
             
