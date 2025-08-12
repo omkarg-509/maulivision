@@ -87,4 +87,18 @@ public function update($id)
     }
 }
 
+public function dailyEntries($customerId)
+{
+    Auth::check();
+    $customerModel = $this->model('Customer');
+    $customer = $customerModel->getById($customerId);
+    $entries = $customerModel->getDailyEntries($customerId);
+
+    $this->view('customer/view', [
+        'customer' => $customer,
+        'customerId' => $customerId,
+        'entries' => $entries
+    ]);
+}
+
 }
