@@ -15,7 +15,7 @@
              
                 <div class="card">
                   <div class="card-header">
-                    <h4>Add Customer</h4>
+                    <h4> Customer Details</h4>
                   </div>
                   <?php if (!empty($data['customer'])): ?>
                  <form method="POST" action="/public/customer/update/<?= urlencode($data['customer']['id']); ?>">
@@ -41,7 +41,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3 text-center">
-                          <button type="submit" class="btn btn-primary px-4">Submit</button>
+                          <button type="submit" class="btn btn-primary px-4">EDIT</button>
                         </div>
                       </div>
                     </div>
