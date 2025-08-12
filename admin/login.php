@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">s
+    <meta charset="UTF-8">
     <title>Admin Login</title>
     <style>
         body { font-family: Arial, sans-serif; background: #f4f4f4; }
