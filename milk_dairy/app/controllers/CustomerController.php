@@ -94,12 +94,12 @@ public function dailyEntries($vid, $cid)
     $customer = $customerModel->getById($cid);
 
     if ($customer) {
-        $entries = $customerModel->getDailyEntries($vid, $cid);
+        $milk_entries = $customerModel->getDailyEntries($vid, $cid);
         $this->view('customer/view', [
             'customer' => $customer,
             'customerId' => $cid,
-            'milk_entries' => $entries
-        ]);
+            'milk_entries' => $milk_entries
+                ]);
     } else {
         echo "Customer data not found.";
     }
