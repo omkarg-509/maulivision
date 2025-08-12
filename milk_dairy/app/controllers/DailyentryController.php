@@ -14,14 +14,20 @@ class DailyentryController extends Controller
     }
 
     public function store()
-{
-    $dailyentryModel = $this->model('DailyEntry');
-    $dailyentryModel->insert($_POST);
-
-    echo json_encode(['status' => 'success', 'message' => 'Entry saved']);
-    exit;
-}
-
+    {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+        $dailyentryModel = $this->model('DailyEntry');
+        $result = $dailyentryModel->insert($_POST);
+        if ($result) {
+          echo json_encode(['success' => true, 'message' => 'Entry added successfully.']);
+        } else {
+          echo json_encode(['success' => false, 'message' => 'Failed to add entry.']);
+        }
+      } else {
+        echo json_encode(['success' => false, 'message' => 'Invalid request.']);
+      }
+      exit;
+    }
   public function delete($id)
     {
         $dailyentryModel = $this->model('DailyEntry');
