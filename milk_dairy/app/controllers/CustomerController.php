@@ -102,7 +102,7 @@ public function show($id)
     $customer = $customerModel->getById($id);
 
     if ($customer) {
-        $milk_entries = $customerModel->getDailyEntries(null, $id);
+        $milk_entries = $customerModel->getDailyEntries('1', $id);
         $this->view('customer/view', [
             'customer' => $customer,
             'milk_entries' => $milk_entries
