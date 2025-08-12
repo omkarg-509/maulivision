@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($username === $admin_user && $password === $admin_pass) {
         $_SESSION['admin_logged_in'] = true;
-        header('Location: dashboard.php');
+        header('Location: index.php');
         exit;
     } else {
         $error = 'Invalid username or password.';
