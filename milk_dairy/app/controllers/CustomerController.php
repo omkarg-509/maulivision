@@ -53,17 +53,6 @@ public function searchCustomer()
     }
     
 }
-public function show($id)
-{ Auth::check(); // ✅ session check
-    $customerModel = $this->model('Customer');
-    $customer = $customerModel->getById($id);
-
-    if ($customer) {
-        $this->view('customer/view', ['customer' => $customer]);
-    } else {
-        echo "Customer data not found.";
-    }
-}
 
 public function update($id)
 {
@@ -82,6 +71,25 @@ public function update($id)
         } else {
             $this->view('customer/view', ['customer' => $customer]);
         }
+    } else {
+        echo "Customer data not found.";
+    }
+}
+
+
+public function show($id)
+{ Auth::check(); // ✅ session check
+    $customerModel = $this->model('Customer');
+    $customer = $customerModel->getById($id);
+
+    if ($customer) {
+        $vid = $_SESSION['vendor']['id']; // Get the vendor ID from the session
+         $milk_entries = $customerModel->getDailyEntries($vid, $id);
+        // $this->view('customer/view', ['customer' => $customer]);
+        $this->view('customer/view', [
+    'customer' => $customer,
+    'customerId' => $id,
+    'milk_entries' => $milk_entries]);
     } else {
         echo "Customer data not found.";
     }
