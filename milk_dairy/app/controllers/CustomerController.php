@@ -87,18 +87,22 @@ public function update($id)
     }
 }
 
-public function dailyEntries($customerId)
+public function dailyEntries($vid, $cid)
 {
     Auth::check();
     $customerModel = $this->model('Customer');
-    $customer = $customerModel->getById($customerId);
-    $entries = $customerModel->getDailyEntries($customerId);
+    $customer = $customerModel->getById($cid);
 
-    $this->view('customer/view', [
-        'customer' => $customer,
-        'customerId' => $customerId,
-        'entries' => $entries
-    ]);
+    if ($customer) {
+        $entries = $customerModel->getDailyEntries($vid, $cid);
+        $this->view('customer/view', [
+            'customer' => $customer,
+            'customerId' => $cid,
+            'entries' => $entries
+        ]);
+    } else {
+        echo "Customer data not found.";
+    }
 }
 
 }
