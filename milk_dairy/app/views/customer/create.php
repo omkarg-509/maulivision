@@ -17,57 +17,34 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                    <form id="customerForm" method="POST" action="/public/customer/store">
+                  <form method="POST" action="/public/customer/store">
                     <div class="card-body">
                       <div class="form-group row mb-3">
-                      <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
-                      <label class="col-sm-3 col-form-label text-center">Full Name</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" required name="name" placeholder="Enter full name">
-                      </div>
-                      </div>
-                      <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" required name="mobile" placeholder="Enter mobile number">
-                      </div>
+                        <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
+                        <label class="col-sm-3 col-form-label text-center">Full Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" required name="name" placeholder="Enter full name">
+                        </div>
                       </div>
                       <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Address</label>
-                      <div class="col-sm-9">
-                        <textarea class="form-control" required name="address" rows="2" placeholder="Enter address"></textarea>
+                        <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" required name="mobile" placeholder="Enter mobile number">
+                        </div>
                       </div>
+                      <div class="form-group row mb-3">
+                        <label class="col-sm-3 col-form-label text-center">Address</label>
+                        <div class="col-sm-9">
+                          <textarea class="form-control" required name="address" rows="2" placeholder="Enter address"></textarea>
+                        </div>
                       </div>
                       <div class="form-group row">
-                      <div class="col-sm-9 offset-sm-3 text-center">
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        <div class="col-sm-9 offset-sm-3 text-center">
+                          <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        </div>
                       </div>
-                      </div>
-                      <div id="formMsg" class="mt-2"></div>
                     </div>
-                    </form>
-                    <script>
-                    document.getElementById('customerForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    var form = e.target;
-                    var formData = new FormData(form);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', form.action, true);
-                    xhr.onreadystatechange = function() {
-                      if (xhr.readyState === 4) {
-                      var msg = document.getElementById('formMsg');
-                      if (xhr.status === 200) {
-                        msg.innerHTML = '<div class="alert alert-success">Customer added successfully.</div>';
-                        form.reset();
-                        setTimeout(function(){ location.reload(); }, 1000);
-                      } else {
-                        msg.innerHTML = '<div class="alert alert-danger">Error adding customer.</div>';
-                      }
-                      }
-                    };
-                    xhr.send(formData);
-                    });
-                    </script>
+                  </form>
                 </div>
                    </div>
               </div>
