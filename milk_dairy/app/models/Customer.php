@@ -85,7 +85,7 @@ public function updateData($id, $data)
 // }
 public function getDailyEntries($vid, $cid)
 {
-    $stmt = $this->db->prepare("SELECT * FROM milk_entries WHERE vid = ? AND cid = ?");
+    $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE vid = ? AND cid = ?");
     $stmt->bind_param("ii", $vid, $cid);
     $stmt->execute();
     $result = $stmt->get_result();
