@@ -4,7 +4,7 @@ class Auth
 {
     public static function check()
     {
-        session_start();
+       
          Auth::isLoggedIn(); // Check if user is already logged in
         if (!isset($_SESSION['vendor'])) {
             header("Location: /public/dashboard");
