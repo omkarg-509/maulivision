@@ -18,7 +18,7 @@
                     <h4>Add Customer</h4>
                   </div>
                   <?php if (!empty($data['customer'])): ?>
-                  <form method="POST" action="/customer/show/<?= urlencode($data['customer']['id']); ?>">
+                 <form method="POST" action="/customer/update/<?= urlencode($data['customer']['id']); ?>">
                     <div class="card-body">
                       <div class="form-group row mb-3">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($data['customer']['id']); ?>">

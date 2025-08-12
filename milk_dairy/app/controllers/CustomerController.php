@@ -67,21 +67,24 @@ public function show($id)
 
 public function update($id)
 {
-    Auth::check(); // ✅ session check
+    Auth::check();
     $customerModel = $this->model('Customer');
     $customer = $customerModel->getById($id);
 
     if ($customer) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $customerModel->update($id, $_POST);
-            echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
+            if ($customerModel->updateData($id, $_POST)) {
+                echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
+            } else {
+                echo "<script>alert('No changes were made'); window.location.href='/customer/show/{$id}';</script>";
+            }
             exit;
         } else {
-            
             $this->view('customer/view', ['customer' => $customer]);
         }
     } else {
         echo "Customer data not found.";
     }
 }
+
 }

@@ -68,11 +68,12 @@ public function getById($id)
 }
 
 
-public function update($id, $data)
+public function updateData($id, $data)
 {
     $stmt = $this->db->prepare("UPDATE customers SET name = ?, mobile = ?, address = ? WHERE id = ?");
     $stmt->bind_param("sssi", $data['name'], $data['mobile'], $data['address'], $id);
     $stmt->execute();   
-    return $stmt->affected_rows > 0; // अपडेट झाला का ते तपासतो
+    return $stmt->affected_rows > 0;
 }
+    
 }
