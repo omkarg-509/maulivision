@@ -74,7 +74,7 @@ public function update($id)
     if ($customer) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $customerModel->update($id, $_POST);
-            header("Location: /customer/show/{$id}");
+            echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
             exit;
         } else {
             $this->view('customer/view', ['customer' => $customer]);
