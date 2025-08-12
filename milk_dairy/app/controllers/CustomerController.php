@@ -74,7 +74,8 @@ public function update($id)
     if ($customer) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $customerModel->update($id, $_POST);
-            header("Location: /public/customer/show/{$id}");
+            header("Location: /customer/show/{$id}");
+            exit;
         } else {
             $this->view('customer/view', ['customer' => $customer]);
         }
