@@ -98,7 +98,7 @@ public function dailyEntries($vid, $cid)
         $this->view('customer/view', [
             'customer' => $customer,
             'customerId' => $cid,
-            'entries' => $entries
+            'milk_entries' => $entries
         ]);
     } else {
         echo "Customer data not found.";
