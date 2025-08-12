@@ -6,7 +6,7 @@ class User extends Database
 {
     public function findByEmail($email)
     {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ? LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM vendor WHERE email = ? LIMIT 1");
         $stmt->bind_param("s", $email);
         $stmt->execute();
 
