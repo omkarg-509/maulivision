@@ -26,7 +26,7 @@ class DailyentryController extends Controller
     {
         $dailyentryModel = $this->model('DailyEntry');
         $dailyentryModel->delete($id);
-        header("Location: /public/dailyentry/index");
+        header("Location: ". $_SERVER['HTTP_REFERER']."");
     }
 
 
