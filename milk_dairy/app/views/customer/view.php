@@ -18,13 +18,13 @@
                     <h4>Add Customer</h4>
                   </div>
                   <?php if (!empty($data['customer'])): ?>
-                  <form method="POST" action=" /public/customer/show/<?= $data['customer']['id']; ?>">
+                  <form method="POST" action="/public/customer/show/<?= urlencode($data['customer']['id']); ?>">
                     <div class="card-body">
                       <div class="form-group row mb-3">
                         
     
 
-                        <input type="hidden" name="vid" value="<?= $data['customer']['id']; ?>">
+                        <input type="hidden" name="vid" value="<?= htmlspecialchars($data['customer']['id']); ?>">
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" required name="name" value="<?= htmlspecialchars($data['customer']['name']); ?>">
