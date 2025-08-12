@@ -33,7 +33,7 @@
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="mobile" placeholder="<?=$data['customer']['number']; ?>">
+                          <input type="text" class="form-control" required name="mobile" placeholder="<?=$data['customer']['mobile']; ?>">
                         </div>
                       </div>
                       <div class="form-group row mb-3">
