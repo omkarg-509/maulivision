@@ -70,7 +70,8 @@
           </tr>
         </thead>
         <tbody>
-          <?php if (!empty($data['milk_entries']) && is_array($data['milk_entries'])): ?>
+          <?php $milk_entries = $customerModel->getDailyEntries($data['customer']['vid'], $data['customer']['id']); ?>
+          if (!empty($data['milk_entries']) && is_array($data['milk_entries'])): ?>
             <?php foreach ($data['milk_entries'] as $index => $entry): ?>
               <tr>
                 <td><?= $index + 1 ?></td>
