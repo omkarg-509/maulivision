@@ -1,4 +1,5 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
+<?php require_once '../app/models/Customer.php';?>
 
 
 <div class="main-content">
