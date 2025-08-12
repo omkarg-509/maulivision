@@ -44,10 +44,10 @@
                      title="Delete">
                     <i class="fa fa-trash text-danger"></i>
                   </a>
-                  <a href="/public/customer/show/<?= urlencode($cust['id']) ?>" 
-                     title="View" class="btn btn-info btn-sm">
+                    <a href="/public/customer/show/<?= urlencode($cust['id']) ?>" 
+                     title="View" class="btn btn-info btn-sm" style="margin-left: 8px;">
                     <i class="fa fa-eye"></i>
-                  </a>
+                    </a>
                 </td>
               </tr>
             <?php endforeach; ?>
