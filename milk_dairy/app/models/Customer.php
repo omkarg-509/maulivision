@@ -31,22 +31,9 @@ class Customer extends Database
 
     public function insert($data)
     {
-        // Check if name and mobile already exist
-        $stmt = $this->db->prepare("SELECT id FROM customers WHERE name = ? AND mobile = ?");
-        $stmt->bind_param("ss", $data['name'], $data['mobile']);
+        $stmt = $this->db->prepare("INSERT INTO customers (vid,name, mobile, address) VALUES (?,?, ?, ?)");
+        $stmt->bind_param("isss",$data['vid'], $data['name'], $data['mobile'], $data['address']);
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            echo "<script>alert('Customer with this name and mobile already exists.');</script>";
-            return false;
-        }
-
-        // Insert new customer
-        $stmt = $this->db->prepare("INSERT INTO customers (vid, name, mobile, address) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("isss", $data['vid'], $data['name'], $data['mobile'], $data['address']);
-        $stmt->execute();
-        return true;
     }
 
     public function delete($id)
