@@ -1,5 +1,5 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
-<?php require_once '../app/models/Customer.php';?>
+
 
 
 <div class="main-content">
@@ -55,52 +55,47 @@
               </div>
             </div>
          <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h4>Milk Entries</h4>
-    </div>
-    <div class="card-body" style="overflow-x:auto;">
-      <table class="table table-sm">
-        <thead>
+<div class="card-body" style="overflow-x:auto;">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date</th>
+        <th scope="col">Milk Type</th>
+        <th scope="col">Milk Liter</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if (!empty($data['milk_entries']) && is_array($data['milk_entries'])): ?>
+        <?php foreach ($data['milk_entries'] as $index => $entry): ?>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Milk Type</th>
-            <th scope="col">Milk Liter</th>
-            <th scope="col">Action</th>
+            <td><?= $index + 1 ?></td>
+            <td><?= htmlspecialchars($entry['date']) ?></td>
+            <td><?= htmlspecialchars($entry['milk_type']) ?></td>
+            <td><?= htmlspecialchars($entry['milk_liter']) ?></td>
+            <td>
+              <a href="/public/milk_entry/delete/<?= urlencode($entry['id']) ?>"
+                 onclick="return confirm('Are you sure you want to delete this entry?');"
+                 title="Delete" class="btn btn-danger btn-sm">
+                <i class="fa fa-trash"></i>
+              </a>
+              <a href="/public/milk_entry/show/<?= urlencode($entry['id']) ?>"
+                 title="View" class="btn btn-info btn-sm">
+                <i class="fa fa-eye"></i>
+              </a>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <?php $milk_entries = $customerModel->getDailyEntries($data['customer']['vid'], $data['customer']['id']); ?>
-          <?php if (!empty($data['milk_entries']) && is_array($data['milk_entries'])): ?>
-            <?php foreach ($data['milk_entries'] as $index => $entry): ?>
-              <tr>
-                <td><?= $index + 1 ?></td>
-                <td><?= htmlspecialchars($entry['date']) ?></td>
-                <td><?= htmlspecialchars($entry['milk_type']) ?></td>
-                <td><?= htmlspecialchars($entry['milk_liter']) ?></td>
-                <td>
-                  <a href="/public/milk_entry/delete/<?= urlencode($entry['id']) ?>"
-                     onclick="return confirm('Are you sure you want to delete this entry?');"
-                     title="Delete" class="btn btn-danger btn-sm">
-                    <i class="fa fa-trash"></i>
-                  </a>
-                  <a href="/public/milk_entry/show/<?= urlencode($entry['id']) ?>"
-                     title="View" class="btn btn-info btn-sm">
-                    <i class="fa fa-eye"></i>
-                  </a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr>
-              <td colspan="5" class="text-center">No milk entries found.</td>
-            </tr>
-          <?php endif; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="5" class="text-center">No milk entries found.</td>
+        </tr>
+      <?php endif; ?>
+    </tbody>
+  </table>
+</div>
+
   </div>
 
 
