@@ -4,17 +4,15 @@ class Auth
 {
     public static function check()
     {
-       
-         Auth::isLoggedIn(); // Check if user is already logged in
-        if (!isset($_SESSION['vendor'])) {
-            header("Location: /public/dashboard");
+        session_start();
+        if (!self::isLoggedIn()) {
+            header("Location: /public/auth/login");
             exit;
         }
     }
+
     public static function isLoggedIn()
     {
-        session_start();
-        
         return isset($_SESSION['vendor']);
     }
 
@@ -23,21 +21,16 @@ class Auth
         return $_SESSION['vendor'] ?? null;
     }
 
-  public static function logout()
-{
-    session_start();
+    public static function logout()
+    {
+        session_start();
+        session_destroy();
 
-    // Destroy all session data
-    session_destroy();
+        if (isset($_COOKIE['vendor'])) {
+            setcookie("vendor", "", time() - 3600, "/");
+        }
 
-    // Optional: Clear cookies
-    if (isset($_COOKIE['vendor'])) {
-        setcookie("vendor", "", time() - 3600, "/");
+        header("Location: /public/auth/login");
+        exit;
     }
-
-    // Redirect to login
-    header("Location: /public/auth/login");
-    exit;
-}
-
 }
