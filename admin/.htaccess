@@ -1,19 +1,8 @@
-# Enable URL rewriting
-RewriteEngine On
+# Remove index.php from URLs
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.php[/?]([^\s]*)\sHTTP/
+RewriteRule ^index\.php/?(.*)$ /$1 [R=301,L]
 
-# Redirect www to non-www
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Deny access to .git and .env files
-<FilesMatch "^(\.git|\.env)">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-# Prevent directory listing
-Options -Indexes
+# Internally rewrite requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L]
