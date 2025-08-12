@@ -74,9 +74,9 @@ public function update($id)
     if ($customer) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($customerModel->updateData($id, $_POST)) {
-                echo "<script>alert('Data successfully updated'); window.location.href='/customer/show/{$id}';</script>";
+                echo "<script>alert('Data successfully updated'); window.location.href='/public/customer/show/{$id}';</script>";
             } else {
-                echo "<script>alert('No changes were made'); window.location.href='/customer/show/{$id}';</script>";
+                echo "<script>alert('No changes were made'); window.location.href='/public/customer/show/{$id}';</script>";
             }
             exit;
         } else {
