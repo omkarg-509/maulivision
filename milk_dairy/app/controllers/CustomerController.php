@@ -95,22 +95,22 @@ public function show($id)
     }
 }
 
-public function dailyEntries($vid, $cid)
-{
-    Auth::check();
-    $customerModel = $this->model('Customer');
-    $customer = $customerModel->getById($cid);
+// public function dailyEntries($vid, $cid)
+// {
+//     Auth::check();
+//     $customerModel = $this->model('Customer');
+//     $customer = $customerModel->getById($cid);
 
-    if ($customer) {
-        $milk_entries = $customerModel->getDailyEntries($vid, $cid);
-        $this->view('customer/view', [
-    'customer' => $customer,
-    'customerId' => $cid,
-    'milk_entries' => $milk_entries
-]);
-    } else {
-        echo "Customer data not found.";
-    }
-}
+//     if ($customer) {
+//         $milk_entries = $customerModel->getDailyEntries($vid, $cid);
+//         $this->view('customer/view', [
+//     'customer' => $customer,
+//     'customerId' => $cid,
+//     'milk_entries' => $milk_entries
+// ]);
+//     } else {
+//         echo "Customer data not found.";
+//     }
+// }
 
 }
