@@ -76,15 +76,12 @@
             <td><?= htmlspecialchars($entry['milkliter']) ?></td>
             <td>
               <?php if (isset($entry['id'])): ?>
-              <a href="/public/milk_entry/delete/<?= urlencode($entry['id']) ?>"
+              <a href="/public/dailyentry/delete/<?= urlencode($entry['id']) ?>"
                  onclick="return confirm('Are you sure you want to delete this entry?');"
                  title="Delete" class="btn btn-danger btn-sm">
                 <i class="fa fa-trash"></i>
               </a>
-              <a href="/public/milk_entry/show/<?= urlencode($entry['id']) ?>"
-                 title="View" class="btn btn-info btn-sm">
-                <i class="fa fa-eye"></i>
-              </a>
+              
               <?php endif; ?>
             </td>
           </tr>
