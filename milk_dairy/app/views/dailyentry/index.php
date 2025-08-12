@@ -34,39 +34,45 @@
         <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
         <input type="hidden" name="cid" id="cid"> <!-- This will hold customer ID -->
         <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
-    </div>
-</div>
-<script>
-document.getElementById("customer_search").addEventListener("keyup", function() {
-    const keyword = this.value;
-    if (keyword.length >= 2) {
+          </div>
+      </div>
+      <script>
+      document.getElementById("customer_search").addEventListener("keyup", function() {
+          const keyword = this.value;
+          if (keyword.length >= 2) {
         fetch(`/public/customer/searchCustomer?term=${encodeURIComponent(keyword)}`)
             .then(res => res.json())
             .then(data => {
-                const suggestions = document.getElementById("suggestions");
-                suggestions.innerHTML = '';
+          const suggestions = document.getElementById("suggestions");
+          suggestions.innerHTML = '';
 
-                data.forEach(customer => {
-                    const div = document.createElement("div");
-                    div.classList.add("list-group-item", "list-group-item-action");
-                    div.innerHTML = `${customer.name} (${customer.mobile})`;
+          data.forEach(customer => {
+              const div = document.createElement("div");
+              div.classList.add("list-group-item", "list-group-item-action");
+              div.innerHTML = `${customer.name} (${customer.mobile})`;
 
-                    div.onclick = function () {
-                        document.getElementById("customer_search").value = customer.name;
-                        document.getElementById("cid").value = customer.id;
-                        suggestions.innerHTML = '';
-                    };
+              div.onclick = function () {
+            document.getElementById("customer_search").value = customer.name;
+            document.getElementById("cid").value = customer.id;
+            suggestions.innerHTML = '';
+              };
 
-                    suggestions.appendChild(div);
-                });
+              suggestions.appendChild(div);
+          });
             });
-    } else {
+          } else {
         document.getElementById("suggestions").innerHTML = '';
-    }
-});
-</script>
+          }
+      });
 
-                      
+      // Alert if cid is not set on form submit
+      document.querySelector("form").addEventListener("submit", function(e) {
+          if (!document.getElementById("cid").value) {
+        alert("Please select a customer from the suggestions.");
+        e.preventDefault();
+          }
+      });
+      </script>
                         <div class="form-group row mb-3">
                             <label class="col-sm-3 col-form-label text-center">Milk Type</label>
                             <div class="col-sm-9">
