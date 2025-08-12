@@ -95,16 +95,12 @@
         endforeach;
         $numberOfDays = count($days);
       ?>
-          <tr>
+        
         <td colspan="3" class="text-right font-weight-bold">Total Milk Liter</td>
         <td class="font-weight-bold"><?= $totalMilkLiter ?></td>
-        <td></td>
-          </tr>
-          <tr>
-        <td colspan="3" class="text-right font-weight-bold">Number of Days</td>
+         <td colspan="3" class="text-right font-weight-bold">Number of Days</td>
         <td class="font-weight-bold"><?= $numberOfDays ?></td>
-        <td></td>
-          </tr>
+      </tr>
       <?php else: ?>
         <tr>
           <td colspan="5" class="text-center">No milk entries found.</td>
