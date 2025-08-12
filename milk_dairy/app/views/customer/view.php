@@ -71,9 +71,9 @@
         <?php foreach ($data['milk_entries'] as $index => $entry): ?>
           <tr>
             <td><?= $index + 1 ?></td>
-            <td><?= htmlspecialchars($entry['date']) ?></td>
-            <td><?= htmlspecialchars($entry['milk_type']) ?></td>
-            <td><?= htmlspecialchars($entry['milk_liter']) ?></td>
+            <td><?= htmlspecialchars($entry['created_at']) ?></td>
+            <td><?= htmlspecialchars($entry['milktype']) ?></td>
+            <td><?= htmlspecialchars($entry['milkliter']) ?></td>
             <td>
               <a href="/public/milk_entry/delete/<?= urlencode($entry['id']) ?>"
                  onclick="return confirm('Are you sure you want to delete this entry?');"
