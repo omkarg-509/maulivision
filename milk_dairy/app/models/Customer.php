@@ -31,8 +31,8 @@ class Customer extends Database
 
     public function insert($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO customers (name, mobile, address) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $data['name'], $data['mobile'], $data['address']);
+        $stmt = $this->db->prepare("INSERT INTO customers (vid,name, mobile, address) VALUES (?,?, ?, ?)");
+        $stmt->bind_param("isss",$data['vid'], $data['name'], $data['mobile'], $data['address']);
         $stmt->execute();
     }
 
