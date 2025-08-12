@@ -34,33 +34,26 @@
     </div>
   </section>
 </div>
-
-<!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-$(document).ready(function () {
-  $("#loginForm").on("submit", function (e) {
+$('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
     $.ajax({
-      url: "/public/auth/login", // तुझा backend URL
-      type: "POST",
-      data: $(this).serialize(),
-      dataType: "json", // backend JSON return करणार असे गृहीत धरतो
-      success: function (response) {
-        if (response.success) {
-          // Login यशस्वी → redirect
-          window.location.href = "/public/dashboard";
-        } else {
-          // Error दाखव
-          $("#login-error").text(response.error || "Invalid credentials").show();
+        url: '/public/auth/login',
+        type: 'POST',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = response.redirect;
+            } else {
+                $('#loginMessage').text(response.message);
+            }
+        },
+        error: function() {
+            $('#loginMessage').text('Something went wrong.');
         }
-      },
-      error: function () {
-        $("#login-error").text("Something went wrong. Please try again.").show();
-      }
     });
-  });
 });
 </script>
