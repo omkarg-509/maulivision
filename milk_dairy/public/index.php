@@ -4,6 +4,8 @@ error_reporting(E_ALL);
 
 require_once '../config/config.php';
 require_once '../core/App.php';
+require_once '../app/models/Customer.php';
+
 require_once '../core/Controller.php';
 
 
