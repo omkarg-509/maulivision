@@ -67,25 +67,44 @@
       </tr>
     </thead>
     <tbody>
-      <?php if (!empty($data['milk_entries']) && is_array($data['milk_entries'])): ?>
-        <?php foreach ($data['milk_entries'] as $index => $entry): ?>
+      <?php
+      $totalMilkLiter = 0;
+      $days = [];
+      if (!empty($data['milk_entries']) && is_array($data['milk_entries'])):
+        foreach ($data['milk_entries'] as $index => $entry):
+          $totalMilkLiter += floatval($entry['milkliter']);
+          $date = date('Y-m-d', strtotime($entry['created_at']));
+          $days[$date] = true;
+      ?>
           <tr>
-            <td><?= $index + 1 ?></td>
-            <td><?= htmlspecialchars($entry['created_at']) ?></td>
-            <td><?= htmlspecialchars($entry['milktype']) ?></td>
-            <td><?= htmlspecialchars($entry['milkliter']) ?></td>
-            <td>
-              <?php if (isset($entry['id'])): ?>
-              <a href="/public/dailyentry/delete/<?= urlencode($entry['id']) ?>"
-                 onclick="return confirm('Are you sure you want to delete this entry?');"
-                 title="Delete" class="btn btn-danger btn-sm">
-                <i class="fa fa-trash"></i>
-              </a>
-              
-              <?php endif; ?>
-            </td>
+        <td><?= $index + 1 ?></td>
+        <td><?= htmlspecialchars($entry['created_at']) ?></td>
+        <td><?= htmlspecialchars($entry['milktype']) ?></td>
+        <td><?= htmlspecialchars($entry['milkliter']) ?></td>
+        <td>
+          <?php if (isset($entry['id'])): ?>
+          <a href="/public/dailyentry/delete/<?= urlencode($entry['id']) ?>"
+         onclick="return confirm('Are you sure you want to delete this entry?');"
+         title="Delete" class="btn btn-danger btn-sm">
+        <i class="fa fa-trash"></i>
+          </a>
+          <?php endif; ?>
+        </td>
           </tr>
-        <?php endforeach; ?>
+      <?php
+        endforeach;
+        $numberOfDays = count($days);
+      ?>
+          <tr>
+        <td colspan="3" class="text-right font-weight-bold">Total Milk Liter</td>
+        <td class="font-weight-bold"><?= $totalMilkLiter ?></td>
+        <td></td>
+          </tr>
+          <tr>
+        <td colspan="3" class="text-right font-weight-bold">Number of Days</td>
+        <td class="font-weight-bold"><?= $numberOfDays ?></td>
+        <td></td>
+          </tr>
       <?php else: ?>
         <tr>
           <td colspan="5" class="text-center">No milk entries found.</td>
