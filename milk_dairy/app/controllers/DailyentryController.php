@@ -13,12 +13,15 @@ class DailyentryController extends Controller
         
     }
 
-      public function store()
-    {
-        $dailyentryModel = $this->model('DailyEntry');
-        $dailyentryModel->insert($_POST);
-        header("Location: /public/dailyentry/index");
-    }
+    public function store()
+{
+    $dailyentryModel = $this->model('DailyEntry');
+    $dailyentryModel->insert($_POST);
+
+    echo json_encode(['status' => 'success', 'message' => 'Entry saved']);
+    exit;
+}
+
   public function delete($id)
     {
         $dailyentryModel = $this->model('DailyEntry');

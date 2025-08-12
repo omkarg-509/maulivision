@@ -17,7 +17,8 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                <form method="POST" action="/public/dailyentry/store">
+                <!-- <form method="POST" action="/public/dailyentry/store"> -->
+                  <form id="dailyEntryForm">
                     <div class="card-body">
                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
                       <!-- <div class="form-group row mb-3">
@@ -115,6 +116,39 @@
                         </div>
                     </div>
                 </form>
+                
+<script>
+document.getElementById("dailyEntryForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Form submit stop
+
+    // Validate customer selection
+    if (!document.getElementById("cid").value) {
+        alert("Please select a customer from the suggestions.");
+        return;
+    }
+
+    // Prepare form data
+    const formData = new FormData(this);
+
+    // Send AJAX request
+    fetch("/public/dailyentry/store", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text()) // Server response
+    .then(data => {
+        alert("Daily entry saved successfully!");
+        // Optionally clear form
+        document.getElementById("dailyEntryForm").reset();
+        document.getElementById("suggestions").innerHTML = '';
+        // Optional: table refresh via AJAX
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("Something went wrong!");
+    });
+});
+</script>
                 </div>
                    </div>
               </div>
