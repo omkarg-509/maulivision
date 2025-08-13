@@ -15,7 +15,7 @@ $conn->query("CREATE DATABASE IF NOT EXISTS `$dbname`");
 $conn->select_db($dbname);
 
 // Create customer table if not exists
-$conn->query("CREATE TABLE IF NOT EXISTS customers (
+$conn->query("CREATE TABLE IF NOT EXISTS customer (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     number VARCHAR(20),
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $amount = $_POST['amount'];
 
     // Check if customer exists
-    $stmt = $conn->prepare("SELECT id FROM customers WHERE name=? AND number=?");
+    $stmt = $conn->prepare("SELECT id FROM customer WHERE name=? AND number=?");
     $stmt->bind_param("ss", $name, $number);
     $stmt->execute();
     $stmt->store_result();
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Customer already exists!";
     } else {
         // Insert new customer
-        $stmt = $conn->prepare("INSERT INTO customers (name, number, staff, time, amount) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO customer (name, number, staff, time, amount) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssd", $name, $number, $staff_name, $time, $amount);
         if ($stmt->execute()) {
             $message = "Appointment saved successfully!";
