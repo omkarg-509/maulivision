@@ -2,6 +2,10 @@
 session_start();
 require_once 'db.php'; // Make sure this file sets up $pdo as a PDO instance
 
+if (!isset($pdo) || !$pdo) {
+    die('Database connection failed. Please check your db.php configuration.');
+}
+
 // Redirect to dashboard if already logged in
 if (isset($_SESSION['vendor_id'])) {
     header('Location: dashboard.php');

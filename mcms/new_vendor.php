@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prepare and bind
         $stmt = $conn->prepare("INSERT INTO vendor (username, password) VALUES (?, ?)");
-        if ($stmt) {
+        if ($stmt && $stmt instanceof mysqli_stmt) {
             $stmt->bind_param("ss", $username, $hashed_password);
             if ($stmt->execute()) {
                 $message = "Registration successful!";
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $stmt->close();
         } else {
-            $message = "Database error.";
+            $message = "Database error: " . $conn->error;
         }
     }
 }
