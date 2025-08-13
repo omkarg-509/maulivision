@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare and bind
-        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO vendor (username, password) VALUES (?, ?)");
         if ($stmt) {
             $stmt->bind_param("ss", $username, $hashed_password);
             if ($stmt->execute()) {
