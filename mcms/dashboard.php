@@ -15,7 +15,6 @@ $staff = [
     'Bob Lee'
 ];
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>

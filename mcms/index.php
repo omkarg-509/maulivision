@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'db.php';
+require_once 'db.php'; // Make sure this file sets up $pdo as a PDO instance
 
 // Redirect to dashboard if already logged in
 if (isset($_SESSION['vendor_id'])) {
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Check credentials against vendor table
+    // Check credentials against vendor table using PDO
     $stmt = $pdo->prepare('SELECT id, password FROM vendor WHERE username = ? LIMIT 1');
     $stmt->execute([$username]);
     $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -54,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <?php if ($error): ?>
+        <?php if (!empty($error)): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
         <form method="post" action="">
-            <input type="text" name="username" placeholder="Username" required autofocus>
+            <input type="text" name="username" placeholder="Username" required autofocus value="<?= isset($username) ? htmlspecialchars($username) : '' ?>">
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
         </form>
