@@ -2,9 +2,10 @@
 session_start();
 require_once 'db.php'; // Make sure this file sets up $pdo as a PDO instance
 
-if (!isset($pdo) || !$pdo) {
-    die('Database connection failed. Please check your db.php configuration.');
-}
+// Legacy MySQLi connection (not used in this script, but included as requested)
+
+
+
 
 // Redirect to dashboard if already logged in
 if (isset($_SESSION['vendor_id'])) {
@@ -18,18 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Check credentials against vendor table using PDO
-    $stmt = $pdo->prepare('SELECT id, password FROM vendor WHERE username = ? LIMIT 1');
-    $stmt->execute([$username]);
-    $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($vendor && password_verify($password, $vendor['password'])) {
-        $_SESSION['vendor_id'] = $vendor['id'];
+    // Check credentials against vendor table using MySQLi ($conn)
+    $stmt = $conn->prepare('SELECT id, password FROM vendor WHERE username = ? LIMIT 1');
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $stmt->bind_result($id, $hashed_password);
+    if ($stmt->fetch() && password_verify($password, $hashed_password)) {
+        $_SESSION['vendor_id'] = $id;
         header('Location: dashboard.php');
         exit;
     } else {
         $error = 'Invalid username or password.';
     }
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
