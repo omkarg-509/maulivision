@@ -7,8 +7,11 @@ if (!isset($_SESSION['vendor_id'])) {
     exit();
 }
 
+// Define the database name
+$dbname = 'u367009900_maulivision'; // <-- Replace with your actual database name
+
 // Create database if not exists
-$conn->query("CREATE DATABASE IF NOT EXISTS $dbname");
+$conn->query("CREATE DATABASE IF NOT EXISTS `$dbname`");
 $conn->select_db($dbname);
 
 // Create customer table if not exists
@@ -33,7 +36,7 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
-    $number = trim($_POST['number']);
+    $amount = floatval($_POST['amount']);
     $time = $_POST['time'];
     $staff_name = $_POST['staff'];
     $amount = $_POST['amount'];
