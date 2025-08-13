@@ -1,8 +1,9 @@
 <?php
 session_start();
+require_once 'db.php';
 
 // Redirect to dashboard if already logged in
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['vendor_id'])) {
     header('Location: dashboard.php');
     exit;
 }
@@ -13,12 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Dummy credentials for demonstration
-    $valid_user = 'admin';
-    $valid_pass = 'password123';
+    // Check credentials against vendor table
+    $stmt = $pdo->prepare('SELECT id, password FROM vendor WHERE username = ? LIMIT 1');
+    $stmt->execute([$username]);
+    $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($username === $valid_user && $password === $valid_pass) {
-        $_SESSION['user_id'] = $username;
+    if ($vendor && password_verify($password, $vendor['password'])) {
+        $_SESSION['vendor_id'] = $vendor['id'];
         header('Location: dashboard.php');
         exit;
     } else {
