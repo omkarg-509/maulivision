@@ -7,7 +7,7 @@
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="<?=BASE_URL?>/assets/img/user.png" class="user-img-radious-style">
               <span class="d-sm-none d-lg-inline-block"></span></a>
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-left">
               <div class="dropdown-title">Hello <?=$_SESSION['vendor']['email']?></div>
               
               <div class="dropdown-divider"></div>
