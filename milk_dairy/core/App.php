@@ -11,7 +11,7 @@ class App
         $url = $this->parseUrl();               // Parse URL
                                                 // Controller check
 
-                                                print_r(ucfirst($url[1])); // Debugging line to check controller name
+                                                print_r(ucfirst($url[-1])); // Debugging line to check controller name
         if (isset($url[0]) && file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
             $this->controller = ucfirst($url[0]) . 'Controller';
             unset($url[0]);
