@@ -52,7 +52,10 @@
               </ul>
             </li>
           
-         
+         <li class="">
+              <a href="<?=BASE_URL?>auth/logout" class="nav-link "><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+
+            </li>
           </ul>
         </aside>
       </div>
