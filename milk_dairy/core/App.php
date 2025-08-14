@@ -2,45 +2,99 @@
 
 class App
 {
-    protected $controller = 'HomeController'; // Default controller
-    protected $method = 'index';              // Default method
-    protected $params = [];                   // Default parameters
+    protected $controller = 'HomeController';
+    protected $method = 'index';
+    protected $params = [];
+    protected $namespace = 'App\\Controllers\\';
 
-    public function __construct()               // Constructor
+    public function __construct()
     {
-        $url = $this->parseUrl();               // Parse URL
-                                                // Controller check
+        $url = $this->parseUrl();
 
-                                                print_r(ucfirst($url[0]), [1]); // Debugging line to check controller name
-        if (isset($url[0]) && file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
-            $this->controller = ucfirst($url[0]) . 'Controller';
+        // Controller resolution with namespace support
+        $controllerName = ucfirst($url[0] ?? 'Home') . 'Controller';
+        $controllerClass = $this->namespace . $controllerName;
+        $controllerPath = dirname(__DIR__) . '/app/controllers/' . $controllerName . '.php';
+
+        if (isset($url[0]) && file_exists($controllerPath)) {
+            $this->controller = $controllerClass;
             unset($url[0]);
+        } else {
+            $controllerPath = dirname(__DIR__) . '/app/controllers/' . $this->controller . '.php';
+            $controllerClass = $this->namespace . $this->controller;
+            if (!file_exists($controllerPath)) {
+                throw new Exception("Controller file not found: " . $controllerPath);
+            }
         }
 
-       
-        require_once '../app/controllers/' . $this->controller . '.php';
-        $this->controller = new $this->controller;
+        require_once $controllerPath;
+        if (!class_exists($controllerClass)) {
+            throw new Exception("Controller class not found: " . $controllerClass);
+        }
+        $this->controller = new $controllerClass;
 
-        // Method check
-        if (isset($url[1]) && method_exists($this->controller, $url[1])) {
-            $this->method = $url[1];
-            unset($url[1]);
+        // Method resolution with HTTP verb support
+        $httpMethod = strtolower($_SERVER['REQUEST_METHOD'] ?? 'get');
+        $method = $url[1] ?? $this->method;
+        $methodWithVerb = $method . ucfirst($httpMethod);
+
+        if (isset($url[1])) {
+            if (method_exists($this->controller, $methodWithVerb)) {
+                $this->method = $methodWithVerb;
+                unset($url[1]);
+            } elseif (method_exists($this->controller, $method)) {
+                $this->method = $method;
+                unset($url[1]);
+            } else {
+                throw new Exception("Method '{$method}' not found in controller '{$controllerClass}'.");
+            }
+        } elseif (method_exists($this->controller, $this->method . ucfirst($httpMethod))) {
+            $this->method = $this->method . ucfirst($httpMethod);
         }
 
-        // Remaining parts = parameters
+        // Parameters
         $this->params = $url ? array_values($url) : [];
 
-        // Final call
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        // Dependency Injection (simple example)
+        $reflection = new ReflectionMethod($this->controller, $this->method);
+        $dependencies = [];
+        foreach ($reflection->getParameters() as $param) {
+            $type = $param->getType();
+            if ($type && !$type->isBuiltin()) {
+                $className = $type->getName();
+                $dependencies[] = new $className();
+            } elseif (!empty($this->params)) {
+                $dependencies[] = array_shift($this->params);
+            } elseif ($param->isDefaultValueAvailable()) {
+                $dependencies[] = $param->getDefaultValue();
+            } else {
+                throw new Exception("Cannot resolve parameter '{$param->getName()}' for method '{$this->method}'.");
+            }
+        }
+
+        // Middleware support (before controller method)
+        if (method_exists($this->controller, 'before')) {
+            $result = call_user_func([$this->controller, 'before'], $this->method, $this->params);
+            if ($result === false) {
+                // Middleware can stop execution
+                return;
+            }
+        }
+
+        // Call controller method with parameters and dependencies
+        $response = call_user_func_array([$this->controller, $this->method], $dependencies);
+
+        // Middleware support (after controller method)
+        if (method_exists($this->controller, 'after')) {
+            call_user_func([$this->controller, 'after'], $this->method, $response);
+        }
     }
 
-    
     public function parseUrl()
     {
         if (isset($_GET['url'])) {
             return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
-        return []; // default fallback
+        return [];
     }
-
 }
