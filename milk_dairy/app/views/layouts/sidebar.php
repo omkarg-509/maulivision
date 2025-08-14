@@ -50,10 +50,19 @@
                 
               </ul>
             </li>
-          
-          <li class="">
-              <a href="<?=BASE_URL?>auth/logout" class="nav-link "><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-          </li>
+            <!-- Place this at the bottom of the sidebar menu -->
+            <li class="mt-5"></li> <!-- Spacer for pushing content down -->
+            <li class="sidebar-bottom">
+              <div class="sidebar-user-info text-center mb-2">
+                <img alt="image" src="<?=BASE_URL?>/assets/img/user.png" class="user-img-radious-style mb-2" style="width:40px;">
+                <div class="sidebar-username" style="font-size:14px;">
+                  <?=$_SESSION['vendor']['email']?>
+                </div>
+              </div>
+              <a href="<?=BASE_URL?>auth/logout" class="nav-link text-danger">
+                <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+              </a>
+            </li>
           </ul>
         </aside>
       </div>
