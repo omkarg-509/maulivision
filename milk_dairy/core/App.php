@@ -4,21 +4,20 @@ class App
 {
     protected $controller = 'HomeController'; // Default controller
     protected $method = 'index';              // Default method
-    protected $params = [];
+    protected $params = [];                   // Default parameters
 
-    public function __construct()
+    public function __construct()               // Constructor
     {
-        $url = $this->parseUrl();
-// echo "<pre>";
-// print_r($url); // 👈 या लाइनमुळे browser मध्ये URL array दिसेल
-// echo "</pre>";
-        // Controller check
+        $url = $this->parseUrl();               // Parse URL
+                                                // Controller check
+
+                                                print_r(ucfirst($url[0])); // Debugging line to check controller name
         if (isset($url[0]) && file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
             $this->controller = ucfirst($url[0]) . 'Controller';
-            unset($url[0]); // ✅ हे विसरू नकोस
+            unset($url[0]);
         }
 
-        // Load controller file
+       
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
 
