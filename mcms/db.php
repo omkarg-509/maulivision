@@ -1,0 +1,1 @@
+<?php $conn = new mysqli('localhost', 'u367009900_maulivision', 'S54/t&XCIup+', 'u367009900_maulivision');?>
