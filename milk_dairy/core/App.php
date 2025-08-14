@@ -13,25 +13,28 @@ class App
 
         // Controller resolution with namespace support
         $controllerName = ucfirst($url[0] ?? 'Home') . 'Controller';
-        $controllerClass = $this->namespace . $controllerName;
         $controllerPath = dirname(__DIR__) . '/app/controllers/' . $controllerName . '.php';
 
         if (isset($url[0]) && file_exists($controllerPath)) {
-            $this->controller = $controllerClass;
+            require_once $controllerPath;
+            $controllerClass = $this->namespace . $controllerName;
+            if (!class_exists($controllerClass)) {
+                throw new Exception("Controller class not found: " . $controllerClass);
+            }
+            $this->controller = new $controllerClass;
             unset($url[0]);
         } else {
             $controllerPath = dirname(__DIR__) . '/app/controllers/' . $this->controller . '.php';
-            $controllerClass = $this->namespace . $this->controller;
             if (!file_exists($controllerPath)) {
                 throw new Exception("Controller file not found: " . $controllerPath);
             }
+            require_once $controllerPath;
+            $controllerClass = $this->namespace . $this->controller;
+            if (!class_exists($controllerClass)) {
+                throw new Exception("Controller class not found: " . $controllerClass);
+            }
+            $this->controller = new $controllerClass;
         }
-
-        require_once $controllerPath;
-        if (!class_exists($controllerClass)) {
-            throw new Exception("Controller class not found: " . $controllerClass);
-        }
-        $this->controller = new $controllerClass;
 
         // Method resolution with HTTP verb support
         $httpMethod = strtolower($_SERVER['REQUEST_METHOD'] ?? 'get');
