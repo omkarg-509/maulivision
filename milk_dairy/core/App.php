@@ -9,9 +9,9 @@ class App
     public function __construct()
     {
         $url = $this->parseUrl();
-echo "<pre>";
-print_r($url); // 👈 या लाइनमुळे browser मध्ये URL array दिसेल
-echo "</pre>";
+// echo "<pre>";
+// print_r($url); // 👈 या लाइनमुळे browser मध्ये URL array दिसेल
+// echo "</pre>";
         // Controller check
         if (isset($url[0]) && file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
             $this->controller = ucfirst($url[0]) . 'Controller';
