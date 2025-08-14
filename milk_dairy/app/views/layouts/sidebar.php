@@ -1,7 +1,7 @@
  <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
         <div class="form-inline me-auto">
-          <ul class="navbar-nav navbar-right">
+          <ul class="navbar-nav navbar-left">
         
           <li class="dropdown"><a href="#" data-bs-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
