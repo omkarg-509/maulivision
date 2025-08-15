@@ -5,7 +5,7 @@
         
           <a href="<?=BASE_URL?>" data-bs-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="user-img-radious-style">
+              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="">
 
             </a>
           
