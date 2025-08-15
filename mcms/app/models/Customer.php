@@ -29,6 +29,15 @@ class Customer extends Database
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+        public function history($date)
+        {
+            $stmt = $this->db->prepare("SELECT * FROM customers WHERE created_at = ?");
+            $stmt->bind_param("s", $date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+        
     public function insert($data)
     {
         $stmt = $this->db->prepare("INSERT INTO customers (vid,name, mobile, address) VALUES (?,?, ?, ?)");
