@@ -5,9 +5,7 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
 ?>
 <?=(new Header())->render();?>
 
-<div class="main-content">
-  <div class="loader"></div>
-  <div id="app">
+
     <div class="main-wrapper main-wrapper-1">
         <div id="app">
   <section class="section">
@@ -71,9 +69,6 @@ $('#loginForm').on('submit', function(e) {
 
         
     </div>
-    
-  </div>
- </div>
-  </div>
+
  
  <?=(new Footer())->render();?>
