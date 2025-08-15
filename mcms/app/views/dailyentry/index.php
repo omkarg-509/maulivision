@@ -77,6 +77,7 @@
                           <th scope="col">Number</th>
                           <th scope="col">In time</th>
                           <th scope="col">Amount</th>
+                          <th scope="col">Payment Method</th>
                           <th scope="col">Action</th>
                         </tr>
                       </thead>
@@ -99,6 +100,7 @@
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
+                            <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                             <td>
                               <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
                                  onclick="return confirm('Are you sure you want to delete this milk Entries?');"
