@@ -30,7 +30,7 @@ class Auth
             setcookie("vendor", "", time() - 3600, "/");
         }
 
-        header("Location: /mcms/public/auth/login");
+        header("Location: /public/auth/login");
         exit;
     }
 }
