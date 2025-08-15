@@ -6,6 +6,6 @@ class HomeController extends Controller
     {
 
         Auth::check(); // 🔒 Protect the home page
-        $this->view('home/index');
+        $this->view('dailyentry/index');
     }
 }
