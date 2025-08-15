@@ -62,7 +62,7 @@ public function login()
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json'); // JSON response
 
-        $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
+        // $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
         $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
