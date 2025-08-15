@@ -44,9 +44,9 @@
                     </div>
 
                     <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Amount Paid</label>
+                      <label class="col-sm-3 col-form-label text-center">Amount</label>
                       <div class="col-sm-9">
-                        <input type="number" step="0.01" class="form-control" name="amount_paid" placeholder="Amount Paid" required>
+                        <input type="number" step="0.01" class="form-control" name="amount" placeholder="Amount Paid" required>
                       </div>
                     </div>
 
@@ -82,11 +82,11 @@
           <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Customer</th>
-                          <th scope="col">Type</th>
-                          <th scope="col">Liter</th>
+                          <th scope="col">Customer name</th>
+                          <th scope="col">Number</th>
+                          <th scope="col">In_time</th>
+                          <th scope="col">Amount</th>
                           <th scope="col">Action</th>
-                         
                         </tr>
                         
                       </thead>
@@ -95,9 +95,10 @@
             <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
               <tr>
                 <td><?=$index + 1 ?></td>
-                <td><?=htmlspecialchars($cust['customer_name']) ?></td>
-                <td><?=htmlspecialchars($cust['milktype']) ?></td>
-                <td><?=htmlspecialchars(ucfirst($cust['milkliter'])) ?></td>
+                <td><?=htmlspecialchars($cust['name']) ?></td>
+                <td><?=htmlspecialchars($cust['number']) ?></td>
+                <td><?=htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                <td><?=htmlspecialchars($cust['amount']) ?></td>
                 <td>
                   <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>" 
                      onclick="return confirm('Are you sure you want to delete this milk Entries?');" 
