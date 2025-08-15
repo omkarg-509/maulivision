@@ -20,46 +20,39 @@
                 <form method="POST" action="/public/dailyentry/store">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
-
-                    <div class="form-group row mb-3">
+                    <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
+                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name" required>
                       </div>
                     </div>
-
-                    <div class="form-group row mb-3">
+                    <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Number</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="mobile" placeholder="Enter Number" required>
+                        <input type="text" class="form-control form-control-sm" name="mobile" placeholder="Enter Number" required>
                       </div>
                     </div>
-
-                    <div class="form-group row mb-3">
+                    <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">In Time</label>
                       <div class="col-sm-9">
-                        <input type="time" class="form-control" name="in_time" required>
+                        <input type="time" class="form-control form-control-sm" name="in_time" required>
                       </div>
                     </div>
-
-                    <div class="form-group row mb-3">
+                    <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Amount</label>
                       <div class="col-sm-9">
-                        <input type="number" step="0.01" class="form-control" name="amount" placeholder="Amount Paid" required>
+                        <input type="number" step="0.01" class="form-control form-control-sm" name="amount" placeholder="Amount Paid" required>
                       </div>
                     </div>
-
-
-                    <div class="form-group row mb-3">
+                    <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Online Cash</label>
                       <div class="col-sm-9">
-                        <input type="text" s class="form-control" name="payment_method" placeholder="Online Cash">
+                        <input type="text" class="form-control form-control-sm" name="payment_method" placeholder="Online Cash">
                       </div>
                     </div>
-
-                    <div class="form-group row">
+                    <div class="row">
                       <div class="col-sm-9 offset-sm-3 text-center">
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-sm px-4">Submit</button>
                       </div>
                     </div>
                   </div>
