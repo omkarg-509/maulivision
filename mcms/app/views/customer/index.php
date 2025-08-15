@@ -13,7 +13,7 @@
           <div class="col-md-6">
             <form method="get" action="">
               <div class="input-group">
-                <input type="date" name="filter_date" class="form-control" value="<?= isset($_GET['filter_date']) ? htmlspecialchars($_GET['filter_date']) : date('Y-m-d') ?>">
+                <input type="date" name="date" class="form-control" value="<?= isset($_GET['date']) ? htmlspecialchars($_GET['date']) : date('Y-m-d') ?>">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="submit">Filter</button>
                 </div>
@@ -22,10 +22,14 @@
           </div>
         </div>
         <?php
-          $filterDate = isset($_GET['filter_date']) ? $_GET['filter_date'] : date('Y-m-d');
-          $hasFilteredEntries = false;
-        ?>
-                    
+        // Controller: Fetch customer data history using model
+        
+        $customerModel = new Customer();
+
+        // If a date is provided via GET, use it; otherwise, use today
+        $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+        $data['customers'] = $customerModel->$history($selectedDate);
+      ?>
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header">
