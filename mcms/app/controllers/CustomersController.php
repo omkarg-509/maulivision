@@ -5,8 +5,8 @@ class CustomersController extends Controller
 {
     public function index(){
         Auth::check();
-        $customerModel = $this->model('Customer');
-        $customers = $customerModel->getAll();
+        $customersModel = $this->model('Customers');
+        $customers = $customersModel->getAll();
 
         $this->view('customers/index', ['customers' => $customers]);
     }
