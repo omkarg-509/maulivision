@@ -1,21 +1,21 @@
 {
-    "name": "maulivision/milk_dairy",
-    "description": "Milk Dairy management application",
-    "type": "project",
+    "name": "mcms/massage-center-manage-system",
+    "description": "Massage Center Manage System - Modular Content Management System",
+    "type": "library",
     "require": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "autoload": {
         "psr-4": {
-            "MilkDairy\\": "src/"
+            "MCMS\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Omkar vivek gaikwad",
-            "email": "omkarg509@gmail.com"
+            "name": "MCMS Team",
+            "email": "team@mcms.com"
         }
     ],
-    "minimum-stability": "stable",
-    "license": "MIT"
+    "minimum-stability": "dev",
+    "license": "Apache-2.0"
 }
