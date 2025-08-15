@@ -26,13 +26,13 @@
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Number</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="mobile" placeholder="Enter Number" required>
+                        <input type="text" class="form-control form-control-sm" name="mobile" placeholder="Enter Number" >
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">In Time</label>
                       <div class="col-sm-9">
-                      <input type="time" class="form-control form-control-sm" name="in_time" min="00:00" max="12:59" required>
+                      <input type="time" class="form-control form-control-sm" name="in_time" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
