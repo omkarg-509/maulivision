@@ -112,5 +112,29 @@ public function show($id)
 //         echo "Customer data not found.";
 //     }
 // }
+public function register()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $customerModel = $this->model('Customer');
+        $data = [
+            'name' => $_POST['name'] ?? '',
+            'email' => $_POST['email'] ?? '',
+            'phone' => $_POST['phone'] ?? '',
+            // Add other fields as needed
+        ];
+
+        // Simple validation (expand as needed)
+        if (empty($data['name']) || empty($data['email'])) {
+            echo "<script>alert('Name and Email are required.'); window.history.back();</script>";
+            exit;
+        }
+
+        $customerModel->insert($data);
+        echo "<script>alert('Registration successful!'); window.location.href='/public/customer/index';</script>";
+        exit;
+    } else {
+        $this->view('customer/register');
+    }
+}
 
 }
