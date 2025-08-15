@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once 'config/config.php'; // Ensure this file is included to set up the Database class
-
+if (!isset($_SESSION['vendor_id'])) {
+    header('Location: login.php');
+    exit();
+}
 ?>
 <?=(new Header())->render();?>
 <?=(new Sidebar())->render();?>
