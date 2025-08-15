@@ -1,8 +1,21 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
 // Include the database configuration file
-require_once'config.php';
+require_once 'config.php';
 $error = ''; // Initialize error variable
-$conn = (new Database())->getConnection();
+
+try {
+    $conn = (new Database())->getConnection();
+} catch (Exception $e) {
+    die('Database connection failed: ' . htmlspecialchars($e->getMessage()));
+}
+
 // Login logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
@@ -20,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (password_verify($password, $hashed_password)) {
                 // Successful login
-                session_start();
                 $_SESSION['vendor_id'] = $vendor_id;
                 header("Location: index.php");
                 exit;
@@ -35,21 +47,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-<!-- Simple login form -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <?php if (!empty($error)): ?>
-        <p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
-    <?php endif; ?>
-    <form method="post" action="">
-        <label>Username: <input type="text" name="username" required></label><br>
-        <label>Password: <input type="password" name="password" required></label><br>
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
