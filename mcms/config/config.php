@@ -52,7 +52,20 @@ class Header {
       <?php
     }
 }
-
+class Sidebar{
+    public function render(){
+        ?>
+        <aside class="sidebar">
+            <ul>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="settings.php">Settings</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </aside>
+        <?php
+    }
+}
 class Footer {
     public function render() {
        ?>
