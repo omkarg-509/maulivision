@@ -6,7 +6,7 @@ class Auth
     {
         session_start();
         if (!self::isLoggedIn()) {
-            header("Location: /mcms/public/auth/login");
+            header("Location: /public/auth/login");
             exit;
         }
     }

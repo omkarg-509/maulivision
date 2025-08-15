@@ -40,7 +40,7 @@ $('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
     $.ajax({
-        url: '/mcms/public/auth/login',
+        url: 'public/auth/login',
         type: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
