@@ -14,11 +14,11 @@
               <form id="loginForm">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" value="admin@example.com" tabindex="1" required autofocus>
+                  <input id="email" type="email" class="form-control" name="email"  tabindex="1" required autofocus>
                 </div>
                 <div class="form-group">
                   <label for="password" class="control-label">Password</label>
-                  <input id="password" type="password" class="form-control" name="password" value="cls" tabindex="2" required>
+                  <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                 </div>
                 <div class="form-group col-12 text-center">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
