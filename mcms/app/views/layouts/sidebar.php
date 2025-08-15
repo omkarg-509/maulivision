@@ -42,14 +42,14 @@
             <li class="active">
               <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
               <ul class="dropdown-menu">
-                <li class=""><a class="nav-link" href="<?=BASE_URL?>customer/create">Create Customers</a></li>
-                <li><a class="nav-link" href="<?=BASE_URL?>customer/index">Customers Details</a></li>
+                <li class=""><a class="nav-link" href="<?//=BASE_URL?>customer/create">Create Customers</a></li>
+                <li><a class="nav-link" href="<?//=BASE_URL?>customer/index">Customers Details</a></li>
                 
               </ul>
-            </li>
+            </li> -->
           
           <li class="">
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
