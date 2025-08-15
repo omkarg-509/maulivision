@@ -11,16 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Prepare statement to prevent SQL injection
         $stmt = $conn->prepare("SELECT id, password FROM vendor WHERE username = ?");
         $stmt->execute([$username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            $user_id = $user['id'];
-            $hashed_password = $user['password'];
+        if ($vendor) {
+            $vendor_id = $vendor['id'];
+            $hashed_password = $vendor['password'];
 
             if (password_verify($password, $hashed_password)) {
                 // Successful login
                 session_start();
-                $_SESSION['vendor_id'] = $user_id;
+                $_SESSION['vendor_id'] = $vendor_id;
                 header("Location: index.php");
                 exit;
             } else {
