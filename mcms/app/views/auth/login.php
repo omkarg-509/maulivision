@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                   <label for="password" class="control-label">Password</label>
-                  <input id="password" type="password" class="form-control" name="password" value="admin@123" tabindex="2" required>
+                  <input id="password" type="password" class="form-control" name="password" value="cls" tabindex="2" required>
                 </div>
                 <div class="form-group col-12 text-center">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
