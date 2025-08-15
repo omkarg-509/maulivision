@@ -55,14 +55,67 @@ class Header {
 class Sidebar{
     public function render(){
         ?>
-        <aside class="sidebar">
-            <ul>
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="profile.php">Profile</a></li>
-                <li><a href="settings.php">Settings</a></li>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
+        <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <div class="form-inline me-auto">
+          <ul class="navbar-nav navbar-left">
+        
+          <li class="dropdown"><a href="#" data-bs-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <img alt="image" src="/assets/img/user.png" class="user-img-radious-style">
+              <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-m
+            enu-left">
+              <div class="dropdown-title">Hello </div>
+              
+              <div class="dropdown-divider"></div>
+              <a href="auth/logout" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+          
+        </div>
+        <ul class="navbar-nav me-3">
+            
+            <li><a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
+                  class="fas fa-bars"></i></a></li>
+           
+          </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="index.html">
+             
+              <span class="logo-name" >Milk Dairy</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+             
+
+
+            <li class="active">
+              <a href="dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
+              <ul class="dropdown-menu">
+                <li class=""><a class="nav-link" href="customer/create">Create Customers</a></li>
+                <li><a class="nav-link" href="customer/index">Customers Details</a></li>
+                
+              </ul>
+            </li>
+          
+          <li class="">
+              <a href="auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+          </li>
+          
+              </ul>
         </aside>
+      </div>
         <?php
     }
 }
