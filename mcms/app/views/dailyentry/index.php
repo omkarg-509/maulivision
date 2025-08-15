@@ -104,7 +104,7 @@
                                     $entryDate = date('Y-m-d', strtotime($createdAt));
                                   }
                                   if ($entryDate === $today) {
-                                    echo 'Today';
+                                    echo htmlspecialchars($cust['in_time']);
                                   } else {
                                     echo htmlspecialchars(ucfirst($cust['in_time']));
                                   }
