@@ -1,0 +1,106 @@
+<?php require_once '../app/views/layouts/sidebar.php';?>
+
+
+<div class="main-content">
+  <div class="loader"></div>
+  <div id="app">
+
+       
+  <section class="section">
+     
+          </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <form method="get" action="">
+              <div class="input-group">
+                <input type="date" name="date" class="form-control" value="<?= isset($_GET['date']) ? htmlspecialchars($_GET['date']) : date('Y-m-d') ?>">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="submit">Filter</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+     
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Customers Details</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-hover">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Customer name</th>
+                          <th scope="col">Number</th>
+                          <th scope="col">In time</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Staff</th>
+                          <th scope="col">Payment Method</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+
+                        $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+                        $hasEntries = false;
+
+                        if (!empty($data['customers'])):
+                          foreach ($data['customers'] as $index => $cust):
+                            // Check if created_at matches selected date
+                            $entryDate = isset($cust['created_at']) ? date('Y-m-d', strtotime($cust['created_at'])) : '';
+                            if ($entryDate === $selectedDate):
+                              $hasEntries = true;
+                        ?>
+                              <tr>
+                                <td><?= $index + 1 ?></td>
+                                <td><?= htmlspecialchars($cust['name']) ?></td>
+                                <td><?= htmlspecialchars($cust['mobile']) ?></td>
+                                <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                                <td><?= htmlspecialchars($cust['amount']) ?></td>
+                                <td><?= htmlspecialchars($cust['staff']) ?></td>
+                                <td><?= htmlspecialchars($cust['payment_method']) ?></td>
+                                <td>
+                                  <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
+                                     onclick="return confirm('Are you sure you want to delete this milk Entries?');"
+                                     title="Delete">
+                                    <i class="fa fa-trash text-danger"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                        <?php
+                            endif;
+                          endforeach;
+                          if (!$hasEntries):
+                        ?>
+                            <tr>
+                              <td colspan="8" class="text-center">No customers found for selected date.</td>
+                            </tr>
+                        <?php
+                          endif;
+                        else:
+                        ?>
+                            <tr>
+                              <td colspan="8" class="text-center">No customers found.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+        </section>       
+    </div>
+    
+     
+
+  </div>
+ 
+
+
+  
