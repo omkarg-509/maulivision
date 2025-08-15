@@ -1,2 +1,2 @@
 <?php
-define('BASE_URL', '/mcms/public/');
+define('BASE_URL', '/public/');
