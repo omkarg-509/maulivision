@@ -8,7 +8,7 @@ class CustomersController extends Controller
         $customerModel = $this->model('Customer');
         $customers = $customerModel->getAll();
 
-        $this->view('customers/history', ['customers' => $customers]);
+        $this->view('customers/index', ['customers' => $customers]);
     }
 
       public function store()
