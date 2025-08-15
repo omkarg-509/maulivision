@@ -5,7 +5,7 @@
         
           <li class="dropdown"><a href="#" data-bs-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=BASE_URL?>/assets/img/user.png" class="user-img-radious-style">
+              <img alt="image" src="<?=BASE_URL?>/assets/img/logo.png" class="user-img-radious-style">
 
             </a>
           </li>
