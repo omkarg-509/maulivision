@@ -28,7 +28,7 @@
               </form>
 <?php
 $hash = '$2y$10$fVJUx2li.Z14tUDuNCpOUuTkpAMULyHj7DnXgZ4QKBroXBlQS0Uq6';
-$input = 'admin@321';
+$input = 'cls';
 if (password_verify($input, $hash)) {
     echo "Password is correct!";
 } else {
