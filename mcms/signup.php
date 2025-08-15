@@ -47,21 +47,21 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
     <script>
     $('#signupForm').on('submit', function(e) {
         e.preventDefault();
-
+        $('#signup-error').hide().text('');
         $.ajax({
             url: 'config/signup.php',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
             success: function(response) {
-                if (response.status === 'success') {
-                    window.location.href = response.redirect;
+                if (response.success) {
+                    window.location.href = 'login.php?signup=success';
                 } else {
-                    $('#signup-error').text(response.message).show();
+                    $('#signup-error').show().text(response.error || 'Signup failed.');
                 }
             },
             error: function() {
-                $('#signup-error').text('Something went wrong.').show();
+                $('#signup-error').show().text('An error occurred. Please try again.');
             }
         });
     });
