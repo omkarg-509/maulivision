@@ -3,8 +3,8 @@
         <div class="form-inline me-auto">
           <ul class="navbar-nav navbar-left">
         
-          <a href="<?=BASE_URL?>" data-bs-toggle="dropdown"
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+          <a href="<?=BASE_URL?>" 
+              class="nav-link">
               <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="">
 
             </a>
