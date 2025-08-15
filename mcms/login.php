@@ -4,7 +4,7 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
 
 ?>
 <?=(new Header())->render();?>
-<?=(new Sidebar())->render();?>
+
 <div class="main-content">
   <div class="loader"></div>
   <div id="app">
