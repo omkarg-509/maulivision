@@ -103,6 +103,7 @@
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
+                            <td><?= htmlspecialchars($cust['staff']) ?></td>
                             <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                             <td>
                               <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
