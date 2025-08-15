@@ -96,7 +96,7 @@
               <tr>
                 <td><?=$index + 1 ?></td>
                 <td><?=htmlspecialchars($cust['name']) ?></td>
-                <td><?=htmlspecialchars($cust['number']) ?></td>
+                <td><?=htmlspecialchars($cust['mobile']) ?></td>
                 <td><?=htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
                 <td><?=htmlspecialchars($cust['amount']) ?></td>
                 <td>
