@@ -24,7 +24,7 @@ class Database {
 }
 
 // Usage example:
-$connection = (new Database())->getConnection();
+
 
 
 class Header {

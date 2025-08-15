@@ -23,11 +23,11 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
               <form id="loginForm">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input id="email" type="text" class="form-control" name="email" value="admin@example.com" tabindex="1" required autofocus>
+                  <input id="email" type="text" class="form-control" name="email" tabindex="1" required autofocus>
                 </div>
                 <div class="form-group">
                   <label for="password" class="control-label">Password</label>
-                  <input id="password" type="password" class="form-control" name="password" value="cls" tabindex="2" required>
+                  <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
                 </div>
                 <div class="form-group col-12 text-center">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
@@ -49,7 +49,7 @@ $('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
     $.ajax({
-        url: '/public/auth/login',
+        url: 'config/login.php',
         type: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
@@ -57,11 +57,11 @@ $('#loginForm').on('submit', function(e) {
             if (response.status === 'success') {
                 window.location.href = response.redirect;
             } else {
-                $('#loginMessage').text(response.message);
+                $('#login-error').text(response.message).show();
             }
         },
         error: function() {
-            $('#loginMessage').text('Something went wrong.');
+            $('#login-error').text('Something went wrong.').show();
         }
     });
 });
