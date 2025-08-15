@@ -20,7 +20,7 @@
                   </div>
                 <form method="POST" action="/public/dailyentry/store">
                   <div class="card-body">
-                    <input type="text" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
+                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
