@@ -31,7 +31,7 @@
           <div class="sidebar-brand">
             <a href="index.html">
              
-              <span class="logo-name" >Milk Dairy</span>
+              <span class="logo-name">Massage Center</span>
             </a>
           </div>
           <ul class="sidebar-menu">
