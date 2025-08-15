@@ -70,57 +70,53 @@
                 </div>
                    </div>
               </div>
-            </div>
-         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h4>Customers Details</h4>
-    </div>
- <div class="card-body">
-                    
-                    <table class="table table-sm">
-          <thead>
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Customers Details</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-hover">
+                      <thead class="thead-light">
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Customer name</th>
                           <th scope="col">Number</th>
-                          <th scope="col">In_time</th>
+                          <th scope="col">In time</th>
                           <th scope="col">Amount</th>
                           <th scope="col">Action</th>
                         </tr>
-                        
                       </thead>
-          <tbody>
-          <?php if (!empty($data['dailyEntries'])): ?>
-            <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
-              <tr>
-                <td><?=$index + 1 ?></td>
-                <td><?=htmlspecialchars($cust['name']) ?></td>
-                <td><?=htmlspecialchars($cust['mobile']) ?></td>
-                <td><?=htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
-                <td><?=htmlspecialchars($cust['amount']) ?></td>
-                <td>
-                  <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>" 
-                     onclick="return confirm('Are you sure you want to delete this milk Entries?');" 
-                     title="Delete">
-                    <i class="fa fa-trash text-danger"></i>
-                  </a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr>
-              <td colspan="5" class="text-center">No customers found.</td>
-            </tr>
-          <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-
-        </section>       
+                      <tbody>
+                        <?php if (!empty($data['dailyEntries'])): ?>
+                          <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
+                            <tr>
+                              <td><?= $index + 1 ?></td>
+                              <td><?= htmlspecialchars($cust['name']) ?></td>
+                              <td><?= htmlspecialchars($cust['mobile']) ?></td>
+                              <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                              <td><?= htmlspecialchars($cust['amount']) ?></td>
+                              <td>
+                                <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
+                                   onclick="return confirm('Are you sure you want to delete this milk Entries?');"
+                                   title="Delete">
+                                  <i class="fa fa-trash text-danger"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <tr>
+                            <td colspan="6" class="text-center">No customers found.</td>
+                          </tr>
+                        <?php endif; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>   </section>       
     </div>
     
      
