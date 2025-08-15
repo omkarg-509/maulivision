@@ -37,8 +37,6 @@
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
              
-
-
             <li class="active">
               <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
