@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <?=(new Header())->render();?>
+<?=(new Sidebar())->render();?>
 
     <div class="login-container">
         <h2>Login</h2>
