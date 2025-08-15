@@ -1,4 +1,24 @@
-<thead>
+<?php require_once '../app/views/layouts/sidebar.php';?>
+
+
+<div class="main-content">
+  <div class="loader"></div>
+  <div id="app">
+
+       
+  <section class="section">
+     
+          </div>
+         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+            
+            
+  <div class="card">
+    <div class="card-header">
+      <h4>Customers Details</h4>
+    </div>
+ <div class="card-body">
+                    
+                   <thead>
   <tr>
     <th scope="col">#</th>
     <th scope="col">Full Name</th>
@@ -38,3 +58,19 @@
     </tr>
   <?php endif; ?>
 </tbody>
+
+      </div>
+    </div>
+  </div>
+
+
+        </section>       
+    </div>
+    
+     
+
+  </div>
+ 
+
+
+  
