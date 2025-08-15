@@ -50,10 +50,11 @@
                       </div>
                     </div>
 
+
                     <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Amount Unpaid</label>
+                      <label class="col-sm-3 col-form-label text-center">Online Cash</label>
                       <div class="col-sm-9">
-                        <input type="number" step="0.01" class="form-control" name="amount_unpaid" placeholder="Amount Unpaid" required>
+                        <input type="text" s class="form-control" name="online_cash" placeholder="Online Cash">
                       </div>
                     </div>
 
