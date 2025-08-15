@@ -14,19 +14,19 @@
                             <form id="registerForm">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input id="name" type="text" class="form-control" name="name" value='omkar' tabindex="1" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value='' tabindex="1" required autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" value='omkar@example.com' tabindex="2" required>
+                                    <input id="email" type="email" class="form-control" name="email"  tabindex="2" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="control-label">Password</label>
-                                    <input id="password" type="password" class="form-control" name="password" value='password123' tabindex="3" required>
+                                    <input id="password" type="password" class="form-control" name="password" tabindex="3" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password_confirm" class="control-label">Confirm Password</label>
-                                    <input id="password_confirm" type="password" class="form-control" name="password_confirm" value='password123' tabindex="4" required>
+                                    <input id="password_confirm" type="password" class="form-control" name="password_confirm"  tabindex="4" required>
                                 </div>
                                 <div class="form-group col-12 text-center">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="5">
