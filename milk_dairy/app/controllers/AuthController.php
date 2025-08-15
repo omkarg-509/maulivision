@@ -3,45 +3,59 @@ require_once '../app/helpers/Auth.php';
 
 class AuthController extends Controller
 {
-public function login()
-{
-    Auth::isLoggedIn();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        header('Content-Type: application/json'); // JSON response
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+            $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
 
-        $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
 
-        $userModel = $this->model('User');
-        $vendor = $userModel->findByEmail($email);
-
-        if ($vendor && $password == $vendor['password']) {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
+            if (empty($name) || empty($password) || empty($email)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'All fields are required and email must be valid.'
+                ]);
+                exit;
             }
-            $_SESSION['vendor'] = $vendor;
 
-            setcookie("vendor", $vendor['id'], time() + (7 * 24 * 60 * 60), "/");
+            $userModel = $this->model('User');
+            if ($userModel->findByEmail($email)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Email already exists.'
+                ]);
+                exit;
+            }
 
-            echo json_encode([
-                'status' => 'success',
-                'redirect' => BASE_URL . 'dashboard'
+            // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $hashedPassword = $password; // Use plain password for now
+
+            $userId = $userModel->create([
+                'name' => $name,
+                'password' => $hashedPassword,
+                'email' => $email
             ]);
+
+            if ($userId) {
+                echo json_encode([
+                    'status' => 'success',
+                    'redirect' => BASE_URL . 'login'
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Registration failed.'
+                ]);
+            }
             exit;
         } else {
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Invalid credentials.'
-            ]);
-            exit;
+            $this->view('auth/register');
         }
-    } else {
-        $this->view('auth/login');
     }
-}
-
-    public function login()
+public function login()
 {
     Auth::isLoggedIn();
 
