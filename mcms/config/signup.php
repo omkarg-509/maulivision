@@ -1,6 +1,6 @@
 <?php
 // Include the database configuration file
-require_once __DIR__ . '/config.php';
+require_once 'config.php';
 $conn = (new Database())->getConnection();
 
 // Signup logic
