@@ -3,12 +3,12 @@
         <div class="form-inline me-auto">
           <ul class="navbar-nav navbar-left">
         
-          <li class="dropdown"><a href="#" data-bs-toggle="dropdown"
+          <a href="<?=BASE_URL?>" data-bs-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="user-img-radious-style">
 
             </a>
-          </li>
+          
         </ul>
           
         </div>
