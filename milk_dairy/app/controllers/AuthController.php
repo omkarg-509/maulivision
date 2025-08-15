@@ -16,7 +16,7 @@ public function login()
         $userModel = $this->model('User');
         $vendor = $userModel->findByEmail($email);
 
-        if ($vendor && password_verify($password, $vendor['password'])) {
+        if ($vendor && $password == $vendor['password']) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
