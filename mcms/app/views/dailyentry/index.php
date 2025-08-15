@@ -80,6 +80,7 @@
                           <th scope="col">Number</th>
                           <th scope="col">In time</th>
                           <th scope="col">Amount</th>
+                          <th scope="col">Staff</th>
                           <th scope="col">Payment Method</th>
                           <th scope="col">Action</th>
                         </tr>
