@@ -13,8 +13,8 @@ class DailyEntry extends Database
 
     public function insert($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO customers (vid,name,mobile,in_time,amount) VALUES (?,?,?,?,?)");
-        $stmt->bind_param("issid", $data['vid'], $data['name'], $data['mobile'], $data['in_time'], $data['amount']);
+        $stmt = $this->db->prepare("INSERT INTO customers (vid,name,mobile,in_time,amount,payment_method) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("issids", $data['vid'], $data['name'], $data['mobile'], $data['in_time'], $data['amount'], $data['payment_method']);
         $stmt->execute();
     }
 

@@ -25,14 +25,14 @@
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="customer_name" placeholder="Enter Name" required>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
                       </div>
                     </div>
 
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Number</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="customer_number" placeholder="Enter Number" required>
+                        <input type="text" class="form-control" name="mobile" placeholder="Enter Number" required>
                       </div>
                     </div>
 
@@ -54,7 +54,7 @@
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Online Cash</label>
                       <div class="col-sm-9">
-                        <input type="text" s class="form-control" name="online_cash" placeholder="Online Cash">
+                        <input type="text" s class="form-control" name="payment_method" placeholder="Online Cash">
                       </div>
                     </div>
 
