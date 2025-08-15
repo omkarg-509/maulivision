@@ -21,8 +21,8 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
 
                                 <form id="loginForm">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="text" class="form-control" name="email" tabindex="1" required autofocus>
+                                        <label for="username">Username</label>
+                                        <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="control-label">Password</label>
