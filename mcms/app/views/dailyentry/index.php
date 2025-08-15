@@ -10,8 +10,8 @@
              
               <div class="col-12 col-md-12 col-lg-12">
              
-                <div class="">
-                  <div class="">
+                <div class="card">
+                  <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
                 <form method="POST" action="/public/dailyentry/store">
