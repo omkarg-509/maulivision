@@ -9,11 +9,11 @@ class AuthController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
             $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
-            $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
+
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
 
-            if (empty($name) || empty($username) || empty($password) || empty($email)) {
+            if (empty($name) || empty($password) || empty($email)) {
                 echo json_encode([
                     'status' => 'error',
                     'message' => 'All fields are required and email must be valid.'
@@ -35,7 +35,6 @@ class AuthController extends Controller
 
             $userId = $userModel->create([
                 'name' => $name,
-                'username' => $username,
                 'password' => $hashedPassword,
                 'email' => $email
             ]);

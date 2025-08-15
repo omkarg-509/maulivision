@@ -15,8 +15,8 @@ class User extends Database
     }
     public function create($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO vendor (name,username,password,email) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $data['name'], $data['username'], $data['password'], $data['email']);
+        $stmt = $this->db->prepare("INSERT INTO vendor (name,email,password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $data['name'], $data['email'], $data['password']);
         if ($stmt->execute()) {
             return $this->db->insert_id;
         }
