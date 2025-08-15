@@ -21,15 +21,7 @@
             </form>
           </div>
         </div>
-        <?php
-        // Controller: Fetch customer data history using model
-        
-        $customerModel = new Customer();
-
-        // If a date is provided via GET, use it; otherwise, use today
-        $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
-        $data['customers'] = $customerModel->$history($selectedDate);
-      ?>
+     
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header">
