@@ -26,7 +26,14 @@
                   </button>
                 </div>
               </form>
-
+<?php
+$hash = '$2y$10$fVJUx2li.Z14tUDuNCpOUuTkpAMULyHj7DnXgZ4QKBroXBlQS0Uq6';
+$input = 'admin@123';
+if (password_verify($input, $hash)) {
+    echo "Password is correct!";
+} else {
+    echo "Invalid password.";
+}?>
             </div>
           </div>
         </div>
