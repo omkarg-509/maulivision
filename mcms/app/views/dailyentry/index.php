@@ -95,7 +95,21 @@
                               <td><?= $index + 1 ?></td>
                               <td><?= htmlspecialchars($cust['name']) ?></td>
                               <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                              <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                              <td>
+                                <?php
+                                  $createdAt = isset($cust['created_at']) ? $cust['created_at'] : '';
+                                  $today = date('Y-m-d');
+                                  $entryDate = '';
+                                  if ($createdAt) {
+                                    $entryDate = date('Y-m-d', strtotime($createdAt));
+                                  }
+                                  if ($entryDate === $today) {
+                                    echo 'Today';
+                                  } else {
+                                    echo htmlspecialchars(ucfirst($cust['in_time']));
+                                  }
+                                ?>
+                              </td>
                               <td><?= htmlspecialchars($cust['amount']) ?></td>
                               <td>
                                 <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
@@ -110,8 +124,7 @@
                           <tr>
                             <td colspan="6" class="text-center">No customers found.</td>
                           </tr>
-                        <?php endif; ?>
-                      </tbody>
+                        <?php endif; ?>   </tbody>
                     </table>
                   </div>
                 </div>
