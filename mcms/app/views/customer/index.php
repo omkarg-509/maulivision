@@ -37,6 +37,7 @@
                           <th scope="col">Number</th>
                           <th scope="col">In time</th>
                           <th scope="col">Amount</th>
+                          <th scope="col">Staff</th>
                           <th scope="col">Payment Method</th>
                           <th scope="col">Action</th>
                         </tr>
@@ -60,6 +61,7 @@
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
+                            <td><?= htmlspecialchars($cust['staff']) ?></td>
                             <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                             <td>
                               <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
