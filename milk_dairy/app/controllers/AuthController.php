@@ -14,15 +14,15 @@ public function login()
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
         $userModel = $this->model('User');
-        $user = $userModel->findByEmail($email);
+        $vendor = $userModel->findByEmail($email);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($vendor && password_verify($password, $vendor['password'])) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $_SESSION['vendor'] = $user;
+            $_SESSION['vendor'] = $vendor;
 
-            setcookie("vendor", $user['id'], time() + (7 * 24 * 60 * 60), "/");
+            setcookie("vendor", $vendor['id'], time() + (7 * 24 * 60 * 60), "/");
 
             echo json_encode([
                 'status' => 'success',
