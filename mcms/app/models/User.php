@@ -13,4 +13,10 @@ class User extends Database
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+     public function register($data)
+    {
+        $stmt = $this->db->prepare("INSERT INTO vendor (name,username,password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $data['name'], $data['username'], $data['password']);
+        return $stmt->execute();
+    }
 }
