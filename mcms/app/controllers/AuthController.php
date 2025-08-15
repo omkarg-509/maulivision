@@ -22,10 +22,10 @@ class AuthController extends Controller
             }
 
             $userModel = $this->model('User');
-            if ($userModel->findByUsername($username)) {
+            if ($userModel->findByEmail($email)) {
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Username already exists.'
+                    'message' => 'Email already exists.'
                 ]);
                 exit;
             }

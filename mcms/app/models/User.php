@@ -13,7 +13,7 @@ class User extends Database
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-    public function register($data)
+    public function create($data)
     {
         $stmt = $this->db->prepare("INSERT INTO vendor (name,username,password,email) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $data['name'], $data['username'], $data['password'], $data['email']);
@@ -23,8 +23,4 @@ class User extends Database
         return false;
     }
 
-    public function create($data)
-    {
-        return $this->register($data);
-    }
 }
