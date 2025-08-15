@@ -28,15 +28,5 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
   </div>
  </div>
   </div>
-    <div class="login-container">
-        <h2>Login</h2>
-        <?php if (!empty($error)): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-        <form method="post" action="">
-            <input type="text" name="username" placeholder="Username" required autofocus value="<?= isset($username) ? htmlspecialchars($username) : '' ?>">
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+
  <?=(new Footer())->render();?>
