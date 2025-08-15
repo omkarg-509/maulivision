@@ -1,11 +1,8 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
-
-
 <div class="main-content">
   <div class="loader"></div>
   <div id="app">
-
-       
+      
   <section class="section">
      
           <div class="section-body">
@@ -42,6 +39,12 @@
                       <label class="col-sm-3 col-form-label text-center">Amount</label>
                       <div class="col-sm-9">
                         <input type="number" step="0.01" class="form-control form-control-sm" name="amount" placeholder="Amount Paid" required>
+                      </div>
+                    </div>
+                    <div class="row mb-2 align-items-center">
+                      <label class="col-sm-3 col-form-label text-center">Staff</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control form-control-sm" name="staff" placeholder="Staff" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
