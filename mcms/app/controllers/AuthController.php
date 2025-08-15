@@ -10,11 +10,11 @@ public function login()
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json'); // JSON response
 
-        $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+        $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
         $userModel = $this->model('User');
-        $user = $userModel->findByEmail($email);
+        $user = $userModel->findByUsername($username);
 
         if ($user && password_verify($password, $user['password'])) {
             if (session_status() === PHP_SESSION_NONE) {
