@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 }
 ?>
-(new Header())->render();
+<?=(new Header())->render();?>
 
     <div class="login-container">
         <h2>Login</h2>
@@ -48,4 +48,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Login">
         </form>
     </div>
- (new Footer())->render();
+ <?=(new Footer())->render();?>
