@@ -1,7 +1,7 @@
 <?php 
 require_once '../core/Database.php';
 
-class DailyEntry extends Database
+class Customers extends Database
 {
 
      
