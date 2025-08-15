@@ -1,6 +1,7 @@
 <?php
 // Include the database configuration file
 require_once'config.php';
+$error = ''; // Initialize error variable
 $conn = (new Database())->getConnection();
 // Login logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
