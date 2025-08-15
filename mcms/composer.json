@@ -1,0 +1,21 @@
+{
+    "name": "maulivision/milk_dairy",
+    "description": "Milk Dairy management application",
+    "type": "project",
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MilkDairy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Omkar vivek gaikwad",
+            "email": "omkarg509@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT"
+}
