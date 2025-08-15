@@ -47,7 +47,6 @@
               <ul class="dropdown-menu">
                 <li class=""><a class="nav-link" href="<?//=BASE_URL?>customer/create">Create Customers</a></li>
                 <li><a class="nav-link" href="<?//=BASE_URL?>customer/index">Customers Details</a></li>
-                
               </ul>
             </li> -->
           
