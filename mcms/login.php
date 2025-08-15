@@ -47,21 +47,21 @@ require_once 'config/config.php'; // Ensure this file is included to set up the 
 <script>
 $('#loginForm').on('submit', function(e) {
     e.preventDefault();
-
+    $('#login-error').hide().text('');
     $.ajax({
         url: 'config/login.php',
         type: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
         success: function(response) {
-            if (response.status === 'success') {
-                window.location.href = response.redirect;
+            if (response.success) {
+                window.location.href = 'index.php';
             } else {
-                $('#login-error').text(response.message).show();
+                $('#login-error').show().text(response.error || 'Login failed.');
             }
         },
         error: function() {
-            $('#login-error').text('Something went wrong.').show();
+            $('#login-error').show().text('An error occurred. Please try again.');
         }
     });
 });
