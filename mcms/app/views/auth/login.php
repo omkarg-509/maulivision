@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
 
-              <div id="loginMessage" style="color:red; display:none;"></div>
+              <div id="loginMessage" style="color:red;"></div>
 
               <form id="loginForm">
                 <div class="form-group">
