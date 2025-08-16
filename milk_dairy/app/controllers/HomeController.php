@@ -4,7 +4,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        Auth::isLoggedIn(); // 🔒 Protect the home page
+        Auth::check(); // 🔒 Protect the home page
         $this->view('dashboard/index');
     }
 }
