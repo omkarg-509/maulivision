@@ -90,7 +90,7 @@ public function login()
         } else {
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Invalid credentials.'
+                'message' => '<span style="color:red;">Invalid credentials.</span>'
             ]);
             exit;
         }
