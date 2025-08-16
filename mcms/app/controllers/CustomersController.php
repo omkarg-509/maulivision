@@ -9,7 +9,7 @@ class CustomersController extends Controller
         Auth::check();
         $customersModel = $this->model('Customers');
         $customers = $customersModel->getAll();
-        $this->view('/customers/index', ['customers' => $customers]);
+        $this->view('customers/index', ['customers' => $customers]);
     }
 
     public function history()
@@ -17,14 +17,15 @@ class CustomersController extends Controller
         Auth::check();
         $customersModel = $this->model('Customers');
         $customers = $customersModel->getAll();
-        $this->view('/customers/history', ['customers' => $customers]);
+        $this->view('customers/history', ['customers' => $customers]);
     }
 
     public function store()
     {
         $customersModel = $this->model('Customers');
         $customersModel->insert($_POST);
-        header("Location: ". $_SERVER['HTTP_REFERER']."");
+        $customers = $customersModel->getAll();
+        $this->view('customers/index', ['customers' => $customers]);
     }
 
     public function delete($id)
