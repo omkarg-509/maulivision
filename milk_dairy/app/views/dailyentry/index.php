@@ -178,7 +178,7 @@ $(document).ready(function() {
       success: function(response) {
         $('.loader').hide();
         if (response.success) {
-          alert('Customer entry added successfully!');
+          
      $('#massages').html('<div class="alert alert-success">' + response.message + '</div>');
           setTimeout(function() {
             location.reload();
