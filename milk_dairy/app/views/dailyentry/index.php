@@ -159,36 +159,34 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$('#customerForm').on('submit', function(e) {
-  e.preventDefault();
+$(document).ready(function() {
+  $('#customerForm').on('submit', function(e) {
+    e.preventDefault();
+    var form = $(this);
+    var formData = form.serialize();
 
-  $.ajax({
-    url: '/public/dailyentry/store',
-    type: 'POST',
-    data: $(this).serialize(),
-    dataType: 'json',
-    success: function(response) {
-      if (response && response.status === 'success') {
-        // Optionally reset the form
-        $('#customerForm')[0].reset();
-        $('#cid').val('');
-        // Optionally reload the table or part of the page
-        alert('Entry added successfully!');
-        // window.location.href = response.redirect || location.reload();
-      } else {
-        alert((response && response.message) ? response.message : 'Failed to add entry.');
-        // if (response && response.redirect) {
-        //   window.location.href = response.redirect;
-        // }
+    $.ajax({
+      url: '/public/dailyentry/store', // Adjust to your actual endpoint
+      type: 'POST',
+      data: formData,
+      dataType: 'json',
+      beforeSend: function() {
+        $('.loader').show();
+      },
+      success: function(response) {
+        $('.loader').hide();
+        if (response.success) {
+          alert('Customer entry added successfully!');
+          location.reload();
+        } else {
+          alert(response.message || 'Failed to add entry.');
+        }
+      },
+      error: function(xhr) {
+        $('.loader').hide();
+        alert('An error occurred. Please try again.');
       }
-    },
-    error: function(xhr) {
-      let msg = 'Something went wrong.';
-      try {
-        const res = JSON.parse(xhr.responseText);
-        if (res && res.message) msg = res.message;
-      } catch (e) {}
-      alert(msg);
-    }
+    });
   });
 });
+</script>

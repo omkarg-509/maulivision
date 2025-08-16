@@ -15,25 +15,25 @@ class DailyentryController extends Controller
 
     public function store()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
-            $dailyentryModel = $this->model('DailyEntry');
-            $result = $dailyentryModel->insert($_POST);
+        Auth::check();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'vid' => $_POST['vid'] ?? '',
+                'cid' => $_POST['cid'] ?? '',
+                'milktype' => $_POST['milktype'] ?? '',
+                'milkliter' => $_POST['milkliter'] ?? '',
+            ];
+
+            $dailyEntryModel = $this->model('DailyEntry');
+            $result = $dailyEntryModel->insert($data);
+
+            header('Content-Type: application/json');
             if ($result) {
-                echo json_encode([
-                    'status' => 'success',
-                    'redirect' => BASE_URL . 'index'
-                ]);
-                exit;
+                echo json_encode(['success' => true, 'message' => 'Entry added successfully.']);
             } else {
-                echo json_encode([
-                    'status' => 'error',
-                    'message' => 'Failed to add entry.',
-                    'redirect' => BASE_URL . 'index'
-                ]);
-                exit;
+                echo json_encode(['success' => false, 'message' => 'Failed to add entry.']);
             }
-        } else {
-            $this->view('dailyentry/index');
+            exit;
         }
     }
   public function delete($id)
