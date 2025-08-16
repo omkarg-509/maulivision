@@ -15,7 +15,9 @@ class DailyEntry extends Database
     {
         $stmt = $this->db->prepare("INSERT INTO daily_entries (vid,cid,milktype,milkliter) VALUES (?,?,?,?)");
         $stmt->bind_param("iisd", $data['vid'], $data['cid'], $data['milktype'], $data['milkliter']);
-        $stmt->execute();
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
 
     public function delete($id)
