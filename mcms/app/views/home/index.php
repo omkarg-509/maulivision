@@ -1,4 +1,3 @@
-<?php require_once '../app/views/layouts/sidebar.php';?>
 
 
 <div class="main-content">
