@@ -2,7 +2,7 @@
 
 class App
 {
-    protected $controller = 'DashboardController'; // Default controller
+    protected $controller = 'HomeController'; // Default controller
     protected $method = 'index';              // Default method
     protected $params = [];                   // Default parameters
 
