@@ -22,12 +22,9 @@ class CustomersController extends Controller
 
     public function store()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
-            $customersModel = $this->model('Customers');
-            $customersModel->insert($_POST);
-        }
-        header("Location: /customers/index");
-        exit;
+        $customersModel = $this->model('Customers');
+        $customersModel->insert($_POST);
+        header("Location: ". $_SERVER['HTTP_REFERER']."");
     }
 
     public function delete($id)
