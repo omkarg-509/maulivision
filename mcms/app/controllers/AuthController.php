@@ -95,7 +95,8 @@ public function login()
     }
 }
 
-    public function auth(){
+    public function index()
+    {
         Auth::isLoggedIn();
         $this->view('auth/index');
     }
