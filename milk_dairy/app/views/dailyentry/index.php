@@ -174,12 +174,12 @@ $('#customerForm').on('submit', function(e) {
         $('#cid').val('');
         // Optionally reload the table or part of the page
         alert('Entry added successfully!');
-        window.location.href = response.redirect || location.reload();
+        // window.location.href = response.redirect || location.reload();
       } else {
         alert((response && response.message) ? response.message : 'Failed to add entry.');
-        if (response && response.redirect) {
-          window.location.href = response.redirect;
-        }
+        // if (response && response.redirect) {
+        //   window.location.href = response.redirect;
+        // }
       }
     },
     error: function(xhr) {
