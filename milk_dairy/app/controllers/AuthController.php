@@ -7,7 +7,7 @@ class AuthController extends Controller
 
     public function index(){
           Auth::isLoggedIn();
-        $this->view('auth/login');
+        $this->view('public/auth/login');
     }
     public function register()
     {
