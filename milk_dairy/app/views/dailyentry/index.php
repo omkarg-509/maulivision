@@ -179,8 +179,11 @@ $(document).ready(function() {
         $('.loader').hide();
         if (response.success) {
           alert('Customer entry added successfully!');
-          location.reload();
-          $('#massages').html('<div class="alert alert-success">' + response.message + '</div>');
+     $('#massages').html('<div class="alert alert-success">' + response.message + '</div>');
+          setTimeout(function() {
+            location.reload();
+          }, 1200);
+     
         } else {
           alert(response.message || 'Failed to add entry.');
         }
