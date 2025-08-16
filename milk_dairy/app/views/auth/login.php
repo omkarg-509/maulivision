@@ -46,13 +46,18 @@ $('#loginForm').on('submit', function(e) {
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
-                window.location.href = response.redirect;
+            setTimeout(function() {
+      $('#loginMessage').text('Login successful. Redirecting...').css('color', 'green');
+              window.location.href = response.redirect;
+            }, 1000);
+            return;
+             
             } else {
-                $('#loginMessage').text(response.message);
+                $('#loginMessage').text('Invalid credentials.').css('color', 'red');
             }
         },
         error: function() {
-            $('#loginMessage').text('Something went wrong.');
+            $('#loginMessage').text('Something went wrong.').css('color', 'red');
         }
     });
 });
