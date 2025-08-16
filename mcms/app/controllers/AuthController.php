@@ -3,7 +3,11 @@ require_once '../app/helpers/Auth.php';
 
 class AuthController extends Controller
 {
-
+ public function index()
+    {
+        Auth::isLoggedIn();
+        $this->view('auth/login');
+    }
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -95,11 +99,7 @@ public function login()
     }
 }
 
-    public function index()
-    {
-        Auth::isLoggedIn();
-        $this->view('auth/login');
-    }
+   
 
     public function logout()
     {
