@@ -91,8 +91,8 @@
                         $today = date('Y-m-d');
                         $hasTodayEntries = false;
 
-                        if (!empty($data['dailyEntries'])):
-                          foreach ($data['dailyEntries'] as $index => $cust):
+                        if (!empty($data['customers'])):
+                          foreach ($data['customers'] as $index => $cust):
                             // Check if created_at is today
                             $entryDate = isset($cust['created_at']) ? date('Y-m-d', strtotime($cust['created_at'])) : '';
                             if ($entryDate === $today):
