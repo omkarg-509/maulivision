@@ -179,7 +179,7 @@ $(document).ready(function() {
         $('.loader').hide();
         if (response.success) {
           
-     $('#massages').html('<div class="alert alert-success">' + response.message + '</div>');
+    toastr.success(response.message || 'Entry added successfully.');
           setTimeout(function() {
             location.reload();
           }, 1200);
