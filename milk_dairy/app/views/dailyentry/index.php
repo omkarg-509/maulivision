@@ -17,105 +17,84 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                <form method="POST" action="/public/dailyentry/store">
-                    <div class="card-body">
-                   <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
-                      <!-- <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label text-center">Customer Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" required name="cid" placeholder="Enter customer name">
-                            </div>
-                         
-
-                        </div> -->
-                        <div class="form-group row mb-3">
-    <label class="col-sm-3 col-form-label text-center">Customer Name</label>
-    <div class="col-sm-9 position-relative">
-        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
-        <input type="hidden" name="cid" id="cid"> <!-- This will hold customer ID -->
-        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
-          </div>
-      </div>
-      <script>
-      document.getElementById("customer_search").addEventListener("keyup", function() {
-          const keyword = this.value;
-          if (keyword.length >= 2) {
-        fetch(`/public/customer/searchCustomer?term=${encodeURIComponent(keyword)}`)
-            .then(res => res.json())
-            .then(data => {
-          const suggestions = document.getElementById("suggestions");
-          suggestions.innerHTML = '';
-
-          data.forEach(customer => {
-              const div = document.createElement("div");
-              div.classList.add("list-group-item", "list-group-item-action");
-              div.innerHTML = `${customer.name} (${customer.mobile})`;
-
-              div.onclick = function () {
-            document.getElementById("customer_search").value = customer.name;
-            document.getElementById("cid").value = customer.id;
-            suggestions.innerHTML = '';
-              };
-
-              suggestions.appendChild(div);
-          });
-            });
-          } else {
-        document.getElementById("suggestions").innerHTML = '';
-          }
-      });
-
-      // Alert if cid is not set on form submit
-      document.querySelector("form").addEventListener("submit", function(e) {
-          if (!document.getElementById("cid").value) {
-        alert("Please select a customer from the suggestions.");
-        e.preventDefault();
-          }
-      });
-      </script>
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label text-center">Milk Type</label>
-                            <div class="col-sm-9">
-                                <select class="form-control" name="milktype" required>
-                                    <option value="">Select Milk Type</option>
-                                    <option value="buffalo">Buffalo</option>
-                                    <option value="cow">Cow</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-3">
-                            <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
-                            <div class="col-sm-9">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="milkliter" id="liter1" value="1.0" onclick="selectOnlyThis(this)">
-                                    <label class="form-check-label" for="liter1">1.0 Liter</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="milkliter" id="liter15" value="1.5" onclick="selectOnlyThis(this)">
-                                    <label class="form-check-label" for="liter15">1.5 Liter</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="milkliter" id="liter2" value="2.0" onclick="selectOnlyThis(this)">
-                                    <label class="form-check-label" for="liter2">2.0 Liter</label>
-                                </div>
-                            </div>
-                        </div>
-                        <script>
-                        function selectOnlyThis(checkbox) {
-                            var checkboxes = document.getElementsByName('milkliter');
-                            checkboxes.forEach(function(item) {
-                                if (item !== checkbox) item.checked = false;
-                            });
-                        }
-                        </script>
-                        <div class="form-group row">
-                            <div class="col-sm-9 offset-sm-3 text-center">
-                                <button type="submit" class="btn btn-primary px-4">Submit</button>
-                            </div>
-                        </div>
+                <form method="POST" id="customerForm">
+                  <div class="card-body">
+                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Customer Name</label>
+                      <div class="col-sm-9 position-relative">
+                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
+                        <input type="hidden" name="cid" id="cid">
+                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
+                      </div>
                     </div>
+                    <script>
+                    document.getElementById("customer_search").addEventListener("keyup", function() {
+                      const keyword = this.value;
+                      if (keyword.length >= 2) {
+                        fetch(`/public/customer/searchCustomer?term=${encodeURIComponent(keyword)}`)
+                          .then(res => res.json())
+                          .then(data => {
+                            const suggestions = document.getElementById("suggestions");
+                            suggestions.innerHTML = '';
+                            data.forEach(customer => {
+                              const div = document.createElement("div");
+                              div.classList.add("list-group-item", "list-group-item-action");
+                              div.innerHTML = `${customer.name} (${customer.mobile})`;
+                              div.onclick = function () {
+                                document.getElementById("customer_search").value = customer.name;
+                                document.getElementById("cid").value = customer.id;
+                                suggestions.innerHTML = '';
+                              };
+                              suggestions.appendChild(div);
+                            });
+                          });
+                      } else {
+                        document.getElementById("suggestions").innerHTML = '';
+                      }
+                    });
+
+                    document.querySelector("form").addEventListener("submit", function(e) {
+                      if (!document.getElementById("cid").value) {
+                        alert("Please select a customer from the suggestions.");
+                        e.preventDefault();
+                      }
+                    });
+                    </script>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Milk Type</label>
+                      <div class="col-sm-9">
+                        <select class="form-control" name="milktype" required>
+                          <option value="">Select Milk Type</option>
+                          <option value="buffalo">Buffalo</option>
+                          <option value="cow">Cow</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
+                      <div class="col-sm-9">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="1.0">
+                          <label class="form-check-label" for="liter1">1.0 Liter</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="milkliter" id="liter15" value="1.5">
+                          <label class="form-check-label" for="liter15">1.5 Liter</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="milkliter" id="liter2" value="2.0">
+                          <label class="form-check-label" for="liter2">2.0 Liter</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-9 offset-sm-3 text-center">
+                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                      </div>
+                    </div>
+                  </div>
                 </form>
-                
 
                 </div>
                    </div>
@@ -177,3 +156,31 @@
   </div>
  
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('#customerForm').on('submit', function(e) {
+  e.preventDefault();
+
+  $.ajax({
+    url: '/public/dailyentry/store',
+    type: 'POST',
+    data: $(this).serialize(),
+    dataType: 'json',
+    success: function(response) {
+      if (response.status === 'success') {
+        // Optionally reset the form
+        $('#customerForm')[0].reset();
+        $('#cid').val('');
+        // Optionally reload the table or part of the page
+        location.reload();
+      } else {
+        alert(response.message || 'Failed to add entry.');
+      }
+    },
+    error: function() {
+      alert('Something went wrong.');
+    }
+  });
+});
+</script>
