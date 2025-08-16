@@ -102,7 +102,7 @@
                             <td><?= $index + 1 ?></td>
                             <td><?= htmlspecialchars($cust['name']) ?></td>
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                            <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                            <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
                             <td><?= htmlspecialchars($cust['staff']) ?></td>
                             <td><?= htmlspecialchars($cust['payment_method']) ?></td>
