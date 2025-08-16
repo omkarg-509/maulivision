@@ -10,7 +10,7 @@ class App
     {
         $url = $this->parseUrl();               // Parse URL
                                                 // Controller check
-print_r($url);
+// print_r($url);
         // If the first part of the URL matches a controller file, set it
         if (isset($url[0]) && file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php')) {
             $this->controller = ucfirst($url[0]) . 'Controller';
