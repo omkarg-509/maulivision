@@ -18,7 +18,7 @@ class DailyentryController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             $dailyentryModel = $this->model('DailyEntry');
             $result = $dailyentryModel->insert($_POST);
-            if ($result === false) {
+            if ($result) {
                 // Handle insert error (optional: set a flash message or log error)
                     echo json_encode([
                 'status' => 'success',
