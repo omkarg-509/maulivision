@@ -14,7 +14,7 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                <form method="POST" action="/customers/store">
+                <form method="POST" action="/public/customers/store">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
                     <div class="row mb-2 align-items-center">
