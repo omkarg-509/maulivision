@@ -46,7 +46,11 @@ $('#loginForm').on('submit', function(e) {
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
-                window.location.href = response.redirect;
+            setTimeout(function() {
+              window.location.href = response.redirect;
+            }, 1000);
+            return;
+             
             } else {
                 $('#loginMessage').text(response.message);
             }
