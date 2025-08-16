@@ -170,9 +170,9 @@ $(document).ready(function() {
       type: 'POST',
       data: formData,
       dataType: 'json',
-      beforeSend: function() {
-        $('.loader').show();
-      },
+      // beforeSend: function() {
+      //   $('.loader').show();
+      // },
       success: function(response) {
         $('.loader').hide();
         if (response.success) {
