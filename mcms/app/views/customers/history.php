@@ -64,7 +64,7 @@
                                 <td><?= htmlspecialchars($cust['staff']) ?></td>
                                 <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                                 <td>
-                                  <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>"
+                                  <a href="/public/customers/delete/<?= urlencode($cust['id']) ?>"
                                      onclick="return confirm('Are you sure you want to delete this milk Entries?');"
                                      title="Delete">
                                     <i class="fa fa-trash text-danger"></i>
