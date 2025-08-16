@@ -7,7 +7,7 @@ require_once '../core/App.php';   // Load application core
 require_once '../core/Controller.php';  // Load base controller
 
 $app = new App(); 
-echo '<pre>';
-print_r($app);
-echo '</pre>';
+// echo '<pre>';
+// print_r($app);
+// echo '</pre>';
 
