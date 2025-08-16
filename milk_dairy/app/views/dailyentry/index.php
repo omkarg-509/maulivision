@@ -173,6 +173,7 @@ $('#customerForm').on('submit', function(e) {
         $('#customerForm')[0].reset();
         $('#cid').val('');
         // Optionally reload the table or part of the page
+        alert('Entry added successfully!');
         window.location.href = response.redirect || location.reload();
       } else {
         alert((response && response.message) ? response.message : 'Failed to add entry.');
