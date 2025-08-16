@@ -187,7 +187,7 @@ $(document).ready(function() {
           }, 1200);
      
         } else {
-          alert(response.message || 'Failed to add entry.');
+            toastr.error(response.message || 'Failed to add entry.');
         }
       },
       error: function(xhr) {
