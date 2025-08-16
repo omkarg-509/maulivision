@@ -53,7 +53,7 @@ $('#loginForm').on('submit', function(e) {
             return;
              
             } else {
-                $('#loginMessage').text(response.message);
+                $('#loginMessage').text('Invalid credentials.').css('color', 'red');
             }
         },
         error: function() {
