@@ -90,7 +90,7 @@ public function login()
         } else {
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Invalid credentials.'
+                'redirect' => BASE_URL . 'login'
             ]);
             exit;
         }

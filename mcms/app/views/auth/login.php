@@ -47,7 +47,7 @@ $('#loginForm').on('submit', function(e) {
         success: function(response) {
             if (response.status === 'success') {
             setTimeout(function() {
-                $('#loginMessage').text('Login successful. Redirecting...').css('color', 'green');
+      $('#loginMessage').text('Login successful. Redirecting...').css('color', 'green');
               window.location.href = response.redirect;
             }, 1000);
             return;
