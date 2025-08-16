@@ -4,7 +4,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-         // Auth::check(); // 🔒 Protect the home page
-        $this->view('home/index');
+         Auth::check(); // 🔒 Protect the home page
+        $this->view('auth/login');
     }
 }
