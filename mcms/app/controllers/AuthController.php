@@ -95,6 +95,11 @@ public function login()
     }
 }
 
+    public function auth(){
+        Auth::isLoggedIn();
+        $this->view('auth/index');
+    }
+
     public function logout()
     {
         Auth::logout();
