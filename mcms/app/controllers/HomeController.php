@@ -5,6 +5,6 @@ class HomeController extends Controller
     public function index()
     {
          Auth::check(); // 🔒 Protect the home page
-        $this->view('auth/login');
+        $this->view('dashboard/index');
     }
 }
