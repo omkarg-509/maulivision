@@ -1,1 +1,0 @@
-<?php header('/public/index'); ?>
