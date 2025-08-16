@@ -7,14 +7,14 @@ class CustomersController extends Controller
      Auth::check();
      $customersModel = $this->model('Customers');
      $customersModel->getAll();
-     $this->view('customers/index',['customers' => $customers]);
+     $this->view('/customers/index',['customers' => $customers]);
     }
     public function history(){
         Auth::check();
         $customersModel = $this->model('Customers');
         $customers = $customersModel->getAll();
 
-        $this->view('customers/history', ['customers' => $customers]);
+        $this->view('/customers/history', ['customers' => $customers]);
     }
 
     
@@ -25,7 +25,7 @@ class CustomersController extends Controller
             $customersModel = $this->model('Customers');
             $customersModel->insert($_POST);
         }
-        header("Location: /public/customers/index");
+        header("Location: /customers/index");
         exit;
     }
   public function delete($id)
