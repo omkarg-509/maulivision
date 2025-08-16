@@ -173,9 +173,12 @@ $('#customerForm').on('submit', function(e) {
         $('#customerForm')[0].reset();
         $('#cid').val('');
         // Optionally reload the table or part of the page
-        location.reload();
+        window.location.href = response.redirect || location.reload();
       } else {
         alert((response && response.message) ? response.message : 'Failed to add entry.');
+        if (response && response.redirect) {
+          window.location.href = response.redirect;
+        }
       }
     },
     error: function(xhr) {
@@ -188,4 +191,3 @@ $('#customerForm').on('submit', function(e) {
     }
   });
 });
-</script>

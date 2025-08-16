@@ -19,7 +19,6 @@ class DailyentryController extends Controller
             $dailyentryModel = $this->model('DailyEntry');
             $result = $dailyentryModel->insert($_POST);
             if ($result) {
-                // Handle insert error (optional: set a flash message or log error)
                 echo json_encode([
                     'status' => 'success',
                     'redirect' => BASE_URL . 'index'
@@ -28,6 +27,7 @@ class DailyentryController extends Controller
             } else {
                 echo json_encode([
                     'status' => 'error',
+                    'message' => 'Failed to add entry.',
                     'redirect' => BASE_URL . 'index'
                 ]);
                 exit;
