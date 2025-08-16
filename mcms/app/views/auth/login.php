@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
 
-              <div id="loginMessage" style="color:red;"></div>
+              <div id="loginMessage"></div>
 
               <form id="loginForm">
                 <div class="form-group">
@@ -40,13 +40,14 @@ $('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
     $.ajax({
-        url: '/public/auth/login',
+        url: '/public/auth/lsogin',
         type: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
             setTimeout(function() {
+                $('#loginMessage').text('Login successful. Redirecting...').css('color', 'green');
               window.location.href = response.redirect;
             }, 1000);
             return;
@@ -56,7 +57,7 @@ $('#loginForm').on('submit', function(e) {
             }
         },
         error: function() {
-            $('#loginMessage').text('Something went wrong.');
+            $('#loginMessage').text('Something went wrong.').css('color', 'red');
         }
     });
 });
