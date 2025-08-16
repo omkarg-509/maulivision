@@ -24,6 +24,13 @@ class DailyentryController extends Controller
                 'milkliter' => $_POST['milkliter'] ?? '',
             ];
 
+            // Debug: Check if all required fields are present
+            if (empty($data['vid']) || empty($data['cid']) || empty($data['milktype']) || empty($data['milkliter'])) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
+                exit;
+            }
+
             $dailyEntryModel = $this->model('DailyEntry');
             $result = $dailyEntryModel->insert($data);
 
@@ -31,7 +38,18 @@ class DailyentryController extends Controller
             if ($result) {
                 echo json_encode(['success' => true, 'message' => 'Entry added successfully.']);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to add entry.']);
+                // Debug: Output the data and possible error info
+                if (method_exists($dailyEntryModel, 'getLastError')) {
+                    $error = $dailyEntryModel->getLastError();
+                } else {
+                    $error = 'Unknown error';
+                }
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to add entry.',
+                    'data' => $data,
+                    'error' => $error
+                ]);
             }
             exit;
         }
