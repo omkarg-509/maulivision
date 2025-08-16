@@ -20,23 +20,21 @@ class DailyentryController extends Controller
             $result = $dailyentryModel->insert($_POST);
             if ($result) {
                 // Handle insert error (optional: set a flash message or log error)
-                    echo json_encode([
-                'status' => 'success',
-                'redirect' => BASE_URL . 'index'
-            ]);
-            exit;
+                echo json_encode([
+                    'status' => 'success',
+                    'redirect' => BASE_URL . 'index'
+                ]);
+                exit;
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'redirect' => BASE_URL . 'index'
+                ]);
+                exit;
+            }
         } else {
-            echo json_encode([
-                'status' => 'error',
-                'redirect' => BASE_URL . 'index'
-            ]);
-            exit;
+            $this->view('dailyentry/index');
         }
-    } else {
-        
-        $this->view('dailyentry/index');
-    }
-
     }
   public function delete($id)
     {

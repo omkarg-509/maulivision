@@ -168,18 +168,23 @@ $('#customerForm').on('submit', function(e) {
     data: $(this).serialize(),
     dataType: 'json',
     success: function(response) {
-      if (response.status === 'success') {
+      if (response && response.status === 'success') {
         // Optionally reset the form
         $('#customerForm')[0].reset();
         $('#cid').val('');
         // Optionally reload the table or part of the page
         location.reload();
       } else {
-        alert(response.message || 'Failed to add entry.');
+        alert((response && response.message) ? response.message : 'Failed to add entry.');
       }
     },
-    error: function() {
-      alert('Something went wrong.');
+    error: function(xhr) {
+      let msg = 'Something went wrong.';
+      try {
+        const res = JSON.parse(xhr.responseText);
+        if (res && res.message) msg = res.message;
+      } catch (e) {}
+      alert(msg);
     }
   });
 });
