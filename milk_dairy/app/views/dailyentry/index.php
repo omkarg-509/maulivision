@@ -17,6 +17,7 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
+                  <div id="massages"></div>
                 <form method="POST" id="customerForm">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
@@ -160,6 +161,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+
   $('#customerForm').on('submit', function(e) {
     e.preventDefault();
     var form = $(this);
@@ -178,6 +180,7 @@ $(document).ready(function() {
         if (response.success) {
           alert('Customer entry added successfully!');
           location.reload();
+          $('#massages').html('<div class="alert alert-success">' + response.message + '</div>');
         } else {
           alert(response.message || 'Failed to add entry.');
         }
