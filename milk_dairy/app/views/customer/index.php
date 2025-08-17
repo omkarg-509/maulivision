@@ -139,4 +139,27 @@
             // Auto-load entries table on page load
             $(document).ready(function() {
               loadEntriesTable();
+            });
+            
+             // Handle delete button click with AJAX
+            $(document).on('click', '.delete-entry', function() {
+              var entryId = $(this).data('id');
+              if (confirm('Are you sure you want to delete this entry?')) {
+              $.ajax({
+                url: '/public/customer/delete/' + entryId,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                if (response.success) {
+                  toastr.success(response.message || 'Entry deleted successfully.');
+                  loadEntriesTable();
+                } else {
+                  toastr.error(response.message || 'Failed to delete entry.');
+                }
+                },
+                error: function() {
+                toastr.error('An error occurred. Please try again.');
+                }
+              });
+              }
             });</script>
