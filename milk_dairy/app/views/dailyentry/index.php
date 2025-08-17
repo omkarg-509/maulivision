@@ -43,7 +43,7 @@
                         updateIndianDateTime();
                         setInterval(updateIndianDateTime, 1000);
                       </script>
-                      <div class="col-sm-9 position-relative">
+                      <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
                         <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
