@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('rzp-button').onclick = function(e){
         var options = {
-            "key": "9VaUdxAxxPjJHBb0UVURRZ3T", // Enter the Key ID generated from the Dashboard
+            "key": "oVKvMtV2cAxiNrlYxpe7uf0i", // Enter the Key ID generated from the Dashboard
             "amount": 1000, // Amount is in currency subunits. 1000 = 10.00
             "currency": "INR",
             "name": "Milk Dairy",
