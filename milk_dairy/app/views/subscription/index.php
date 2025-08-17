@@ -1,7 +1,6 @@
 <h2>Subscribe Now</h2>
 <button id="rzp-button">Pay Now</button>
-
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('rzp-button').onclick = function(e){
