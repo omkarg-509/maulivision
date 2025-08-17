@@ -1,21 +1,14 @@
  <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
-        <div class="form-inline me-auto">
+     <div class="form-inline me-auto">
           <ul class="navbar-nav navbar-left">
         
-          <li class="dropdown"><a href="#" data-bs-toggle="dropdown"
+          <a href="<?=BASE_URL?>dashboard" 
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=BASE_URL?>/assets/img/user.png" class="user-img-radious-style">
-              <span class="d-sm-none d-lg-inline-block"></span></a>
-            <div class="dropdown-menu dropdown-menu-left">
-              <div class="dropdown-title">Hello <?=$_SESSION['vendor']['email']?></div>
-              
-              <div class="dropdown-divider"></div>
-              <a href="<?=BASE_URL?>auth/logout" class="dropdown-item has-icon text-danger">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
-          </li>
+              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="">
+
+            </a>
+          
         </ul>
           
         </div>
