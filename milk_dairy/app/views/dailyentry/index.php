@@ -177,29 +177,26 @@
             <script>
             function loadEntriesTable() {
               $.ajax({
-                url: '/public/dailyentry/list', // Create this endpoint to return the table rows HTML
+                url: '/public/dailyentry/list',
                 type: 'GET',
-                success: function(html) {
-                  // Parse the HTML if it's JSON, or just insert as is if it's HTML
-                  // Assuming html is a string of <tr>...</tr>
-                  $('#entries-table-body').html(html);
-
-                  // Optionally, you can loop through the rows and display name, milktype, milkliter in a notification or console
-                  // Example: parse and log each row's data (if html is JSON array)
-                  // If your endpoint returns JSON, you can do:
-                  let entries = JSON.parse(html);
-                  $('#entries-table-body').empty();
-                  entries.forEach(function(entry, idx) {
-                    $('#entries-table-body').append(
-                      `<tr>
-                         <td>${idx+1}</td>
-                         <td>${entry.customer_name}</td>
-                         <td>${entry.milktype}</td>
-                         <td>${entry.milkliter}</td>
-                         <td>...</td>
-                       </tr>`
-                    );
-                  });
+                dataType: 'json',
+                success: function(response) {
+                  if (response.success && Array.isArray(response.data)) {
+                    $('#entries-table-body').empty();
+                    response.data.forEach(function(entry, idx) {
+                      $('#entries-table-body').append(
+                        `<tr>
+                           <td>${idx + 1}</td>
+                           <td>${entry.customer_name}</td>
+                           <td>${entry.milktype}</td>
+                           <td>${entry.milkliter}</td>
+                           <td>...</td>
+                         </tr>`
+                      );
+                    });
+                  } else {
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
+                  }
                 },
                 error: function() {
                   $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries.</td></tr>');
