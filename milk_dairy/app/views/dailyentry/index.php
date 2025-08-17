@@ -193,7 +193,7 @@
                     $('#entries-table-body').append(
                       `<tr>
                          <td>${idx+1}</td>
-                         <td>${entry.name}</td>
+                         <td>${entry.customer_name}</td>
                          <td>${entry.milktype}</td>
                          <td>${entry.milkliter}</td>
                          <td>...</td>
