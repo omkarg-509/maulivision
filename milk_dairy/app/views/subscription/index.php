@@ -1,11 +1,12 @@
-<?php
-// Include the Razorpay PHP library
+<?php // Include the Razorpay PHP library
 require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
 
 // Initialize Razorpay with your key and secret
-$api_key = 'rzp_test_Y2wy8t1wD1AFaA';
-$api_secret = 'zSqRMpIa2ljBBpkieFYGmfLa';
+$api_key = 'rzp_test_R6Ull7QpWzBK6X';
+$api_secret = 'oVKvMtV2cAxiNrlYxpe7uf0i';
+
+
 
 $api = new Api($api_key, $api_secret);
 // Create an order
@@ -48,3 +49,7 @@ echo '<script>
     }
 </script>';
 ?>
+t();
+    }
+});
+</script>
