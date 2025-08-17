@@ -182,7 +182,7 @@
                 success: function(html) {
                   // Parse the HTML if it's JSON, or just insert as is if it's HTML
                   // Assuming html is a string of <tr>...</tr>
-                  // $('#entries-table-body').html(html);
+                  $('#entries-table-body').html(html);
 
                   // Optionally, you can loop through the rows and display name, milktype, milkliter in a notification or console
                   // Example: parse and log each row's data (if html is JSON array)
