@@ -6,7 +6,7 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        Auth::check();
+        Auth::check();  // ✅ session check
         $customersModel = $this->model('Customers');
         $customers = $customersModel->getAll();
         $this->view('customers/index', ['customers' => $customers]);

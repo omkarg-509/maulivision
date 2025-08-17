@@ -15,7 +15,7 @@
              
                 <div class="card">
                   <div class="card-header">
-                    <h4>Add Customer</h4>
+                    <h4>MILK DAILY ENTRY</h4>
                   </div>
                   <div id="massages"></div>
                 <form method="POST" id="customerForm">
