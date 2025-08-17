@@ -22,11 +22,53 @@ class CustomerController extends Controller
         $this->view('customer/create',['customers' => $customers]);
     }
 
-    public function store()
+    // public function store()
+    // {
+    //     $customerModel = $this->model('Customer');
+    //     $customerModel->insert($_POST);
+    //     header("Location: ". $_SERVER['HTTP_REFERER']."");
+    // }
+      public function store()
     {
-        $customerModel = $this->model('Customer');
-        $customerModel->insert($_POST);
-        header("Location: ". $_SERVER['HTTP_REFERER']."");
+        Auth::check();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'vid' => $_POST['vid'] ?? '',
+                'bid' => $_POST['bid'] ?? '',
+                'name' => $_POST['name'] ?? '',
+                'mobile' => $_POST['mobile'] ?? '',
+                'address' => $_POST['address'] ?? '',
+            ];
+
+            // Debug: Check if all required fields are present
+            if (empty($data['vid']) || empty($data['cid']) || empty($data['name']) || empty($data['mobile']) || empty($data['address'])) {
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
+                exit;
+            }
+
+            $customerModel = $this->model('Customer');
+            $result = $customerModel->insert($data);
+
+            header('Content-Type: application/json');
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'New Customers added successfully.']);
+            } else {
+                // Debug: Output the data and possible error info
+                if (method_exists($customerModel, 'getLastError')) {
+                    $error = $customerModel->getLastError();
+                } else {
+                    $error = 'Unknown error';
+                }
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to New Customers.',
+                    'data' => $data,
+                    'error' => $error
+                ]);
+            }
+            exit;
+        }
     }
       public function list()
     {

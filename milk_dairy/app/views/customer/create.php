@@ -10,17 +10,22 @@
      
           <div class="section-body">
             <div class="row">
-             
               <div class="col-12 col-md-12 col-lg-12">
-             
                 <div class="card">
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                  <form method="POST" action="/public/customer/store">
+                  <form id="customerForm" method="POST">
                     <div class="card-body">
-                      <div class="form-group row mb-3">
+                       <div class="form-group row mb-3">
                         <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
+                        <label class="col-sm-3 col-form-label text-center">Bill ID</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" required name="bid" placeholder="Enter bill ID">
+                        </div>
+                      </div>
+                      <div class="form-group row mb-3">
+                        
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" required name="name" placeholder="Enter full name">
@@ -46,9 +51,41 @@
                     </div>
                   </form>
                 </div>
-                   </div>
               </div>
             </div>
+          </div>
+          <script>
+          $(document).ready(function() {
+            $('#customerForm').off('submit').on('submit', function(e) {
+              e.preventDefault();
+              $('.loader').show();
+              var form = $(this);
+              var formData = form.serialize();
+
+              $.ajax({
+                url: '/public/customer/store',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                  $('.loader').hide();
+                  if (response.success) {
+                    toastr.success(response.message || 'Customer added successfully.');
+                    form[0].reset();
+                    // Optionally reload customer table if needed
+                    location.reload(); // Or call a function to reload the customer table via AJAX
+                  } else {
+                    toastr.error(response.message || 'Failed to add customer.');
+                  }
+                },
+                error: function(xhr) {
+                  $('.loader').hide();
+                  toastr.error('An error occurred. Please try again.');
+                }
+              });
+            });
+          });
+          </script>
          <div class="col-lg-12 col-md-12 col-12 col-sm-12">
   <div class="card">
     <div class="card-header">
@@ -200,19 +237,19 @@
                 var formData = form.serialize();
 
                 $.ajax({
-                  url: '/public/dailyentry/store',
+                  url: '/public/customer/store',
                   type: 'POST',
                   data: formData,
                   dataType: 'json',
                   success: function(response) {
                     $('.loader').hide();
                     if (response.success) {
-                      toastr.success(response.message || 'Entry added successfully.');
+                      toastr.success(response.message || 'Customers added successfully.');
                       loadEntriesTable();
                       form[0].reset();
                       $('#cid').val('');
                     } else {
-                      toastr.error(response.message || 'Failed to add entry.');
+                      toastr.error(response.message || 'Failed to add customers.');
                     }
                   },
                   error: function(xhr) {
