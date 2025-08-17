@@ -100,53 +100,49 @@
                 </div>
                    </div>
               </div>
-            </div>
-         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h4>Customers Details</h4>
-    </div>
- <div class="card-body">
-                    
-                    <table class="table table-sm">
-          <thead>
+            <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Customers Details</h4>
+                </div>
+                <div class="card-body" id="entries-table-container">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Liter</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="entries-table-body">
+                      <?php if (!empty($data['dailyEntries'])): ?>
+                        <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
+                          <tr>
+                            <td><?=$index + 1 ?></td>
+                            <td><?=htmlspecialchars($cust['customer_name']) ?></td>
+                            <td><?=htmlspecialchars($cust['milktype']) ?></td>
+                            <td><?=htmlspecialchars(ucfirst($cust['milkliter'])) ?></td>
+                            <td>
+                              <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>" 
+                                 onclick="return confirm('Are you sure you want to delete this milk Entries?');" 
+                                 title="Delete">
+                                <i class="fa fa-trash text-danger"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                      <?php else: ?>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Customer</th>
-                          <th scope="col">Type</th>
-                          <th scope="col">Liter</th>
-                          <th scope="col">Action</th>
-                         
+                          <td colspan="5" class="text-center">No customers found.</td>
                         </tr>
-                        
-                      </thead>
-          <tbody>
-          <?php if (!empty($data['dailyEntries'])): ?>
-            <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
-              <tr>
-                <td><?=$index + 1 ?></td>
-                <td><?=htmlspecialchars($cust['customer_name']) ?></td>
-                <td><?=htmlspecialchars($cust['milktype']) ?></td>
-                <td><?=htmlspecialchars(ucfirst($cust['milkliter'])) ?></td>
-                <td>
-                  <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>" 
-                     onclick="return confirm('Are you sure you want to delete this milk Entries?');" 
-                     title="Delete">
-                    <i class="fa fa-trash text-danger"></i>
-                  </a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr>
-              <td colspan="5" class="text-center">No customers found.</td>
-            </tr>
-          <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+                      <?php endif; ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
 
 
         </section>       
@@ -162,39 +158,85 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-$(document).ready(function() {
+// $(document).ready(function() {
 
-  $('#customerForm').on('submit', function(e) {
-    e.preventDefault();
-    var form = $(this);
-    var formData = form.serialize();
+//   $('#customerForm').on('submit', function(e) {
+//     e.preventDefault();
+//     var form = $(this);
+//     var formData = form.serialize();
 
-    $.ajax({
-      url: '/public/dailyentry/store', // Adjust to your actual endpoint
-      type: 'POST',
-      data: formData,
-      dataType: 'json',
-      // beforeSend: function() {
-      //   $('.loader').show();
-      // },
-      success: function(response) {
-        $('.loader').hide();
-        if (response.success) {
+//     $.ajax({
+//       url: '/public/dailyentry/store', // Adjust to your actual endpoint
+//       type: 'POST',
+//       data: formData,
+//       dataType: 'json',
+//       // beforeSend: function() {
+//       //   $('.loader').show();
+//       // },
+//       success: function(response) {
+//         $('.loader').hide();
+//         if (response.success) {
           
-    toastr.success(response.message || 'Entry added successfully.');
-          setTimeout(function() {
-            location.reload();
-          }, 1200);
+//     toastr.success(response.message || 'Entry added successfully.');
+//           setTimeout(function() {
+//             location.reload();
+//           }, 1200);
      
-        } else {
-            toastr.error(response.message || 'Failed to add entry.');
-        }
-      },
-      error: function(xhr) {
-        $('.loader').hide();
-        alert('An error occurred. Please try again.');
-      }
-    });
-  });
-});
+//         } else {
+//             toastr.error(response.message || 'Failed to add entry.');
+//         }
+//       },
+//       error: function(xhr) {
+//         $('.loader').hide();
+//         alert('An error occurred. Please try again.');
+//       }
+//     });
+//   });
+// });
 </script>
+
+            <script>
+            function loadEntriesTable() {
+              $.ajax({
+                url: '/public/dailyentry/list', // Create this endpoint to return the table rows HTML
+                type: 'GET',
+                success: function(html) {
+                  $('#entries-table-body').html(html);
+                },
+                error: function() {
+                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries.</td></tr>');
+                }
+              });
+            }
+
+            // Update form submit to reload table via AJAX
+            $(document).ready(function() {
+              $('#customerForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var formData = form.serialize();
+
+                $.ajax({
+                  url: '/public/dailyentry/store',
+                  type: 'POST',
+                  data: formData,
+                  dataType: 'json',
+                  success: function(response) {
+                    $('.loader').hide();
+                    if (response.success) {
+                      toastr.success(response.message || 'Entry added successfully.');
+                      loadEntriesTable();
+                      form[0].reset();
+                      $('#cid').val('');
+                    } else {
+                      toastr.error(response.message || 'Failed to add entry.');
+                    }
+                  },
+                  error: function(xhr) {
+                    $('.loader').hide();
+                    alert('An error occurred. Please try again.');
+                  }
+                });
+              });
+            });
+            </script>

@@ -7,8 +7,6 @@ class DailyentryController extends Controller
         Auth::check();
         $dailyEntryModel = $this->model('DailyEntry');
         $dailyEntries = $dailyEntryModel->getAll();
-      
-        
         $this->view('dailyentry/index', ['dailyEntries' => $dailyEntries] );
         
     }
@@ -53,6 +51,15 @@ class DailyentryController extends Controller
             }
             exit;
         }
+    }
+    public function list()
+    {
+        Auth::check();
+        $dailyEntryModel = $this->model('DailyEntry');
+        $dailyEntries = $dailyEntryModel->getAll();
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true, 'data' => $dailyEntries]);
+        exit;
     }
   public function delete($id)
     {
