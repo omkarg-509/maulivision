@@ -30,37 +30,7 @@
                       </div>
                     </div>
                     <script>
-                    document.getElementById("customer_search").addEventListener("keyup", function() {
-                      const keyword = this.value;
-                      if (keyword.length >= 2) {
-                        fetch(`/public/customer/searchCustomer?term=${encodeURIComponent(keyword)}`)
-                          .then(res => res.json())
-                          .then(data => {
-                            const suggestions = document.getElementById("suggestions");
-                            suggestions.innerHTML = '';
-                            data.forEach(customer => {
-                              const div = document.createElement("div");
-                              div.classList.add("list-group-item", "list-group-item-action");
-                              div.innerHTML = `${customer.name} (${customer.mobile})`;
-                              div.onclick = function () {
-                                document.getElementById("customer_search").value = customer.name;
-                                document.getElementById("cid").value = customer.id;
-                                suggestions.innerHTML = '';
-                              };
-                              suggestions.appendChild(div);
-                            });
-                          });
-                      } else {
-                        document.getElementById("suggestions").innerHTML = '';
-                      }
-                    });
-
-                    document.querySelector("form").addEventListener("submit", function(e) {
-                      if (!document.getElementById("cid").value) {
-                        alert("Please select a customer from the suggestions.");
-                        e.preventDefault();
-                      }
-                    });
+                   
                     </script>
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Type</label>
@@ -174,7 +144,48 @@
 // });
 </script>
 
-            <script>
+            <script> $(document).ready(function () {
+    // customer search
+    $("#customer_search").on("keyup", function () {
+      let keyword = $(this).val();
+
+      if (keyword.length >= 2) {
+        $.ajax({
+          url: "/public/customer/searchCustomer",
+          method: "GET",
+          data: { term: keyword },
+          dataType: "json",
+          success: function (data) {
+            let suggestions = $("#suggestions");
+            suggestions.html("");
+
+            data.forEach(function (customer) {
+              let div = $("<div>")
+                .addClass("list-group-item list-group-item-action")
+                .html(customer.name + " (" + customer.mobile + ")")
+                .on("click", function () {
+                  $("#customer_search").val(customer.name);
+                  $("#cid").val(customer.id);
+                  suggestions.html("");
+                });
+
+              suggestions.append(div);
+            });
+          },
+        });
+      } else {
+        $("#suggestions").html("");
+      }
+    });
+
+    // form submit validation
+    $("form").on("submit", function (e) {
+      if (!$("#cid").val()) {
+        alert("Please select a customer from the suggestions.");
+        e.preventDefault();
+      }
+    });
+  });
             function loadEntriesTable() {
               $.ajax({
                 url: '/public/dailyentry/list',
