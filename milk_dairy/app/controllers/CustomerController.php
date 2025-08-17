@@ -28,6 +28,15 @@ class CustomerController extends Controller
         $customerModel->insert($_POST);
         header("Location: ". $_SERVER['HTTP_REFERER']."");
     }
+      public function list()
+    {
+        Auth::check();
+        $customerModel = $this->model('Customer');
+        $customers = $customerModel->getAll();
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true, 'data' => $customers]);
+        exit;
+    }
 
     public function delete($id)
     {

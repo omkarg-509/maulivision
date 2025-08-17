@@ -135,7 +135,7 @@
     <script>
             function loadEntriesTable() {
               $.ajax({
-                url: '/public/dailyentry/list',
+                url: '/public/customer/list',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
