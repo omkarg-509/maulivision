@@ -1,3 +1,6 @@
+<?php
+// Subscription page
+?>
 <h2>Subscribe Now</h2>
 <button id="rzp-button">Pay Now</button>
 <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "description": "Subscription Payment",
             "handler": function (response){
                 // Redirect after payment success
-                window.location.href = "thank-you.php";
+                window.location.href = "/thank-you.php";
             },
             "theme": {
                 "color": "#3399cc"
