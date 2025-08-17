@@ -42,7 +42,8 @@ class Customer extends Database
     {
         $stmt = $this->db->prepare("DELETE FROM customers WHERE id = ?");
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $success = $stmt->execute();
+        return $success;
     }
 
 public function searchByTerm($term)
