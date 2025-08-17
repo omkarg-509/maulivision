@@ -117,10 +117,10 @@
                              <td>${cust.mobile}</td>
                              <td>
                              <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}"><i class="fa fa-trash"></i></button>
-                              <button href="/public/customer/show/${cust.id}" 
+                             <a href="/public/customer/show/${cust.id}" 
                      title="View" class="btn btn-info btn-sm" style="margin-left: 8px;">
                     <i class="fa fa-eye"></i>
-                    </button>
+                    </a>
                              </td>
                             
                          </tr>`
@@ -142,7 +142,7 @@
             });
             
              // Handle delete button click with AJAX
-            $(document).on('click', '.delete-entry', function() {
+            $(document).on('click', '.delete-cust', function() {
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {
               $.ajax({
@@ -162,4 +162,5 @@
                 }
               });
               }
-            });</script>
+                    });
+            </script>
