@@ -188,6 +188,7 @@
                 .on("click", function () {
                   $("#customer_search").val(customer.name);
                   $("#cid").val(customer.id);
+                  $("#bid").val(customer.bill_id);
                   suggestions.html("");
                 });
 
