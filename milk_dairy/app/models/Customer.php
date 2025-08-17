@@ -38,11 +38,13 @@ class Customer extends Database
         return $success;
     }
 
-    public function delete($id)
+
+     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM customers WHERE id = ?");
         $stmt->bind_param("i", $id);
         $success = $stmt->execute();
+        $stmt->close();
         return $success;
     }
 
