@@ -25,6 +25,13 @@
                         <input type="hidden" name="id" value="<?= htmlspecialchars($data['customer']['vid']); ?>">
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
+                          <input type="text" class="form-control"   value="<?= htmlspecialchars($data['bill_id']['name']); ?>" disabled>
+                        </div>
+                      </div>
+                      <div class="form-group row mb-3">
+                        
+                        <label class="col-sm-3 col-form-label text-center">Full Name</label>
+                        <div class="col-sm-9">
                           <input type="text" class="form-control" required name="name" value="<?= htmlspecialchars($data['customer']['name']); ?>">
                         </div>
                       </div>
