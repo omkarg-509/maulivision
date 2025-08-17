@@ -151,10 +151,10 @@
                 dataType: 'json',
                 success: function(response) {
                 if (response.success) {
-                  toastr.success(response.message || 'Entry deleted successfully.');
+                  toastr.success(response.message || 'Customer deleted successfully.');
                   loadEntriesTable();
                 } else {
-                  toastr.error(response.message || 'Failed to delete entry.');
+                  toastr.error(response.message || 'Failed to delete Customer.');
                 }
                 },
                 error: function() {
