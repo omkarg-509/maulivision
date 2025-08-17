@@ -211,6 +211,7 @@
 
             // Update form submit to reload table via AJAX
             $(document).ready(function() {
+              
               $('#customerForm').off('submit').on('submit', function(e) {
                 e.preventDefault();
                 var form = $(this);
@@ -238,5 +239,6 @@
                   }
                 });
               });
+                loadEntriesTable();
             });
             </script>
