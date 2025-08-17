@@ -25,7 +25,7 @@
                         <input type="hidden" name="id" value="<?= htmlspecialchars($data['customer']['vid']); ?>">
                         <label class="col-sm-3 col-form-label text-center">Bill ID</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control"   value="<?= htmlspecialchars($data['bill_id']['name']); ?>" disabled>
+                          <input type="text" class="form-control"   value="<?= htmlspecialchars($data['customer']['bill_id']); ?>" disabled>
                         </div>
                       </div>
                       <div class="form-group row mb-3">
