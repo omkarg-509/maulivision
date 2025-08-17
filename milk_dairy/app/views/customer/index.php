@@ -1,29 +1,22 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
+
 <div class="main-content">
   <div class="loader"></div>
   <div id="app">
 
-    <section class="section">
-      <!-- Add Razorpay Subscription Button Here -->
-      <form>
-        <script src="https://cdn.razorpay.com/static/widget/subscription-button.js"
-          data-subscription_button_id="pl_R6MzeKIkCKCB3M"
-          data-button_theme="rzp-dark-standard"
-          async>
-        </script>
-      </form>
-      <!-- End Razorpay Button -->
-
-      <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-        <div class="col-12 text-end">
-          <a class="btn btn-primary mb-3 " href="/public/customer/create">Add Customer</a>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h4>Customers Details</h4>
+       
+  <section class="section">
+     
           </div>
-          <div class="card-body">
+         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+            <div class="col-12 text-end"><a class="btn btn-primary mb-3 " href="/public/customer/create">Add Customer</a></div>
+            
+  <div class="card">
+    <div class="card-header">
+      <h4>Customers Details</h4>
+    </div>
+    <div class="card-body">
 
      <table class="table table-sm">
                     <thead>
