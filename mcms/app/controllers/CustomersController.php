@@ -6,7 +6,7 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        Auth::check();
+        Auth::check();  // ✅ session check
         $customersModel = $this->model('Customers');
         $customers = $customersModel->getAll();
         $this->view('customers/index', ['customers' => $customers]);
@@ -24,7 +24,7 @@ class CustomersController extends Controller
     {
         $customersModel = $this->model('Customers');
         $customersModel->insert($_POST);
-        $this->view('customers/index');
+        $this->view('customers/index');                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }
 
     public function delete($id)

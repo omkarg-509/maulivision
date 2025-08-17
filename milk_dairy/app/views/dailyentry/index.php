@@ -14,8 +14,8 @@
               <div class="col-12 col-md-12 col-lg-12">
              
                 <div class="card">
-                  <div class="card-header">
-                    <h4>Add Customer</h4>
+                  <div class="card-header col-12">
+                    <h4>MILK DAILY ENTRY</h4>
                   </div>
                   <div id="massages"></div>
                 <form method="POST" id="customerForm">

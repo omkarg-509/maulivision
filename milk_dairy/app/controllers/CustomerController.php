@@ -22,12 +22,7 @@ class CustomerController extends Controller
         $this->view('customer/create',['customers' => $customers]);
     }
 
-    // public function store()
-    // {
-    //     $customerModel = $this->model('Customer');
-    //     $customerModel->insert($_POST);
-    //     header("Location: ". $_SERVER['HTTP_REFERER']."");
-    // }
+
       public function store()
     {
         Auth::check();
