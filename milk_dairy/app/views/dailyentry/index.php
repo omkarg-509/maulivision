@@ -14,7 +14,7 @@
               <div class="col-12 col-md-12 col-lg-12">
              
                 <div class="card">
-                  <div class="card-header">
+                  <div class="card-header col-12">
                     <h4>MILK DAILY ENTRY</h4>
                   </div>
                   <div id="massages"></div>
