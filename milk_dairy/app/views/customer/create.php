@@ -86,53 +86,7 @@
           //   });
           // });
           </script>
-         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-  <div class="card">
-    <div class="card-header">
-      <h4>Customers Details</h4>
-    </div>
-    <div class="card-body" style="overflow-x:auto;">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Mobile Number</th>
-            
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (!empty($data['customers'])): ?>
-            <?php foreach ($data['customers'] as $index => $cust): ?>
-              <tr>
-                <td><?= $index + 1 ?></td>
-                <td><?= htmlspecialchars($cust['name']) ?></td>
-                <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                
-                <td>
-                  <a href="/public/customer/delete/<?= urlencode($cust['id']) ?>" 
-                     onclick="return confirm('Are you sure you want to delete this customer?');" 
-                     title="Delete" class="btn btn-danger btn-sm"> 
-                    <i class="fa fa-trash"></i>
-                  </a>
-                  <a href="/public/customer/show/<?= urlencode($cust['id']) ?>" 
-                     title="View" class="btn btn-info btn-sm">
-                    <i class="fa fa-eye"></i>
-                  </a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr>
-              <td colspan="5" class="text-center">No customers found.</td>
-            </tr>
-          <?php endif; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-    </div>
+         
   </div>
 
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
