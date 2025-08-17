@@ -109,8 +109,8 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">ग्राहक</th>
-                        <th scope="col">प्रकार</th>
-                        <th scope="col">लिटर</th>
+                        <th scope="col">क्रमांक</th>
+
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
