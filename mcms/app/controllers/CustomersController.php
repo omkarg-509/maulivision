@@ -24,9 +24,9 @@ class CustomersController extends Controller
     {
         $customersModel = $this->model('Customers');
         $customersModel->insert($_POST);
-        $this->view('customers/index');
+        $this->view('customers/index');                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     public function delete($id)
     {
         $customersModel = $this->model('Customers');
