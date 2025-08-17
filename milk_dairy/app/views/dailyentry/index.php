@@ -198,8 +198,8 @@
                       $('#entries-table-body').append(
                         `<tr>
                            <td>${idx + 1}</td>
-                           <td>${entry.customer_name}</td>
-                           <td>${entry.milktype}</td>
+                             <td>${entry.customer_name}</td>
+                             <td>${entry.milktype === 'buffalo' ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : entry.milktype)}</td>
                            <td>${entry.milkliter}</td>
                              <td>
                              <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
