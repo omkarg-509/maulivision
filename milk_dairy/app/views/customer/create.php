@@ -108,7 +108,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Bill ID</th>
+                        <th scope="col">ID</th>
                         <th scope="col">ग्राहक</th>
                         <th scope="col">क्रमांक</th>
 
