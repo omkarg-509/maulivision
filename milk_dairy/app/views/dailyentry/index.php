@@ -186,9 +186,9 @@
                 .addClass("list-group-item list-group-item-action")
                 .html(customer.bill_id + ". " + customer.name + " (" + customer.mobile + ")")
                 .on("click", function () {
+                  $("#bid").val(customer.bill_id);
                   $("#customer_search").val(customer.name);
                   $("#cid").val(customer.id);
-                  $("#bid").val(customer.bill_id);
                   suggestions.html("");
                 });
 
