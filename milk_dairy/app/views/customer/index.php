@@ -117,11 +117,12 @@
                              <td>${cust.mobile}</td>
                              <td>
                              <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}">Delete</button>
-                             </td>
-                            <td> <button href="/public/customer/show/${cust.id}" 
+                              <button href="/public/customer/show/${cust.id}" 
                      title="View" class="btn btn-info btn-sm" style="margin-left: 8px;">
                     <i class="fa fa-eye"></i>
-                    </button></td>
+                    </button>
+                             </td>
+                            
                          </tr>`
                       );
                     });
