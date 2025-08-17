@@ -55,36 +55,36 @@
             </div>
           </div>
           <script>
-          $(document).ready(function() {
-            $('#customerForm').off('submit').on('submit', function(e) {
-              e.preventDefault();
-              $('.loader').show();
-              var form = $(this);
-              var formData = form.serialize();
+          // $(document).ready(function() {
+          //   $('#customerForm').off('submit').on('submit', function(e) {
+          //     e.preventDefault();
+          //     $('.loader').show();
+          //     var form = $(this);
+          //     var formData = form.serialize();
 
-              $.ajax({
-                url: '/public/customer/store',
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function(response) {
-                  $('.loader').hide();
-                  if (response.success) {
-                    toastr.success(response.message || 'Customer added successfully.');
-                    form[0].reset();
-                    // Optionally reload customer table if needed
-                    location.reload(); // Or call a function to reload the customer table via AJAX
-                  } else {
-                    toastr.error(response.message || 'Failed to add customer.');
-                  }
-                },
-                error: function(xhr) {
-                  $('.loader').hide();
-                  toastr.error('An error occurred. Please try again.');
-                }
-              });
-            });
-          });
+          //     $.ajax({
+          //       url: '/public/customer/store',
+          //       type: 'POST',
+          //       data: formData,
+          //       dataType: 'json',
+          //       success: function(response) {
+          //         $('.loader').hide();
+          //         if (response.success) {
+          //           toastr.success(response.message || 'Customer added successfully.');
+          //           form[0].reset();
+          //           // Optionally reload customer table if needed
+          //           location.reload(); // Or call a function to reload the customer table via AJAX
+          //         } else {
+          //           toastr.error(response.message || 'Failed to add customer.');
+          //         }
+          //       },
+          //       error: function(xhr) {
+          //         $('.loader').hide();
+          //         toastr.error('An error occurred. Please try again.');
+          //       }
+          //     });
+          //   });
+          // });
           </script>
          <div class="col-lg-12 col-md-12 col-12 col-sm-12">
   <div class="card">
