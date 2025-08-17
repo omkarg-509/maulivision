@@ -201,7 +201,6 @@
                     );
                   });
                 },
-                },
                 error: function() {
                   $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries.</td></tr>');
                 }
