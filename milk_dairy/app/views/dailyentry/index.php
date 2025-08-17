@@ -237,6 +237,6 @@
                   }
                 });
               });
-                loadEntriesTable();
+              
             });
             </script>
