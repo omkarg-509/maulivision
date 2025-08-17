@@ -211,7 +211,7 @@
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {
               $.ajax({
-                url: '/public/dailyentry/delete/' + entryId,
+                url: '/public/customer/delete/' + entryId,
                 type: 'POST',
                 dataType: 'json',
                 success: function(response) {
