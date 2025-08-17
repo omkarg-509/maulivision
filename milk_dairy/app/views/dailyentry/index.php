@@ -24,7 +24,7 @@
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Date & Time</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="indian_datetime" name="entry_datetime" readonly>
+                        <input type="text" class="form-control" id="indian_datetime" name="entry_datetime" disabled>
                       </div>
                       <script>
                         function updateIndianDateTime() {
