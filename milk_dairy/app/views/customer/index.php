@@ -113,8 +113,12 @@
                         `<tr>
                            <td>${idx + 1}</td>
                            <td>${cust.bill_id}</td>
-                             <td>${cust.name}</td>
-                             <td>${cust.mobile ? cust.mobile.replace(/^(\d{5})\d+$/, '$1...') : ''}</td>
+                             <td>
+                              
+                               ${cust.name}
+                              
+                             </td>
+                             <td> <a href="tel:${cust.mobile}" title="Call ${cust.mobile}">${cust.mobile ? cust.mobile.replace(/^(\d{5})\d+$/, '$1...') : ''} </a></td>
                              <td>
                              <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}"><i class="fa fa-trash"></i></button>
                              <a href="/public/customer/show/${cust.id}" 
