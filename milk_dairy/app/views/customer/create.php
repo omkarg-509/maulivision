@@ -207,7 +207,7 @@
               loadEntriesTable();
             });
             // Handle delete button click with AJAX
-            $(document).on('click', '.delete-entry', function() {
+            $(document).on('click', '.delete-cust', function() {
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {
               $.ajax({

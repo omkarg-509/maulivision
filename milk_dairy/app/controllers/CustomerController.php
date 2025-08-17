@@ -88,9 +88,9 @@ class CustomerController extends Controller
 
     header('Content-Type: application/json');
     if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Entry deleted successfully.']);
+        echo json_encode(['success' => true, 'message' => 'Customer deleted successfully.']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to delete entry.']);
+        echo json_encode(['success' => false, 'message' => 'Failed to delete customer.']);
     }
     exit;
 }
