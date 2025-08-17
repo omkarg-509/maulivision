@@ -117,33 +117,12 @@
                       </tr>
                     </thead>
                     <tbody id="entries-table-body">
-                      <?php if (!empty($data['dailyEntries'])): ?>
-                        <?php foreach ($data['dailyEntries'] as $index => $cust): ?>
-                          <tr>
-                            <td><?=$index + 1 ?></td>
-                            <td><?=htmlspecialchars($cust['customer_name']) ?></td>
-                            <td><?=htmlspecialchars($cust['milktype']) ?></td>
-                            <td><?=htmlspecialchars(ucfirst($cust['milkliter'])) ?></td>
-                            <td>
-                              <a href="/public/dailyentry/delete/<?= urlencode($cust['id']) ?>" 
-                                 onclick="return confirm('Are you sure you want to delete this milk Entries?');" 
-                                 title="Delete">
-                                <i class="fa fa-trash text-danger"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        <?php endforeach; ?>
-                      <?php else: ?>
-                        <tr>
-                          <td colspan="5" class="text-center">No customers found.</td>
-                        </tr>
-                      <?php endif; ?>
+                      <!-- Table rows will be loaded here by loadEntriesTable() via AJAX -->
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-
 
         </section>       
     </div>
