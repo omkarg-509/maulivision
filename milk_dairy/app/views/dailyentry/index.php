@@ -22,6 +22,25 @@
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
                     <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Date & Time</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="indian_datetime" name="entry_datetime" readonly>
+                      </div>
+                      <script>
+                        function updateIndianDateTime() {
+                          const now = new Date();
+                          const options = {
+                            year: 'numeric', month: '2-digit', day: '2-digit',
+                            hour: '2-digit', minute: '2-digit', second: '2-digit',
+                            hour12: true,
+                            timeZone: 'Asia/Kolkata'
+                          };
+                          const formatter = new Intl.DateTimeFormat('en-IN', options);
+                          document.getElementById('indian_datetime').value = formatter.format(now).replace(',', '');
+                        }
+                        updateIndianDateTime();
+                        setInterval(updateIndianDateTime, 1000);
+                      </script>
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
                         <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
