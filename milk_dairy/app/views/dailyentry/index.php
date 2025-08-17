@@ -190,7 +190,9 @@
                            <td>${entry.customer_name}</td>
                            <td>${entry.milktype}</td>
                            <td>${entry.milkliter}</td>
-                           <td>...</td>
+                             <td>
+                             <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                             </td>
                          </tr>`
                       );
                     });
@@ -208,7 +210,28 @@
             $(document).ready(function() {
               loadEntriesTable();
             });
-
+            // Handle delete button click with AJAX
+            $(document).on('click', '.delete-entry', function() {
+              var entryId = $(this).data('id');
+              if (confirm('Are you sure you want to delete this entry?')) {
+              $.ajax({
+                url: '/public/dailyentry/delete/' + entryId,
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                if (response.success) {
+                  toastr.success(response.message || 'Entry deleted successfully.');
+                  loadEntriesTable();
+                } else {
+                  toastr.error(response.message || 'Failed to delete entry.');
+                }
+                },
+                error: function() {
+                toastr.error('An error occurred. Please try again.');
+                }
+              });
+              }
+            });
             // Update form submit to reload table via AJAX
             $(document).ready(function() {
               
