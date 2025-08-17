@@ -37,8 +37,8 @@
                       <div class="col-sm-9">
                         <select class="form-control" name="milktype" required>
                           <option value="">Select Milk Type</option>
-                          <option value="buffalo">Buffalo</option>
-                          <option value="cow">Cow</option>
+                            <option value="buffalo">म्हैस</option>
+                            <option value="cow">गाय</option>
                         </select>
                       </div>
                     </div>
@@ -80,9 +80,9 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Liter</th>
+                        <th scope="col">ग्राहक</th>
+                        <th scope="col">प्रकार</th>
+                        <th scope="col">लिटर</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
