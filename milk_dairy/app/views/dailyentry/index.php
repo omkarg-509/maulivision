@@ -25,7 +25,7 @@
                       <label class="col-sm-3 col-form-label text-center">Date & Time</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="indian_datetime" name="entry_datetime" disabled>
-                      </div>
+                      </div><br>
                       <script>
                         function updateIndianDateTime() {
                           const now = new Date();
