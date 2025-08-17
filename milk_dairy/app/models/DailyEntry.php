@@ -24,6 +24,8 @@ class DailyEntry extends Database
     {
         $stmt = $this->db->prepare("DELETE FROM daily_entries WHERE id = ?");
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
 }
