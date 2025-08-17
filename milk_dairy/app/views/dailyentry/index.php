@@ -204,6 +204,11 @@
               });
             }
 
+            // Auto-load entries table on page load
+            $(document).ready(function() {
+              loadEntriesTable();
+            });
+
             // Update form submit to reload table via AJAX
             $(document).ready(function() {
               
