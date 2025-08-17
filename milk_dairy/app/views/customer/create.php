@@ -21,7 +21,7 @@
                         <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id']; ?>">
                         <label class="col-sm-3 col-form-label text-center">Bill ID</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="bid" placeholder="Enter bill ID">
+                          <input type="text" class="form-control" required name="bill_id" placeholder="Enter bill ID">
                         </div>
                       </div>
                       <div class="form-group row mb-3">

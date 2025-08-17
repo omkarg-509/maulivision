@@ -34,14 +34,14 @@ class CustomerController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'vid' => $_POST['vid'] ?? '',
-                'bid' => $_POST['bid'] ?? '',
+                'bill_id' => $_POST['bill_id'] ?? '',
                 'name' => $_POST['name'] ?? '',
                 'mobile' => $_POST['mobile'] ?? '',
                 'address' => $_POST['address'] ?? '',
             ];
 
             // Debug: Check if all required fields are present
-            if (empty($data['vid']) || empty($data['cid']) || empty($data['name']) || empty($data['mobile']) || empty($data['address'])) {
+            if (empty($data['vid']) || empty($data['bill_id']) || empty($data['name']) || empty($data['mobile']) || empty($data['address'])) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
                 exit;
