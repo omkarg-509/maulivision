@@ -108,6 +108,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Bill ID</th>
                         <th scope="col">ग्राहक</th>
                         <th scope="col">क्रमांक</th>
 
@@ -141,14 +142,15 @@
                 success: function(response) {
                   if (response.success && Array.isArray(response.data)) {
                     $('#entries-table-body').empty();
-                    response.data.forEach(function(entry, idx) {
+                    response.data.forEach(function(cust, idx) {
                       $('#entries-table-body').append(
                         `<tr>
                            <td>${idx + 1}</td>
-                             <td>${entry.name}</td>
-                             <td>${entry.mobile}</td>
+                           <td>${cust.bill_id}</td>
+                             <td>${cust.name}</td>
+                             <td>${cust.mobile}</td>
                              <td>
-                             <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                             <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}">Delete</button>
                              </td>
                          </tr>`
                       );
