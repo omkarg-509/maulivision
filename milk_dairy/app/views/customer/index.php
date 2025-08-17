@@ -8,17 +8,17 @@
        
   <section class="section">
      
-       
-</div>
-       
+          </div>
+         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+            <div class="col-12 text-end"><a class="btn btn-primary mb-3 " href="/public/customer/create">Add Customer</a></div>
+            
+  <div class="card">
+    <div class="card-header">
+      <h4>Customers Details</h4>
+    </div>
+    <div class="card-body">
 
-    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4>Customers Details</h4>
-                </div>
-                <div class="card-body" id="entries-table-container">
-                  <table class="table table-sm">
+     <table class="table table-sm">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
