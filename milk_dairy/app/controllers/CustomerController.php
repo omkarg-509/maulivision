@@ -88,8 +88,8 @@ class CustomerController extends Controller
             <tbody>';
 
         // Fetch daily milk entries for the customer and group by day
-echo $customerId = $customers[0]['id'] ?? null;
-     echo $vid = $_SESSION['vendor']['id'] ?? null;
+        $customerId = $customers[0]['id'] ?? null;
+        $vid = $_SESSION['vendor']['id'] ?? null;
         $rows = [];
 
         if ($customerId && $vid) {
@@ -157,7 +157,7 @@ echo $customerId = $customers[0]['id'] ?? null;
         }
 
         // Totals
-        $html .= '
+        $html .= ''. $vid .'
             <tr>
             <td colspan="5" align="right">Total</td>
             <td align="right">1913</td>
