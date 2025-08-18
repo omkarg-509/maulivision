@@ -93,7 +93,7 @@ class CustomerController extends Controller
 
         // Sample rows (replace with DB data later)
         $rows = [
-            ['1', '', '', '17', '', '', '1' , ''],
+            ['1', '', '', '17', '', '', '' , ''],
             ['2', '', '', '18', '', '', 'Per.Ltr' , ''],
             ['3', '', '', '19', '', '', 'Total.Ltr' , ''],
             ['4', '', '', '20', '', '', 'Akar' , ''],
