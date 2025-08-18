@@ -45,9 +45,9 @@ class CustomerController extends Controller
         $billId = '38';
         if (method_exists($customerModel, 'getByBillId')) {
             $customer = $customerModel->getByBillId($billId);
-            $customerName = (is_array($customer) && isset($customer['name'])) ? $customer['name'] : 'Unknown Customer';
+            $customerName =  $customer['name'];
         } else {
-            $customerName = 'Unknown Customer';
+            $customerName =  $customer['name'];
         }
         $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
