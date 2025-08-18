@@ -49,6 +49,7 @@ class CustomerController extends Controller
             // Customer Info
             $pdf->Ln(3);
             $pdf->SetFont('dejavusans', '', 11);
+            $pdf->Cell(0, 10, 'राजनंदिनी डेअरी', 0, 1, 'C');
             $pdf->Cell(95, 7,'Name: ' . $customers[0]['name'], 1, 0);
             $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
             $pdf->Cell(95, 7, 'Bill No: ' . $customers[0]['bill_id'], 1, 0);
