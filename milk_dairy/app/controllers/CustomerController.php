@@ -16,8 +16,8 @@ class CustomerController extends Controller
     {
         Auth::check(); // ✅ session check
             $customerModel = $this->model('customer');
-            $customer = $customerModel->getById($id);
-            $this->view('customer/pdf', ['customer' => $customer]);
+            // $customer = $customerModel->getById($id);
+            $this->view('customer/pdf');
         // // Start output buffering to prevent headers already sent errors
         // if (ob_get_level() == 0) ob_start();
 

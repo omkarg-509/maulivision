@@ -128,3 +128,5 @@
         // Output
         $pdf->Output('dairy_bill.pdf', 'I');
         exit;
+
+        ?>
