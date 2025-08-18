@@ -60,11 +60,14 @@ class CustomerController extends Controller
             <tbody>';
 
         // Sample rows (replace with DB data later)
-        $rows = [
-            ['1', '1', '8.6', '9', '66.1', '66'],
-            ['2', '1', '9.0', '9', '66.1', '66'],
-            ['3', '1', '8.8', '9', '66.1', '66'],
-        ];
+        $rows = [];
+        for ($i = 1; $i <= 31; $i++) {
+            if ($i == 1 || $i == 2) {
+            $rows[] = [$i, '', '', '9', '66.1', '66'];
+            } else {
+            $rows[] = [$i, '', '', '', '', ''];
+            }
+        }
 
         foreach ($rows as $r) {
             $html .= '<tr>
