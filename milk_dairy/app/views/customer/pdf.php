@@ -1,6 +1,6 @@
 
 <?php
-$tcpdfPath = __DIR__ . '/../../../lib/tcpdf/tcpdf';
+$tcpdfPath = __DIR__ . '/../../../lib/tcpdf/tcpdf.php';
 if (!file_exists($tcpdfPath)) {
     print_r($tcpdfPath);
     die('TCPDF library file does not exist.');
