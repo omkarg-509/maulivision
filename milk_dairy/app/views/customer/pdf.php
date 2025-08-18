@@ -22,14 +22,14 @@
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
         // Fetch customer name by bill id (example: using bill_id = 1200)
-        $customerModel = $this->model('Customer');
-        $billId = 38;
-        if (method_exists($customerModel, 'getByBillId')) {
-            $customer = $customerModel->getByBillId($billId);
-            $customerName =  $customer['name'];
-        } else {
-            $customerName =  $customer['name'];
-        }
+        // $customerModel = $this->model('Customer');
+        // $billId = 38;
+        // if (method_exists($customerModel, 'getByBillId')) {
+        //     $customer = $customerModel->getByBillId($billId);
+        //     $customerName =  $customer['name'];
+        // } else {
+        //     $customerName =  $customer['name'];
+        // }
         $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
