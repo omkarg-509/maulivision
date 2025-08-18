@@ -1,58 +1,68 @@
+ <?php 
+ require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
 
-<?php
-$tcpdfPath = __DIR__ . '/../../../lib/tcpdf/tcpdf.php';
-if (!file_exists($tcpdfPath)) {
-    print_r($tcpdfPath);
-    die('TCPDF library file does not exist.');
-}
-require_once $tcpdfPath;
+        // Define TCPDF constants if not already defined
+        if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
+        if (!defined('PDF_FONT_NAME_MAIN')) define('PDF_FONT_NAME_MAIN', 'helvetica');
+        if (!defined('PDF_FONT_SIZE_MAIN')) define('PDF_FONT_SIZE_MAIN', 10);
+        if (!defined('PDF_FONT_NAME_DATA')) define('PDF_FONT_NAME_DATA', 'helvetica');
+        if (!defined('PDF_FONT_SIZE_DATA')) define('PDF_FONT_SIZE_DATA', 8);
 
-// Create new PDF document
-$pdf = new TCPDF();
-$pdf->AddPage();
+        // Fetch customer data
+        $customerModel = $this->model('Customer');
+        $customers = $customerModel->getAll();
 
-// Title
-$pdf->SetFont('freeserif', 'B', 16);
-$pdf->Cell(0, 10, 'राजनंदिनी डेअरी', 0, 1, 'C');
+        // Create new PDF document
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Milk Dairy');
+        $pdf->SetTitle('Customer List');
+        $pdf->SetHeaderData('', 0, 'Customer List', '');
 
-$pdf->SetFont('freeserif', '', 10);
-$pdf->Cell(0, 8, 'म्हसोबा चौक, गायवाडी नळ, ... संपर्क: 9822882755', 0, 1, 'C');
+        // Set default header/footer fonts
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
-// Customer Info
-$pdf->Ln(2);
-$pdf->SetFont('freeserif', '', 12);
-$pdf->Cell(95, 7, 'श्री. विलास वांकुद्रे', 1, 0);
-$pdf->Cell(95, 7, 'गाव: 110125', 1, 1);
-$pdf->Cell(95, 7, 'बिल नं: 1200', 1, 0);
-$pdf->Cell(95, 7, 'तारीख: 11/01/25', 1, 1);
+        // Set margins
+        $pdf->SetMargins(15, 27, 15);
+        $pdf->SetHeaderMargin(5);
+        $pdf->SetFooterMargin(10);
 
-// Table Header
-$pdf->Ln(3);
-$tbl = <<<EOD
-<table border="1" cellpadding="3">
-<thead>
-<tr>
-    <th>दि.</th>
-    <th>लिटर</th>
-    <th>फॅट</th>
-    <th>SNF</th>
-    <th>दर/लिटर</th>
-    <th>रक्कम</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>1</td><td>8.6</td><td>9</td><td>66.1</td><td>66</td></tr>
-<tr><td>2</td><td>1</td><td>9.1</td><td>9</td><td>66.1</td><td>66</td></tr>
-<tr><td>3</td><td>1</td><td>8.9</td><td>9</td><td>66.1</td><td>66</td></tr>
-<!-- Add more rows -->
-<tr><td colspan="5" align="right">एकूण</td><td>1913</td></tr>
-<tr><td colspan="5" align="right">पैसे जमा</td><td>0</td></tr>
-<tr><td colspan="5" align="right">येणे बाकी</td><td>1914</td></tr>
-</tbody>
-</table>
-EOD;
+        // Set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, 25);
 
-$pdf->writeHTML($tbl, true, false, false, false, '');
+        // Set font
+        $pdf->SetFont('dejavusans', '', 10);
 
-// Output PDF
-$pdf->Output('dairy_bill.pdf', 'I');
+        // Add a page
+        $pdf->AddPage();
+
+        // Build HTML table
+        $html = '<h2>Customer List</h2>
+        <table border="1" cellpadding="4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bill ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>';
+        foreach ($customers as $customer) {
+            $html .= '<tr>
+                <td>' . htmlspecialchars($customer['id']) . '</td>
+                <td>' . htmlspecialchars($customer['bill_id']) . '</td>
+                <td>' . htmlspecialchars($customer['name']) . '</td>
+                <td>' . htmlspecialchars($customer['mobile']) . '</td>
+                <td>' . htmlspecialchars($customer['address']) . '</td>
+            </tr>';
+        }
+        $html .= '</tbody></table>';
+
+        // Output the HTML content
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        // Output PDF to browser
+        $pdf->Output('customer_list.pdf', 'I');
