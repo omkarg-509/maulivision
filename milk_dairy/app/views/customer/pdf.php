@@ -9,8 +9,7 @@ if (!defined('PDF_FONT_NAME_DATA')) define('PDF_FONT_NAME_DATA', 'helvetica');
 if (!defined('PDF_FONT_SIZE_DATA')) define('PDF_FONT_SIZE_DATA', 8);
 
 // Fetch customer data
-$customerModel = $this->model('Customer');
-$customers = $customerModel->getAll();
+
 
 // Create new PDF document
 $pdf = new TCPDF();
