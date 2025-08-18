@@ -23,6 +23,14 @@ class Customer extends Database
 //     }
 
 
+    public function getByBillId($bill_id)
+    {
+        $stmt = $this->db->prepare("SELECT daily_entries.*, customers.name AS customer_name FROM daily_entries JOIN customers ON daily_entries.vid = customers.id WHERE customers.bill_id = ?");
+        $stmt->bind_param("i", $bill_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
     public function getAll()
     {
         $result = $this->db->query("SELECT * FROM customers ORDER BY id DESC");

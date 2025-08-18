@@ -55,7 +55,7 @@ class DailyentryController extends Controller
     public function list()
     {
         Auth::check();
-        $dailyEntryModel = $this->model('DailyEntry');
+        $dailyEntryModel = $this->model('customer');
         $dailyEntries = $dailyEntryModel->getAll();
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $dailyEntries]);
