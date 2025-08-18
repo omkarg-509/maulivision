@@ -14,13 +14,13 @@ class CustomerController extends Controller
     }
     public function pdf()
     {
-        // Auth::check(); // ✅ session check
+        Auth::check(); // ✅ session check
 
         // Start output buffering to prevent headers already sent errors
         if (ob_get_level() == 0) ob_start();
 
         // Load TCPDF library
-        require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
+        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
 
         // Define TCPDF constants if not already defined
         if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
