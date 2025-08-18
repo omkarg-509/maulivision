@@ -12,6 +12,19 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
+    public function pdf()
+    {
+        
+              Auth::check(); // ✅ session check
+   
+
+        $this->view('customer/pdf');
+    }
+
+
+        $this->view('customer/index', ['customers' => $customers]);
+
+    }
    
 
     public function create()
