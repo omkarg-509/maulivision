@@ -42,7 +42,7 @@ class CustomerController extends Controller
         $pdf->SetFont('dejavusans', '', 11);
         // Fetch customer name by bill id (example: using bill_id = 1200)
         $customerModel = $this->model('Customer');
-        $billId = '38';
+        $billId = 38;
         if (method_exists($customerModel, 'getByBillId')) {
             $customer = $customerModel->getByBillId($billId);
             $customerName =  $customer['name'];
