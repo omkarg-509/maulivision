@@ -14,13 +14,16 @@ class CustomerController extends Controller
     }
     public function pdf()
     {
-        Auth::check(); // ✅ session check
+        // Auth::check(); // ✅ session check
             $customerModel = $this->model('Customer');
             
             $customers = $customerModel->getAll();
-            $customerName = isset($customers[0]['name']) ? $customers[0]['name'] : '';
-            
-            echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
+            if (!empty($customers) && isset($customers[0]['name'])) {
+                $customerName = $customers[0]['name'];
+                echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
+            } else {
+                echo "No customers found.<br>";
+            }
           
         // // Start output buffering to prevent headers already sent errors
         // if (ob_get_level() == 0) ob_start();
