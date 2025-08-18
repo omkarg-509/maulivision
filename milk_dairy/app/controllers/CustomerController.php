@@ -15,7 +15,7 @@ class CustomerController extends Controller
     public function pdf()
     {
         Auth::check(); // ✅ session check
-            $customerModel = $this->model('customer');
+            // $customerModel = $this->model('customer');
             // $customer = $customerModel->getById($id);
             $this->view('customer/pdf');
         // // Start output buffering to prevent headers already sent errors
