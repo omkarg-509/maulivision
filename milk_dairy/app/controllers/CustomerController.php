@@ -41,7 +41,7 @@ class CustomerController extends Controller
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
         // Fetch customer name by bill id (example: using bill_id = 1200)
-        $billId = 1200;
+        $billId = 789;
         $customer = $customerModel->getByBillId($billId);
         $customerName = $customer ? $customer['customer_name'] : 'Unknown Customer';
         $pdf->Cell(95, 7, $customerName, 1, 0);
