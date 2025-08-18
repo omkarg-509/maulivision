@@ -53,7 +53,11 @@ class Customer extends Database
     }
     public function getAll()
     {
-        $result = $this->db->query("SELECT * FROM customers ORDER BY id DESC");
+        $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? ORDER BY id DESC");
+        $d_status = '0';
+        $stmt->bind_param("s", $d_status);
+        $stmt->execute();
+        $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
@@ -93,7 +97,7 @@ public function searchByTerm($term)
 
 public function getById($id)
 {
-    $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = '0' AND id = ? ");
+    $stmt = $this->db->prepare("SELECT * FROM customers WHERE  id = ? ");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
