@@ -96,7 +96,7 @@ class CustomerController extends Controller
 
         if ($customerId && $vid) {
             // Get daily entries for this customer and vendor
-            $milk_entries = $customerModel->getByBillId($vid, $customerId);
+            $milk_entries = $customerModel->DailyEntries($vid, $customerId);
 
             // Group entries by day (date)
             $grouped = [];
