@@ -1,8 +1,7 @@
 <?php
 
 
-        // Start output buffering to prevent headers already sent errors
-        if (ob_get_level() == 0) ob_start();
+        
 
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
@@ -72,7 +71,5 @@
 
         // Output PDF to browser
         $pdf->Output('customer_list.pdf', 'I');
-        // End output buffering and clean up
-        if (ob_get_level() > 0) ob_end_flush();
-        exit;
+      
         ?>
