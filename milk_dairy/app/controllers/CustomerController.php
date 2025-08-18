@@ -50,11 +50,11 @@ class CustomerController extends Controller
             <thead>
             <tr style="font-weight:bold; text-align:center;">
                 <th width="30">Date</th>
-                <th width="50">Liter</th>
-                <th width="50">Fat</th>
-                <th width="50">SNF</th>
-                <th width="70">Rate/Liter</th>
-                <th width="70">Amount</th>
+                <th width="50">Cow</th>
+                <th width="50">Buffalo</th>
+                <th width="50">Date</th>
+                <th width="70">Cow</th>
+                <th width="70">Buffalo</th>
             </tr>
             </thead>
             <tbody>';
