@@ -94,9 +94,9 @@ class CustomerController extends Controller
         // Sample rows (replace with DB data later)
         $rows = [
             ['1', '', '', '17', '', '', '' , ''],
-            ['2', '', '', '18', '', '', 'Per.Ltr' , ''],
-            ['3', '', '', '19', '', '', 'Total.Ltr' , ''],
-            ['4', '', '', '20', '', '', 'Akar' , ''],
+            ['2', '', '', '18', '', '', '' , ''],
+            ['3', '', '', '19', '', '', '' , ''],
+            ['4', '', '', '20', '', '', '' , ''],
             ['5', '', '', '21', '', ''],
             ['6', '', '', '22', '', ''],
             ['7', '', '', '23', '', ''],
@@ -119,24 +119,21 @@ class CustomerController extends Controller
             <td align="center">'.$r[3].'</td>
             <td align="center">'.$r[4].'</td>
             <td align="right">'.$r[5].'</td>
-            <td align="right">'.$r[6].'</td>
-            <td align="right">'.$r[7].'</td>
-            <td align="right">'.$r[8].'</td>
             </tr>';
         }
 
         // Totals
         $html .= '
             <tr>
-            <td colspan="8" align="right">Total</td>
+            <td colspan="5" align="right">Total</td>
             <td align="right">1913</td>
             </tr>
             <tr>
-            <td colspan="8" align="right">Amount Paid</td>
+            <td colspan="5" align="right">Amount Paid</td>
             <td align="right">0</td>
             </tr>
             <tr>
-            <td colspan="8" align="right">Balance Due</td>
+            <td colspan="5" align="right">Balance Due</td>
             <td align="right">1914</td>
             </tr>';
 
