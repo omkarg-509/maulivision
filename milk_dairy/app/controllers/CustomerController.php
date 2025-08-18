@@ -17,12 +17,10 @@ class CustomerController extends Controller
         Auth::check(); // ✅ session check
             $bill_id = 38;
             $customerModel = $this->model('Customer');
-            if (method_exists($customerModel, 'getByBillId')) {
-                $customer = $customerModel->getByBillId($bill_id);
+            
+                $customer = $customerModel->getAll();
                 $customerName = $customer['name'] ?? '';
-            } else {
-                $customerName = '';
-            }
+            
 
             echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
           
