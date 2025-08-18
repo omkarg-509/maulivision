@@ -77,8 +77,8 @@ class CustomerController extends Controller
                 <tbody>';
 
             // Fetch daily milk entries for the customer and group by date
-            $customerId = '38';
-            $vid ='1';
+            $customerId = 38;
+            $vid =1;
             $rows = [];
 
             if ($customerId && $vid) {
