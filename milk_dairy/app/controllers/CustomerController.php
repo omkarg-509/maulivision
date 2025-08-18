@@ -49,12 +49,12 @@ class CustomerController extends Controller
         <table border="1" cellpadding="4">
             <thead>
             <tr style="font-weight:bold; text-align:center;">
-                <th width="30">Date</th>
-                <th width="50">Cow</th>
-                <th width="50">Buffalo</th>
-                <th width="50">Date</th>
-                <th width="70">Cow</th>
-                <th width="70">Buffalo</th>
+                <th >Date</th>
+                <th >Cow</th>
+                <th >Buffalo</th>
+                <th >Date</th>
+                <th >Cow</th>
+                <th >Buffalo</th>
             </tr>
             </thead>
             <tbody>';
