@@ -12,14 +12,72 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    
     public function pdf()
     {
-        
-              Auth::check(); // ✅ session check
-   
+        Auth::check(); // ✅ session check
 
-        $this->view('customer/pdf');
+        // Load TCPDF library
+        require_once '../app/lib/tcpdf/tcpdf.php';
+
+        // Fetch customer data
+        $customerModel = $this->model('Customer');
+        $customers = $customerModel->getAll();
+
+        // Create new PDF document
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Milk Dairy');
+        $pdf->SetTitle('Customer List');
+        $pdf->SetHeaderData('', 0, 'Customer List', '');
+
+        // Set default header/footer fonts
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+        // Set margins
+        $pdf->SetMargins(15, 27, 15);
+        $pdf->SetHeaderMargin(5);
+        $pdf->SetFooterMargin(10);
+
+        // Set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, 25);
+
+        // Set font
+        $pdf->SetFont('dejavusans', '', 10);
+
+        // Add a page
+        $pdf->AddPage();
+
+        // Build HTML table
+        $html = '<h2>Customer List</h2>
+        <table border="1" cellpadding="4">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bill ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>';
+        foreach ($customers as $customer) {
+            $html .= '<tr>
+                <td>' . htmlspecialchars($customer['id']) . '</td>
+                <td>' . htmlspecialchars($customer['bill_id']) . '</td>
+                <td>' . htmlspecialchars($customer['name']) . '</td>
+                <td>' . htmlspecialchars($customer['mobile']) . '</td>
+                <td>' . htmlspecialchars($customer['address']) . '</td>
+            </tr>';
+        }
+        $html .= '</tbody></table>';
+
+        // Output the HTML content
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        // Output PDF to browser
+        $pdf->Output('customer_list.pdf', 'I');
+        exit;
     }
 
     public function create()
