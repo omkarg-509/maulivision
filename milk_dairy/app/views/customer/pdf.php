@@ -1,6 +1,5 @@
 <?php
-if(file_exists(__DIR__ . '../../../lib/tcpdf/resources/autoload.php')){
-require_once __DIR__ . '../../../lib/tcpdf/resources/autoload.php';
+require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
 
 // Create new PDF document
 $pdf = new TCPDF();
@@ -51,7 +50,3 @@ $pdf->writeHTML($tbl, true, false, false, false, '');
 
 // Output PDF
 $pdf->Output('dairy_bill.pdf', 'I');
-
-}else {
-    echo "TCPDF library not found.";
-}
