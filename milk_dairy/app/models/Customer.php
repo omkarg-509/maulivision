@@ -25,17 +25,22 @@ class Customer extends Database
 
     public function getByBillId($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM customers WHERE id = ?");
+        $stmt = $this->db->prepare(
+            "SELECT c.*, d.* 
+             FROM customers c
+             LEFT JOIN daily_entries d ON c.id = d.cid
+             WHERE c.id = ?"
+        );
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $customers = [];
+        $data = [];
         if ($result) {
             while ($row = $result->fetch_assoc()) {
-                $customers[] = $row;
+                $data[] = $row;
             }
         }
-        return $customers;
+        return $data;
     }
     public function getAll()
     {
