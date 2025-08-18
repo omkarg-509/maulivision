@@ -1,7 +1,7 @@
 <?php 
 
    // Load TCPDF library
-        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
+        require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
            
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
@@ -30,7 +30,7 @@
         // } else {
         //     $customerName =  $customer['name'];
         // }
-        $pdf->Cell(95, 7, $customerName, 1, 0);
+        $pdf->Cell(95, 7, 'omkar gaikwad', 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
         $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
@@ -127,6 +127,6 @@
 
         // Output
         $pdf->Output('dairy_bill.pdf', 'I');
-        exit;
+       
 
         ?>
