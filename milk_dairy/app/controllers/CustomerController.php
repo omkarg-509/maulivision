@@ -15,9 +15,15 @@ class CustomerController extends Controller
     public function pdf()
     {
         Auth::check(); // ✅ session check
-            // $customerModel = $this->model('customer');
-            // $customer = $customerModel->getById($id);
-            $this->view('customer/pdf');
+            $bill_id = 38;
+            $customerModel = $this->model('Customer');
+            if (method_exists($customerModel, 'getByBillId')) {
+                $customer = $customerModel->getByBillId($bill_id);
+                $customerName = $customer['name'] ?? '';
+            } else {
+                $customerName = '';
+            }
+          
         // // Start output buffering to prevent headers already sent errors
         // if (ob_get_level() == 0) ob_start();
 
