@@ -119,6 +119,9 @@ class CustomerController extends Controller
             <td align="center">'.$r[3].'</td>
             <td align="center">'.$r[4].'</td>
             <td align="right">'.$r[5].'</td>
+            <td align="right">'.$r[6].'</td>
+            <td align="right">'.$r[7].'</td>
+            <td align="right">'.$r[8].'</td>
             </tr>';
         }
 
