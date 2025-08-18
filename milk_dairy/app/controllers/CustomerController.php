@@ -15,44 +15,43 @@ class CustomerController extends Controller
     public function pdf($billId , $Date)
     {
             // Auth::check(); // ✅ session check
-            $customerModel = $this->model('Customer');
-            $billId = $billId ?? null;
-            $customers = $customerModel->getByBillId($billId);
-            // if (!empty($customers) && isset($customers[0]['name'])) {
-            //     $customerName = $customers[0]['name'];
-            //     // Optionally echo for debug: echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
-            // } else {
-            //     $customerName = 'No customers found';
-            // }
-          
-            // Start output buffering to prevent headers already sent errors
-            if (ob_get_level() == 0) ob_start();
-    
-            // Load TCPDF library
-            require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-               
-            $pdf = new Tcpdf();
-            $pdf->SetCreator('tc-lib-pdf');
-            $pdf->SetAuthor('Rajnandini Dairy');
-            $pdf->SetTitle('Milk Dairy Bill');
-    
-            $pdf->SetMargins(10, 10, 10);
-            $pdf->SetAutoPageBreak(true, 15);
-            $pdf->AddPage();
-    
-            // Heading
-            $pdf->SetFont('dejavusans', 'B', 18);
-            $pdf->Cell(0, 10, 'Rajnandini Dairy', 0, 1, 'C');
-            $pdf->SetFont('dejavusans', '', 9);
-            $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal, Phone: 9822882755', 0, 1, 'C');
-    
-            // Customer Info
-            $pdf->Ln(3);
-            $pdf->SetFont('dejavusans', '', 11);
-            $pdf->Cell(95, 7,'Name: ' . $customers[0]['name'], 1, 0);
-            $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
-            $pdf->Cell(95, 7, 'Bill No: ' . $customers[0]['bill_id'], 1, 0);
-            $pdf->Cell(95, 7, 'Date: '. $Date .'', 1, 1);
+        $customerModel = $this->model('Customer');
+        $billId = $billId ?? null;
+        $customers = $customerModel->getByBillId($billId);
+
+        // Check if customer exists
+        if (empty($customers) || !isset($customers[0])) {
+            die('No customer found for the provided bill ID.');
+        }
+
+        // Start output buffering to prevent headers already sent errors
+        if (ob_get_level() == 0) ob_start();
+
+        // Load TCPDF library
+        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
+
+        $pdf = new Tcpdf();
+        $pdf->SetCreator('tc-lib-pdf');
+        $pdf->SetAuthor('Rajnandini Dairy');
+        $pdf->SetTitle('Milk Dairy Bill');
+
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->SetAutoPageBreak(true, 15);
+        $pdf->AddPage();
+
+        // Heading
+        $pdf->SetFont('dejavusans', 'B', 18);
+        $pdf->Cell(0, 10, 'Rajnandini Dairy', 0, 1, 'C');
+        $pdf->SetFont('dejavusans', '', 9);
+        $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal, Phone: 9822882755', 0, 1, 'C');
+
+        // Customer Info
+        $pdf->Ln(3);
+        $pdf->SetFont('dejavusans', '', 11);
+        $pdf->Cell(95, 7,'Name: ' . $customers[0]['name'], 1, 0);
+        $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
+        $pdf->Cell(95, 7, 'Bill No: ' . $customers[0]['bill_id'], 1, 0);
+        $pdf->Cell(95, 7, 'Date: '. $Date .'', 1, 1);
 
         // Table Header with responsive CSS for mobile
         $html = '
@@ -88,7 +87,6 @@ class CustomerController extends Controller
             </thead>
             <tbody>';
 
-        // Sample rows (replace with DB data later)
         // Fetch daily milk entries for the customer and group by day
         $customerId = $customers[0]['id'] ?? null;
         $vid = $_SESSION['vendor']['id'] ?? null;
@@ -96,7 +94,7 @@ class CustomerController extends Controller
 
         if ($customerId && $vid) {
             // Get daily entries for this customer and vendor
-            $milk_entries = $customerModel->DailyEntries(1, 38);
+            $milk_entries = $customerModel->DailyEntries($vid, $customerId);
 
             // Group entries by day (date)
             $grouped = [];
