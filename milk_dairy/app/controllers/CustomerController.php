@@ -89,24 +89,63 @@ class CustomerController extends Controller
             <tbody>';
 
         // Sample rows (replace with DB data later)
-        $rows = [
-            ['1', '', '', '17', '', ''],
-            ['2', '', '', '18', '', ''],
-            ['3', '', '', '19', '', ''],
-            ['4', '', '', '20', '', ''],
-            ['5', '', '', '21', '', ''],
-            ['6', '', '', '22', '', ''],
-            ['7', '', '', '23', '', ''],
-            ['8', '', '', '24', '', ''],
-            ['9', '', '', '25', '', ''],
-            ['10','', '', '26', '', ''],
-            ['11','', '', '27', '', ''],
-            ['12','', '', '28', '', ''],
-            ['13','', '', '29', '', ''],
-            ['14','', '', '30', '', ''],
-            ['15','', '', '31', '', ''],
+        // Fetch daily milk entries for the customer and group by day
+        $customerId = $customers[0]['id'] ?? null;
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        $rows = [];
 
-        ];
+        if ($customerId && $vid) {
+            // Get daily entries for this customer and vendor
+            $milk_entries = $customerModel->getDailyEntries($vid, $customerId);
+
+            // Group entries by day (date)
+            $grouped = [];
+            foreach ($milk_entries as $entry) {
+                $day = date('j', strtotime($entry['date'])); // Day of month (1-31)
+                if (!isset($grouped[$day])) {
+                    $grouped[$day] = [];
+                }
+                $grouped[$day][] = $entry;
+            }
+
+            // Prepare rows for the table: two columns per row (left and right day)
+            $days = range(1, 31);
+            for ($i = 0; $i < count($days); $i += 2) {
+                $leftDay = $days[$i];
+                $rightDay = $days[$i + 1] ?? null;
+
+                // Left day data
+                $leftEntries = $grouped[$leftDay] ?? [];
+                $leftCow = '';
+                $leftBuffalo = '';
+                if (count($leftEntries) > 0) {
+                    // If multiple entries, join values with comma
+                    $leftCow = implode(', ', array_column($leftEntries, 'cow'));
+                    $leftBuffalo = implode(', ', array_column($leftEntries, 'buffalo'));
+                }
+
+                // Right day data
+                $rightEntries = $rightDay ? ($grouped[$rightDay] ?? []) : [];
+                $rightCow = '';
+                $rightBuffalo = '';
+                if (count($rightEntries) > 0) {
+                    $rightCow = implode(', ', array_column($rightEntries, 'cow'));
+                    $rightBuffalo = implode(', ', array_column($rightEntries, 'buffalo'));
+                }
+
+                $rows[] = [
+                    $leftDay,
+                    $leftCow,
+                    $leftBuffalo,
+                    $rightDay ?? '',
+                    $rightCow,
+                    $rightBuffalo
+                ];
+            }
+        } else {
+            // Fallback: empty rows if no customer or vendor
+            $rows = [];
+        }
 
         foreach ($rows as $r) {
             $html .= '<tr>
