@@ -178,7 +178,7 @@ class DailyentryController extends Controller
             $total += floatval($d['cow']) + floatval($d['buffalo']);
         }
 
-        $amount_paid = $bill['amount_paid'] ?? 0;
+        $amount_paid =  80 ?? 0;
         $balance_due = $total - $amount_paid;
 
         $html .= '
