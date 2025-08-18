@@ -45,7 +45,7 @@ class Customer extends Database
 
     public function DailyEntries($vid, $customerId)
     {
-        $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE vid = ? AND cid = ?");
+        $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE vid = 1 AND cid = 38");
         $stmt->bind_param("ii", $vid, $customerId);
         $stmt->execute();
         $result = $stmt->get_result();
