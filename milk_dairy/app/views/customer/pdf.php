@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
+require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
 
 // Define TCPDF constants if not already defined
 if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
