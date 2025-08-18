@@ -20,7 +20,7 @@ class CustomerController extends Controller
         if (ob_get_level() == 0) ob_start();
 
         // Load TCPDF library
-        require_once '../lib/tcpdf/tcpdf.php';
+        require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
 
         // Define TCPDF constants if not already defined
         if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
