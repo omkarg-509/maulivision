@@ -14,7 +14,7 @@ class CustomerController extends Controller
     }
     public function pdf()
     {
-        Auth::check(); // ✅ session check
+        // Auth::check(); // ✅ session check
 
         // Start output buffering to prevent headers already sent errors
         if (ob_get_level() == 0) ob_start();
