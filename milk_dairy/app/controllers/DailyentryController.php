@@ -131,9 +131,9 @@ class DailyentryController extends Controller
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
         $pdf->Cell(95, 7, $customer ? $customer['name'] : 'Customer', 1, 0);
-        $pdf->Cell(95, 7, 'Village: ' . ($customer['village'] ?? ''), 1, 1);
-        $pdf->Cell(95, 7, 'Bill No: ' . $bill['id'], 1, 0);
-        $pdf->Cell(95, 7, 'Date: ' . date('d/m/y', strtotime($bill['date'])), 1, 1);
+        $pdf->Cell(95, 7, 'Village: ' . 'village', 1, 1);
+        $pdf->Cell(95, 7, 'Bill No: ' . 'id', 1, 0);
+        $pdf->Cell(95, 7, 'Date: ' . date('d/m/y', 'date')), 1, 1);
 
         // Table Header
         $html = '
