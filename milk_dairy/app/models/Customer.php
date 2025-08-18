@@ -68,12 +68,12 @@ class Customer extends Database
 
 
      public function delete($id)
-    {
-        $stmt = $this->db->prepare("DELETE FROM customers WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $success = $stmt->execute();
-        $stmt->close();
-        return $success;
+{
+    $stmt = $this->db->prepare("UPDATE customers SET d_status = '1' WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $success = $stmt->execute();
+    $stmt->close();
+    return $success;
     }
 
 public function searchByTerm($term)
