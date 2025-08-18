@@ -1,5 +1,5 @@
 <?php
-if(file_exists(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php')){
+if(file_exists(__DIR__ . '../../tc-lib-pdf/src/Tcpdf.php')){
 require_once(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php');
 
 // Create new PDF document
