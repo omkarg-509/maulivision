@@ -89,7 +89,7 @@ class CustomerController extends Controller
 
         // Fetch daily milk entries for the customer and group by day
 echo $customerId = $customers[0]['id'] ?? null;
-     echo    $vid = $_SESSION['vendor']['id'] ?? null;
+     echo $vid = $_SESSION['vendor']['id'] ?? null;
         $rows = [];
 
         if ($customerId && $vid) {
