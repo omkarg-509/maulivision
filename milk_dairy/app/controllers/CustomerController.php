@@ -16,8 +16,8 @@ class CustomerController extends Controller
     {
         // Auth::check(); // ✅ session check
             $customerModel = $this->model('Customer');
-            
-            $customers = $customerModel->getAll();
+            $id = 38;
+            $customers = $customerModel->getBillId($id);
             if (!empty($customers) && isset($customers[0]['name'])) {
                 $customerName = $customers[0]['name'];
                 echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
