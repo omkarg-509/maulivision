@@ -1,6 +1,6 @@
 <?php
-if(file_exists(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php')){
-require_once(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php');
+if(file_exists(__DIR__ . '/../../lib/tcpdf/resources/autoload.php')){
+require_once __DIR__ . '/../../lib/tcpdf/resources/autoload.php';
 
 // Create new PDF document
 $pdf = new TCPDF();
