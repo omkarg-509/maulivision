@@ -71,7 +71,16 @@ class DailyentryController extends Controller
 
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-        
+
+        // Fetch bill_id from GET or POST
+        $bill_id = $_GET['bill_id'] ?? $_POST['bill_id'] ?? null;
+
+        // Fetch bill data by bill_id
+        $dailyEntryModel = $this->model('DailyEntry');
+        $billData = null;
+        if ($bill_id) {
+            $billData = $dailyEntryModel->getByBillId($bill_id);
+        }
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
@@ -90,7 +99,8 @@ class DailyentryController extends Controller
         // Customer Info
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
-        $pdf->Cell(95, 7, 'Mr. Vilas Vankudre', 1, 0);
+        $customerName = $billData['customer_name'] ?? 'Customer Name';
+        $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
         $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
