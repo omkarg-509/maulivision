@@ -21,7 +21,8 @@ class CustomerController extends Controller
 
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-  $pdf = new Tcpdf();
+        
+        $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
         $pdf->SetTitle('Milk Dairy Bill');
@@ -44,17 +45,36 @@ class CustomerController extends Controller
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
         $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
 
-        // Table Header
+        // Table Header with responsive CSS for mobile
         $html = '
-        <table border="1" cellpadding="4">
+        <style>
+        @media only screen and (max-width: 600px) {
+            table.responsive {
+            font-size: 10px !important;
+            }
+            table.responsive th, table.responsive td {
+            padding: 2px !important;
+            }
+        }
+        table.responsive {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.responsive th, table.responsive td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+        </style>
+        <table class="responsive" border="1" cellpadding="4">
             <thead>
             <tr style="font-weight:bold; text-align:center;">
-                <th >Date</th>
-                <th >Cow</th>
-                <th >Buffalo</th>
-                <th >Date</th>
-                <th >Cow</th>
-                <th >Buffalo</th>
+            <th>Date</th>
+            <th>Cow</th>
+            <th>Buffalo</th>
+            <th>Date</th>
+            <th>Cow</th>
+            <th>Buffalo</th>
             </tr>
             </thead>
             <tbody>';
