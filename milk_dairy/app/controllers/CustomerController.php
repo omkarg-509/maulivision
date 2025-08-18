@@ -15,9 +15,7 @@ class CustomerController extends Controller
     public function pdf()
     {
         Auth::check(); // ✅ session check
-        $customerModel = $this->model('Customer');
-        $customers = $customerModel->getAll();
-        $this->view('customer/pdf', ['customers' => $customers]);
+        $this->view('customer/pdf');
     }
 
     public function create()

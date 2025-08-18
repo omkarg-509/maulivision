@@ -1,8 +1,5 @@
 <?php
 
-
-        
-
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
 
@@ -71,5 +68,3 @@
 
         // Output PDF to browser
         $pdf->Output('customer_list.pdf', 'I');
-      
-        ?>
