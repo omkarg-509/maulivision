@@ -72,17 +72,17 @@ class DailyentryController extends Controller
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
 
-        // Fetch bill and customer info
-        $billModel = $this->model('Bill');
-        $bill = $billModel->getById($bill_id);
+        // // Fetch bill and customer info
+        // $billModel = $this->model('Bill');
+        // $bill = $billModel->getById($bill_id);
 
-        if (!$bill) {
-            echo "Bill not found.";
-            exit;
-        }
+        // if (!$bill) {
+        //     echo "Bill not found.";
+        //     exit;
+        // }
 
-        $customerModel = $this->model('Customer');
-        $customer = $customerModel->getById($bill['customer_id']);
+        // $customerModel = $this->model('Customer');
+        // $customer = $customerModel->getById($bill['customer_id']);
 
         // Fetch daily entries for this bill/customer/month
         $dailyEntryModel = $this->model('DailyEntry');
