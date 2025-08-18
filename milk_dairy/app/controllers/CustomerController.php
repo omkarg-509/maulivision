@@ -23,6 +23,8 @@ class CustomerController extends Controller
             } else {
                 $customerName = '';
             }
+
+            echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
           
         // // Start output buffering to prevent headers already sent errors
         // if (ob_get_level() == 0) ob_start();
