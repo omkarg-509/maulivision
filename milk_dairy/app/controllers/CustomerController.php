@@ -12,16 +12,16 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-   <?php
-namespace App\Controllers;
-
-use Com\Tecnick\Pdf\Tcpdf;
-
-class BillController
-{
-    public function dairyBill()
+    public function pdf()
     {
-        $pdf = new Tcpdf();
+        Auth::check(); // ✅ session check
+
+        // Start output buffering to prevent headers already sent errors
+        if (ob_get_level() == 0) ob_start();
+
+        // Load TCPDF library
+        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
+  $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
         $pdf->SetTitle('Milk Dairy Bill');
@@ -106,8 +106,6 @@ class BillController
         $pdf->Output('dairy_bill.pdf', 'I');
         exit;
     }
-}
-
 
     public function create()
     {
