@@ -32,30 +32,30 @@ class CustomerController extends Controller
 
         // Heading
         $pdf->SetFont('dejavusans', 'B', 18);
-        $pdf->Cell(0, 10, 'राजनंदिनी डेअरी', 0, 1, 'C');
+        $pdf->Cell(0, 10, 'Rajnandini Dairy', 0, 1, 'C');
         $pdf->SetFont('dejavusans', '', 9);
-        $pdf->Cell(0, 6, 'म्हसोबा चौक, गायवाडी नळ, फोन: 9822882755', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal, Phone: 9822882755', 0, 1, 'C');
 
         // Customer Info
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
-        $pdf->Cell(95, 7, 'श्री. विलास वांकुद्रे', 1, 0);
-        $pdf->Cell(95, 7, 'गाव: 110125', 1, 1);
-        $pdf->Cell(95, 7, 'बिल नं: 1200', 1, 0);
-        $pdf->Cell(95, 7, 'तारीख: 11/01/25', 1, 1);
+        $pdf->Cell(95, 7, 'Mr. Vilas Vankudre', 1, 0);
+        $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
+        $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
+        $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
 
         // Table Header
         $html = '
         <table border="1" cellpadding="4">
             <thead>
-                <tr style="font-weight:bold; text-align:center;">
-                    <th width="30">दि.</th>
-                    <th width="50">लिटर</th>
-                    <th width="50">फॅट</th>
-                    <th width="50">SNF</th>
-                    <th width="70">दर/लिटर</th>
-                    <th width="70">रक्कम</th>
-                </tr>
+            <tr style="font-weight:bold; text-align:center;">
+                <th width="30">Date</th>
+                <th width="50">Liter</th>
+                <th width="50">Fat</th>
+                <th width="50">SNF</th>
+                <th width="70">Rate/Liter</th>
+                <th width="70">Amount</th>
+            </tr>
             </thead>
             <tbody>';
 
@@ -68,28 +68,28 @@ class CustomerController extends Controller
 
         foreach ($rows as $r) {
             $html .= '<tr>
-                <td align="center">'.$r[0].'</td>
-                <td align="center">'.$r[1].'</td>
-                <td align="center">'.$r[2].'</td>
-                <td align="center">'.$r[3].'</td>
-                <td align="center">'.$r[4].'</td>
-                <td align="right">'.$r[5].'</td>
+            <td align="center">'.$r[0].'</td>
+            <td align="center">'.$r[1].'</td>
+            <td align="center">'.$r[2].'</td>
+            <td align="center">'.$r[3].'</td>
+            <td align="center">'.$r[4].'</td>
+            <td align="right">'.$r[5].'</td>
             </tr>';
         }
 
         // Totals
         $html .= '
             <tr>
-                <td colspan="5" align="right">एकूण</td>
-                <td align="right">1913</td>
+            <td colspan="5" align="right">Total</td>
+            <td align="right">1913</td>
             </tr>
             <tr>
-                <td colspan="5" align="right">पैसे जमा</td>
-                <td align="right">0</td>
+            <td colspan="5" align="right">Amount Paid</td>
+            <td align="right">0</td>
             </tr>
             <tr>
-                <td colspan="5" align="right">येणे बाकी</td>
-                <td align="right">1914</td>
+            <td colspan="5" align="right">Balance Due</td>
+            <td align="right">1914</td>
             </tr>';
 
         $html .= '</tbody></table>';
@@ -100,7 +100,7 @@ class CustomerController extends Controller
         // Footer Note
         $pdf->Ln(5);
         $pdf->SetFont('dejavusans', '', 9);
-        $pdf->Cell(0, 6, 'कृपया बिलाचे पैसे त्वरित देण्याची व्यवस्था करावी व सही घ्यावी.', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'Please arrange to pay the bill amount immediately and get the signature.', 0, 1, 'C');
 
         // Output
         $pdf->Output('dairy_bill.pdf', 'I');
