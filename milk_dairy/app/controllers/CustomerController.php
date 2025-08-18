@@ -15,13 +15,11 @@ class CustomerController extends Controller
     public function pdf()
     {
         Auth::check(); // ✅ session check
-            $bill_id = 38;
             $customerModel = $this->model('Customer');
             
-                $customer = $customerModel->getAll();
-                $customerName = $customer['name'] ?? '';
+            $customers = $customerModel->getAll();
+            $customerName = isset($customers[0]['name']) ? $customers[0]['name'] : '';
             
-
             echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
           
         // // Start output buffering to prevent headers already sent errors
