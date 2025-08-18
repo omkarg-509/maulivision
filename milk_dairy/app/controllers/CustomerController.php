@@ -16,8 +16,18 @@ class CustomerController extends Controller
     {
         Auth::check(); // ✅ session check
 
+        // Start output buffering to prevent headers already sent errors
+        if (ob_get_level() == 0) ob_start();
+
         // Load TCPDF library
         require_once '../app/lib/tcpdf/tcpdf.php';
+
+        // Define TCPDF constants if not already defined
+        if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
+        if (!defined('PDF_FONT_NAME_MAIN')) define('PDF_FONT_NAME_MAIN', 'helvetica');
+        if (!defined('PDF_FONT_SIZE_MAIN')) define('PDF_FONT_SIZE_MAIN', 10);
+        if (!defined('PDF_FONT_NAME_DATA')) define('PDF_FONT_NAME_DATA', 'helvetica');
+        if (!defined('PDF_FONT_SIZE_DATA')) define('PDF_FONT_SIZE_DATA', 8);
 
         // Fetch customer data
         $customerModel = $this->model('Customer');
@@ -77,6 +87,8 @@ class CustomerController extends Controller
 
         // Output PDF to browser
         $pdf->Output('customer_list.pdf', 'I');
+        // End output buffering and clean up
+        if (ob_get_level() > 0) ob_end_flush();
         exit;
     }
 
