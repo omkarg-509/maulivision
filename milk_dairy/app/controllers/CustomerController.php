@@ -125,15 +125,15 @@ class CustomerController extends Controller
         // Totals
         $html .= '
             <tr>
-            <td colspan="6" align="right">Total</td>
+            <td colspan="8" align="right">Total</td>
             <td align="right">1913</td>
             </tr>
             <tr>
-            <td colspan="6" align="right">Amount Paid</td>
+            <td colspan="8" align="right">Amount Paid</td>
             <td align="right">0</td>
             </tr>
             <tr>
-            <td colspan="6" align="right">Balance Due</td>
+            <td colspan="8" align="right">Balance Due</td>
             <td align="right">1914</td>
             </tr>';
 
