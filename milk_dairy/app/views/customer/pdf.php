@@ -1,9 +1,9 @@
 <?php
-if (!file_exists(__DIR__ . '../../lib/tcpdf/tcpdf.php')) {
-    print_r(__DIR__ . '../../lib/tcpdf/tcpdf.php');
+if (!file_exists('/../../lib/tcpdf/tcpdf.php')) {
+    print_r('/../../lib/tcpdf/tcpdf.php');
     die('TCPDF library file does not exist.');
 }
-require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
+require_once '/../../lib/tcpdf/tcpdf.php';
 
 // Create new PDF document
 $pdf = new TCPDF();
