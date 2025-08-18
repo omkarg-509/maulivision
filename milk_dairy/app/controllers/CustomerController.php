@@ -61,7 +61,7 @@ class CustomerController extends Controller
 
         // Sample rows (replace with DB data later)
         $rows = [];
-        for ($i = 1; $i <= 31; $i++) {
+        for ($i = 1; $i <= 16; $i++) {
             if ($i == 1) {
             $rows[] = [$i, '', '', '2', '', ''];
             } else {
