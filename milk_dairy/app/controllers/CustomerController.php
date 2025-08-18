@@ -61,12 +61,20 @@ class CustomerController extends Controller
 
         // Sample rows (replace with DB data later)
         $rows = [];
+        // Rows 1 to 16
         for ($i = 1; $i <= 16; $i++) {
             if ($i == 1) {
             $rows[] = [$i, '', '', '2', '', ''];
             } else {
             $rows[] = [$i, '', '', '', '', ''];
             }
+        }
+        // Two blank rows
+        $rows[] = ['', '', '', '', '', ''];
+        $rows[] = ['', '', '', '', '', ''];
+        // Rows 16 to 31
+        for ($i = 16; $i <= 31; $i++) {
+            $rows[] = [$i, '', '', '', '', ''];
         }
 
         foreach ($rows as $r) {
