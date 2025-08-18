@@ -1,6 +1,6 @@
 <?php
-if(file_exists(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php')){
-require_once(__DIR__ . '../../../tc-lib-pdf/src/Tcpdf.php');
+if(file_exists(__DIR__ . 'https://milkdairy.maulivision.in/milk_dairy/tc-lib-pdf/src/Tcpdf.php')){
+require_once(__DIR__ . 'https://milkdairy.maulivision.in/milk_dairy/tc-lib-pdf/src/Tcpdf.php');
 
 // Create new PDF document
 $pdf = new TCPDF();
