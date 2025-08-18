@@ -18,12 +18,12 @@ class CustomerController extends Controller
             $customerModel = $this->model('Customer');
             $billId = $billId ?? null;
             $customers = $customerModel->getByBillId($billId);
-            if (!empty($customers) && isset($customers[0]['name'])) {
-                $customerName = $customers[0]['name'];
-                // Optionally echo for debug: echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
-            } else {
-                $customerName = 'No customers found';
-            }
+            // if (!empty($customers) && isset($customers[0]['name'])) {
+            //     $customerName = $customers[0]['name'];
+            //     // Optionally echo for debug: echo "Customer Name: " . htmlspecialchars($customerName) . "<br>";
+            // } else {
+            //     $customerName = 'No customers found';
+            // }
           
             // Start output buffering to prevent headers already sent errors
             if (ob_get_level() == 0) ob_start();
@@ -49,7 +49,7 @@ class CustomerController extends Controller
             // Customer Info
             $pdf->Ln(3);
             $pdf->SetFont('dejavusans', '', 11);
-            $pdf->Cell(95, 7,'Name: ' . $customerName, 1, 0);
+            $pdf->Cell(95, 7,'Name: ' . $customers['name'], 1, 0);
             $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
             $pdf->Cell(95, 7, 'Bill No: ' . $customers['bill_id'].'', 1, 0);
             $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
