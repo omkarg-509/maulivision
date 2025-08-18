@@ -99,7 +99,7 @@ class DailyentryController extends Controller
         // Customer Info
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
-        $customerName = $billData['name'] ?? 'Customer Name';
+        $customerName = $billData['customer_name'] ?? 'Customer Name';
         $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
