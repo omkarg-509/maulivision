@@ -21,7 +21,7 @@ class CustomerController extends Controller
 
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-           $customerModel = $this->model('Customer');
+           
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
@@ -41,9 +41,10 @@ class CustomerController extends Controller
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
         // Fetch customer name by bill id (example: using bill_id = 1200)
+        $customerModel = $this->model('Customer');
         $billId = 789;
         $customer = $customerModel->getByBillId($billId);
-        $customerName = $customer ? $customer['name'] : 'Unknown Customer';
+        $customerName = (is_array($customer) && isset($customer['name'])) ? $customer['name'] : 'Unknown Customer';
         $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
