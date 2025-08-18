@@ -1,7 +1,7 @@
 <?php 
 
    // Load TCPDF library
-        require_once __DIR__ . '/../../lib/tcpdf/tcpdf.php';
+        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
            
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
