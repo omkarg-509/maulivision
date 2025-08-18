@@ -6,15 +6,15 @@ $pdf = new TCPDF();
 $pdf->AddPage();
 
 // Title
-$pdf->SetFont('dejavusans', 'B', 16);
+$pdf->SetFont('freeserif', 'B', 16);
 $pdf->Cell(0, 10, 'राजनंदिनी डेअरी', 0, 1, 'C');
 
-$pdf->SetFont('dejavusans', '', 10);
+$pdf->SetFont('freeserif', '', 10);
 $pdf->Cell(0, 8, 'म्हसोबा चौक, गायवाडी नळ, ... संपर्क: 9822882755', 0, 1, 'C');
 
 // Customer Info
 $pdf->Ln(2);
-$pdf->SetFont('dejavusans', '', 12);
+$pdf->SetFont('freeserif', '', 12);
 $pdf->Cell(95, 7, 'श्री. विलास वांकुद्रे', 1, 0);
 $pdf->Cell(95, 7, 'गाव: 110125', 1, 1);
 $pdf->Cell(95, 7, 'बिल नं: 1200', 1, 0);
