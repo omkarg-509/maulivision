@@ -12,85 +12,102 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    public function pdf()
+   <?php
+namespace App\Controllers;
+
+use Com\Tecnick\Pdf\Tcpdf;
+
+class BillController
+{
+    public function dairyBill()
     {
-        Auth::check(); // ✅ session check
+        $pdf = new Tcpdf();
+        $pdf->SetCreator('tc-lib-pdf');
+        $pdf->SetAuthor('Rajnandini Dairy');
+        $pdf->SetTitle('Milk Dairy Bill');
 
-        // Start output buffering to prevent headers already sent errors
-        if (ob_get_level() == 0) ob_start();
-
-        // Load TCPDF library
-        require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-
-        // Define TCPDF constants if not already defined
-        if (!defined('PDF_CREATOR')) define('PDF_CREATOR', 'TCPDF');
-        if (!defined('PDF_FONT_NAME_MAIN')) define('PDF_FONT_NAME_MAIN', 'helvetica');
-        if (!defined('PDF_FONT_SIZE_MAIN')) define('PDF_FONT_SIZE_MAIN', 10);
-        if (!defined('PDF_FONT_NAME_DATA')) define('PDF_FONT_NAME_DATA', 'helvetica');
-        if (!defined('PDF_FONT_SIZE_DATA')) define('PDF_FONT_SIZE_DATA', 8);
-
-        // Fetch customer data
-        $customerModel = $this->model('Customer');
-        $customers = $customerModel->getAll();
-
-        // Create new PDF document
-        $pdf = new TCPDF();
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Milk Dairy');
-        $pdf->SetTitle('Customer List');
-        $pdf->SetHeaderData('', 0, 'Customer List', '');
-
-        // Set default header/footer fonts
-        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
-        // Set margins
-        $pdf->SetMargins(15, 27, 15);
-        $pdf->SetHeaderMargin(5);
-        $pdf->SetFooterMargin(10);
-
-        // Set auto page breaks
-        $pdf->SetAutoPageBreak(TRUE, 25);
-
-        // Set font
-        $pdf->SetFont('dejavusans', '', 10);
-
-        // Add a page
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->SetAutoPageBreak(true, 15);
         $pdf->AddPage();
 
-        // Build HTML table
-        $html = '<h2>Customer List</h2>
+        // Heading
+        $pdf->SetFont('dejavusans', 'B', 18);
+        $pdf->Cell(0, 10, 'राजनंदिनी डेअरी', 0, 1, 'C');
+        $pdf->SetFont('dejavusans', '', 9);
+        $pdf->Cell(0, 6, 'म्हसोबा चौक, गायवाडी नळ, फोन: 9822882755', 0, 1, 'C');
+
+        // Customer Info
+        $pdf->Ln(3);
+        $pdf->SetFont('dejavusans', '', 11);
+        $pdf->Cell(95, 7, 'श्री. विलास वांकुद्रे', 1, 0);
+        $pdf->Cell(95, 7, 'गाव: 110125', 1, 1);
+        $pdf->Cell(95, 7, 'बिल नं: 1200', 1, 0);
+        $pdf->Cell(95, 7, 'तारीख: 11/01/25', 1, 1);
+
+        // Table Header
+        $html = '
         <table border="1" cellpadding="4">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Bill ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Address</th>
+                <tr style="font-weight:bold; text-align:center;">
+                    <th width="30">दि.</th>
+                    <th width="50">लिटर</th>
+                    <th width="50">फॅट</th>
+                    <th width="50">SNF</th>
+                    <th width="70">दर/लिटर</th>
+                    <th width="70">रक्कम</th>
                 </tr>
             </thead>
             <tbody>';
-        foreach ($customers as $customer) {
+
+        // Sample rows (replace with DB data later)
+        $rows = [
+            ['1', '1', '8.6', '9', '66.1', '66'],
+            ['2', '1', '9.0', '9', '66.1', '66'],
+            ['3', '1', '8.8', '9', '66.1', '66'],
+        ];
+
+        foreach ($rows as $r) {
             $html .= '<tr>
-                <td>' . htmlspecialchars($customer['id']) . '</td>
-                <td>' . htmlspecialchars($customer['bill_id']) . '</td>
-                <td>' . htmlspecialchars($customer['name']) . '</td>
-                <td>' . htmlspecialchars($customer['mobile']) . '</td>
-                <td>' . htmlspecialchars($customer['address']) . '</td>
+                <td align="center">'.$r[0].'</td>
+                <td align="center">'.$r[1].'</td>
+                <td align="center">'.$r[2].'</td>
+                <td align="center">'.$r[3].'</td>
+                <td align="center">'.$r[4].'</td>
+                <td align="right">'.$r[5].'</td>
             </tr>';
         }
+
+        // Totals
+        $html .= '
+            <tr>
+                <td colspan="5" align="right">एकूण</td>
+                <td align="right">1913</td>
+            </tr>
+            <tr>
+                <td colspan="5" align="right">पैसे जमा</td>
+                <td align="right">0</td>
+            </tr>
+            <tr>
+                <td colspan="5" align="right">येणे बाकी</td>
+                <td align="right">1914</td>
+            </tr>';
+
         $html .= '</tbody></table>';
 
-        // Output the HTML content
-        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Ln(5);
+        $pdf->writeHTML($html, true, false, false, false, '');
 
-        // Output PDF to browser
-        $pdf->Output('customer_list.pdf', 'I');
-        // End output buffering and clean up
-        if (ob_get_level() > 0) ob_end_flush();
+        // Footer Note
+        $pdf->Ln(5);
+        $pdf->SetFont('dejavusans', '', 9);
+        $pdf->Cell(0, 6, 'कृपया बिलाचे पैसे त्वरित देण्याची व्यवस्था करावी व सही घ्यावी.', 0, 1, 'C');
+
+        // Output
+        $pdf->Output('dairy_bill.pdf', 'I');
         exit;
     }
+}
+
 
     public function create()
     {
