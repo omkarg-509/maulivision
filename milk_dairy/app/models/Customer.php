@@ -25,8 +25,8 @@ class Customer extends Database
 
     public function getByBillId($bill_id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM customers WHERE bill_id= ?");
-        $stmt->bind_param("s", $bill_id);
+        $stmt = $this->db->prepare("SELECT * FROM customers WHERE id = ?");
+        $stmt->bind_param("i", $bill_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $customers = [];
