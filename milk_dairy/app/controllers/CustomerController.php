@@ -12,7 +12,7 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    public function pdf($billId)
+    public function pdf($billId , $Date)
     {
             // Auth::check(); // ✅ session check
             $customerModel = $this->model('Customer');
@@ -52,7 +52,7 @@ class CustomerController extends Controller
             $pdf->Cell(95, 7,'Name: ' . $customers[0]['name'], 1, 0);
             $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
             $pdf->Cell(95, 7, 'Bill No: ' . $customers[0]['bill_id'], 1, 0);
-            $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
+            $pdf->Cell(95, 7, 'Date: '. $Date .'', 1, 1);
 
         // Table Header with responsive CSS for mobile
         $html = '
