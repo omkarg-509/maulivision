@@ -12,11 +12,11 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    public function pdf()
+    public function pdf($billId)
     {
             // Auth::check(); // ✅ session check
             $customerModel = $this->model('Customer');
-            $billId = 38;
+            $billId = $_GET['bill_id'] ?? null;
             $customers = $customerModel->getByBillId($billId);
             if (!empty($customers) && isset($customers[0]['name'])) {
                 $customerName = $customers[0]['name'];
