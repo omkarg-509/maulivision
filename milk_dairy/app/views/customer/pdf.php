@@ -9,6 +9,9 @@ if (!defined('PDF_FONT_NAME_DATA')) define('PDF_FONT_NAME_DATA', 'helvetica');
 if (!defined('PDF_FONT_SIZE_DATA')) define('PDF_FONT_SIZE_DATA', 8);
 
 // Fetch customer data
+if (!isset($customers) || !is_array($customers)) {
+    $customers = [];
+}
 
 
 // Create new PDF document
