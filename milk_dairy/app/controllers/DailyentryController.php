@@ -209,6 +209,8 @@ class DailyentryController extends Controller
         $pdf->Output('dairy_bill.pdf', 'I');
         exit;
     }
+
+    
 public function delete($id)
 {
     Auth::check();
