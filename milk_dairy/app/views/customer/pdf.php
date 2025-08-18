@@ -1,5 +1,5 @@
 <?php
-if (!file_exists(__DIR__ . '/../lib/tcpdf/tcpdf.php')) {
+if (!file_exists(__DIR__ . '../../../lib/tcpdf/tcpdf.php')) {
     die('TCPDF library file does not exist.');
 }
 require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
