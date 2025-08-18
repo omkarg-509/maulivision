@@ -22,7 +22,7 @@ class CustomerController extends Controller
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
            $customerModel = $this->model('Customer');
-        $customers = $customerModel->getBillID();
+        $customers = $customerModel->getByBillId();
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
