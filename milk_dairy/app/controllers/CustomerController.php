@@ -43,8 +43,12 @@ class CustomerController extends Controller
         // Fetch customer name by bill id (example: using bill_id = 1200)
         $customerModel = $this->model('Customer');
         $billId = 789;
-        $customer = $customerModel->getByBillId($billId);
-        $customerName = (is_array($customer) && isset($customer['name'])) ? $customer['name'] : 'Unknown Customer';
+        if (method_exists($customerModel, 'getByBillId')) {
+            $customer = $customerModel->getByBillId($billId);
+            $customerName = (is_array($customer) && isset($customer['name'])) ? $customer['name'] : 'Unknown Customer';
+        } else {
+            $customerName = 'Unknown Customer';
+        }
         $pdf->Cell(95, 7, $customerName, 1, 0);
         $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);

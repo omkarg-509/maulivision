@@ -29,7 +29,13 @@ class Customer extends Database
         $stmt->bind_param("s", $bill_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $customers = [];
+        if ($result) {
+            while ($row = $result->fetch_assoc()) {
+                $customers[] = $row;
+            }
+        }
+        return $customers;
     }
     public function getAll()
     {
