@@ -93,7 +93,7 @@ public function searchByTerm($term)
 
 public function getById($id)
 {
-    $stmt = $this->db->prepare("SELECT * FROM customers WHERE id = ?");
+    $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = '0' AND id = ? ");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
