@@ -101,7 +101,7 @@ class CustomerController extends Controller
             // Group entries by day (date)
             $grouped = [];
             foreach ($milk_entries as $entry) {
-                $day = date('j', strtotime($entry['date'])); // Day of month (1-31)
+                $day = date('j', strtotime($entry['created_at'])); // Day of month (1-31)
                 if (!isset($grouped[$day])) {
                     $grouped[$day] = [];
                 }
