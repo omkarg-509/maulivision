@@ -62,56 +62,16 @@ class DailyentryController extends Controller
         exit;
     }
 
-    public function pdf($bill_id)
+     public function pdf()
     {
-        Auth::check();
+        Auth::check(); // ✅ session check
 
         // Start output buffering to prevent headers already sent errors
         if (ob_get_level() == 0) ob_start();
 
         // Load TCPDF library
         require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
-
-        // // Fetch bill and customer info
-        // $billModel = $this->model('Bill');
-        // $bill = $billModel->getById($bill_id);
-
-        // if (!$bill) {
-        //     echo "Bill not found.";
-        //     exit;
-        // }
-
-        // $customerModel = $this->model('Customer');
-        // $customer = $customerModel->getById($bill['customer_id']);
-
-        // Fetch daily entries for this bill/customer/month
-        $dailyEntryModel = $this->model('DailyEntry');
-        $entries = $dailyEntryModel->getByBillId($bill_id);
-
-        // Prepare data: group by date, type
-        $days = [];
-        foreach ($entries as $entry) {
-            $day = date('j', strtotime($entry['date']));
-            if (!isset($days[$day])) {
-                $days[$day] = ['cow' => '', 'buffalo' => ''];
-            }
-            if (strtolower($entry['milktype']) == 'cow') {
-                $days[$day]['cow'] = $entry['milkliter'];
-            } elseif (strtolower($entry['milktype']) == 'buffalo') {
-                $days[$day]['buffalo'] = $entry['milkliter'];
-            }
-        }
-
-        // Prepare rows for 1-31
-        $rows = [];
-        for ($i = 1; $i <= 31; $i++) {
-            $left = isset($days[$i]) ? [$i, $days[$i]['cow'], $days[$i]['buffalo']] : [$i, '', ''];
-            $j = $i + 16;
-            $right = ($j <= 31 && isset($days[$j])) ? [$j, $days[$j]['cow'], $days[$j]['buffalo']] : [($j <= 31 ? $j : ''), '', ''];
-            $rows[] = array_merge($left, $right);
-            if ($j >= 31) break;
-        }
-
+        
         $pdf = new Tcpdf();
         $pdf->SetCreator('tc-lib-pdf');
         $pdf->SetAuthor('Rajnandini Dairy');
@@ -130,14 +90,22 @@ class DailyentryController extends Controller
         // Customer Info
         $pdf->Ln(3);
         $pdf->SetFont('dejavusans', '', 11);
-        $pdf->Cell(95, 7, $customer ? $customer['name'] : 'Customer', 1, 0);
-        $pdf->Cell(95, 7, 'Village: ' . 'village', 1, 1);
-        $pdf->Cell(95, 7, 'Bill No: ' . 'id', 1, 0);
-        $pdf->Cell(95, 7, 'Date: ' . 'date', 1, 1);
+        $pdf->Cell(95, 7, 'Mr. Vilas Vankudre', 1, 0);
+        $pdf->Cell(95, 7, 'Village: 110125', 1, 1);
+        $pdf->Cell(95, 7, 'Bill No: 1200', 1, 0);
+        $pdf->Cell(95, 7, 'Date: 11/01/25', 1, 1);
 
-        // Table Header
+        // Table Header with responsive CSS for mobile
         $html = '
         <style>
+        @media only screen and (max-width: 600px) {
+            table.responsive {
+            font-size: 10px !important;
+            }
+            table.responsive th, table.responsive td {
+            padding: 2px !important;
+            }
+        }
         table.responsive {
             width: 100%;
             border-collapse: collapse;
@@ -161,6 +129,26 @@ class DailyentryController extends Controller
             </thead>
             <tbody>';
 
+        // Sample rows (replace with DB data later)
+        $rows = [
+            ['1', '', '', '17', '', ''],
+            ['2', '', '', '18', '', ''],
+            ['3', '', '', '19', '', ''],
+            ['4', '', '', '20', '', ''],
+            ['5', '', '', '21', '', ''],
+            ['6', '', '', '22', '', ''],
+            ['7', '', '', '23', '', ''],
+            ['8', '', '', '24', '', ''],
+            ['9', '', '', '25', '', ''],
+            ['10','', '', '26', '', ''],
+            ['11','', '', '27', '', ''],
+            ['12','', '', '28', '', ''],
+            ['13','', '', '29', '', ''],
+            ['14','', '', '30', '', ''],
+            ['15','', '', '31', '', ''],
+
+        ];
+
         foreach ($rows as $r) {
             $html .= '<tr>
             <td align="center">'.$r[0].'</td>
@@ -168,31 +156,23 @@ class DailyentryController extends Controller
             <td align="center">'.$r[2].'</td>
             <td align="center">'.$r[3].'</td>
             <td align="center">'.$r[4].'</td>
-            <td align="center">'.$r[5].'</td>
+            <td align="right">'.$r[5].'</td>
             </tr>';
         }
 
-        // Calculate totals
-        $total = 0;
-        foreach ($days as $d) {
-            $total += floatval($d['cow']) + floatval($d['buffalo']);
-        }
-
-        $amount_paid =  80 ?? 0;
-        $balance_due = $total - $amount_paid;
-
+        // Totals
         $html .= '
             <tr>
             <td colspan="5" align="right">Total</td>
-            <td align="right">'.number_format($total, 2).'</td>
+            <td align="right">1913</td>
             </tr>
             <tr>
             <td colspan="5" align="right">Amount Paid</td>
-            <td align="right">'.number_format($amount_paid, 2).'</td>
+            <td align="right">0</td>
             </tr>
             <tr>
             <td colspan="5" align="right">Balance Due</td>
-            <td align="right">'.number_format($balance_due, 2).'</td>
+            <td align="right">1914</td>
             </tr>';
 
         $html .= '</tbody></table>';
@@ -209,8 +189,6 @@ class DailyentryController extends Controller
         $pdf->Output('dairy_bill.pdf', 'I');
         exit;
     }
-
-    
 public function delete($id)
 {
     Auth::check();
