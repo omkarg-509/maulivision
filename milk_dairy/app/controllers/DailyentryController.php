@@ -133,7 +133,7 @@ class DailyentryController extends Controller
         $pdf->Cell(95, 7, $customer ? $customer['name'] : 'Customer', 1, 0);
         $pdf->Cell(95, 7, 'Village: ' . 'village', 1, 1);
         $pdf->Cell(95, 7, 'Bill No: ' . 'id', 1, 0);
-        $pdf->Cell(95, 7, 'Date: ' . date('d/m/y', 'date')), 1, 1);
+        $pdf->Cell(95, 7, 'Date: ' . 'date', 1, 1);
 
         // Table Header
         $html = '
