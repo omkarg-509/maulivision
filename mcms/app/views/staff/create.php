@@ -17,7 +17,7 @@
                   <div class="card-header col-12">
                     <h4>MILK DAILY ENTRY</h4>
                   </div>
-                  <div id="massages"></div>
+                  <div id="messages"></div>
                 <form method="POST" id="customerForm">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
@@ -78,11 +78,9 @@
               </div>
             </div>
 
-        </section>       
+          </section>       
+      </div>
     </div>
-    
-     
-
   </div>
  
 
