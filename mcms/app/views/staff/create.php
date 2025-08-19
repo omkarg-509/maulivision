@@ -48,7 +48,7 @@
                  
                     <div class="form-group row">
                       <div class="col-sm-9 offset-sm-3 text-center">
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        <button type="button" class="btn btn-primary px-4 button">Submit</button>
                       </div>
                     </div>
                   </div>
@@ -154,7 +154,7 @@
               });
 
               // Update form submit to reload table via AJAX
-              $('#customerForm').off('submit').on('submit', function(e) {
+              $('#customerForm').on('click', '.button', function(e) {
                 e.preventDefault();
                 var form = $(this);
                 var formData = form.serialize();
