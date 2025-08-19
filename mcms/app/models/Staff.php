@@ -6,7 +6,7 @@ class Staff extends Database{
     public function insert($data)
     {
         $stmt = $this->db->prepare("INSERT INTO staff (vid,name,number,address,status) VALUES (?,?,?,?,?)");
-        $stmt->bind_param("isssi", $data['vid'], $data['name'], $data['number'], $data['address'], $data['status']);
+        $stmt->bind_param("sssss", $data['vid'], $data['name'], $data['number'], $data['address'], $data['status']);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
