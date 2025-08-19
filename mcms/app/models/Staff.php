@@ -18,16 +18,21 @@ class Staff extends Database{
             throw new Exception("Prepare failed: " . $this->db->error);
         }
 
-        $stmt->bind_param(
+        if (!$stmt->bind_param(
             "sssss",
             $data['vid'],
             $data['name'],
             $data['number'],
             $data['address'],
             $data['status']
-        );
+        )) {
+            $stmt->close();
+            throw new Exception("Bind param failed: " . $stmt->error);
+        }
+
         $success = $stmt->execute();
         if (!$success) {
+            $stmt->close();
             throw new Exception("Execute failed: " . $stmt->error);
         }
         $stmt->close();
