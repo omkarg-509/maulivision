@@ -204,7 +204,7 @@
                       toastr.success(response.message || 'Staff added successfully.');
                       loadEntriesTable();
                       form[0].reset();
-                      $('#cid').val('');
+                      $('#vid').val('');
                     } else {
                       toastr.error(response.message || 'Failed to add staff.');
                     }
