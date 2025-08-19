@@ -5,12 +5,12 @@ class Staff extends Database{
     
     public function insert($data)
     {
-        // Ensure the staff table exists
-        $this->createStaffTableIfNotExists();
+        // // Ensure the staff table exists
+        // $this->createStaffTableIfNotExists();
 
-        if (!$this->db) {
-            throw new Exception("Database connection not established.");
-        }
+        // if (!$this->db) {
+        //     throw new Exception("Database connection not established.");
+        // }
 
         $stmt = $this->db->prepare("INSERT INTO staff (vid, name, number, address, status) VALUES (?, ?, ?, ?, ?)");
         if (!$stmt) {
@@ -33,19 +33,19 @@ class Staff extends Database{
         return $success;
     }
 
-    private function createStaffTableIfNotExists()
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS staff (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            vid VARCHAR(100) NOT NULL,
-            name VARCHAR(255) NOT NULL,
-            number VARCHAR(50) NOT NULL,
-            address VARCHAR(255) NOT NULL,
-            status VARCHAR(50) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-        $this->db->query($sql);
-    }
+    // private function createStaffTableIfNotExists()
+    // {
+    //     $sql = "CREATE TABLE IF NOT EXISTS staff (
+    //         id INT AUTO_INCREMENT PRIMARY KEY,
+    //         vid VARCHAR(100) NOT NULL,
+    //         name VARCHAR(255) NOT NULL,
+    //         number VARCHAR(50) NOT NULL,
+    //         address VARCHAR(255) NOT NULL,
+    //         status VARCHAR(50) NOT NULL,
+    //         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    //     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+    //     $this->db->query($sql);
+    // }
     public function getAll()
     {
         $result = $this->db->query("SELECT * FROM staff");
