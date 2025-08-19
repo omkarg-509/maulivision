@@ -68,12 +68,19 @@ class StaffController extends Controller
         exit;
     }
 
-     public function delete($id)
-    {
-        $staffModel = $this->model('Staff');
-        $staffModel->delete($id);
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        exit;
+   public function delete($id)
+{
+    Auth::check();
+    $staffModel = $this->model('Staff');
+    $result = $staffModel->delete($id);
+
+    header('Content-Type: application/json');
+    if ($result) {
+        echo json_encode(['success' => true, 'message' => 'Entry deleted successfully.']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to delete entry.']);
     }
+    exit;
+}
 
 }
