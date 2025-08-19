@@ -24,7 +24,21 @@
                       <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Staff Name</label>
                          <div class="col-sm-9">
-                      <input type="text" class="form-control" name="staff_name" required>
+                      <input type="text" class="form-control" name="name" required>
+                    </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Staff Number</label>
+                         <div class="col-sm-9">
+                      <input type="text" class="form-control" name="number" required>
+                    </div>
+                    </div>
+
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Staff Address</label>
+                         <div class="col-sm-9">
+                      <input type="text" class="form-control" name="address" required>
                     </div>
                     </div>
                  
@@ -49,9 +63,9 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">ग्राहक</th>
-                        <th scope="col">प्रकार</th>
-                        <th scope="col">लिटर</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Address</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -113,52 +127,10 @@
 // });
 </script>
 
-            <script> $(document).ready(function () {
-    // customer search
-    $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val();
-
-      if (keyword.length >= 2) {
-        $.ajax({
-          url: "/public/customer/searchCustomer",
-          method: "GET",
-          data: { term: keyword },
-          dataType: "json",
-          success: function (data) {
-            let suggestions = $("#suggestions");
-            suggestions.html("");
-
-            data.forEach(function (customer) {
-              let div = $("<div>")
-                .addClass("list-group-item list-group-item-action")
-                .html("[" + +customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")")
-                .on("click", function () {
-                  $("#bid").val(customer.bill_id);
-                  $("#customer_search").val(customer.name);
-                  $("#cid").val(customer.id);
-                  suggestions.html("");
-                });
-
-              suggestions.append(div);
-            });
-          },
-        });
-      } else {
-        $("#suggestions").html("");
-      }
-    });
-
-    // form submit validation
-    $("form").on("submit", function (e) {
-      if (!$("#cid").val()) {
-        alert("Please select a customer from the suggestions.");
-        e.preventDefault();
-      }
-    });
-  });
+            <script>
             function loadEntriesTable() {
               $.ajax({
-                url: '/public/dailyentry/list',
+                url: '/public/staff/list',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
@@ -168,9 +140,9 @@
                       $('#entries-table-body').append(
                         `<tr>
                            <td>${idx + 1}</td>
-                             <td>${entry.customer_name}</td>
-                             <td>${entry.milktype === 'buffalo' ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : entry.milktype)}</td>
-                           <td>${entry.milkliter}</td>
+                             <td>${entry.name}</td>
+                             <td>${entry.number}</td>
+                           <td>${entry.address}</td>
                              <td>
                              <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
                              </td>
@@ -196,7 +168,7 @@
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {
               $.ajax({
-                url: '/public/dailyentry/delete/' + entryId,
+                url: '/public/staff/delete/' + entryId,
                 type: 'POST',
                 dataType: 'json',
                 success: function(response) {
@@ -222,19 +194,19 @@
                 var formData = form.serialize();
 
                 $.ajax({
-                  url: '/public/dailyentry/store',
+                  url: '/public/staff/store',
                   type: 'POST',
                   data: formData,
                   dataType: 'json',
                   success: function(response) {
                     $('.loader').hide();
                     if (response.success) {
-                      toastr.success(response.message || 'Entry added successfully.');
+                      toastr.success(response.message || 'Staff added successfully.');
                       loadEntriesTable();
                       form[0].reset();
                       $('#cid').val('');
                     } else {
-                      toastr.error(response.message || 'Failed to add entry.');
+                      toastr.error(response.message || 'Failed to add staff.');
                     }
                   },
                   error: function(xhr) {

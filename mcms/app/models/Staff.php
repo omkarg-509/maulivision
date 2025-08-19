@@ -27,6 +27,20 @@ class Staff extends Database{
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
         $this->db->query($sql);
     }
+    public function getAll()
+    {
+        $result = $this->db->query("SELECT * FROM staff");
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+      public function delete($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM staff WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
 }
 
 
