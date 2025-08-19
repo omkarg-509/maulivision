@@ -157,6 +157,7 @@
                 var form = $(this);
                 var formData = form.serialize();
 
+                $('.loader').show();
                 $.ajax({
                   url: '/public/staff/store',
                   type: 'POST',
@@ -168,14 +169,13 @@
                       toastr.success(response.message || 'Staff added successfully.');
                       loadEntriesTable();
                       form[0].reset();
-                     
                     } else {
                       toastr.error(response.message || 'Failed to add staff.');
                     }
                   },
                   error: function(xhr) {
                     $('.loader').hide();
-                    alert('An error occurred. Please try again.');
+                    toastr.error('An error occurred. Please try again.');
                   }
                 });
               });
