@@ -22,7 +22,7 @@ class StaffController extends Controller
                 'name' => $_POST['name'] ?? '',
                 'number' => $_POST['number'] ?? '',
                 'address' => $_POST['address'] ?? '',
-                'status' => 1,
+                'status' => $_POST['status'] ?? '',
             ];
 
             // Debug: Check if all required fields are present
