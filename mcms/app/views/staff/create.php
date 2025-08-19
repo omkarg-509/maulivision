@@ -112,7 +112,7 @@ error_reporting(E_ALL);
                              <td>${entry.number}</td>
                            <td>${entry.address}</td>
                              <td>
-                             <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                             <button class="btn btn-danger btn-sm delete-staff" data-id="${entry.id}">Delete</button>
                              </td>
                          </tr>`
                       );
@@ -133,9 +133,9 @@ error_reporting(E_ALL);
              });
 
               // Handle delete button click with AJAX
-              $(document).on('click', '.delete-entry', function() {
-                var entryId = $(this).data('id');
-                if (confirm('Are you sure you want to delete this entry?')) {
+              $(document).on('click', '.delete-staff', function() {
+                var staffId = $(this).data('id');
+                if (confirm('Are you sure you want to delete this staff member?')) {
                   $.ajax({
                     url: '/public/staff/delete/' + entryId,
                     type: 'POST',
