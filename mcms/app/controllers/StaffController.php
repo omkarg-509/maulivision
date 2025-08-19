@@ -26,7 +26,7 @@ class StaffController extends Controller
             ];
 
             // Debug: Check if all required fields are present
-            
+
             if (empty($data['name']) || empty($data['number']) || empty($data['address']) || empty($data['status'])) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
@@ -60,7 +60,7 @@ class StaffController extends Controller
       public function list()
     {
         Auth::check();
-        $staffModel = $this->model('staff');
+        $staffModel = $this->model('Staff');
         $staffMembers = $staffModel->getAll();
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $staffMembers]);
