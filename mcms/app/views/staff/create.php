@@ -137,7 +137,7 @@ error_reporting(E_ALL);
                 var staffId = $(this).data('id');
                 if (confirm('Are you sure you want to delete this staff member?')) {
                   $.ajax({
-                    url: '/public/staff/delete/' + entryId,
+                    url: '/public/staff/delete/' + staffId,
                     type: 'POST',
                     dataType: 'json',
                     success: function(response) {
