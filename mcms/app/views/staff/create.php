@@ -89,43 +89,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-// $(document).ready(function() {
 
-//   $('#customerForm').on('submit', function(e) {
-//     e.preventDefault();
-//     var form = $(this);
-//     var formData = form.serialize();
-
-//     $.ajax({
-//       url: '/public/dailyentry/store', // Adjust to your actual endpoint
-//       type: 'POST',
-//       data: formData,
-//       dataType: 'json',
-//       // beforeSend: function() {
-//       //   $('.loader').show();
-//       // },
-//       success: function(response) {
-//         $('.loader').hide();
-//         if (response.success) {
-          
-//     toastr.success(response.message || 'Entry added successfully.');
-//           setTimeout(function() {
-//             location.reload();
-//           }, 1200);
-     
-//         } else {
-//             toastr.error(response.message || 'Failed to add entry.');
-//         }
-//       },
-//       error: function(xhr) {
-//         $('.loader').hide();
-//         alert('An error occurred. Please try again.');
-//       }
-//     });
-//   });
-// });
-</script>
 
             <script>
             function loadEntriesTable() {
@@ -204,7 +168,7 @@
                       toastr.success(response.message || 'Staff added successfully.');
                       loadEntriesTable();
                       form[0].reset();
-                      $('#vid').val('');
+                     
                     } else {
                       toastr.error(response.message || 'Failed to add staff.');
                     }

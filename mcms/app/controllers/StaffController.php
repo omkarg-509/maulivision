@@ -26,7 +26,8 @@ class StaffController extends Controller
             ];
 
             // Debug: Check if all required fields are present
-            if (empty($data['name']) || empty($data['number']) || empty($data['address'])) {
+            
+            if (empty($data['name']) || empty($data['number']) || empty($data['address']) || empty($data['status'])) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
                 exit;
