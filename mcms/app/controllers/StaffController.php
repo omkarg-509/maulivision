@@ -68,4 +68,12 @@ class StaffController extends Controller
         exit;
     }
 
+     public function delete($id)
+    {
+        $staffModel = $this->model('Staff');
+        $staffModel->delete($id);
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
 }
