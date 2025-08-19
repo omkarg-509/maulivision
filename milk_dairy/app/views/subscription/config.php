@@ -6,7 +6,7 @@ $razorpay_config = array(
     // 'api_secret' => 'zSqRMpIa2ljBBpkieFYGmfLa',
 
     'api_key' => 'rzp_live_R78Z3uT9I5EQ0k',
-    'api_secret' => 'lC21KSWINU0zdgrphmfMsH'
+    'api_secret' => 'lC21KSWINU0zdgrphmfMsH3m'
 );
 
 // Other configurations, if needed

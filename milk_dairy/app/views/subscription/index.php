@@ -29,8 +29,8 @@ require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
 
 // Initialize Razorpay with your key and secret
-$api_key = 'rzp_test_R6Ull7QpWzBK6X';
-$api_secret = 'oVKvMtV2cAxiNrlYxpe7uf0i';
+$api_key = 'rzp_live_R78Z3uT9I5EQ0k';
+$api_secret = 'lC21KSWINU0zdgrphmfMsH3m';
 
 
 
