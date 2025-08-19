@@ -12,12 +12,19 @@ class Staff extends Database{
             throw new Exception("Database connection not established.");
         }
 
-        $stmt = $this->db->prepare("INSERT INTO staff (name, number, address, status) VALUES (?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO staff (vid, name, number, address, status) VALUES (?, ?, ?, ?, ?)");
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $this->db->error);
         }
 
-        $stmt->bind_param("ssss", $data['name'], $data['number'], $data['address'], $data['status']);
+        $stmt->bind_param(
+            "sssss",
+            $data['vid'],
+            $data['name'],
+            $data['number'],
+            $data['address'],
+            $data['status']
+        );
         $success = $stmt->execute();
         if (!$success) {
             throw new Exception("Execute failed: " . $stmt->error);
