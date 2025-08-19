@@ -5,36 +5,9 @@ class Staff extends Database{
     
     public function insert($data)
     {
-        // Ensure all required keys exist in $data
-        $required = ['vid', 'name', 'number', 'address', 'status'];
-        foreach ($required as $key) {
-            if (!isset($data[$key])) {
-                throw new Exception("Missing required field: " . $key);
-            }
-        }
-
-        $stmt = $this->db->prepare("INSERT INTO staff (vid, name, number, address, status) VALUES (?, ?, ?, ?, ?)");
-        if (!$stmt) {
-            throw new Exception("Prepare failed: " . $this->db->error);
-        }
-
-        if (!$stmt->bind_param(
-            "sssss",
-            $data['vid'],
-            $data['name'],
-            $data['number'],
-            $data['address'],
-            $data['status']
-        )) {
-            $stmt->close();
-            throw new Exception("Bind param failed: " . $stmt->error);
-        }
-
+        $stmt = $this->db->prepare("INSERT INTO staff (vid,name,number,address,status) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("isssi", $data['vid'], $data['name'], $data['number'], $data['address'], $data['status']);
         $success = $stmt->execute();
-        if (!$success) {
-            $stmt->close();
-            throw new Exception("Execute failed: " . $stmt->error);
-        }
         $stmt->close();
         return $success;
     }
