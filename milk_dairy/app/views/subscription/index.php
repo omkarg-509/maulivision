@@ -37,7 +37,7 @@ $api_secret = 'oVKvMtV2cAxiNrlYxpe7uf0i';
 $api = new Api($api_key, $api_secret);
 // Create an order
 $order = $api->order->create([
-    'amount' => 9900, // amount in paise (100 paise = 1 rupee)
+    'amount' => 100, // amount in paise (100 paise = 1 rupee)
     'currency' => 'INR',
     'receipt' => 'order_receipt_12asa3'
 ]);
