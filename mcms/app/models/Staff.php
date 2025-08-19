@@ -5,6 +5,20 @@ class Staff extends Database{
     
     public function insert($data)
     {
+        // Check if there is already a staff with the same vid
+        $stmt = $this->db->prepare("SELECT COUNT(*) as cnt FROM staff WHERE vid = ?");
+        $stmt->bind_param("s", $data['vid']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($row['cnt'] > 0) {
+            // Limit reached, do not insert
+            return false;
+        }
+
+        // Insert new staff
         $stmt = $this->db->prepare("INSERT INTO staff (vid,name,number,address,status) VALUES (?,?,?,?,?)");
         $stmt->bind_param("sssss", $data['vid'], $data['name'], $data['number'], $data['address'], $data['status']);
         $success = $stmt->execute();
