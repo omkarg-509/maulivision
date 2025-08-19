@@ -166,7 +166,7 @@
                   data: formData,
                   dataType: 'json',
                   success: function(response) {
-                    $('.loader').hide();
+                   
                     if (response.success) {
                       toastr.success(response.message || 'Staff added successfully.');
                       loadEntriesTable();
@@ -176,7 +176,7 @@
                     }
                   },
                   error: function(xhr) {
-                    $('.loader').hide();
+               
                     toastr.error('An error occurred. Please try again.');
                   }
                 });
