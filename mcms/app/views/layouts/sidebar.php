@@ -41,13 +41,13 @@
               </ul>
             </li>
 
-            <li class="dropdown">
+            <!-- <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i><span>Staff</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=BASE_URL?>staff/create">Create Staff</a></li>
-                <li><a class="nav-link" href="<?=BASE_URL?>staff/index">Staff Details</a></li>
+                <li><a class="nav-link" href="<?//=BASE_URL?>staff/create">Create Staff</a></li>
+                <li><a class="nav-link" href="<?//=BASE_URL?>staff/index">Staff Details</a></li>
               </ul>
-            </li>
+            </li> -->
           
           <li class="">
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
