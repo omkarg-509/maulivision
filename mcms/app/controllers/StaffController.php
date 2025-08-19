@@ -57,7 +57,7 @@ class StaffController extends Controller
         }
     }
 
-      public function list()
+      public function listStaff()
     {
         Auth::check();
         $staffModel = $this->model('Staff');
