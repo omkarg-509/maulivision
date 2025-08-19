@@ -60,7 +60,7 @@
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header">
-                  <h4>Customers Details</h4>
+                  <h4>Staff Details</h4>
                 </div>
                 <div class="card-body" id="entries-table-container">
                   <table class="table table-sm">
