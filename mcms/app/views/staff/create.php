@@ -39,6 +39,7 @@
                       <label class="col-sm-3 col-form-label text-center">Staff Address</label>
                          <div class="col-sm-9">
                       <input type="text" class="form-control" name="address" required>
+                      <input type="hidden" class="form-control" name="status" value="1">
                     </div>
                     </div>
                  
