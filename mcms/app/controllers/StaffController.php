@@ -19,6 +19,7 @@ class StaffController extends Controller
         Auth::check();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
+                'vid' => $_POST['vid'] ?? '',
                 'name' => $_POST['name'] ?? '',
                 'number' => $_POST['number'] ?? '',
                 'address' => $_POST['address'] ?? '',
@@ -27,7 +28,7 @@ class StaffController extends Controller
 
             // Debug: Check if all required fields are present
 
-            if (empty($data['name']) || empty($data['number']) || empty($data['address']) || empty($data['status'])) {
+            if (empty($data['vid']) || empty($data['name']) || empty($data['number']) || empty($data['address']) || empty($data['status'])) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
                 exit;
