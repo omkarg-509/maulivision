@@ -8,9 +8,20 @@ class Staff extends Database{
         // Ensure the staff table exists
         $this->createStaffTableIfNotExists();
 
+        if (!$this->db) {
+            throw new Exception("Database connection not established.");
+        }
+
         $stmt = $this->db->prepare("INSERT INTO staff (name, number, address, status) VALUES (?, ?, ?, ?)");
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $this->db->error);
+        }
+
         $stmt->bind_param("ssss", $data['name'], $data['number'], $data['address'], $data['status']);
         $success = $stmt->execute();
+        if (!$success) {
+            throw new Exception("Execute failed: " . $stmt->error);
+        }
         $stmt->close();
         return $success;
     }
@@ -19,6 +30,7 @@ class Staff extends Database{
     {
         $sql = "CREATE TABLE IF NOT EXISTS staff (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            vid VARCHAR(100) NOT NULL,
             name VARCHAR(255) NOT NULL,
             number VARCHAR(50) NOT NULL,
             address VARCHAR(255) NOT NULL,
