@@ -20,67 +20,14 @@
                   <div id="massages"></div>
                 <form method="POST" id="customerForm">
                   <div class="card-body">
-                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
-                    <div class="form-group row mb-3 justify-content-center">
-                      <label class="col-sm-3 col-form-label text-center">Date & Time</label>
-                      <div class="col-sm-9 position-relative d-flex justify-content-center">
-                        <input type="text" class="form-control w-75 text-center" id="indian_datetime" name="entry_datetime" disabled>
-                      </div>
-                    </div>
-
-                      <script>
-                        function updateIndianDateTime() {
-                          const now = new Date();
-                          const options = {
-                            year: 'numeric', month: '2-digit', day: '2-digit',
-                            hour: '2-digit', minute: '2-digit', second: '2-digit',
-                            hour12: true,
-                            timeZone: 'Asia/Kolkata'
-                          };
-                          const formatter = new Intl.DateTimeFormat('en-IN', options);
-                          document.getElementById('indian_datetime').value = formatter.format(now).replace(',', '');
-                        }
-                        updateIndianDateTime();
-                        setInterval(updateIndianDateTime, 1000);
-                      </script>
+                    <input type="text" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
                       <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Customer Name</label>
-                      <div class="col-sm-9 position-relative">
-                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
-                        <input type="hidden" name="cid" id="cid">
-                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
-                      </div>
+                      <label class="col-sm-3 col-form-label text-center">Staff Name</label>
+                         <div class="col-sm-9">
+                      <input type="text" class="form-control" name="staff_name" required>
                     </div>
-                    <script>
-                   
-                    </script>
-                    <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Milk Type</label>
-                      <div class="col-sm-9">
-                        <select class="form-control" name="milktype" required>
-                          <option value="">Select Milk Type</option>
-                            <option value="buffalo">म्हैस</option>
-                            <option value="cow">गाय</option>
-                        </select>
-                      </div>
                     </div>
-                    <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
-                      <div class="col-sm-9">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="1.0">
-                          <label class="form-check-label" for="liter1">1.0 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter15" value="1.5">
-                          <label class="form-check-label" for="liter15">1.5 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter2" value="2.0">
-                          <label class="form-check-label" for="liter2">2.0 Liter</label>
-                        </div>
-                      </div>
-                    </div>
+                 
                     <div class="form-group row">
                       <div class="col-sm-9 offset-sm-3 text-center">
                         <button type="submit" class="btn btn-primary px-4">Submit</button>
