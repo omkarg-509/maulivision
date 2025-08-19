@@ -130,7 +130,7 @@ error_reporting(E_ALL);
             // Auto-load entries table on page load, handle delete and form submit in a single ready block
             $(document).ready(function() {
               loadEntriesTable();
-             });
+            
 
               // Handle delete button click with AJAX
               $(document).on('click', '.delete-staff', function() {
@@ -183,5 +183,5 @@ error_reporting(E_ALL);
                   }
                 });
               });
-         
+          });
             </script>
