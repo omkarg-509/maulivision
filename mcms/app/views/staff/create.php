@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 ?>
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
@@ -20,7 +18,7 @@ error_reporting(E_ALL);
              
                 <div class="card">
                   <div class="card-header col-12">
-                    <h4>MILK DAILY ENTRY</h4>
+                    <h4>New Staff </h4>
                   </div>
                   <div id="messages"></div>
                 <form method="POST" id="customerForm">
