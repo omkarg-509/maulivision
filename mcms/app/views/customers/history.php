@@ -47,6 +47,7 @@
 
                         $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
                         $hasEntries = false;
+                        $totalAmount = 0;
 
                         if (!empty($data['customers'])):
                           foreach ($data['customers'] as $index => $cust):
@@ -54,6 +55,7 @@
                             $entryDate = isset($cust['created_at']) ? date('Y-m-d', strtotime($cust['created_at'])) : '';
                             if ($entryDate === $selectedDate):
                               $hasEntries = true;
+                              $totalAmount += floatval($cust['amount']);
                         ?>
                               <tr>
                                 <td><?= $index + 1 ?></td>
@@ -74,18 +76,26 @@
                         <?php
                             endif;
                           endforeach;
-                          if (!$hasEntries):
+                          if ($hasEntries):
                         ?>
-                            <tr>
-                              <td colspan="8" class="text-center">No customers found for selected date.</td>
-                            </tr>
+                              <tr>
+                                <td colspan="4" class="text-right font-weight-bold">Total Amount</td>
+                                <td class="font-weight-bold"><?= htmlspecialchars(number_format($totalAmount, 2)) ?></td>
+                                <td colspan="3"></td>
+                              </tr>
+                        <?php
+                          else:
+                        ?>
+                              <tr>
+                                <td colspan="8" class="text-center">No customers found for selected date.</td>
+                              </tr>
                         <?php
                           endif;
                         else:
                         ?>
-                            <tr>
-                              <td colspan="8" class="text-center">No customers found.</td>
-                            </tr>
+                              <tr>
+                                <td colspan="8" class="text-center">No customers found.</td>
+                              </tr>
                         <?php endif; ?>
                     </table>
                   </div>
