@@ -10,7 +10,7 @@ $api_secret = 'lC21KSWINU0zdgrphmfMsH3m';
 $api = new Api($api_key, $api_secret);
 // Create an order
 $order = $api->order->create([
-    'amount' => 69900, // 699 INR in paise
+    'amount' => 100, // 1 INR in paise
     'currency' => 'INR',
     'receipt' => 'order_receipt_12asa3'
 ]);
@@ -101,7 +101,7 @@ function startPayment() {
         currency: "{$order->currency}",
         name: "Mauli Vision",
         description: "Payment for your order",
-        
+
         image: "https://milkdairy.maulivision.in/public/assets/img/logo-1.png",
         order_id: "{$order_id}",
         theme: {
