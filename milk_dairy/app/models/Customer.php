@@ -89,7 +89,7 @@ $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
 echo "Vendor: " . $vendor . "<br>"; // Print vendor
 $term = "%{$term}%";
 $stmt = $this->db->prepare(
-    "SELECT id, bill_id, name, mobile 
+    "SELECT vid,id, bill_id, name, mobile 
      FROM customers 
      WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
      AND d_status = '0' AND vid = ?"
