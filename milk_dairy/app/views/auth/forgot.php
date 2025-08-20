@@ -11,12 +11,8 @@
                             <div id="forgot-error" style="color:red; display:none;"></div>
                             <form id="forgotForm">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" required autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <label for="number">Mobile Number</label>
-                                    <input id="number" type="text" class="form-control" name="number" required>
+                                    <label for="email_or_number">Email or Mobile Number</label>
+                                    <input id="email_or_number" type="text" class="form-control" name="email_or_number" required autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="new_password">New Password</label>

@@ -116,10 +116,9 @@ public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
-            $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
-            $number = isset($_POST['number']) ? htmlspecialchars(trim($_POST['number'])) : '';
+            $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
             $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
-            if (empty($email) || empty($number) || empty($new_password)) {
+            if (empty($email_or_number) || empty($new_password)) {
                 echo json_encode([
                     'status' => 'error',
                     'message' => 'All fields are required.'
@@ -127,11 +126,11 @@ public function login()
                 exit;
             }
             $userModel = $this->model('User');
-            $user = $userModel->findByEmailAndNumber($email, $number);
+            $user = $userModel->findByEmailOrNumber($email_or_number);
             if (!$user) {
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'No user found with provided email and number.'
+                    'message' => 'No user found with provided email or mobile number.'
                 ]);
                 exit;
             }
