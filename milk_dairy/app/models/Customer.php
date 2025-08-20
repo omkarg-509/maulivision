@@ -85,7 +85,7 @@ public function searchByTerm($term)
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-$vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
+$vendor = isset($_SESSION['vendor']['vid']) ? $_SESSION['vendor']['vid'] : 0;
 echo "Vendor: " . $vendor . "<br>"; // Print vendor
 $term = "%{$term}%";
 $stmt = $this->db->prepare(
