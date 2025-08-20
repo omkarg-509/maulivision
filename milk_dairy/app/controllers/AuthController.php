@@ -75,25 +75,36 @@ class AuthController extends Controller
     }
 public function login()
 {
-    Auth::isLoggedIn();
+    // If already logged in, redirect to dashboard
+    if (Auth::check()) {
+        header('Location: ' . BASE_URL . 'dashboard');
+        exit;
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        header('Content-Type: application/json'); // JSON response
+        header('Content-Type: application/json');
 
-        // $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
-        $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
+        $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
         $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-        $userModel = $this->model('User');
-        $vendor = $userModel->findByEmail($email);
+        if (empty($email_or_number) || empty($password)) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Email or mobile number and password are required.'
+            ]);
+            exit;
+        }
 
+        $userModel = $this->model('User');
+        $vendor = $userModel->findByEmailOrNumber($email_or_number);
+
+        // Use password_verify if passwords are hashed
         // if ($vendor && password_verify($password, $vendor['password'])) {
-          if ($vendor && $password == $vendor['password']) {
+        if ($vendor && $password == $vendor['password']) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
             $_SESSION['vendor'] = $vendor;
-
             setcookie("vendor", $vendor['id'], time() + (7 * 24 * 60 * 60), "/");
 
             echo json_encode([
