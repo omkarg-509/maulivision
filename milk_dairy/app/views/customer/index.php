@@ -65,19 +65,18 @@
                            <td>${idx + 1}</td>
                            <td>${cust.bill_id}</td>
                              <td>
-                              
                                ${cust.name}
-                              
                              </td>
-                             <td> <a href="tel:${cust.mobile}" title="Call ${cust.mobile}">${cust.mobile ? cust.mobile.replace(/^(\d{5})\d+$/, '$1...') : ''} </a></td>
                              <td>
-                             <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}"><i class="fa fa-trash"></i></button>
-                             <a href="/public/customer/show/${cust.id}" 
-                     title="View" class="btn btn-info btn-sm" style="margin-left: 8px;">
-                    <i class="fa fa-eye"></i>
-                    </a>
+                               <a href="/public/customer/show/${cust.id}" title="View" class="btn btn-info btn-sm">
+                                 <i class="fa fa-eye"></i>
+                               </a>
                              </td>
-                            
+                             <td>
+                               <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}">
+                                 <i class="fa fa-trash"></i>
+                               </button>
+                             </td>
                          </tr>`
                       );
                     });
@@ -95,8 +94,6 @@
             $(document).ready(function() {
               loadEntriesTable();
             });
-            
-             // Handle delete button click with AJAX
             $(document).on('click', '.delete-cust', function() {
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {

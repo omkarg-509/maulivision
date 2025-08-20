@@ -200,7 +200,7 @@ class CustomerController extends Controller
     {
         Auth::check();
         // Get vendor id from session
-       echo  $vid = $_SESSION['vendor']['id'] ?? null;
+        $vid = $_SESSION['vendor']['id'] ?? null;
         if (!$vid) {
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Vendor ID not found in session.']);
