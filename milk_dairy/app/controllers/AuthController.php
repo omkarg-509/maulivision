@@ -82,11 +82,12 @@ class AuthController extends Controller
 
     public function login()
     {
-          if (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor'])) {
+        // If cookie exists but session does not, logout and exit
+        if (isset($_COOKIE['vendor']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor']))) {
             Auth::logout();
             exit;
         }
-        
+
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
