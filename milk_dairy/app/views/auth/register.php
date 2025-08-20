@@ -17,8 +17,8 @@
                                     <input id="name" type="text" class="form-control" name="name" tabindex="1" required autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <label for="number">Mobile Number</label>
-                                    <input id="number" type="text" class="form-control" name="number" tabindex="2" required>
+                                    <label for="mobile_number">Mobile Number</label>
+                                    <input id="mobile_number" type="text" class="form-control" name="mobile_number" tabindex="2" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
