@@ -6,18 +6,35 @@ class Auth
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
-          
         }
-          $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
         $currentUri = $_SERVER['REQUEST_URI'] ?? '';
         if (!self::isLoggedIn() && strpos($currentUri, '/public/auth/login') === false) {
             header("Location: /public/auth/login");
             exit;
         }
     }
-
     public static function isLoggedIn()
     {
+        if (!isset($_SESSION['vendor'])) {
+            // Check if vendor id is in cookie
+            if (isset($_COOKIE['vendor'])) {
+                $vendorId = $_COOKIE['vendor'];
+                // Fetch vendor data from database
+                $pdo = new PDO('mysql:host=localhost;dbname=your_db_name', 'your_db_user', 'your_db_pass');
+                $stmt = $pdo->prepare("SELECT * FROM vendors WHERE id = ?");
+                $stmt->execute([$vendorId]);
+                $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($vendor) {
+                    $_SESSION['vendor'] = $vendor;
+                    return true;
+                } else {
+                    self::logout();
+                }
+            } else {
+                self::logout();
+            }
+        }
         return isset($_SESSION['vendor']);
     }
 
