@@ -101,7 +101,8 @@ function startPayment() {
         currency: "{$order->currency}",
         name: "Mauli Vision",
         description: "Payment for your order",
-        image: "<?=BASE_URL?>/assets/img/logo-1.png",
+        
+        image: "https://milkdairy.maulivision.in/public/assets/img/logo-1.png",
         order_id: "{$order_id}",
         theme: {
             "color": "#738276"
