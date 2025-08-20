@@ -1,5 +1,5 @@
 
-<?php include_once __DIR__ . '/subscription_popup.php'; ?>
+
 </body>
     <script src="<?= BASE_URL ?>js/script.js"></script>
 
