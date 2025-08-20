@@ -1,4 +1,10 @@
- <div class="navbar-bg"></div>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
+?>
+<div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
      <div class="form-inline me-auto">
           <ul class="navbar-nav navbar-left">
