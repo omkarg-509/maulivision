@@ -23,15 +23,14 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-             
               <span class="logo-name">Milk Dairy</span>
-              <?php if (isset($vendor) && isset($vendor['business_name']) && isset($vendor['business_number'])): ?>
-                <div class="vendor-info">
-                  <span class="vendor-business"><?= htmlspecialchars($vendor['business_name']) ?></span>
-                  <span class="vendor-number"><?= htmlspecialchars($vendor['business_number']) ?></span>
-                </div>
-              <?php endif; ?>
             </a>
+            <?php if (isset($vendor) && isset($vendor['business_name']) && isset($vendor['business_number'])): ?>
+              <div class="vendor-info">
+                <span class="vendor-business"><?= htmlspecialchars($vendor['business_name']) ?></span>
+                <span class="vendor-number"><?= htmlspecialchars($vendor['business_number']) ?></span>
+              </div>
+            <?php endif; ?>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
