@@ -8,14 +8,7 @@ class AuthController extends Controller
 
 
     public function index(){
-        //   Auth::isLoggedIn();
-// If already logged in, redirect to dashboard
-    if (Auth::check()) {
-        // Ensure BASE_URL is defined and ends with a slash
-        $redirectUrl = (defined('BASE_URL') ? rtrim(BASE_URL, '/') . '/' : '/') . 'dashboard';
-        header('Location: ' . $redirectUrl);
-        exit;
-    }
+          Auth::isLoggedIn();
         $this->view('auth/login');
     }
     public function register()
@@ -82,7 +75,13 @@ class AuthController extends Controller
     }
 public function login()
 {
-    
+    // If already logged in, redirect to dashboard
+    if (Auth::check()) {
+        // Ensure BASE_URL is defined and ends with a slash
+        $redirectUrl = (defined('BASE_URL') ? rtrim(BASE_URL, '/') . '/' : '/') . 'dashboard';
+        header('Location: ' . $redirectUrl);
+        exit;
+    }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json');
