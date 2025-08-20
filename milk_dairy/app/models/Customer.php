@@ -83,7 +83,12 @@ class Customer extends Database
 public function searchByTerm($term)
 {
     $term = "%{$term}%";
-    $stmt = $this->db->prepare("SELECT id,bill_id, name, mobile FROM customers WHERE name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?");
+    $stmt = $this->db->prepare(
+        "SELECT id, bill_id, name, mobile 
+         FROM customers 
+         WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
+         AND d_status = '0'"
+    );
     $stmt->bind_param("ssss", $term, $term, $term, $term);
     $stmt->execute();
     $result = $stmt->get_result();
