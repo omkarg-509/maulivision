@@ -22,7 +22,7 @@ class AuthController extends Controller
             $mobile_number = isset($_POST['mobile_number']) ? htmlspecialchars(trim($_POST['mobile_number'])) : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-            if (empty($name) || empty($email) || empty($password)) {
+            if (empty($name) || empty($password) || !$email) {
                 echo json_encode([
                     'status' => 'error',
                     'message' => 'Name, email, and password are required. Email must be valid.'
