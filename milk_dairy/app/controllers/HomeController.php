@@ -7,7 +7,7 @@ class HomeController extends Controller
         Auth::check(); // 🔒 Protect the home page
 
         // Include the subscription popup
-        require_once '../app/views/layouts/subscription_popup.php';
+        require_once '../views/layouts/subscription_popup.php';
 
         $this->view('dashboard/index');
     }
