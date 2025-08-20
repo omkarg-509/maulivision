@@ -82,7 +82,10 @@ class Customer extends Database
 
 public function searchByTerm($term)
 {   
-    $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
     $term = "%{$term}%";
     $stmt = $this->db->prepare(
         "SELECT id, bill_id, name, mobile 
@@ -95,8 +98,10 @@ public function searchByTerm($term)
     $result = $stmt->get_result();
 
     $customers = [];
-    while ($row = $result->fetch_assoc()) {
-        $customers[] = $row;
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $customers[] = $row;
+        }
     }
     return $customers;
 }
