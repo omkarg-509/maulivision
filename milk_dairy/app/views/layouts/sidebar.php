@@ -1,9 +1,4 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-$vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
-?>
+
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
      <div class="form-inline me-auto">
@@ -31,12 +26,7 @@ $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
             <a href="index.html">
               <span class="logo-name"><?= htmlspecialchars($vendor['business_name']) ?></span>
             </a>
-            <?php if (isset($vendor) && isset($vendor['business_name']) && isset($vendor['business_number'])): ?>
-              <div class="vendor-info">
-                <span class="vendor-business"><?= htmlspecialchars($vendor['business_name']) ?></span>
-                <span class="vendor-number"><?= htmlspecialchars($vendor['business_number']) ?></span>
-              </div>
-            <?php endif; ?>
+          
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
