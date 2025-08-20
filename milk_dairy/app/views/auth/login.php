@@ -20,6 +20,9 @@
                   <label for="password" class="control-label">Password</label>
                   <input id="password" type="password" class="form-control" name="password" value="admin@123" tabindex="2" required>
                 </div>
+                 <div class="text-right mt-2">
+    <a href="/public/auth/forgot" class="small">Forgot Password?</a>
+  </div>
                 <div class="form-group col-12 text-center">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                     Login
