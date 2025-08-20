@@ -5,6 +5,10 @@ class HomeController extends Controller
     public function index()
     {
         Auth::check(); // 🔒 Protect the home page
+
+        // Include the subscription popup
+        require_once '../app/views/partials/subscription_popup.php';
+
         $this->view('dashboard/index');
     }
 }
