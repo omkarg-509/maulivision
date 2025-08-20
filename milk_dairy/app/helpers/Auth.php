@@ -6,7 +6,7 @@ class Auth
     {
         session_start();
         if (!self::isLoggedIn()) {
-            header("Location: /public/auth/login");
+            header("Location: /public/auth/logout");
             exit;
         }
     }
