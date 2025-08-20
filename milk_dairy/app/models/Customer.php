@@ -45,17 +45,23 @@ class Customer extends Database
 
     public function DailyEntries($vid, $customerId)
     {
-        $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE vid = 1 AND cid = 38");
+        $stmt = $this->db->prepare("SELECT * FROM daily_entries WHERE vid = ? AND cid = ?");
         $stmt->bind_param("ii", $vid, $customerId);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function getAll()
+    public function getAll($vid = null)
     {
-        $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? ORDER BY id DESC");
-        $d_status = '0';
-        $stmt->bind_param("s", $d_status);
+        if ($vid !== null) {
+            $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? AND vid = ? ORDER BY id DESC");
+            $d_status = '0';
+            $stmt->bind_param("si", $d_status, $vid);
+        } else {
+            $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? ORDER BY id DESC");
+            $d_status = '0';
+            $stmt->bind_param("s", $d_status);
+        }
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);

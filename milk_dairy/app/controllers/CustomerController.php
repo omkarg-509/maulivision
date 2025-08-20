@@ -196,11 +196,18 @@ class CustomerController extends Controller
             exit;
         }
     }
-      public function list()
+    public function list()
     {
         Auth::check();
+        // Get vendor id from session
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        if (!$vid) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Vendor ID not found in session.']);
+            exit;
+        }
         $customerModel = $this->model('Customer');
-        $customers = $customerModel->getAll();
+        $customers = $customerModel->getAll($vid); // You need to implement getByVendorId($vid) in your Customer model
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $customers]);
         exit;
