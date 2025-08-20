@@ -3,6 +3,10 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+          <!-- Register Button Top Left -->
+          <div class="d-flex justify-content-start mb-2">
+            <a href="/public/auth/register" class="btn btn-outline-primary btn-sm">Register</a>
+          </div>
           <div class="card card-primary">
             <div class="col-12 text-center mt-2">
               <h5>Welcome Back</h5>
@@ -13,12 +17,12 @@
 
               <form id="loginForm">
                 <div class="form-group">
-                  <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" value="admin@example.com" tabindex="1" required autofocus>
+                  <label for="email_or_number">Email or Mobile Number</label>
+                  <input id="email_or_number" type="text" class="form-control" name="email_or_number"  tabindex="1" required autofocus>
                 </div>
                 <div class="form-group">
                   <label for="password" class="control-label">Password</label>
-                  <input id="password" type="password" class="form-control" name="password" value="admin@123" tabindex="2" required>
+                  <input id="password" type="password" class="form-control" name="password"  tabindex="2" required>
                 </div>
                  <div class="text-right mt-2">
     <a href="/public/auth/forgot" class="small">Forgot Password?</a>
