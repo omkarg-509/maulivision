@@ -1,30 +1,5 @@
 <?php 
 // Include the Razorpay PHP library
-
-// Add some basic UI styling
-echo '<style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
-    .payment-container {
-        max-width: 400px; margin: 60px auto; background: #fff; border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 32px 24px; text-align: center;
-    }
-    .pay-btn {
-        background: #738276; color: #fff; border: none; border-radius: 5px;
-        padding: 12px 32px; font-size: 18px; cursor: pointer; margin-top: 24px;
-        transition: background 0.2s;
-    }
-    .pay-btn:hover { background: #5a655c; }
-    .logo { width: 64px; margin-bottom: 16px; }
-    .order-amount { font-size: 22px; color: #333; margin: 16px 0 8px; }
-    .order-desc { color: #666; margin-bottom: 24px; }
-</style>
-<div class="payment-container">
-    <img class="logo" src="https://cdn.razorpay.com/logos/GhRQcyean79PqE_medium.png" alt="Logo" />
-    <div class="order-amount">&#8377;99.00</div>
-    <div class="order-desc">Pay securely for your subscription</div>
-    <button class="pay-btn" onclick="startPayment()">Pay with Razorpay</button>
-</div>
-';
 require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
 
@@ -32,46 +7,110 @@ use Razorpay\Api\Api;
 $api_key = 'rzp_live_R78Z3uT9I5EQ0k';
 $api_secret = 'lC21KSWINU0zdgrphmfMsH3m';
 
-
-
 $api = new Api($api_key, $api_secret);
 // Create an order
 $order = $api->order->create([
-    'amount' => 100, // amount in paise (100 paise = 1 rupee)
+    'amount' => 69900, // 699 INR in paise
     'currency' => 'INR',
     'receipt' => 'order_receipt_12asa3'
 ]);
-// Get the order ID
 $order_id = $order->id;
-
-// Set your callback URL
 $callback_url = "";
 
-// Include Razorpay Checkout.js library
+// Modal HTML
+echo <<<HTML
+<!-- Subscription Popup Modal -->
+<div id="subscriptionModal" class="modal" tabindex="-1" role="dialog" style="display:none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999;">
+    <div class="modal-dialog" role="document" style="margin: 0; max-width: 90vw; width: 350px;">
+    <div class="modal-content" style="border-radius: 10px; overflow: hidden;">
+        <div class="modal-header" style="display: flex; align-items: center;">
+        <span style="font-size: 2rem; margin-right: 10px; color: #007bff;">
+            <i class="fas fa-crown"></i>
+        </span>
+        <h5 class="modal-title" style="flex: 1;">Basic Plan - ₹699</h5>
+        <button type="button" class="close" aria-label="Close" onclick="closeSubscriptionModal()" style="background: none; border: none; font-size: 1.5rem;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+        <p>
+            <strong>Get all features for just ₹699!</strong>
+        </p>
+        <ul style="text-align: left; margin: 0 auto; max-width: 250px; font-size: 1rem;">
+            <li>Unlimited modules</li>
+            <li>Priority support</li>
+            <li>Regular updates</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+            <a href="/public/subscription">More Info</a>
+        </p>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: center; gap: 10px;">
+        <button type="button" class="btn btn-primary" style="width: 120px;" onclick="startPayment()">Pay Now</button>
+        <button type="button" class="btn btn-secondary" style="width: 120px;" onclick="closeSubscriptionModal()">No, Thanks</button>
+        </div>
+    </div>
+    </div>
+</div>
+<style>
+@media (max-width: 600px) {
+    #subscriptionModal .modal-dialog {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    }
+    #subscriptionModal .modal-content {
+    min-height: 60vh;
+    }
+}
+</style>
+HTML;
+
+// Razorpay Checkout.js
 echo '<script src="https://checkout.razorpay.com/v1/checkout.js"></script>';
 
-// Create a payment button with Checkout.js
-echo '<button onclick="startPayment()">Pay with Razorpay</button>';
+// Modal and payment JS
+echo <<<JS
+<script>
+function showSubscriptionModal() {
+    var modal = document.getElementById('subscriptionModal');
+    modal.style.display = 'flex';
+    modal.style.opacity = 0;
+    modal.style.transition = 'opacity 0.3s ease';
+    setTimeout(function() {
+        modal.style.opacity = 1;
+    }, 10);
+}
 
-// Add a script to handle the payment
-echo '<script>
-    function startPayment() {
-        var options = {
-            key: "' . $api_key . '",
-            amount: ' . $order->amount . ',
-            currency: "' . $order->currency . '",
-            name: "Your Company Name",
-            description: "Payment for your order",
-            image: "https://cdn.razorpay.com/logos/GhRQcyean79PqE_medium.png",
-            order_id: "' . $order_id . '",
-            theme:
-            {
-                "color": "#738276"
-            },
-            callback_url: "' . $callback_url . '"
-        };
-        var rzp = new Razorpay(options);
-        rzp.open();
-    }
-</script>';
+function closeSubscriptionModal() {
+    var modal = document.getElementById('subscriptionModal');
+    modal.style.opacity = 0;
+    setTimeout(function() {
+        modal.style.display = 'none';
+    }, 500);
+}
+
+// Always show on page load
+document.addEventListener('DOMContentLoaded', function() {
+    showSubscriptionModal();
+});
+
+function startPayment() {
+    var options = {
+        key: "{$api_key}",
+        amount: {$order->amount},
+        currency: "{$order->currency}",
+        name: "Your Company Name",
+        description: "Payment for your order",
+        image: "https://cdn.razorpay.com/logos/GhRQcyean79PqE_medium.png",
+        order_id: "{$order_id}",
+        theme: {
+            "color": "#738276"
+        },
+        callback_url: "{$callback_url}"
+    };
+    var rzp = new Razorpay(options);
+    rzp.open();
+}
+</script>
+JS;
 ?>
