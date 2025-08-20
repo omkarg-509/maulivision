@@ -81,30 +81,23 @@ class Customer extends Database
     }
 
 public function searchByTerm($term)
-{   
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-$vendor = isset($_SESSION['vendor']['vid']) ? $_SESSION['vendor']['vid'] : 0;
-echo "Vendor: " . $vendor . "<br>"; // Print vendor
-$term = "%{$term}%";
-$stmt = $this->db->prepare(
-    "SELECT vid,id, bill_id, name, mobile 
-     FROM customers 
-     WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
-     AND d_status = '0' AND vid = ?"
-);
-$stmt->bind_param("ssssi", $term, $term, $term, $term, $vendor);
-$stmt->execute();
-$result = $stmt->get_result();
+{
+    $term = "%{$term}%";
+    $stmt = $this->db->prepare(
+        "SELECT id, bill_id, name, mobile 
+         FROM customers 
+         WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
+         AND d_status = '0'"
+    );
+    $stmt->bind_param("ssss", $term, $term, $term, $term);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$customers = [];
-if ($result) {
+    $customers = [];
     while ($row = $result->fetch_assoc()) {
         $customers[] = $row;
     }
-}
-return $customers;
+    return $customers;
 }
 
 public function getById($id)
