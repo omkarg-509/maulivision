@@ -132,6 +132,10 @@ class AuthController extends Controller
 
     public function forgot()
     {
+        if (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor'])) {
+            Auth::logout();
+            exit;
+        }
         // Check if user is already logged in and redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
@@ -204,10 +208,6 @@ class AuthController extends Controller
                 // Restore session from cookie
                 $_SESSION['vendor'] = $vendor;
                 return true;
-            }else{
-                setcookie("vendor", "", time() - 3600, "/");
-                unset($_SESSION['vendor']);
-                Auth::logout();
             }
         }
 
