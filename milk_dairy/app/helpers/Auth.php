@@ -20,8 +20,8 @@ class Auth
             if (isset($_COOKIE['vendor'])) {
                 $vendorId = $_COOKIE['vendor'];
                 // Fetch vendor data from database
-                $pdo = new PDO('mysql:host=localhost;dbname=your_db_name', 'your_db_user', 'your_db_pass');
-                $stmt = $pdo->prepare("SELECT * FROM vendors WHERE id = ?");
+                $pdo = new PDO('mysql:host=localhost;dbname=u367009900_milk_dairy', 'u367009900_milk_dairy', 'AC]WO/mL9');
+                $stmt = $pdo->prepare("SELECT * FROM vendor WHERE id = ?");
                 $stmt->execute([$vendorId]);
                 $vendor = $stmt->fetch(PDO::FETCH_ASSOC);
 
