@@ -6,6 +6,7 @@ class Auth
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+            $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
         }
         $currentUri = $_SERVER['REQUEST_URI'] ?? '';
         if (!self::isLoggedIn() && strpos($currentUri, '/public/auth/login') === false) {
