@@ -10,7 +10,8 @@ class CustomerController extends Controller
         Auth::check(); // ✅ session check
         $customerModel = $this->model('Customer');
         $customers = $customerModel->getAll();
-
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        echo $vid;
         $this->view('customer/index', ['customers' => $customers]);
     }
     public function pdf($billId , $Date)
