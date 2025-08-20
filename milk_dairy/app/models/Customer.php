@@ -91,7 +91,7 @@ public function searchByTerm($term)
         "SELECT id, bill_id, name, mobile 
          FROM customers 
          WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
-         AND d_status = '0' AND vid = ?"
+         AND d_status = '0' OR vid = ?"
     );
     $stmt->bind_param("ssssi", $term, $term, $term, $term, $vendor);
     $stmt->execute();
