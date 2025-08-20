@@ -86,6 +86,7 @@ public function searchByTerm($term)
         session_start();
     }
 $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
+echo "Vendor: " . $vendor . "<br>"; // Print vendor
 $term = "%{$term}%";
 $stmt = $this->db->prepare(
     "SELECT id, bill_id, name, mobile 
@@ -93,17 +94,17 @@ $stmt = $this->db->prepare(
      WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
      AND d_status = '0' AND vid = ?"
 );
-    $stmt->bind_param("ssssi", $term, $term, $term, $term, $vendor);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$stmt->bind_param("ssssi", $term, $term, $term, $term, $vendor);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $customers = [];
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            $customers[] = $row;
-        }
+$customers = [];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $customers[] = $row;
     }
-    return $customers;
+}
+return $customers;
 }
 
 public function getById($id)
