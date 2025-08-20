@@ -2,6 +2,11 @@
     <section class="section">
         <div class="container mt-5">
             <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-end mb-3">
+                        <a href="/public/auth/login" class="btn btn-outline-primary">Login</a>
+                    </div>
+                </div>
                 <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                     <div class="card card-primary">
                         <div class="col-12 text-center mt-2">
