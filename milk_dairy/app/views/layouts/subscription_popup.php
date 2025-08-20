@@ -34,7 +34,7 @@ function closeSubscriptionModal() {
     modal.style.opacity = 0;
     setTimeout(function() {
         modal.style.display = 'none';
-    }, 300);
+    }, 5000);
 }
 
 // Example: Always show on page load (customize as needed)
