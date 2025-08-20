@@ -4,9 +4,12 @@ class Auth
 {
     public static function check()
     {
-        session_start();
-        if (!self::isLoggedIn()) {
-            header("Location: /public/auth/logout");
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $currentUri = $_SERVER['REQUEST_URI'] ?? '';
+        if (!self::isLoggedIn() && strpos($currentUri, '/public/auth/login') === false) {
+            header("Location: /public/auth/login");
             exit;
         }
     }
