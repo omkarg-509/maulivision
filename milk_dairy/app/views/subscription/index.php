@@ -45,7 +45,7 @@ $order = $api->order->create([
 $order_id = $order->id;
 
 // Set your callback URL
-$callback_url = "http://localhost:8000/success.html";
+$callback_url = "";
 
 // Include Razorpay Checkout.js library
 echo '<script src="https://checkout.razorpay.com/v1/checkout.js"></script>';
