@@ -1,3 +1,18 @@
+    public function findByEmailAndNumber($email, $number)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM vendor WHERE email = ? AND number = ? LIMIT 1");
+        $stmt->bind_param("ss", $email, $number);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function updatePassword($id, $new_password)
+    {
+        $stmt = $this->db->prepare("UPDATE vendor SET password = ? WHERE id = ?");
+        $stmt->bind_param("si", $new_password, $id);
+        return $stmt->execute();
+    }
 <?php
 
 require_once '../core/Database.php';

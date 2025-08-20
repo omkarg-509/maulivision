@@ -1,3 +1,43 @@
+    public function forgot()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+            $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
+            $number = isset($_POST['number']) ? htmlspecialchars(trim($_POST['number'])) : '';
+            $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
+            if (empty($email) || empty($number) || empty($new_password)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'All fields are required.'
+                ]);
+                exit;
+            }
+            $userModel = $this->model('User');
+            $user = $userModel->findByEmailAndNumber($email, $number);
+            if (!$user) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'No user found with provided email and number.'
+                ]);
+                exit;
+            }
+            $updated = $userModel->updatePassword($user['id'], $new_password);
+            if ($updated) {
+                echo json_encode([
+                    'status' => 'success',
+                    'redirect' => BASE_URL . 'login'
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Failed to update password.'
+                ]);
+            }
+            exit;
+        } else {
+            $this->view('auth/forgot');
+        }
+    }
 <?php
 
 
