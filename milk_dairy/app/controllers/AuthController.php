@@ -82,6 +82,11 @@ class AuthController extends Controller
 
     public function login()
     {
+          if (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor'])) {
+            Auth::logout();
+            exit;
+        }
+        
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
@@ -132,10 +137,7 @@ class AuthController extends Controller
 
     public function forgot()
     {
-        if (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor'])) {
-            Auth::logout();
-            exit;
-        }
+      
         // Check if user is already logged in and redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
