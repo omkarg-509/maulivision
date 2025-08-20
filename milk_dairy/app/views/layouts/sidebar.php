@@ -29,7 +29,7 @@ $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-              <span class="logo-name"><?= htmlspecialchars($vendor['id']) ?></span>
+              <span class="logo-name"><?= htmlspecialchars($vendor['business_name']) ?></span>
             </a>
             <?php if (isset($vendor) && isset($vendor['business_name']) && isset($vendor['business_number'])): ?>
               <div class="vendor-info">
