@@ -85,13 +85,13 @@ public function searchByTerm($term)
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
+   echo  $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : 0;
     $term = "%{$term}%";
     $stmt = $this->db->prepare(
         "SELECT id, bill_id, name, mobile 
          FROM customers 
          WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
-         AND d_status = '0' OR vid = ?"
+         AND d_status = '0' AND vid = ?"
     );
     $stmt->bind_param("ssssi", $term, $term, $term, $term, $vendor);
     $stmt->execute();
