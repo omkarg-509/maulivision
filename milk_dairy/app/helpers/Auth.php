@@ -7,8 +7,8 @@ class Auth
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        $currentUri = $_SERVER['REQUEST_URI'] ?? '';
-        if (!self::isLoggedIn() && strpos($currentUri, '/public/auth/login') === false) {
+     
+        if (!self::isLoggedIn()) {
             header("Location: /public/auth/logout");
             exit;
         }
