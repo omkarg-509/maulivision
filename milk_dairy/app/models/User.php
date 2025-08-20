@@ -14,16 +14,25 @@ class User extends Database
         return $result->fetch_assoc();
     }
 
-       public function create($data)
+    public function create($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO vendor (name,email,password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $data['name'], $data['email'], $data['password']);
+        $stmt = $this->db->prepare("INSERT INTO vendor (name, email, password, mobile_number, business_name, business_number) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param(
+            "ssssss",
+            $data['name'],
+            $data['email'],
+            $data['password'],
+            $data['mobile_number'],
+            $data['business_name'],
+            $data['business_number']
+        );
         if ($stmt->execute()) {
             return $this->db->insert_id;
         }
         return false;
     }
-        public function findByEmailAndNumber($email, $number)
+
+    public function findByEmailAndNumber($email, $number)
     {
         $stmt = $this->db->prepare("SELECT * FROM vendor WHERE email = ? AND mobile_number = ? LIMIT 1");
         $stmt->bind_param("ss", $email, $number);
