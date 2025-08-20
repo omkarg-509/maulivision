@@ -1,22 +1,37 @@
 <!-- Subscription Popup Modal -->
 <div id="subscriptionModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Subscription Notice</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeSubscriptionModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Your subscription is required to access all features. <a href="/public/subscription">View Subscription</a></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='/public/subscription'">Go to Subscription</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeSubscriptionModal()">Close</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Icon added (Font Awesome example) -->
+                <span style="font-size: 2rem; margin-right: 10px; color: #007bff;">
+                    <i class="fas fa-crown"></i>
+                </span>
+                <h5 class="modal-title">Basic Plan - ₹699</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeSubscriptionModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong>All features are included in the Basic Plan for just ₹699!</strong>
+                </p>
+                <ul>
+                    <li>Unlimited access to all modules</li>
+                    <li>Priority support</li>
+                    <li>Regular updates</li>
+                    <li>And much more...</li>
+                </ul>
+                <p>
+                    <a href="/public/subscription">View Subscription Details</a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='/public/subscription'">Go to Subscription</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeSubscriptionModal()">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script>
 function showSubscriptionModal() {
