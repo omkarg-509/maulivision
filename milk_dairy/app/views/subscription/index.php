@@ -99,9 +99,9 @@ function startPayment() {
         key: "{$api_key}",
         amount: {$order->amount},
         currency: "{$order->currency}",
-        name: "Your Company Name",
+        name: "Mauli Vision",
         description: "Payment for your order",
-        image: "https://cdn.razorpay.com/logos/GhRQcyean79PqE_medium.png",
+        image: "<?=BASE_URL?>/assets/img/logo-1.png",
         order_id: "{$order_id}",
         theme: {
             "color": "#738276"

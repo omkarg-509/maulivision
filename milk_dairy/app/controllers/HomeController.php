@@ -6,7 +6,7 @@ class HomeController extends Controller
     {
         Auth::check(); // 🔒 Protect the home page
 
-        
+        addin
    
 
         $this->view('dashboard/index');
