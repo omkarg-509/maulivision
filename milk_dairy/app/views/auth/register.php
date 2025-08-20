@@ -14,22 +14,38 @@
                             <form id="registerForm">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input id="name" type="text" class="form-control" name="name" value='' tabindex="1" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" tabindex="1" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label for="number">Mobile Number</label>
+                                    <input id="number" type="text" class="form-control" name="number" tabindex="2" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email"  tabindex="2" required>
+                                    <input id="email" type="email" class="form-control" name="email" tabindex="3" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business_name">Business Name</label>
+                                    <input id="business_name" type="text" class="form-control" name="business_name" tabindex="4" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business_number">Business Number</label>
+                                    <input id="business_number" type="text" class="form-control" name="business_number" tabindex="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input id="username" type="text" class="form-control" name="username" tabindex="6" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="control-label">Password</label>
-                                    <input id="password" type="password" class="form-control" name="password" tabindex="3" required>
+                                    <input id="password" type="password" class="form-control" name="password" tabindex="7" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password_confirm" class="control-label">Confirm Password</label>
-                                    <input id="password_confirm" type="password" class="form-control" name="password_confirm"  tabindex="4" required>
+                                    <input id="password_confirm" type="password" class="form-control" name="password_confirm" tabindex="8" required>
                                 </div>
                                 <div class="form-group col-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="5">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="9">
                                         Register
                                     </button>
                                 </div>
