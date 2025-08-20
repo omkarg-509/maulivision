@@ -53,6 +53,47 @@ $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
           <li class="">
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
           </li>
+          <li class="">
+            <a href="#" class="nav-link" id="toggle-theme-btn">
+              <i class="fas fa-adjust"></i><span>Dark/Light Mode</span>
+            </a>
+          </li>
+          <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('toggle-theme-btn');
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              document.body.classList.toggle('dark-mode');
+              // Optionally, save preference to localStorage
+              if(document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+              } else {
+                localStorage.setItem('theme', 'light');
+              }
+            });
+            // On load, set theme from localStorage
+            if(localStorage.getItem('theme') === 'dark') {
+              document.body.classList.add('dark-mode');
+            }
+          });
+          </script>
+          <style>
+          /* Example dark mode styles */
+          .dark-mode {
+            background: #222 !important;
+            color: #eee !important;
+          }
+          .dark-mode .main-sidebar,
+          .dark-mode .navbar,
+          .dark-mode .sidebar-menu,
+          .dark-mode .sidebar-brand {
+            background: #23272b !important;
+            color: #eee !important;
+          }
+          .dark-mode a, .dark-mode .nav-link, .dark-mode .sidebar-menu li a {
+            color: #eee !important;
+          }
+          </style>
              <li class="">
           <a href="/public/subscription" class="nav-link">
               <i class="fas fa-bell"></i><span>Subscription</span>
