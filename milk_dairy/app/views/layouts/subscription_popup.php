@@ -20,13 +20,25 @@
 </div>
 <script>
 function showSubscriptionModal() {
-  document.getElementById('subscriptionModal').style.display = 'block';
+    var modal = document.getElementById('subscriptionModal');
+    modal.style.display = 'block';
+    modal.style.opacity = 0;
+    modal.style.transition = 'opacity 0.3s ease';
+    setTimeout(function() {
+        modal.style.opacity = 1;
+    }, 10);
 }
+
 function closeSubscriptionModal() {
-  document.getElementById('subscriptionModal').style.display = 'none';
+    var modal = document.getElementById('subscriptionModal');
+    modal.style.opacity = 0;
+    setTimeout(function() {
+        modal.style.display = 'none';
+    }, 300);
 }
+
 // Example: Always show on page load (customize as needed)
 document.addEventListener('DOMContentLoaded', function() {
-  showSubscriptionModal();
+    showSubscriptionModal();
 });
 </script>
