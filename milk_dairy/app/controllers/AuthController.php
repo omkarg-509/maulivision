@@ -21,11 +21,17 @@ class AuthController extends Controller
             $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
             $mobile_number = isset($_POST['mobile_number']) ? htmlspecialchars(trim($_POST['mobile_number'])) : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
-
-            if (empty($name) || empty($password) || !$email) {
+            if (
+                empty($name) ||
+                empty($business_name) ||
+                empty($business_number) ||
+                empty($mobile_number) ||
+                empty($password) ||
+                !$email
+            ) {
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Name, email, and password are required. Email must be valid.'
+                    'message' => 'Name, business name, business number, mobile number, email, and password are required. Email must be valid.'
                 ]);
                 exit;
             }
