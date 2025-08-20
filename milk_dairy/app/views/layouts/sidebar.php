@@ -23,7 +23,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-              <span class="logo-name"><?= htmlspecialchars($vendor[0]['business_name']) ?></span>
+              <span class="logo-name"><?= htmlspecialchars($vendor['business_name']) ?></span>
             </a>
             <?php if (isset($vendor) && isset($vendor['business_name']) && isset($vendor['business_number'])): ?>
               <div class="vendor-info">
