@@ -76,10 +76,10 @@ class AuthController extends Controller
 public function login()
 {
     // If already logged in, redirect to dashboard
-    if (Auth::check()) {
-        header('Location: ' . BASE_URL . 'dashboard');
-        exit;
-    }
+    // if (Auth::check()) {
+    //     header('Location: ' . BASE_URL . 'dashboard');
+    //     exit;
+    // }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json');
