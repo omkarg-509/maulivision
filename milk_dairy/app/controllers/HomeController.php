@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../app/helpers/Auth.php';
 class HomeController extends Controller
 {
