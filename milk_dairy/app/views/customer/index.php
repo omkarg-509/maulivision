@@ -17,7 +17,11 @@
       <h4>Customers Details</h4>
     </div>
     <div class="card-body">
-
+    <?php if (isset($_SESSION['vid'])): ?>
+      <div class="alert alert-success">
+        <?php echo htmlspecialchars($_SESSION['vid']); unset($_SESSION['vid']); ?>
+      </div>
+    <?php endif; ?>
      <table class="table table-sm">
                     <thead>
                       <tr>
