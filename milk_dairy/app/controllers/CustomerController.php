@@ -4,15 +4,13 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        Auth::check(); // ✅ session check
+        
+              Auth::check(); // ✅ session check
         $customerModel = $this->model('Customer');
         $customers = $customerModel->getAll();
-        $vid = $_SESSION['vendor']['id'] ?? null;
-        echo $vid;
+
         $this->view('customer/index', ['customers' => $customers]);
+
     }
     public function pdf($billId , $Date)
     {
@@ -209,7 +207,7 @@ class CustomerController extends Controller
             exit;
         }
         $customerModel = $this->model('Customer');
-        $customers = $customerModel->getByVendorId($vid); // You need to implement getByVendorId($vid) in your Customer model
+        $customers = $customerModel->getAll($vid); // You need to implement getByVendorId($vid) in your Customer model
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $customers]);
         exit;
