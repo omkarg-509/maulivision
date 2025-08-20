@@ -204,6 +204,10 @@ class AuthController extends Controller
                 // Restore session from cookie
                 $_SESSION['vendor'] = $vendor;
                 return true;
+            }else{
+                setcookie("vendor", "", time() - 3600, "/");
+                unset($_SESSION['vendor']);
+                Auth::logout();
             }
         }
 
