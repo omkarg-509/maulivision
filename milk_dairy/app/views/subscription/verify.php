@@ -42,6 +42,39 @@ if ($success) {
     // You can access payment details like $payment->amount, $payment->status, etc.
     $amount_paid = $payment->amount / 100; // Convert amount from paise to rupees
 
+    // Get vendor_id from session or context
+    session_start();
+    $vendor_id = isset($_SESSION['vendor']['id']) ? $_SESSION['vendor']['id'] : null;
+
+    // Prepare transaction data
+    $transaction_id = $payment_id;
+    $transaction_date = date('Y-m-d H:i:s');
+    $transaction_type = 'subscription';
+    $status = $payment->status; // 'captured' for success
+    $reference = $_POST['razorpay_order_id'];
+    $remarks = 'Razorpay payment';
+    $created_at = $transaction_date;
+    $updated_at = $transaction_date;
+
+    // Insert into vendor_transactions table
+    require_once '../core/Database.php';
+    $db = (new Database())->db;
+    $stmt = $db->prepare("INSERT INTO vendor_transactions (transaction_id, vendor_id, amount, transaction_date, transaction_type, status, reference, remarks, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param(
+        "sidsssssss",
+        $transaction_id,
+        $vendor_id,
+        $amount_paid,
+        $transaction_date,
+        $transaction_type,
+        $status,
+        $reference,
+        $remarks,
+        $created_at,
+        $updated_at
+    );
+    $stmt->execute();
+
     echo "Payment Successful! Amount: $amount_paid INR";
 } else {
     // Payment failed, handle accordingly
