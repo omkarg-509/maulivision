@@ -6,12 +6,13 @@ class Auth
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+          
         }
-     
         if (!self::isLoggedIn()) {
             header("Location: /public/auth/logout");
             exit;
         }
+       
     }
 
     public static function isLoggedIn()
