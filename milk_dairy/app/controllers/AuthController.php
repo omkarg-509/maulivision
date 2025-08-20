@@ -16,14 +16,16 @@ class AuthController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
             $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
-
-            $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $business_name = isset($_POST['business_name']) ? htmlspecialchars(trim($_POST['business_name'])) : '';
+            $business_number = isset($_POST['business_number']) ? htmlspecialchars(trim($_POST['business_number'])) : '';
             $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
+            $mobile_number = isset($_POST['mobile_number']) ? htmlspecialchars(trim($_POST['mobile_number'])) : '';
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
 
-            if (empty($name) || empty($password) || empty($email)) {
+            if (empty($name) || empty($email) || empty($password)) {
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'All fields are required and email must be valid.'
+                    'message' => 'Name, email, and password are required. Email must be valid.'
                 ]);
                 exit;
             }
@@ -42,8 +44,11 @@ class AuthController extends Controller
 
             $userId = $userModel->create([
                 'name' => $name,
-                'password' => $hashedPassword,
-                'email' => $email
+                'business_name' => $business_name,
+                'business_number' => $business_number,
+                'email' => $email,
+                'mobile_number' => $mobile_number,
+                'password' => $hashedPassword
             ]);
 
             if ($userId) {
