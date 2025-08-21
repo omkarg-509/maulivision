@@ -305,7 +305,8 @@ public function show($id)
         exit;
         }
     } else {
-        echo "Customer data not found.";
+        header('Location: /public/customer');
+        exit;
     }
 }
 
