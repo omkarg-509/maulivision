@@ -218,8 +218,8 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                  console.log('loadEntriesTable response:', response); // Debug log
-                  
+                  // console.log('loadEntriesTable response:', response); // Debug log
+
                   if (response.success && Array.isArray(response.data) && response.data.length > 0) {
                     $('#entries-table-body').empty();
                     response.data.forEach(function(entry, idx) {
