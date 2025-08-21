@@ -14,13 +14,15 @@ class CustomerController extends Controller
     }
     public function pdf($billId = null, $Date = null)
     {
+        Auth::check(); // Ensure session is valid
+
         // Get parameters from URL or function parameters
         $customerId = $_GET['customer_id'] ?? $billId ?? null;
         $startDate = $_GET['start_date'] ?? date('Y-m-01');
         $endDate = $_GET['end_date'] ?? date('Y-m-t');
         $cowRate = $_GET['cow_rate'] ?? 50;
         $buffaloRate = $_GET['buffalo_rate'] ?? 60;
-        
+
         if (!$customerId) {
             die('Customer ID is required for PDF generation. Please provide customer_id parameter.');
         }
@@ -28,23 +30,23 @@ class CustomerController extends Controller
         try {
             $customerModel = $this->model('Customer');
             $dailyEntryModel = $this->model('DailyEntry');
-            
+
             // Get customer details by ID (not bill_id)
             $customer = $customerModel->getById($customerId);
-            
+
             // If not found by ID, try by bill_id
             if (!$customer) {
                 $customers = $customerModel->getByBillId($customerId);
                 $customer = !empty($customers) ? $customers[0] : null;
             }
-            
+
             if (!$customer) {
                 die('No customer found for ID: ' . $customerId);
             }
-            
-            // Get vendor ID from session
-            $vendorId = $_SESSION['vendor_id'] ?? 1;
-            
+
+            // Get vendor ID from session (fix: use vendor array)
+            $vendorId = $_SESSION['vendor']['id'] ?? 1;
+
             // Get milk entries for the date range
             $milkEntries = $dailyEntryModel->getEntriesByDateRange($customerId, $startDate, $endDate, $vendorId);
 
@@ -66,211 +68,210 @@ class CustomerController extends Controller
             $pdf->SetAutoPageBreak(true, 15);
             $pdf->AddPage();
 
-        // Process milk entries by date
-        $dailyMilk = [];
-        $totalCow = 0;
-        $totalBuffalo = 0;
+            // Process milk entries by date
+            $dailyMilk = [];
+            $totalCow = 0;
+            $totalBuffalo = 0;
 
-        foreach ($milkEntries as $entry) {
-            $date = $entry['date'];
-            if (!isset($dailyMilk[$date])) {
-                $dailyMilk[$date] = ['cow' => 0, 'buffalo' => 0];
+            foreach ($milkEntries as $entry) {
+                $date = $entry['date'];
+                if (!isset($dailyMilk[$date])) {
+                    $dailyMilk[$date] = ['cow' => 0, 'buffalo' => 0];
+                }
+
+                if ($entry['milktype'] === 'cow') {
+                    $dailyMilk[$date]['cow'] += floatval($entry['liter']);
+                    $totalCow += floatval($entry['liter']);
+                } elseif ($entry['milktype'] === 'buffalo') {
+                    $dailyMilk[$date]['buffalo'] += floatval($entry['liter']);
+                    $totalBuffalo += floatval($entry['liter']);
+                }
             }
-            
-            if ($entry['milktype'] === 'cow') {
-                $dailyMilk[$date]['cow'] += floatval($entry['liter']);
-                $totalCow += floatval($entry['liter']);
-            } elseif ($entry['milktype'] === 'buffalo') {
-                $dailyMilk[$date]['buffalo'] += floatval($entry['liter']);
-                $totalBuffalo += floatval($entry['liter']);
+
+            // Sort dates
+            ksort($dailyMilk);
+
+            // Calculate totals
+            $totalLiters = $totalCow + $totalBuffalo;
+            $cowAmount = $totalCow * $cowRate;
+            $buffaloAmount = $totalBuffalo * $buffaloRate;
+            $totalAmount = $cowAmount + $buffaloAmount;
+
+            // Header - English only
+            $pdf->SetFont('helvetica', 'B', 22);
+            $pdf->Cell(0, 12, 'RAJNANDINI DAIRY', 0, 1, 'C');
+            $pdf->SetFont('helvetica', '', 12);
+            $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal', 0, 1, 'C');
+            $pdf->Cell(0, 6, 'Phone: 9822882755', 0, 1, 'C');
+
+            // Line separator
+            $pdf->Ln(3);
+            $pdf->SetLineWidth(0.5);
+            $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+            $pdf->Ln(5);
+
+            // Customer Info - English only
+            $pdf->SetFont('helvetica', '', 11);
+            $pdf->Cell(95, 8, 'Customer: ' . $customer['name'], 1, 0);
+            $pdf->Cell(95, 8, 'Address: ' . ($customer['address'] ?? 'Gaywadi Nal'), 1, 1);
+            $pdf->Cell(95, 8, 'Bill No: ' . $customer['bill_id'], 1, 0);
+            $pdf->Cell(95, 8, 'Date: ' . date('d/m/Y'), 1, 1);
+            $pdf->Cell(95, 8, 'Period: ' . date('d/m/Y', strtotime($startDate)), 1, 0);
+            $pdf->Cell(95, 8, 'to: ' . date('d/m/Y', strtotime($endDate)), 1, 1);
+
+            $pdf->Ln(5);
+
+            // Generate date range
+            $dateRange = [];
+            $currentDate = new DateTime($startDate);
+            $endDateTime = new DateTime($endDate);
+
+            while ($currentDate <= $endDateTime) {
+                $dateStr = $currentDate->format('Y-m-d');
+                $dateRange[$dateStr] = isset($dailyMilk[$dateStr]) ? $dailyMilk[$dateStr] : ['cow' => 0, 'buffalo' => 0];
+                $currentDate->modify('+1 day');
             }
-        }
 
-        // Sort dates
-        ksort($dailyMilk);
+            // Daily milk table - English only
+            $html = '
+            <style>
+            body { font-family: helvetica; }
+            table.milk-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: helvetica;
+            }
+            table.milk-table th, table.milk-table td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+                font-size: 11px;
+            }
+            table.milk-table th {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+            }
+            .date-cell { background-color: #f8f9fa; font-weight: bold; }
+            .cow-cell { background-color: #fff3cd; }
+            .buffalo-cell { background-color: #d4edda; }
+            .total-cell { background-color: #e2e3e5; font-weight: bold; }
+            .amount-cell { background-color: #cce5ff; font-weight: bold; }
+            .grand-total { background-color: #dc3545; color: white; font-weight: bold; }
+            .summary-header { background-color: #17a2b8; color: white; font-weight: bold; }
+            </style>
 
-        // Calculate totals
-        $totalLiters = $totalCow + $totalBuffalo;
-        $cowAmount = $totalCow * $cowRate;
-        $buffaloAmount = $totalBuffalo * $buffaloRate;
-        $totalAmount = $cowAmount + $buffaloAmount;
+            <h3 style="text-align:center; margin: 15px 0; color: #2c3e50;">
+            Daily Milk Details<br>
+            <small style="font-size: 12px; color: #666;">(' . date('d/m/Y', strtotime($startDate)) . ' to ' . date('d/m/Y', strtotime($endDate)) . ')</small>
+            </h3>
 
-        // Header - English only
-        $pdf->SetFont('helvetica', 'B', 22);
-        $pdf->Cell(0, 12, 'RAJNANDINI DAIRY', 0, 1, 'C');
-        $pdf->SetFont('helvetica', '', 12);
-        $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal', 0, 1, 'C');
-        $pdf->Cell(0, 6, 'Phone: 9822882755', 0, 1, 'C');
+            <table class="milk-table">
+                <thead>
+                    <tr>
+                        <th width="12%">Sr. No.</th>
+                        <th width="18%">Date</th>
+                        <th width="18%">Cow Milk (L)</th>
+                        <th width="18%">Buffalo Milk (L)</th>
+                        <th width="16%">Total (L)</th>
+                        <th width="18%">Daily Amount</th>
+                    </tr>
+                </thead>
+                <tbody>';
 
-        // Line separator
-        $pdf->Ln(3);
-        $pdf->SetLineWidth(0.5);
-        $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
-        $pdf->Ln(5);
+            $dayCount = 0;
 
-        // Customer Info - English only
-        $pdf->SetFont('helvetica', '', 11);
-        $pdf->Cell(95, 8, 'Customer: ' . $customer['name'], 1, 0);
-        $pdf->Cell(95, 8, 'Address: ' . ($customer['address'] ?? 'Gaywadi Nal'), 1, 1);
-        $pdf->Cell(95, 8, 'Bill No: ' . $customer['bill_id'], 1, 0);
-        $pdf->Cell(95, 8, 'Date: ' . date('d/m/Y'), 1, 1);
-        $pdf->Cell(95, 8, 'Period: ' . date('d/m/Y', strtotime($startDate)), 1, 0);
-        $pdf->Cell(95, 8, 'to: ' . date('d/m/Y', strtotime($endDate)), 1, 1);
+            foreach ($dateRange as $date => $milk) {
+                $dayCount++;
+                $dayTotal = $milk['cow'] + $milk['buffalo'];
+                $dayAmount = ($milk['cow'] * $cowRate) + ($milk['buffalo'] * $buffaloRate);
 
-        $pdf->Ln(5);
+                $dateObj = new DateTime($date);
+                $dayName = $dateObj->format('D');
+                $formattedDate = $dateObj->format('d/m/Y');
 
-        // Generate date range
-        $dateRange = [];
-        $currentDate = new DateTime($startDate);
-        $endDateTime = new DateTime($endDate);
+                $rowClass = ($dayTotal == 0) ? 'style="background-color: #f8d7da;"' : '';
 
-        while ($currentDate <= $endDateTime) {
-            $dateStr = $currentDate->format('Y-m-d');
-            $dateRange[$dateStr] = isset($dailyMilk[$dateStr]) ? $dailyMilk[$dateStr] : ['cow' => 0, 'buffalo' => 0];
-            $currentDate->modify('+1 day');
-        }
+                $html .= '<tr ' . $rowClass . '>
+                    <td class="date-cell">' . $dayCount . '</td>
+                    <td class="date-cell">' . $formattedDate . '<br><small>' . $dayName . '</small></td>
+                    <td class="cow-cell">' . ($milk['cow'] > 0 ? number_format($milk['cow'], 1) : '-') . '</td>
+                    <td class="buffalo-cell">' . ($milk['buffalo'] > 0 ? number_format($milk['buffalo'], 1) : '-') . '</td>
+                    <td class="total-cell">' . ($dayTotal > 0 ? number_format($dayTotal, 1) : '-') . '</td>
+                    <td class="amount-cell">Rs.' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
+                </tr>';
+            }
 
-        // Daily milk table - English only
-        $html = '
-        <style>
-        body { font-family: helvetica; }
-        table.milk-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: helvetica;
-        }
-        table.milk-table th, table.milk-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: center;
-            font-size: 11px;
-        }
-        table.milk-table th {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-        }
-        .date-cell { background-color: #f8f9fa; font-weight: bold; }
-        .cow-cell { background-color: #fff3cd; }
-        .buffalo-cell { background-color: #d4edda; }
-        .total-cell { background-color: #e2e3e5; font-weight: bold; }
-        .amount-cell { background-color: #cce5ff; font-weight: bold; }
-        .grand-total { background-color: #dc3545; color: white; font-weight: bold; }
-        .summary-header { background-color: #17a2b8; color: white; font-weight: bold; }
-        </style>
-
-        <h3 style="text-align:center; margin: 15px 0; color: #2c3e50;">
-        Daily Milk Details<br>
-        <small style="font-size: 12px; color: #666;">(' . date('d/m/Y', strtotime($startDate)) . ' to ' . date('d/m/Y', strtotime($endDate)) . ')</small>
-        </h3>
-
-        <table class="milk-table">
-            <thead>
-                <tr>
-                    <th width="12%">Sr. No.</th>
-                    <th width="18%">Date</th>
-                    <th width="18%">Cow Milk (L)</th>
-                    <th width="18%">Buffalo Milk (L)</th>
-                    <th width="16%">Total (L)</th>
-                    <th width="18%">Daily Amount</th>
-                </tr>
-            </thead>
-            <tbody>';
-
-        $dayCount = 0;
-
-        foreach ($dateRange as $date => $milk) {
-            $dayCount++;
-            $dayTotal = $milk['cow'] + $milk['buffalo'];
-            $dayAmount = ($milk['cow'] * $cowRate) + ($milk['buffalo'] * $buffaloRate);
-            
-            $dateObj = new DateTime($date);
-            $dayName = $dateObj->format('D');
-            $formattedDate = $dateObj->format('d/m/Y');
-            
-            $rowClass = ($dayTotal == 0) ? 'style="background-color: #f8d7da;"' : '';
-            
-            $html .= '<tr ' . $rowClass . '>
-                <td class="date-cell">' . $dayCount . '</td>
-                <td class="date-cell">' . $formattedDate . '<br><small>' . $dayName . '</small></td>
-                <td class="cow-cell">' . ($milk['cow'] > 0 ? number_format($milk['cow'], 1) : '-') . '</td>
-                <td class="buffalo-cell">' . ($milk['buffalo'] > 0 ? number_format($milk['buffalo'], 1) : '-') . '</td>
-                <td class="total-cell">' . ($dayTotal > 0 ? number_format($dayTotal, 1) : '-') . '</td>
-                <td class="amount-cell">Rs.' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
-            </tr>';
-        }
-
-        // Grand total row - English only
-        $html .= '
-            <tr class="grand-total">
-                <td colspan="2"><strong>MONTHLY TOTAL</strong></td>
-                <td><strong>' . number_format($totalCow, 1) . ' L</strong></td>
-                <td><strong>' . number_format($totalBuffalo, 1) . ' L</strong></td>
-                <td><strong>' . number_format($totalLiters, 1) . ' L</strong></td>
-                <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
-            </tr>
-        </tbody>
-        </table>';
-
-        // Bill Summary - English only
-        $html .= '
-        <h4 style="color: #2c3e50; text-align: center; margin-top: 20px;">Bill Summary</h4>
-        <table class="milk-table">
-            <thead>
-                <tr class="summary-header">
-                    <th width="30%">Description</th>
-                    <th width="20%">Quantity</th>
-                    <th width="20%">Rate (Rs/L)</th>
-                    <th width="30%">Amount (Rs)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="cow-cell">
-                    <td>Cow Milk</td>
-                    <td>' . number_format($totalCow, 1) . ' L</td>
-                    <td>Rs.' . $cowRate . '.00</td>
-                    <td>Rs.' . number_format($cowAmount, 2) . '</td>
-                </tr>
-                <tr class="buffalo-cell">
-                    <td>Buffalo Milk</td>
-                    <td>' . number_format($totalBuffalo, 1) . ' L</td>
-                    <td>Rs.' . $buffaloRate . '.00</td>
-                    <td>Rs.' . number_format($buffaloAmount, 2) . '</td>
-                </tr>
+            // Grand total row - English only
+            $html .= '
                 <tr class="grand-total">
-                    <td colspan="3"><strong>TOTAL AMOUNT DUE</strong></td>
+                    <td colspan="2"><strong>MONTHLY TOTAL</strong></td>
+                    <td><strong>' . number_format($totalCow, 1) . ' L</strong></td>
+                    <td><strong>' . number_format($totalBuffalo, 1) . ' L</strong></td>
+                    <td><strong>' . number_format($totalLiters, 1) . ' L</strong></td>
                     <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
                 </tr>
             </tbody>
-        </table>';
+            </table>';
 
-        $pdf->writeHTML($html, true, false, false, false, '');
+            // Bill Summary - English only
+            $html .= '
+            <h4 style="color: #2c3e50; text-align: center; margin-top: 20px;">Bill Summary</h4>
+            <table class="milk-table">
+                <thead>
+                    <tr class="summary-header">
+                        <th width="30%">Description</th>
+                        <th width="20%">Quantity</th>
+                        <th width="20%">Rate (Rs/L)</th>
+                        <th width="30%">Amount (Rs)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="cow-cell">
+                        <td>Cow Milk</td>
+                        <td>' . number_format($totalCow, 1) . ' L</td>
+                        <td>Rs.' . $cowRate . '.00</td>
+                        <td>Rs.' . number_format($cowAmount, 2) . '</td>
+                    </tr>
+                    <tr class="buffalo-cell">
+                        <td>Buffalo Milk</td>
+                        <td>' . number_format($totalBuffalo, 1) . ' L</td>
+                        <td>Rs.' . $buffaloRate . '.00</td>
+                        <td>Rs.' . number_format($buffaloAmount, 2) . '</td>
+                    </tr>
+                    <tr class="grand-total">
+                        <td colspan="3"><strong>TOTAL AMOUNT DUE</strong></td>
+                        <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
+                    </tr>
+                </tbody>
+            </table>';
 
-        // Footer
-        // Footer - English only
-        $pdf->Ln(8);
-        $pdf->SetLineWidth(0.3);
-        $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
-        $pdf->Ln(3);
-        $pdf->SetFont('helvetica', 'I', 9);
-        $pdf->Cell(0, 5, 'Please arrange to pay the bill amount immediately.', 0, 1, 'C');
+            $pdf->writeHTML($html, true, false, false, false, '');
 
-        $pdf->Ln(5);
-        $pdf->SetFont('helvetica', '', 8);
-        $pdf->Cell(95, 5, 'Customer Signature: ________________', 0, 0);
-        $pdf->Cell(95, 5, 'Shop Signature: ________________', 0, 1);
+            // Footer
+            $pdf->Ln(8);
+            $pdf->SetLineWidth(0.3);
+            $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
+            $pdf->Ln(3);
+            $pdf->SetFont('helvetica', 'I', 9);
+            $pdf->Cell(0, 5, 'Please arrange to pay the bill amount immediately.', 0, 1, 'C');
 
-        // Clean output buffer and send PDF
-        if (ob_get_contents()) ob_end_clean();
-        
-        // Output PDF
-        $filename = 'rajnandini_dairy_bill_' . $customer['name'] . '_' . date('Y-m-d') . '.pdf';
-        $pdf->Output($filename, 'I');
-        
+            $pdf->Ln(5);
+            $pdf->SetFont('helvetica', '', 8);
+            $pdf->Cell(95, 5, 'Customer Signature: ________________', 0, 0);
+            $pdf->Cell(95, 5, 'Shop Signature: ________________', 0, 1);
+
+            // Clean output buffer and send PDF
+            if (ob_get_contents()) ob_end_clean();
+
+            // Output PDF
+            $filename = 'rajnandini_dairy_bill_' . $customer['name'] . '_' . date('Y-m-d') . '.pdf';
+            $pdf->Output($filename, 'I');
+
         } catch (Exception $e) {
             // Clean buffer on error
             if (ob_get_contents()) ob_end_clean();
-            
+
             // Show error page
             header('Content-Type: text/html; charset=utf-8');
             echo "<h2>PDF Generation Error</h2>";
