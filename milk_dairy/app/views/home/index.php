@@ -1,12 +1,16 @@
-<?php
-// Public responsive landing page for Milk Dairy
-?>
-<?php /* Optional: include a minimal header assets if needed */ ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<style>
-  .hero{background:#f8fafc}
-  .feature-icon{font-size:2rem;color:#0d6efd}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MilkDairy</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    .hero{background:#f8fafc}
+    .feature-icon{font-size:2rem;color:#0d6efd}
+  </style>
+</head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold" href="#">MilkDairy</a>
@@ -124,3 +128,5 @@
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
