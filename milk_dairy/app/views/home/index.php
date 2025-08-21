@@ -158,37 +158,24 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" class="py-5">
-  <div class="container" data-aos="fade-up">
-    <div class="text-center mb-4">
-      <h3 class="fw-bold">Trusted by users</h3>
-      <p class="text-muted">Real feedback from dairy owners</p>
+<!-- OUR TEAM -->
+<section id="team" class="py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold">Our Team</h3>
+            <p class="text-muted">Meet the developer and designer behind MilkDairy</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card p-4 h-100 text-center">
+                    <img src="/public/assets/img/users/omkar.png" class="rounded-circle mb-3" alt="Omkar" style="width:100px;height:100px;object-fit:cover;">
+                    <h5 class="mb-1">Omkar</h5>
+                    <p class="text-muted mb-2">Developer &amp; Designer</p>
+                    <p class="small fst-italic">"Building simple, effective tools for dairy businesses."</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card p-4 testimonial-card h-100 text-center">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" alt="user">
-          <p class="fst-italic">"Simple and effective—reduces my paperwork by half."</p>
-          <strong>Ramesh K.</strong>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card p-4 testimonial-card h-100 text-center">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle mb-3" alt="user">
-          <p class="fst-italic">"Great for billing and daily tracking."</p>
-          <strong>Sunita P.</strong>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card p-4 testimonial-card h-100 text-center">
-          <img src="https://randomuser.me/api/portraits/men/56.jpg" class="rounded-circle mb-3" alt="user">
-          <p class="fst-italic">"Nice UI, easy to use for our staff."</p>
-          <strong>Ajay M.</strong>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- CONTACT -->
