@@ -299,6 +299,23 @@
   window.addEventListener('scroll', ()=>{
     if(window.scrollY>50) nav.classList.add('navbar-scrolled'); else nav.classList.remove('navbar-scrolled');
   });
+  // auto-close mobile offcanvas when a link is clicked
+  (function(){
+    const offcanvasEl = document.getElementById('mobileMenu');
+    if(!offcanvasEl) return;
+    // delegate clicks on links inside the offcanvas
+    offcanvasEl.addEventListener('click', function(e){
+      const target = e.target.closest('a');
+      if(!target) return;
+      // only close for internal anchor links or navigation links
+      const href = target.getAttribute('href') || '';
+      if(href.startsWith('#') || href.indexOf('/public') === 0 || target.classList.contains('nav-link') || target.classList.contains('text-decoration-none')){
+        // get existing Bootstrap Offcanvas instance or create one
+        const bsOff = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
+        bsOff.hide();
+      }
+    });
+  })();
 </script>
 </body>
 </html>
