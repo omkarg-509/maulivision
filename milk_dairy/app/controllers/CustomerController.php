@@ -284,18 +284,25 @@ public function update($id)
 
 
 public function show($id)
-{ Auth::check(); // ✅ session check
+{
+    Auth::check(); // ✅ session check
     $customerModel = $this->model('Customer');
     $customer = $customerModel->getById($id);
 
     if ($customer) {
-        $vid = $_SESSION['vendor']['id']; // Get the vendor ID from the session
-         $milk_entries = $customerModel->getDailyEntries($vid, $id);
-        // $this->view('customer/view', ['customer' => $customer]);
-        $this->view('customer/view', [
-    'customer' => $customer,
-    'customerId' => $id,
-    'milk_entries' => $milk_entries]);
+        $sessionVid = $_SESSION['vendor']['id'] ?? null;
+        $customerVid = $customer['vid'] ?? null;
+
+        if ($sessionVid && $customerVid && $sessionVid == $customerVid) {
+            $milk_entries = $customerModel->getDailyEntries($sessionVid, $id);
+            $this->view('customer/view', [
+                'customer' => $customer,
+                'customerId' => $id,
+                'milk_entries' => $milk_entries
+            ]);
+        } else {
+            echo "You do not have permission to view this customer.";
+        }
     } else {
         echo "Customer data not found.";
     }
