@@ -14,7 +14,7 @@
     :root{--primary:#0d6efd;--muted:#6c757d}
     body {font-family: 'Poppins', sans-serif; background:#fff;}
     /* Navbar */
-    .navbar {transition: background-color .35s ease, box-shadow .35s ease; border: none;}
+    .navbar {transition: background-color .35s ease, box-shadow .35s ease;}
     .nav-brand-img{height:44px}
     .nav-center{position:absolute; left:50%; transform:translateX(-50%);} 
     .nav-link{font-weight:500;color:rgba(0,0,0,.7)!important}
@@ -64,7 +64,7 @@
     </div>
 
     <!-- mobile toggle -->
-    <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" style="border:none; box-shadow:none;">
       <i class="bi bi-list" style="font-size:1.25rem;color:var(--primary)"></i>
     </button>
   </div>
