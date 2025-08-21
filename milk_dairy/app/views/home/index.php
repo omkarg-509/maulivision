@@ -14,7 +14,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="28">
+      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="50">
       <span>MilkDairy</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample" aria-controls="navbarsExample" aria-expanded="false" aria-label="Toggle navigation">
