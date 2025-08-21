@@ -301,7 +301,8 @@ public function show($id)
                 'milk_entries' => $milk_entries
             ]);
         } else {
-           $this->view('customer/view', ['customer' => $customer]);
+        header('Location: /public/customer');
+        exit;
         }
     } else {
         echo "Customer data not found.";
