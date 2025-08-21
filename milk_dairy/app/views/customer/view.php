@@ -257,6 +257,10 @@ const customerData = {
 
 // Load all entries into JavaScript
 $(document).ready(function() {
+    // Set default milk rates
+    document.getElementById('cowRate').value = 50;
+    document.getElementById('buffaloRate').value = 60;
+    
     // Extract entries from table
     $('#milkEntriesTable tbody tr[data-date]').each(function() {
         const entry = {
@@ -268,19 +272,21 @@ $(document).ready(function() {
     });
     
     filteredEntries = [...allEntries];
-    calculateBill();
     
-    // Set current month as default
+    // Set current month as default (1st day to last day of current month)
     const now = new Date();
-    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (first date of current month)
+    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (1st date of current month)
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
     // शेवटचा दिवस म्हणजे चालू महिन्याचा शेवटचा दिवस (last date of current month)
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
+    // Set the date inputs to current month range
     document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
     document.getElementById('endDate').value = lastDay.toISOString().split('T')[0];
     
+    // Apply the date filter and calculate bill
     filterByDate();
+    calculateBill();
 });
 
 // Calculate bill based on current filtered entries
