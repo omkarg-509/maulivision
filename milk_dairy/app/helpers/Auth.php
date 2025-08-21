@@ -8,12 +8,11 @@ class Auth
             session_start();
           
         }
-          $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
-        $currentUri = $_SERVER['REQUEST_URI'] ?? '';
-        if (!self::isLoggedIn() && strpos($currentUri, '/public/auth/login') === false) {
-            header("Location: /public/auth/login");
+        if (!self::isLoggedIn()) {
+            header("Location: /public/auth/logout");
             exit;
         }
+       
     }
 
     public static function isLoggedIn()
