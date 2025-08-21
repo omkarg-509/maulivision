@@ -60,6 +60,11 @@
                             <a class="card-body  text-center mt-4 mb-2 " href="customer/index"><i class="fas fa-users " style="font-size:30px ;"></i> </a><a>Customers</a>
                         </div>
                     </div>
+           <div class="col-6 col-md-3 col-lg-3">
+            <div class="card  btn btn-default">
+              <a class="card-body  text-center mt-4 mb-2 " href="dailyentry/history"><i class="fas fa-history " style="font-size:30px ;"></i> </a><a>History</a>
+            </div>
+          </div>
                 </div>
       </section>
     

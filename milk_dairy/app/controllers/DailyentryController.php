@@ -56,6 +56,45 @@ class DailyentryController extends Controller
             }
             exit;
         }
+        // If not POST just show form (already handled by index view) - nothing else here
+    }
+
+    /**
+     * Show history page with date filters
+     */
+    public function history()
+    {
+        Auth::check();
+        $this->view('dailyentry/history');
+    }
+
+    /**
+     * AJAX endpoint: aggregated entries by date range for current vendor
+     * Params: start (Y-m-d), end (Y-m-d)
+     */
+    public function historyData()
+    {
+        Auth::check();
+        header('Content-Type: application/json');
+
+        $vendorId = $_SESSION['vendor']['id'] ?? null;
+        if (!$vendorId) {
+            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+            return;
+        }
+
+        $start = $_GET['start'] ?? date('Y-m-01');
+        $end   = $_GET['end'] ?? date('Y-m-d');
+
+        // Basic validation
+        if (!preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $start) || !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $end)) {
+            echo json_encode(['success' => false, 'message' => 'Invalid date format']);
+            return;
+        }
+
+        $dailyEntryModel = $this->model('DailyEntry');
+        $entries = $dailyEntryModel->getEntriesByDateRangeAll($vendorId, $start, $end);
+        echo json_encode(['success' => true, 'data' => $entries]);
     }
     public function list($vid = null)
     {

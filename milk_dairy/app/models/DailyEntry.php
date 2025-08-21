@@ -72,4 +72,27 @@ class DailyEntry extends Database
         $stmt->close();
         return $entries;
     }
+    
+    /**
+     * Get aggregated entries (cow & buffalo liters) per customer per day in a date range for a vendor
+     */
+    public function getEntriesByDateRangeAll($vendorId, $startDate, $endDate)
+    {
+        $stmt = $this->db->prepare("SELECT 
+                DATE(de.created_at) as date,
+                c.name AS customer_name,
+                SUM(CASE WHEN de.milktype='cow' THEN de.milkliter ELSE 0 END) AS cow_liter,
+                SUM(CASE WHEN de.milktype='buffalo' THEN de.milkliter ELSE 0 END) AS buffalo_liter
+            FROM daily_entries de
+            JOIN customers c ON de.cid = c.id
+            WHERE de.vid = ? AND DATE(de.created_at) BETWEEN ? AND ?
+            GROUP BY DATE(de.created_at), c.name
+            ORDER BY DATE(de.created_at) DESC, c.name ASC");
+        $stmt->bind_param("iss", $vendorId, $startDate, $endDate);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $entries = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $entries;
+    }
 }
