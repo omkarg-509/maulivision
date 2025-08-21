@@ -50,4 +50,26 @@ class DailyEntry extends Database
         $stmt->close();
         return $entry;
     }
+
+    public function getEntriesByDateRange($customerId, $startDate, $endDate, $vendorId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT 
+                DATE(created_at) as date,
+                milktype,
+                SUM(milkliter) as liter
+            FROM daily_entries 
+            WHERE cid = ? 
+                AND vid = ? 
+                AND DATE(created_at) BETWEEN ? AND ?
+            GROUP BY DATE(created_at), milktype
+            ORDER BY DATE(created_at), milktype
+        ");
+        $stmt->bind_param("iiss", $customerId, $vendorId, $startDate, $endDate);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $entries = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $entries;
+    }
 }

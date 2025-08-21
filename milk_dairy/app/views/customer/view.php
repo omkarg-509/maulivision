@@ -537,16 +537,22 @@ function downloadPDF() {
         buffalo_rate: buffaloRate
     });
     
-    // Open PDF in new window
-    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf?${pdfParams.toString()}`;
-    
     // Show loading toast
     toastr.info('Generating PDF... Please wait');
     
-    // Try to open PDF
+    // Use the proper PDF endpoint
+    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf?${pdfParams.toString()}`;
+    
+    // Open PDF in new window/tab
     try {
-        window.open(pdfUrl, '_blank');
-        toastr.success('PDF opened in new tab');
+        const newWindow = window.open(pdfUrl, '_blank');
+        if (newWindow) {
+            toastr.success('PDF opened in new tab');
+        } else {
+            // Fallback for popup blockers
+            window.location.href = pdfUrl;
+            toastr.success('PDF download started');
+        }
     } catch (error) {
         console.error('PDF generation error:', error);
         toastr.error('Failed to generate PDF. Please try again.');
