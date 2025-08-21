@@ -12,14 +12,14 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    public function pdf($billId = null, $Date = null)
+    public function pdf($customerId = null, $startDate = null, $endDate = null)
     {
         Auth::check(); // Ensure session is valid
 
         // Get parameters from URL or function parameters
-        $customerId = $_GET['customer_id'] ?? $billId ?? null;
-        $startDate = $_GET['start_date'] ?? date('Y-m-01');
-        $endDate = $_GET['end_date'] ?? date('Y-m-t');
+        $customerId = $_GET['customer_id'] ?? $customerId ?? null;
+        $startDate = $_GET['start_date'] ?? $startDate ?? date('Y-m-01');
+        $endDate = $_GET['end_date'] ?? $endDate ?? date('Y-m-t');
         $cowRate = $_GET['cow_rate'] ?? 50;
         $buffaloRate = $_GET['buffalo_rate'] ?? 60;
 

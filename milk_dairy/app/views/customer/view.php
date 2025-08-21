@@ -524,17 +524,21 @@ Thank you for choosing ${vendor.business_name}! 🙏
 
 // Download PDF
 function downloadPDF() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (!startDate || !endDate) {
-        toastr.error('Please select date range first');
-        return;
-    }
-    
-    // Open PDF in new window
-    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formatDate(startDate)}_to_${formatDate(endDate)}`;
-    window.open(pdfUrl, '_blank');
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+
+  if (!startDate || !endDate) {
+    toastr.error('Please select date range first');
+    return;
+  }
+
+  // Format dates as yyyy-mm-dd for URL
+  const formattedStart = startDate;
+  const formattedEnd = endDate;
+
+  // Open PDF in new window for selected date range
+  const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formattedStart}/${formattedEnd}`;
+  window.open(pdfUrl, '_blank');
 }
 
 // Delete entry with AJAX
