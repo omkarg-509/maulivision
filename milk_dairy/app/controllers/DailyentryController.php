@@ -58,7 +58,7 @@ class DailyentryController extends Controller
         $customerModel = $this->model('customer');
         if ($vid !== null) {
             // If $vid is provided, filter by vendor/session id
-            $dailyEntries = $customerModel->getAllByVendorId($vid);
+            $dailyEntries = $customerModel->getAll($vid);
         } else {
             $dailyEntries = $customerModel->getAll();
         }
