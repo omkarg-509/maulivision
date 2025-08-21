@@ -38,7 +38,36 @@
   </style>
 </head>
 <body>
+ <!-- Team modals -->
+    <div class="modal fade" id="bio-omkar" tabindex="-1" aria-labelledby="bioOmkarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bioOmkarLabel">Omkar Vivek Gaikwad — PHP Developer &amp; Product Lead</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Omkar leads product strategy and backend development for MilkDairy. He focuses on product vision, UX, and making the platform reliable and easy to use for dairy businesses. He also handles design and overall project direction.</p>
+            <p class="mb-0"><strong>Skills:</strong> PHP, MySQL, Bootstrap, UX Design, Product Management</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="modal fade" id="bio-uttkarsha" tabindex="-1" aria-labelledby="bioUttkarshaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bioUttkarshaLabel">Uttkarsha Gundalkar — Frontend Developer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Uttkarsha designs and implements user interfaces for MilkDairy, focusing on usability and a seamless experience. She ensures the platform is visually appealing and easy to navigate for all users.</p>
+            <p class="mb-0"><strong>Skills:</strong> HTML, CSS, JavaScript, Bootstrap, UI/UX Design</p>
+          </div>
+        </div>
+      </div>
+    </div>
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-transparent fixed-top py-3">
   <div class="container position-relative">
@@ -223,51 +252,7 @@
   
     </div>
 
-    <!-- Team modals -->
-    <div class="modal fade" id="bio-omkar" tabindex="-1" aria-labelledby="bioOmkarLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="bioOmkarLabel">Omkar Vivek Gaikwad — PHP Developer &amp; Product Lead</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Omkar leads product strategy and backend development for MilkDairy. He focuses on product vision, UX, and making the platform reliable and easy to use for dairy businesses. He also handles design and overall project direction.</p>
-            <p class="mb-0"><strong>Skills:</strong> PHP, MySQL, Bootstrap, UX Design, Product Management</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="bio-vivek" tabindex="-1" aria-labelledby="bioVivekLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="bioVivekLabel">Vivek Gaikwad — PHP Developer</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Vivek is the PHP developer responsible for the platform's backend, ensuring performance, secure payment integrations, and maintainable architecture. He works closely with product to implement features and keep the system robust.</p>
-            <p class="mb-0"><strong>Skills:</strong> PHP, APIs, Razorpay, Database Design, Security</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="bio-uttkarsha" tabindex="-1" aria-labelledby="bioUttkarshaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="bioUttkarshaLabel">Uttkarsha Gundalkar — Frontend Developer</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Uttkarsha designs and implements user interfaces for MilkDairy, focusing on usability and a seamless experience. She ensures the platform is visually appealing and easy to navigate for all users.</p>
-            <p class="mb-0"><strong>Skills:</strong> HTML, CSS, JavaScript, Bootstrap, UI/UX Design</p>
-          </div>
-        </div>
-      </div>
-    </div>
+   
 
   </div>
 </section>
