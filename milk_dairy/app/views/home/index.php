@@ -180,43 +180,13 @@
         <div class="card text-center team-card h-100">
           <div class="card-body position-relative">
             <img src="/public/assets/img/users/omkar.png" alt="Omkar" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Omkar</h5>
+            <h5 class="mt-3 mb-1">Omkar Vivek Gaikwad</h5>
             <div class="team-role mb-2">Fullstack Developer &amp; Designer</div>
             <p class="text-muted small">Building simple, effective tools for dairy businesses — UX-forward and lightweight.</p>
             <div class="social-icons mt-3">
               <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
               <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
               <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-8 col-md-6 col-lg-4">
-        <div class="card text-center team-card h-100">
-          <div class="card-body position-relative">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vivek" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Vivek Gaikwad</h5>
-            <div class="team-role mb-2">Backend Engineer</div>
-            <p class="text-muted small">Focuses on stability, performance and payment integrations.</p>
-            <div class="social-icons mt-3">
-              <a href="#" aria-label="Vivek - linkedin"><i class="bi bi-linkedin"></i></a>
-              <a href="#" aria-label="Vivek - github"><i class="bi bi-github"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-8 col-md-6 col-lg-4">
-        <div class="card text-center team-card h-100">
-          <div class="card-body position-relative">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Support" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Meera</h5>
-            <div class="team-role mb-2">Customer Success</div>
-            <p class="text-muted small">Helps customers get started and answers product questions.</p>
-            <div class="social-icons mt-3">
-              <a href="#" aria-label="Meera - twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" aria-label="Meera - linkedin"><i class="bi bi-linkedin"></i></a>
             </div>
           </div>
         </div>
