@@ -72,9 +72,25 @@
 <nav class="navbar navbar-expand-lg navbar-transparent fixed-top py-3">
   <div class="container position-relative">
     <a class="navbar-brand d-flex align-items-center" href="/public">
-      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" class="nav-brand-img me-2">
-      <span class="fw-bold text-dark">MilkDairy</span>
+      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" class="nav-brand-img me-2 animate-logo">
+      <span class="fw-bold text-dark animate-name">MilkDairy</span>
     </a>
+    <style>
+      .animate-logo {
+        transition: transform 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+      }
+      .animate-logo:hover {
+        transform: rotate(-10deg) scale(1.12);
+      }
+      .animate-name {
+        display: inline-block;
+        transition: color 0.4s, letter-spacing 0.4s;
+      }
+      .navbar-brand:hover .animate-name {
+        color: var(--primary);
+        letter-spacing: 2px;
+      }
+    </style>
 
     <!-- center links (desktop) -->
     <div class="nav-center d-none d-lg-block">
