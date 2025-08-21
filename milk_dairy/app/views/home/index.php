@@ -180,8 +180,8 @@
       <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
         <div class="card text-center team-card h-100">
           <div class="card-body position-relative">
-            <img src="/public/assets/img/users/omkar.png" alt="Omkar Vivek Gaikwad" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Omkar Vivek Gaikwad</h5>
+            <img src="/public/assets/img/users/omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
             <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
             <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for MilkDairy.</p>
             <div class="social-icons mt-3">
@@ -204,8 +204,8 @@
     <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170">
       <div class="card text-center team-card h-100">
         <div class="card-body position-relative">
-        <img src="/public/assets/img/users/uttkarsha.png" alt="Uttkarsha" class="team-photo mx-auto d-block">
-        <h5 class="mt-3 mb-1">Uttkarsha</h5>
+        <img src="/public/assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
+        <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
         <div class="team-role mb-2">Frontend Developer</div>
         <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
         <div class="social-icons mt-3">
