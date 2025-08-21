@@ -76,24 +76,7 @@
       <span class="fw-bold text-dark animate-name">MilkDairy</span>
     </a>
     <style>
-/* Logo glow and "MilkDairy" text size animation */
-@keyframes logo-glow {
-    0%, 100% { box-shadow: 0 0 0px 0px #0d6efd44; }
-    50% { box-shadow: 0 0 24px 8px #0d6efd88; }
-}
-@keyframes name-scale {
-    0%, 100% { transform: scale(1);}
-    50% { transform: scale(1.12);}
-}
-.animate-logo {
-    animation: logo-glow 2.2s ease-in-out infinite;
-    transition: box-shadow .3s;
-}
-.animate-name {
-    display: inline-block;
-    animation: name-scale 2.2s cubic-bezier(.4,0,.2,1) infinite;
-    transition: transform .3s;
-}
+   
     </style>
 
     <!-- center links (desktop) -->
