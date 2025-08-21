@@ -7,10 +7,10 @@ if ($url[0] == 'subscription') {
 
 class SubscriptionController extends Controller
 {
-    // public function index()
-    // {
-    //     $this->view('subscription/index');
-    // }
+    public function index()
+    {
+        $this->view('subscription/index');
+    }
 
     // Create razorpay order via AJAX
     public function createOrder()
