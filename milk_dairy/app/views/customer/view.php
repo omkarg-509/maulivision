@@ -82,7 +82,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Cow Milk Rate (₹ per liter)</label>
-                        <input type="number" id="cowRate" class="form-control"  step="0.01" onchange="calculateBill()">
+                        <input type="number" id="cowRate" class="form-control" value="50" step="0.01" onchange="calculateBill()">
                       </div>
                     </div>
                     <div class="col-md-6">
