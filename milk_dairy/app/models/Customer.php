@@ -55,16 +55,18 @@ class Customer extends Database
     {
         if ($vid !== null) {
             $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? AND vid = ? ORDER BY id DESC");
-            $d_status = '0';
-            $stmt->bind_param("si", $d_status, $vid);
+            $d_status = 0; // Use integer instead of string
+            $stmt->bind_param("ii", $d_status, $vid);
         } else {
             $stmt = $this->db->prepare("SELECT * FROM customers WHERE d_status = ? ORDER BY id DESC");
-            $d_status = '0';
-            $stmt->bind_param("s", $d_status);
+            $d_status = 0; // Use integer instead of string
+            $stmt->bind_param("i", $d_status);
         }
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $customers = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $customers;
     }
 
     public function insert($data)

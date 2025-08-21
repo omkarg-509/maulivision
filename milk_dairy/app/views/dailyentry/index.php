@@ -173,7 +173,7 @@
 
       if (keyword.length >= 2) {
         $.ajax({
-          url: "/public/customer/searchCustomer",
+          url: "<?php echo BASE_URL; ?>customer/searchCustomer",
           method: "GET",
           data: { term: keyword },
           dataType: "json",
@@ -210,23 +210,41 @@
     });
   });
             function loadEntriesTable() {
+              // Show loading indicator
+              $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+              
               $.ajax({
-                url: '/public/dailyentry/list',
+                url: '<?php echo BASE_URL; ?>dailyentry/list',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                  if (response.success && Array.isArray(response.data)) {
+                  console.log('loadEntriesTable response:', response); // Debug log
+                  
+                  if (response.success && Array.isArray(response.data) && response.data.length > 0) {
                     $('#entries-table-body').empty();
                     response.data.forEach(function(entry, idx) {
+                      // Handle missing customer_name gracefully
+                      let customerName = entry.customer_name || entry.name || 'Unknown Customer';
+                      let milkType = '';
+                      
+                      // Handle milk type translation
+                      if (entry.milktype === 'buffalo') {
+                        milkType = 'म्हैस';
+                      } else if (entry.milktype === 'cow') {
+                        milkType = 'गाय';
+                      } else {
+                        milkType = entry.milktype || 'Unknown';
+                      }
+                      
                       $('#entries-table-body').append(
                         `<tr>
                            <td>${idx + 1}</td>
-                             <td>${entry.customer_name}</td>
-                             <td>${entry.milktype === 'buffalo' ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : entry.milktype)}</td>
-                           <td>${entry.milkliter}</td>
-                             <td>
+                           <td>${customerName}</td>
+                           <td>${milkType}</td>
+                           <td>${entry.milkliter || '0'} L</td>
+                           <td>
                              <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
-                             </td>
+                           </td>
                          </tr>`
                       );
                     });
@@ -234,8 +252,9 @@
                     $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
                   }
                 },
-                error: function() {
-                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries.</td></tr>');
+                error: function(xhr, status, error) {
+                  console.error('loadEntriesTable error:', xhr, status, error); // Debug log
+                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
                 }
               });
             }
@@ -249,7 +268,7 @@
               var entryId = $(this).data('id');
               if (confirm('Are you sure you want to delete this entry?')) {
               $.ajax({
-                url: '/public/dailyentry/delete/' + entryId,
+                url: '<?php echo BASE_URL; ?>dailyentry/delete/' + entryId,
                 type: 'POST',
                 dataType: 'json',
                 success: function(response) {
@@ -275,7 +294,7 @@
                 var formData = form.serialize();
 
                 $.ajax({
-                  url: '/public/dailyentry/store',
+                  url: '<?php echo BASE_URL; ?>dailyentry/store',
                   type: 'POST',
                   data: formData,
                   dataType: 'json',

@@ -6,7 +6,12 @@ class DailyentryController extends Controller
     public function index(){
         Auth::check();
         $dailyEntryModel = $this->model('DailyEntry');
-        $dailyEntries = $dailyEntryModel->getAll();
+        
+        // Get current vendor ID from session
+        $vendorId = $_SESSION['vendor']['id'] ?? null;
+        
+        // Get all daily entries for the current vendor
+        $dailyEntries = $dailyEntryModel->getAll($vendorId);
         $this->view('dailyentry/index', ['dailyEntries' => $dailyEntries] );
         
     }
@@ -16,7 +21,7 @@ class DailyentryController extends Controller
         Auth::check();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
-                'vid' => $_POST['vid'] ?? '',
+                'vid' => $_SESSION['vendor']['id'] ?? ($_POST['vid'] ?? ''),
                 'cid' => $_POST['cid'] ?? '',
                 'milktype' => $_POST['milktype'] ?? '',
                 'milkliter' => $_POST['milkliter'] ?? '',
@@ -55,13 +60,21 @@ class DailyentryController extends Controller
     public function list($vid = null)
     {
         Auth::check();
-        $customerModel = $this->model('customer');
-        if ($vid !== null) {
-            // If $vid is provided, filter by vendor/session id
-            $dailyEntries = $customerModel->getAll($vid);
-        } else {
-            $dailyEntries = $customerModel->getAll();
+        $dailyEntryModel = $this->model('DailyEntry');
+        
+        // Get vendor ID from parameter or session
+        if ($vid === null) {
+            $vid = $_SESSION['vendor']['id'] ?? null;
         }
+        
+        if ($vid !== null) {
+            // Get daily entries for the specific vendor
+            $dailyEntries = $dailyEntryModel->getAll($vid);
+        } else {
+            // If no vendor ID, return empty array
+            $dailyEntries = [];
+        }
+        
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $dailyEntries]);
         exit;
