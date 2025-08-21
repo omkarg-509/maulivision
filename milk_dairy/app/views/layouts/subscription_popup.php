@@ -39,7 +39,8 @@
 function showSubscriptionModal(){
 	const m=document.getElementById('subscriptionModal'); if(!m) return; m.style.display='flex'; m.style.opacity=0; m.style.transition='opacity .25s'; setTimeout(()=>m.style.opacity=1,10);
 }
-function closeSubscriptionModal(){ const m=document.getElementById('subscriptionModal'); if(!m) return; m.style.opacity=0; setTimeout(()=>{m.style.display='none';},250); }
+function closeSubscriptionModal(snooze=true){ const m=document.getElementById('subscriptionModal'); if(!m) return; m.style.opacity=0; setTimeout(()=>{m.style.display='none';},250); if(snooze){ const dt=new Date(Date.now()+2*60*60*1000); document.cookie='hide_sub_popup_until='+dt.toISOString()+'; path=/'; } }
+			<button type="button" class="btn btn-secondary" onclick="closeSubscriptionModal(true)">Later</button>
 document.addEventListener('DOMContentLoaded',()=>{ showSubscriptionModal(); });
 
 function beginSubscription(){
