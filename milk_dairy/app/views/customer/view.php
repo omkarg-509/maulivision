@@ -62,8 +62,104 @@
               </div>
             </div>
          <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4>Bill Calculator</h4>
+                  <div>
+                    <button type="button" class="btn btn-info btn-sm" onclick="generateBill()">
+                      <i class="fa fa-calculator"></i> Generate Bill
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="sendWhatsApp()">
+                      <i class="fa fa-whatsapp"></i> Send WhatsApp
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="downloadPDF()">
+                      <i class="fa fa-download"></i> Download PDF
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Cow Milk Rate (₹ per liter)</label>
+                        <input type="number" id="cowRate" class="form-control" value="50" step="0.01" onchange="calculateBill()">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Buffalo Milk Rate (₹ per liter)</label>
+                        <input type="number" id="buffaloRate" class="form-control" value="60" step="0.01" onchange="calculateBill()">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Select Date Range</label>
+                        <div class="row">
+                          <div class="col-6">
+                            <input type="date" id="startDate" class="form-control" onchange="filterByDate()">
+                          </div>
+                          <div class="col-6">
+                            <input type="date" id="endDate" class="form-control" onchange="filterByDate()">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Quick Select</label>
+                        <select class="form-control" onchange="quickDateSelect(this.value)">
+                          <option value="">Select Period</option>
+                          <option value="today">Today</option>
+                          <option value="yesterday">Yesterday</option>
+                          <option value="thisweek">This Week</option>
+                          <option value="thismonth">This Month</option>
+                          <option value="lastmonth">Last Month</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Bill Summary -->
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <h5>Bill Summary</h5>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <strong>Cow Milk:</strong> <span id="totalCowLiters">0</span> L
+                              <br><strong>Amount:</strong> ₹<span id="cowAmount">0</span>
+                            </div>
+                            <div class="col-md-3">
+                              <strong>Buffalo Milk:</strong> <span id="totalBuffaloLiters">0</span> L
+                              <br><strong>Amount:</strong> ₹<span id="buffaloAmount">0</span>
+                            </div>
+                            <div class="col-md-3">
+                              <strong>Total Liters:</strong> <span id="grandTotalLiters">0</span> L
+                              <br><strong>Total Amount:</strong> ₹<span id="grandTotalAmount">0</span>
+                            </div>
+                            <div class="col-md-3">
+                              <strong>Days:</strong> <span id="totalDays">0</span>
+                              <br><strong>Avg/Day:</strong> <span id="avgPerDay">0</span> L
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+         </div>
+         
+         <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+<div class="card">
+  <div class="card-header">
+    <h4>Milk Entries</h4>
+  </div>
 <div class="card-body" style="overflow-x:auto;">
-  <table class="table table-sm">
+  <table class="table table-sm" id="milkEntriesTable">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -76,24 +172,39 @@
     <tbody>
       <?php
       $totalMilkLiter = 0;
+      $totalCowLiter = 0;
+      $totalBuffaloLiter = 0;
       $days = [];
       if (!empty($data['milk_entries']) && is_array($data['milk_entries'])):
         foreach ($data['milk_entries'] as $index => $entry):
           $totalMilkLiter += floatval($entry['milkliter']);
+          
+          // Track totals by milk type
+          if ($entry['milktype'] === 'cow') {
+            $totalCowLiter += floatval($entry['milkliter']);
+          } elseif ($entry['milktype'] === 'buffalo') {
+            $totalBuffaloLiter += floatval($entry['milkliter']);
+          }
+          
+          // Format date for display
+          $entryDate = date('d-m-Y', strtotime($entry['created_at']));
 
       ?>
-          <tr>
+          <tr data-date="<?= htmlspecialchars($entry['created_at']) ?>" data-milktype="<?= htmlspecialchars($entry['milktype']) ?>" data-liter="<?= htmlspecialchars($entry['milkliter']) ?>">
         <td><?= $index + 1 ?></td>
-        <td><?= htmlspecialchars($entry['created_at']) ?></td>
-        <td><?= htmlspecialchars($entry['milktype']) ?></td>
-        <td><?= htmlspecialchars($entry['milkliter']) ?></td>
+        <td><?= $entryDate ?></td>
+        <td>
+          <?php 
+            $milkTypeDisplay = $entry['milktype'] === 'cow' ? '🐄 गाय' : ($entry['milktype'] === 'buffalo' ? '🐃 म्हैस' : htmlspecialchars($entry['milktype']));
+            echo $milkTypeDisplay;
+          ?>
+        </td>
+        <td><?= htmlspecialchars($entry['milkliter']) ?> L</td>
         <td>
           <?php if (isset($entry['id'])): ?>
-          <a href="/public/dailyentry/delete/<?= urlencode($entry['id']) ?>"
-         onclick="return confirm('Are you sure you want to delete this entry?');"
-         title="Delete" class="btn btn-danger btn-sm">
-        <i class="fa fa-trash"></i>
-          </a>
+          <button onclick="deleteEntry(<?= $entry['id'] ?>)" class="btn btn-danger btn-sm" title="Delete">
+            <i class="fa fa-trash"></i>
+          </button>
           <?php endif; ?>
         </td>
           </tr>
@@ -101,10 +212,11 @@
         endforeach;
       
       ?>
-        
-        <td colspan="3" class="text-right font-weight-bold">Total Milk Liter</td>
-        <td class="font-weight-bold"><?= $totalMilkLiter ?></td>
-       
+      <tr class="table-info font-weight-bold">
+        <td colspan="2" class="text-right">Total:</td>
+        <td>🐄 <?= $totalCowLiter ?>L | 🐃 <?= $totalBuffaloLiter ?>L</td>
+        <td><?= $totalMilkLiter ?> L</td>
+        <td>-</td>
       </tr>
       <?php else: ?>
         <tr>
@@ -113,6 +225,7 @@
       <?php endif; ?>
     </tbody>
   </table>
+</div>
 </div>
 
   </div>
@@ -124,6 +237,339 @@
      
 
   </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+// Global variables
+let allEntries = [];
+let filteredEntries = [];
+
+// Initialize data from PHP
+const customerData = {
+    name: "<?= htmlspecialchars($data['customer']['name'] ?? '') ?>",
+    billId: "<?= htmlspecialchars($data['customer']['bill_id'] ?? '') ?>",
+    mobile: "<?= htmlspecialchars($data['customer']['mobile'] ?? '') ?>",
+    id: "<?= htmlspecialchars($data['customer']['id'] ?? '') ?>"
+};
+
+// Load all entries into JavaScript
+$(document).ready(function() {
+    // Extract entries from table
+    $('#milkEntriesTable tbody tr[data-date]').each(function() {
+        const entry = {
+            date: $(this).data('date'),
+            milktype: $(this).data('milktype'),
+            liter: parseFloat($(this).data('liter')) || 0
+        };
+        allEntries.push(entry);
+    });
+    
+    filteredEntries = [...allEntries];
+    calculateBill();
+    
+    // Set current month as default
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+    document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
+    document.getElementById('endDate').value = lastDay.toISOString().split('T')[0];
+    
+    filterByDate();
+});
+
+// Calculate bill based on current filtered entries
+function calculateBill() {
+    const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+    const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
+    
+    let totalCowLiters = 0;
+    let totalBuffaloLiters = 0;
+    const uniqueDates = new Set();
+    
+    filteredEntries.forEach(entry => {
+        if (entry.milktype === 'cow') {
+            totalCowLiters += entry.liter;
+        } else if (entry.milktype === 'buffalo') {
+            totalBuffaloLiters += entry.liter;
+        }
+        uniqueDates.add(entry.date.split(' ')[0]); // Get date part only
+    });
+    
+    const cowAmount = totalCowLiters * cowRate;
+    const buffaloAmount = totalBuffaloLiters * buffaloRate;
+    const grandTotalLiters = totalCowLiters + totalBuffaloLiters;
+    const grandTotalAmount = cowAmount + buffaloAmount;
+    const totalDays = uniqueDates.size;
+    const avgPerDay = totalDays > 0 ? (grandTotalLiters / totalDays).toFixed(2) : 0;
+    
+    // Update UI
+    document.getElementById('totalCowLiters').textContent = totalCowLiters.toFixed(2);
+    document.getElementById('totalBuffaloLiters').textContent = totalBuffaloLiters.toFixed(2);
+    document.getElementById('cowAmount').textContent = cowAmount.toFixed(2);
+    document.getElementById('buffaloAmount').textContent = buffaloAmount.toFixed(2);
+    document.getElementById('grandTotalLiters').textContent = grandTotalLiters.toFixed(2);
+    document.getElementById('grandTotalAmount').textContent = grandTotalAmount.toFixed(2);
+    document.getElementById('totalDays').textContent = totalDays;
+    document.getElementById('avgPerDay').textContent = avgPerDay;
+}
+
+// Filter entries by date range
+function filterByDate() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        filteredEntries = [...allEntries];
+    } else {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        filteredEntries = allEntries.filter(entry => {
+            const entryDate = new Date(entry.date.split(' ')[0]);
+            return entryDate >= start && entryDate <= end;
+        });
+    }
+    
+    calculateBill();
+    highlightFilteredRows();
+}
+
+// Quick date selection
+function quickDateSelect(period) {
+    const now = new Date();
+    let startDate, endDate;
+    
+    switch(period) {
+        case 'today':
+            startDate = endDate = now;
+            break;
+        case 'yesterday':
+            startDate = endDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+            break;
+        case 'thisweek':
+            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            startDate = startOfWeek;
+            endDate = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
+            break;
+        case 'thismonth':
+            startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+            endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            break;
+        case 'lastmonth':
+            startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+            endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+            break;
+        default:
+            return;
+    }
+    
+    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+    
+    filterByDate();
+}
+
+// Highlight filtered rows in table
+function highlightFilteredRows() {
+    $('#milkEntriesTable tbody tr[data-date]').removeClass('table-warning');
+    
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        
+        $('#milkEntriesTable tbody tr[data-date]').each(function() {
+            const rowDate = new Date($(this).data('date').split(' ')[0]);
+            if (rowDate >= start && rowDate <= end) {
+                $(this).addClass('table-warning');
+            }
+        });
+    }
+}
+
+// Generate and display bill
+function generateBill() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        toastr.error('Please select date range first');
+        return;
+    }
+    
+    const billData = {
+        customer: customerData,
+        startDate: startDate,
+        endDate: endDate,
+        cowRate: parseFloat(document.getElementById('cowRate').value),
+        buffaloRate: parseFloat(document.getElementById('buffaloRate').value),
+        summary: {
+            cowLiters: parseFloat(document.getElementById('totalCowLiters').textContent),
+            buffaloLiters: parseFloat(document.getElementById('totalBuffaloLiters').textContent),
+            cowAmount: parseFloat(document.getElementById('cowAmount').textContent),
+            buffaloAmount: parseFloat(document.getElementById('buffaloAmount').textContent),
+            totalLiters: parseFloat(document.getElementById('grandTotalLiters').textContent),
+            totalAmount: parseFloat(document.getElementById('grandTotalAmount').textContent),
+            totalDays: parseInt(document.getElementById('totalDays').textContent)
+        }
+    };
+    
+    // Show bill in modal or new window
+    showBillModal(billData);
+}
+
+// Send WhatsApp message
+function sendWhatsApp() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        toastr.error('Please select date range first');
+        return;
+    }
+    
+    const message = `
+🥛 *Rajnandini Dairy Bill*
+
+👤 Customer: ${customerData.name}
+📋 Bill ID: ${customerData.billId}
+📅 Period: ${formatDate(startDate)} to ${formatDate(endDate)}
+
+🐄 Cow Milk: ${document.getElementById('totalCowLiters').textContent} L
+🐃 Buffalo Milk: ${document.getElementById('totalBuffaloLiters').textContent} L
+
+💰 *Total Amount: ₹${document.getElementById('grandTotalAmount').textContent}*
+
+📱 Days: ${document.getElementById('totalDays').textContent}
+📊 Avg/Day: ${document.getElementById('avgPerDay').textContent} L
+
+Thank you for choosing Rajnandini Dairy! 🙏
+    `.trim();
+    
+    const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+// Download PDF
+function downloadPDF() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        toastr.error('Please select date range first');
+        return;
+    }
+    
+    // Open PDF in new window
+    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formatDate(startDate)}_to_${formatDate(endDate)}`;
+    window.open(pdfUrl, '_blank');
+}
+
+// Delete entry with AJAX
+function deleteEntry(entryId) {
+    if (!confirm('Are you sure you want to delete this entry?')) {
+        return;
+    }
+    
+    $.ajax({
+        url: `<?php echo BASE_URL; ?>dailyentry/delete/${entryId}`,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                toastr.success('Entry deleted successfully');
+                location.reload(); // Reload to update the data
+            } else {
+                toastr.error(response.message || 'Failed to delete entry');
+            }
+        },
+        error: function() {
+            toastr.error('An error occurred while deleting');
+        }
+    });
+}
+
+// Show bill modal
+function showBillModal(billData) {
+    const modalHtml = `
+    <div class="modal fade" id="billModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">🥛 Milk Bill - ${billData.customer.name}</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <h4>Rajnandini Dairy</h4>
+                        <p>Mhasoba Chowk, Gaywadi Nal<br>Phone: 9822882755</p>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-6"><strong>Customer:</strong> ${billData.customer.name}</div>
+                        <div class="col-6"><strong>Bill ID:</strong> ${billData.customer.billId}</div>
+                        <div class="col-6"><strong>Period:</strong> ${formatDate(billData.startDate)} to ${formatDate(billData.endDate)}</div>
+                        <div class="col-6"><strong>Total Days:</strong> ${billData.summary.totalDays}</div>
+                    </div>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Milk Type</th>
+                            <th>Quantity (L)</th>
+                            <th>Rate (₹/L)</th>
+                            <th>Amount (₹)</th>
+                        </tr>
+                        <tr>
+                            <td>🐄 Cow Milk</td>
+                            <td>${billData.summary.cowLiters}</td>
+                            <td>${billData.cowRate}</td>
+                            <td>₹${billData.summary.cowAmount.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>🐃 Buffalo Milk</td>
+                            <td>${billData.summary.buffaloLiters}</td>
+                            <td>${billData.buffaloRate}</td>
+                            <td>₹${billData.summary.buffaloAmount.toFixed(2)}</td>
+                        </tr>
+                        <tr class="table-info">
+                            <th>Total</th>
+                            <th>${billData.summary.totalLiters} L</th>
+                            <th>-</th>
+                            <th>₹${billData.summary.totalAmount.toFixed(2)}</th>
+                        </tr>
+                    </table>
+                    <p class="text-center mt-3"><em>Please arrange to pay the bill amount immediately.</em></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="sendWhatsApp()">
+                        <i class="fa fa-whatsapp"></i> Send WhatsApp
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="downloadPDF()">
+                        <i class="fa fa-download"></i> Download PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    
+    // Remove existing modal and add new one
+    $('#billModal').remove();
+    $('body').append(modalHtml);
+    $('#billModal').modal('show');
+}
+
+// Format date helper
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-IN');
+}
+</script>
  
 
 
