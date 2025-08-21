@@ -77,11 +77,11 @@
     </a>
     <style>
       /* Heartbeat animation for logo */
-      @keyframes heartbeat {
-        0%, 100% { transform: scale(1);}
-        10%, 30%, 50%, 70%, 90% { transform: scale(1.12);}
-        20%, 40%, 60%, 80% { transform: scale(0.95);}
-      }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1);}
+      20%, 60% { transform: scale(1.08);}
+      40%, 80% { transform: scale(0.96);}
+    }
       .animate-logo {
         transition: transform 0.5s cubic-bezier(.68,-0.55,.27,1.55);
         animation: heartbeat 1.4s infinite;
