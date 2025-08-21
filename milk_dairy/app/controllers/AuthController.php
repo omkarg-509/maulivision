@@ -24,6 +24,7 @@ class AuthController extends Controller
             $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
             $business_name = isset($_POST['business_name']) ? htmlspecialchars(trim($_POST['business_name'])) : '';
             $business_number = isset($_POST['business_number']) ? htmlspecialchars(trim($_POST['business_number'])) : '';
+            $business_address = isset($_POST['business_address']) ? htmlspecialchars(trim($_POST['business_address'])) : '';
             $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
             $mobile_number = isset($_POST['mobile_number']) ? htmlspecialchars(trim($_POST['mobile_number'])) : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -31,13 +32,14 @@ class AuthController extends Controller
                 empty($name) ||
                 empty($business_name) ||
                 empty($business_number) ||
+                empty($business_address) ||
                 empty($mobile_number) ||
                 empty($password) ||
                 !$email
             ) {
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Name, business name, business number, mobile number, email, and password are required. Email must be valid.'
+                    'message' => 'Name, business name, business number, mobile number, business address, email, and password are required. Email must be valid.'
                 ]);
                 exit;
             }
@@ -58,6 +60,7 @@ class AuthController extends Controller
                 'name' => $name,
                 'business_name' => $business_name,
                 'business_number' => $business_number,
+                'business_address' => $business_address,
                 'email' => $email,
                 'mobile_number' => $mobile_number,
                 'password' => $hashedPassword
