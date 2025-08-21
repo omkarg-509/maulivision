@@ -3,33 +3,33 @@
   <div class="loader" style="display:none"></div>
   <section class="section">
     <div class="section-header">
-      <h4>Daily Entry History</h4>
+          <h4>दैनिक नोंद इतिहास</h4>
     </div>
     <div class="section-body">
       <div class="card">
         <div class="card-body">
           <form id="filterForm" class="row g-3 align-items-end">
             <div class="col-sm-3">
-              <label class="form-label">Start Date</label>
+                <label class="form-label">सुरुवातीची तारीख</label>
               <input type="date" name="start" id="startDate" class="form-control" required>
             </div>
             <div class="col-sm-3">
-              <label class="form-label">End Date</label>
+                <label class="form-label">शेवटची तारीख</label>
               <input type="date" name="end" id="endDate" class="form-control" required>
             </div>
             <div class="col-sm-3">
-              <label class="form-label">Search Customer</label>
-              <input type="text" id="searchCustomer" class="form-control" placeholder="Type to filter...">
+                <label class="form-label">ग्राहक शोधा</label>
+                <input type="text" id="searchCustomer" class="form-control" placeholder="फिल्टर करण्यासाठी टाइप करा...">
             </div>
             <div class="col-sm-3">
-              <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+                <button type="submit" class="btn btn-primary w-100">फिल्टर लावा</button>
             </div>
           </form>
           <div class="row mt-3" id="todayTotals" style="display:none;">
             <div class="col-12">
               <div class="alert alert-info py-2 mb-0">
-                <strong>Today Total:</strong> <span id="todayTotalLiters">0.00</span> L
-                (Cow: <span id="todayCowLiters">0.00</span> | Buffalo: <span id="todayBuffaloLiters">0.00</span>)
+                  <strong>आजचे एकूण:</strong> <span id="todayTotalLiters">0.00</span> L
+                  (गाय: <span id="todayCowLiters">0.00</span> | म्हैस: <span id="todayBuffaloLiters">0.00</span>)
               </div>
             </div>
           </div>
@@ -40,15 +40,15 @@
           <table class="table table-sm table-bordered" id="historyTable">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Cow (L)</th>
-                <th>Buffalo (L)</th>
-                <th>Total (L)</th>
+                  <th>तारीख</th>
+                  <th>ग्राहक</th>
+                  <th>गाय (L)</th>
+                  <th>म्हैस (L)</th>
+                  <th>एकूण (L)</th>
               </tr>
             </thead>
             <tbody id="historyBody">
-              <tr><td colspan="5" class="text-center">Select a date range to load data.</td></tr>
+                <tr><td colspan="5" class="text-center">डेटा पाहण्यासाठी तारीख श्रेणी निवडा.</td></tr>
             </tbody>
           </table>
         </div>
@@ -85,6 +85,7 @@ $('#searchCustomer').on('keyup', function(){
 
 function loadHistory(start,end){
   $('#historyBody').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+  $('#historyBody').html('<tr><td colspan="5" class="text-center">लोड होत आहे...</td></tr>');
   $.ajax({
     url: '<?php echo BASE_URL; ?>dailyentry/historyData',
     method: 'GET',
@@ -106,12 +107,12 @@ function loadHistory(start,end){
         $('#historyBody').html(rows);
         updateTodayTotals(resp.data);
       }else{
-        $('#historyBody').html('<tr><td colspan="5" class="text-center">No data found for selected range.</td></tr>');
+        $('#historyBody').html('<tr><td colspan="5" class="text-center">निवडलेल्या कालावधीसाठी डेटा उपलब्ध नाही.</td></tr>');
         updateTodayTotals([]);
       }
     },
     error: function(){
-      $('#historyBody').html('<tr><td colspan="5" class="text-center text-danger">Failed to load data.</td></tr>');
+      $('#historyBody').html('<tr><td colspan="5" class="text-center text-danger">डेटा लोड करण्यात अयशस्वी.</td></tr>');
       updateTodayTotals([]);
     }
   });
