@@ -254,16 +254,16 @@
       </div>
     </div>
 
-    <div class="modal fade" id="bio-meera" tabindex="-1" aria-labelledby="bioMeeraLabel" aria-hidden="true">
+    <div class="modal fade" id="bio-uttkarsha" tabindex="-1" aria-labelledby="bioUttkarshaLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="bioMeeraLabel">Meera — Customer Success</h5>
+            <h5 class="modal-title" id="bioUttkarshaLabel">Uttkarsha Gundalkar — Frontend Developer</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Meera helps customers onboard, answers questions and provides support to ensure everyone gets value from MilkDairy. She coordinates demos and collects user feedback to improve the product.</p>
-            <p class="mb-0"><strong>Skills:</strong> Customer Support, Onboarding, Documentation</p>
+            <p>Uttkarsha designs and implements user interfaces for MilkDairy, focusing on usability and a seamless experience. She ensures the platform is visually appealing and easy to navigate for all users.</p>
+            <p class="mb-0"><strong>Skills:</strong> HTML, CSS, JavaScript, Bootstrap, UI/UX Design</p>
           </div>
         </div>
       </div>
