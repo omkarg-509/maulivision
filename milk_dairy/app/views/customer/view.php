@@ -559,8 +559,8 @@ function showBillModal(billData) {
   // Get vendor info from PHP session (passed via JS)
   const vendor = {
     business_name: "<?= htmlspecialchars($_SESSION['vendor']['business_name'] ?? 'Rajnandini Dairy') ?>",
-    number: "<?= htmlspecialchars($_SESSION['vendor']['number'] ?? '9822882755') ?>",
-    address: "<?= htmlspecialchars($_SESSION['vendor']['address'] ?? 'Mhasoba Chowk, Gaywadi Nal') ?>"
+    number: "<?= htmlspecialchars($_SESSION['vendor']['business_number'] ?? '9822882755') ?>",
+    address: "<?= htmlspecialchars($_SESSION['vendor']['business_address'] ?? 'Mhasoba Chowk, Gaywadi Nal') ?>"
   };
 
   const modalHtml = `
