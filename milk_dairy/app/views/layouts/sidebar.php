@@ -3,6 +3,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
+// Determine if subscription popup should show
+$showSubscriptionPopup = false;
+if ($vendor) {
+  if (!isset($_SESSION['has_active_subscription']) || !$_SESSION['has_active_subscription']) {
+    $showSubscriptionPopup = true;
+  }
+}
 ?>
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
@@ -65,3 +72,4 @@ $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
               </ul>
         </aside>
       </div>
+  <?php if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
