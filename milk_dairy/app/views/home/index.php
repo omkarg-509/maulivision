@@ -14,14 +14,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container">
     <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="100">
+      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="40">
       <span>MilkDairy</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample" aria-controls="navbarsExample" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExample">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+    <!-- Desktop Links (Visible on lg and up) -->
+    <div class="d-none d-lg-flex align-items-center gap-4">
+      <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -31,8 +30,33 @@
         <a href="/public/auth/register" class="btn btn-primary btn-sm">Get Started</a>
       </div>
     </div>
+
+    <!-- Mobile Toggle (Visible on md and down) -->
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
 </nav>
+
+<!-- Off-canvas Mobile Menu -->
+<div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 mb-3">
+      <li class="nav-item"><a class="nav-link fs-5" href="#about">About</a></li>
+      <li class="nav-item"><a class="nav-link fs-5" href="#services">Services</a></li>
+      <li class="nav-item"><a class="nav-link fs-5" href="#contact">Contact</a></li>
+    </ul>
+    <hr>
+    <div class="d-grid gap-2">
+      <a href="/public/auth/login" class="btn btn-outline-primary">Login</a>
+      <a href="/public/auth/register" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</div>
 
 <section class="hero py-5">
   <div class="container">
