@@ -160,22 +160,70 @@
 
 <!-- OUR TEAM -->
 <section id="team" class="py-5">
-    <div class="container" data-aos="fade-up">
-        <div class="text-center mb-4">
-            <h3 class="fw-bold">Our Team</h3>
-            <p class="text-muted">Meet the developer and designer behind MilkDairy</p>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card p-4 h-100 text-center">
-                    <img src="/public/assets/img/users/omkar.png" class="rounded-circle mb-3" alt="Omkar" style="width:100px;height:100px;object-fit:cover;">
-                    <h5 class="mb-1">Omkar</h5>
-                    <p class="text-muted mb-2">Developer &amp; Designer</p>
-                    <p class="small fst-italic">"Building simple, effective tools for dairy businesses."</p>
-                </div>
-            </div>
-        </div>
+  <div class="container" data-aos="fade-up">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold">Our Team</h3>
+      <p class="text-muted">Small team, big impact — people who build and support MilkDairy.</p>
     </div>
+
+    <style>
+      .team-card{border-radius:14px;transition:transform .28s ease,box-shadow .28s ease}
+      .team-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(10,40,80,.12)}
+      .team-photo{width:110px;height:110px;object-fit:cover;border-radius:50%;border:6px solid #fff;margin-top:-66px;box-shadow:0 6px 20px rgba(10,40,80,.08)}
+      .team-role{font-size:.9rem;color:var(--muted)}
+      .social-icons a{color:var(--primary);margin:0 .35rem}
+      .team-card .card-body{padding-top:4rem}
+    </style>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-sm-8 col-md-6 col-lg-4">
+        <div class="card text-center team-card h-100">
+          <div class="card-body position-relative">
+            <img src="/public/assets/img/users/omkar.png" alt="Omkar" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Omkar</h5>
+            <div class="team-role mb-2">Fullstack Developer &amp; Designer</div>
+            <p class="text-muted small">Building simple, effective tools for dairy businesses — UX-forward and lightweight.</p>
+            <div class="social-icons mt-3">
+              <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-8 col-md-6 col-lg-4">
+        <div class="card text-center team-card h-100">
+          <div class="card-body position-relative">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vivek" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Vivek Gaikwad</h5>
+            <div class="team-role mb-2">Backend Engineer</div>
+            <p class="text-muted small">Focuses on stability, performance and payment integrations.</p>
+            <div class="social-icons mt-3">
+              <a href="#" aria-label="Vivek - linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="Vivek - github"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-8 col-md-6 col-lg-4">
+        <div class="card text-center team-card h-100">
+          <div class="card-body position-relative">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Support" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Meera</h5>
+            <div class="team-role mb-2">Customer Success</div>
+            <p class="text-muted small">Helps customers get started and answers product questions.</p>
+            <div class="social-icons mt-3">
+              <a href="#" aria-label="Meera - twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" aria-label="Meera - linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- CONTACT -->
