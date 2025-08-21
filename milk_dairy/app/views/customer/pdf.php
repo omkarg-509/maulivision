@@ -96,7 +96,7 @@ $pdf->Cell(95, 8, 'ते/to: ' . date('d/m/Y', strtotime($endDate)), 1, 1);
 
 $pdf->Ln(5);
 
-// Daily milk table
+// Daily milk table with improved date-wise display
 $html = '
 <style>
 table.milk-table {
@@ -106,99 +106,204 @@ table.milk-table {
 }
 table.milk-table th, table.milk-table td {
     border: 1px solid #000;
-    padding: 6px;
+    padding: 8px;
     text-align: center;
-    font-size: 10px;
+    font-size: 11px;
 }
 table.milk-table th {
-    background-color: #f0f0f0;
+    background-color: #4CAF50;
+    color: white;
     font-weight: bold;
 }
-.total-row {
-    background-color: #e6f3ff;
+.date-cell {
+    background-color: #f8f9fa;
     font-weight: bold;
 }
-.amount-row {
-    background-color: #fff2cc;
+.cow-cell {
+    background-color: #fff3cd;
+}
+.buffalo-cell {
+    background-color: #d4edda;
+}
+.total-cell {
+    background-color: #e2e3e5;
+    font-weight: bold;
+}
+.amount-cell {
+    background-color: #cce5ff;
+    font-weight: bold;
+}
+.grand-total {
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+}
+.summary-header {
+    background-color: #17a2b8;
+    color: white;
     font-weight: bold;
 }
 </style>
 
-<h3 style="text-align:center; margin: 10px 0;">🗓️ दैनिक दूध तपशील / Daily Milk Details</h3>
+<h3 style="text-align:center; margin: 15px 0; color: #2c3e50;">
+� दैनिक दूध विवरण / Daily Milk Details<br>
+<small style="font-size: 12px; color: #666;">(' . date('d/m/Y', strtotime($startDate)) . ' ते ' . date('d/m/Y', strtotime($endDate)) . ')</small>
+</h3>
 
 <table class="milk-table">
     <thead>
         <tr>
-            <th width="15%">दिनांक<br>Date</th>
-            <th width="20%">🐄 गाय दूध<br>Cow Milk (L)</th>
-            <th width="20%">🐃 म्हैस दूध<br>Buffalo Milk (L)</th>
-            <th width="20%">एकूण लिटर<br>Total Liters</th>
-            <th width="25%">दैनिक रक्कम<br>Daily Amount (₹)</th>
+            <th width="12%">क्रमांक<br>Sr. No.</th>
+            <th width="18%">📅 दिनांक<br>Date</th>
+            <th width="18%">🐄 गाय दूध<br>Cow Milk (L)</th>
+            <th width="18%">🐃 म्हैस दूध<br>Buffalo Milk (L)</th>
+            <th width="16%">📊 एकूण<br>Total (L)</th>
+            <th width="18%">💰 दैनिक रक्कम<br>Daily Amount</th>
         </tr>
     </thead>
     <tbody>';
 
 $dayCount = 0;
-foreach ($dailyMilk as $date => $milk) {
+$dailyTotalAmount = 0;
+
+// Generate date range if no milk entries for some days
+$dateRange = [];
+$currentDate = new DateTime($startDate);
+$endDateTime = new DateTime($endDate);
+
+while ($currentDate <= $endDateTime) {
+    $dateStr = $currentDate->format('Y-m-d');
+    $dateRange[$dateStr] = isset($dailyMilk[$dateStr]) ? $dailyMilk[$dateStr] : ['cow' => 0, 'buffalo' => 0];
+    $currentDate->modify('+1 day');
+}
+
+foreach ($dateRange as $date => $milk) {
     $dayCount++;
     $dayTotal = $milk['cow'] + $milk['buffalo'];
     $dayAmount = ($milk['cow'] * $cowRate) + ($milk['buffalo'] * $buffaloRate);
+    $dailyTotalAmount += $dayAmount;
     
-    $html .= '<tr>
-        <td>' . date('d/m/Y', strtotime($date)) . '</td>
-        <td>' . number_format($milk['cow'], 1) . '</td>
-        <td>' . number_format($milk['buffalo'], 1) . '</td>
-        <td>' . number_format($dayTotal, 1) . '</td>
-        <td>₹' . number_format($dayAmount, 2) . '</td>
+    // Format date in both English and Marathi style
+    $dateObj = new DateTime($date);
+    $dayName = $dateObj->format('D'); // Mon, Tue, etc.
+    $formattedDate = $dateObj->format('d/m/Y');
+    
+    // Highlight days with no milk
+    $rowClass = ($dayTotal == 0) ? 'style="background-color: #f8d7da;"' : '';
+    
+    $html .= '<tr ' . $rowClass . '>
+        <td class="date-cell">' . $dayCount . '</td>
+        <td class="date-cell">' . $formattedDate . '<br><small>' . $dayName . '</small></td>
+        <td class="cow-cell">' . ($milk['cow'] > 0 ? number_format($milk['cow'], 1) : '-') . '</td>
+        <td class="buffalo-cell">' . ($milk['buffalo'] > 0 ? number_format($milk['buffalo'], 1) : '-') . '</td>
+        <td class="total-cell">' . ($dayTotal > 0 ? number_format($dayTotal, 1) : '-') . '</td>
+        <td class="amount-cell">₹' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
     </tr>';
 }
 
-// Total rows
+// Weekly subtotals (every 7 days)
+if ($dayCount > 7) {
+    $html .= '<tr style="border-top: 3px solid #333;">
+        <td colspan="6" style="text-align:center; font-style:italic; background-color: #e9ecef; padding: 5px;">
+            <strong>साप्ताहिक सारांश उपलब्ध / Weekly summaries available on request</strong>
+        </td>
+    </tr>';
+}
+
+// Grand total row
 $html .= '
-    <tr class="total-row">
-        <td><strong>एकूण/Total</strong></td>
+    <tr class="grand-total">
+        <td colspan="2"><strong>🎯 महिना एकूण / MONTHLY TOTAL</strong></td>
         <td><strong>' . number_format($totalCow, 1) . ' L</strong></td>
         <td><strong>' . number_format($totalBuffalo, 1) . ' L</strong></td>
         <td><strong>' . number_format($totalLiters, 1) . ' L</strong></td>
         <td><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
     </tr>
 </tbody>
-</table>
+</table>';
 
-<h3 style="text-align:center; margin: 15px 0;">💰 बिल सारांश / Bill Summary</h3>
+// Performance analytics
+$avgDaily = $dayCount > 0 ? $totalLiters / $dayCount : 0;
+$cowPercentage = $totalLiters > 0 ? ($totalCow / $totalLiters) * 100 : 0;
+$buffaloPercentage = $totalLiters > 0 ? ($totalBuffalo / $totalLiters) * 100 : 0;
+$daysWithMilk = 0;
+foreach ($dateRange as $milk) {
+    if (($milk['cow'] + $milk['buffalo']) > 0) $daysWithMilk++;
+}
 
+$html .= '
+<div style="margin: 15px 0;">
+    <h4 style="color: #2c3e50; text-align: center;">📈 कामगिरी विश्लेषण / Performance Analytics</h4>
+    <table class="milk-table" style="margin-top: 10px;">
+        <tr class="summary-header">
+            <td colspan="4"><strong>📊 सांख्यिकीय माहिती / Statistical Information</strong></td>
+        </tr>
+        <tr>
+            <td width="25%"><strong>एकूण दिवस / Total Days:</strong></td>
+            <td width="25%">' . $dayCount . ' दिवस</td>
+            <td width="25%"><strong>दूध दिवस / Milk Supply Days:</strong></td>
+            <td width="25%">' . $daysWithMilk . ' दिवस</td>
+        </tr>
+        <tr>
+            <td><strong>दैनिक सरासरी / Daily Average:</strong></td>
+            <td>' . number_format($avgDaily, 2) . ' L</td>
+            <td><strong>पुरवठा दर / Supply Rate:</strong></td>
+            <td>' . number_format(($daysWithMilk / max($dayCount, 1)) * 100, 1) . '%</td>
+        </tr>
+        <tr class="cow-cell">
+            <td><strong>🐄 गाय दूध / Cow Milk:</strong></td>
+            <td>' . number_format($totalCow, 1) . ' L</td>
+            <td><strong>टक्केवारी / Percentage:</strong></td>
+            <td>' . number_format($cowPercentage, 1) . '%</td>
+        </tr>
+        <tr class="buffalo-cell">
+            <td><strong>🐃 म्हैस दूध / Buffalo Milk:</strong></td>
+            <td>' . number_format($totalBuffalo, 1) . ' L</td>
+            <td><strong>टक्केवारी / Percentage:</strong></td>
+            <td>' . number_format($buffaloPercentage, 1) . '%</td>
+        </tr>
+    </table>
+</div>';
+
+// Monthly comparison (if applicable)
+$html .= '
+<h4 style="color: #2c3e50; text-align: center; margin-top: 20px;">💰 बिल सारांश / Bill Summary</h4>
 <table class="milk-table">
     <thead>
-        <tr>
-            <th width="40%">दूध प्रकार / Milk Type</th>
+        <tr class="summary-header">
+            <th width="30%">तपशील / Description</th>
             <th width="20%">प्रमाण / Quantity</th>
             <th width="20%">दर / Rate (₹/L)</th>
-            <th width="20%">रक्कम / Amount</th>
+            <th width="30%">रक्कम / Amount (₹)</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="cow-cell">
             <td>🐄 गाय दूध / Cow Milk</td>
             <td>' . number_format($totalCow, 1) . ' L</td>
-            <td>₹' . $cowRate . '</td>
+            <td>₹' . $cowRate . '.00</td>
             <td>₹' . number_format($cowAmount, 2) . '</td>
         </tr>
-        <tr>
+        <tr class="buffalo-cell">
             <td>🐃 म्हैस दूध / Buffalo Milk</td>
             <td>' . number_format($totalBuffalo, 1) . ' L</td>
-            <td>₹' . $buffaloRate . '</td>
+            <td>₹' . $buffaloRate . '.00</td>
             <td>₹' . number_format($buffaloAmount, 2) . '</td>
         </tr>
-        <tr class="amount-row">
-            <td colspan="3"><strong>एकूण देय रक्कम / Total Amount Due</strong></td>
-            <td><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
+        <tr style="border-top: 2px solid #333;">
+            <td colspan="3" class="grand-total"><strong>एकूण देय / TOTAL AMOUNT DUE</strong></td>
+            <td class="grand-total"><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
         </tr>
         <tr>
-            <td colspan="3">भरलेली रक्कम / Amount Paid</td>
+            <td colspan="3">(-) आधी भरलेली रक्कम / Previous Payments</td>
             <td>₹0.00</td>
         </tr>
-        <tr class="amount-row">
-            <td colspan="3"><strong>शिल्लक रक्कम / Balance Due</strong></td>
+        <tr>
+            <td colspan="3">(-) सवलत / Discount</td>
+            <td>₹0.00</td>
+        </tr>
+        <tr class="grand-total">
+            <td colspan="3"><strong>📋 निव्वळ देय रक्कम / NET AMOUNT PAYABLE</strong></td>
             <td><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
         </tr>
     </tbody>
