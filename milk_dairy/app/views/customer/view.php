@@ -17,8 +17,14 @@
                 <div class="card">
                   <div class="card-header">
                     <h4> Customer Details</h4>
-                  </div>
-                  <?php if (!empty($data['customer'])): ?>
+                  </di📊 *Summary:*
+🐄 Cow Milk: ${totalCowForPeriod.toFixed(1)}L × Rs.${cowRate} = Rs.${cowAmount.toFixed(2)}
+🐃 Buffalo Milk: ${totalBuffaloForPeriod.toFixed(1)}L × Rs.${buffaloRate} = Rs.${buffaloAmount.toFixed(2)}
+
+💰 *Total Amount: Rs.${totalAmount.toFixed(2)}*
+
+📱 Total Days: ${dayCount}
+📊 Avg per Day: ${dayCount > 0 ? ((totalCowForPeriod + totalBuffaloForPeriod) / dayCount).toFixed(1) : 0}L              <?php if (!empty($data['customer'])): ?>
                  <form method="POST" action="/public/customer/update/<?= urlencode($data['customer']['id']); ?>">
                     <div class="card-body">
                       <div class="form-group row mb-3">
@@ -81,13 +87,13 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Cow Milk Rate (₹ per liter)</label>
+                        <label>Cow Milk Rate (Rs per liter)</label>
                         <input type="number" id="cowRate" class="form-control"  step="0.01" onchange="calculateBill()">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Buffalo Milk Rate (₹ per liter)</label>
+                        <label>Buffalo Milk Rate (Rs per liter)</label>
                         <input type="number" id="buffaloRate" class="form-control"  step="0.01" onchange="calculateBill()">
                       </div>
                     </div>
@@ -130,15 +136,15 @@
                           <div class="row">
                             <div class="col-md-3">
                               <strong>Cow Milk:</strong> <span id="totalCowLiters">0</span> L
-                              <br><strong>Amount:</strong> ₹<span id="cowAmount">0</span>
+                              <br><strong>Amount:</strong> Rs.<span id="cowAmount">0</span>
                             </div>
                             <div class="col-md-3">
                               <strong>Buffalo Milk:</strong> <span id="totalBuffaloLiters">0</span> L
-                              <br><strong>Amount:</strong> ₹<span id="buffaloAmount">0</span>
+                              <br><strong>Amount:</strong> Rs.<span id="buffaloAmount">0</span>
                             </div>
                             <div class="col-md-3">
                               <strong>Total Liters:</strong> <span id="grandTotalLiters">0</span> L
-                              <br><strong>Total Amount:</strong> ₹<span id="grandTotalAmount">0</span>
+                              <br><strong>Total Amount:</strong> Rs.<span id="grandTotalAmount">0</span>
                             </div>
                             <div class="col-md-3">
                               <strong>Days:</strong> <span id="totalDays">0</span>
@@ -195,7 +201,7 @@
         <td><?= $entryDate ?></td>
         <td>
           <?php 
-            $milkTypeDisplay = $entry['milktype'] === 'cow' ? '🐄 गाय' : ($entry['milktype'] === 'buffalo' ? '🐃 म्हैस' : htmlspecialchars($entry['milktype']));
+            $milkTypeDisplay = $entry['milktype'] === 'cow' ? 'Cow' : ($entry['milktype'] === 'buffalo' ? 'Buffalo' : htmlspecialchars($entry['milktype']));
             echo $milkTypeDisplay;
           ?>
         </td>
@@ -214,7 +220,7 @@
       ?>
       <tr class="table-info font-weight-bold">
         <td colspan="2" class="text-right">Total:</td>
-        <td>🐄 <?= $totalCowLiter ?>L | 🐃 <?= $totalBuffaloLiter ?>L</td>
+        <td>Cow <?= $totalCowLiter ?>L | Buffalo <?= $totalBuffaloLiter ?>L</td>
         <td><?= $totalMilkLiter ?> L</td>
         <td>-</td>
       </tr>
@@ -275,9 +281,9 @@ $(document).ready(function() {
     
     // Set current month as default (1st day to last day of current month)
     const now = new Date();
-    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (1st date of current month)
+    // First day of current month
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // शेवटचा दिवस म्हणजे चालू महिन्याचा शेवटचा दिवस (last date of current month)
+    // Last day of current month
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
     // Set the date inputs to current month range
@@ -475,7 +481,7 @@ function sendWhatsApp() {
     const d = dailyData[dateStr];
     dayCount++;
     const dayTotal = d.cow + d.buffalo;
-    dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(1)}L | 🐃 ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
+    dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: Cow ${d.cow.toFixed(1)}L | Buffalo ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
   });
 
   // Calculate amounts
@@ -484,12 +490,12 @@ function sendWhatsApp() {
   const totalAmount = cowAmount + buffaloAmount;
 
   const message = `
-🥛 *राजनंदिनी डेयरी बिल*
+🥛 *RAJNANDINI DAIRY BILL*
 *Rajnandini Dairy Bill*
 
-👤 ग्राहक/Customer: ${customerData.name}
-📋 बिल क्रमांक/Bill ID: ${customerData.billId}
-📅 कालावधी/Period: ${formatDate(startDate)} ते ${formatDate(endDate)}
+👤 Customer: ${customerData.name}
+📋 Bill ID: ${customerData.billId}
+📅 Period: ${formatDate(startDate)} to ${formatDate(endDate)}
 
 � *सारांश/Summary:*
 �🐄 गाय दूध/Cow Milk: ${totalCowForPeriod.toFixed(1)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
@@ -501,15 +507,15 @@ function sendWhatsApp() {
 📊 सरासरी प्रतिदिन/Avg per Day: ${dayCount > 0 ? ((totalCowForPeriod + totalBuffaloForPeriod) / dayCount).toFixed(1) : 0}L
 
 ═══════════════════════
-🗓️ *दैनिक तपशील/Daily Details:*
+🗓️ *Daily Details:*
 ${dailySummary}
 
 ═══════════════════════
-🏪 राजनंदिनी डेयरी
-📍 म्हसोबा चौक, गायवाडी नाळ
+🏪 RAJNANDINI DAIRY
+📍 Mhasoba Chowk, Gaywadi Nal
 📞 9822882755
 
-धन्यवाद! 🙏 Thank you!
+Thank you!
   `.trim();
 
   const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
