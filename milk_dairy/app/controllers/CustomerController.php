@@ -44,8 +44,12 @@ class CustomerController extends Controller
                 die('No customer found for ID: ' . $customerId);
             }
 
-            // Get vendor ID from session (fix: use vendor array)
-            $vendorId = $_SESSION['vendor']['id'] ?? 1;
+            // Get vendor info from session
+            $vendor = $_SESSION['vendor'] ?? [];
+            $vendorId = $vendor['id'] ?? 1;
+            $businessName = $vendor['business_name'] ?? 'RAJNANDINI DAIRY';
+            $businessNumber = $vendor['business_number'] ?? '9822882755';
+            $businessAddress = $vendor['business_address'] ?? 'Mhasoba Chowk, Gaywadi Nal';
 
             // Get milk entries for the date range
             $milkEntries = $dailyEntryModel->getEntriesByDateRange($customerId, $startDate, $endDate, $vendorId);
@@ -58,8 +62,8 @@ class CustomerController extends Controller
 
             // Create PDF with proper error handling
             $pdf = new TCPDF();
-            $pdf->SetCreator('Rajnandini Dairy System');
-            $pdf->SetAuthor('Rajnandini Dairy');
+            $pdf->SetCreator($businessName . ' System');
+            $pdf->SetAuthor($businessName);
             $pdf->SetTitle('दूध बिल - ' . $customer['name']);
             $pdf->SetSubject('Milk Bill - ' . $customer['name']);
 
@@ -97,12 +101,12 @@ class CustomerController extends Controller
             $buffaloAmount = $totalBuffalo * $buffaloRate;
             $totalAmount = $cowAmount + $buffaloAmount;
 
-            // Header - English only
+            // Header - Use vendor info
             $pdf->SetFont('helvetica', 'B', 22);
-            $pdf->Cell(0, 12, 'RAJNANDINI DAIRY', 0, 1, 'C');
+            $pdf->Cell(0, 12, $businessName, 0, 1, 'C');
             $pdf->SetFont('helvetica', '', 12);
-            $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal', 0, 1, 'C');
-            $pdf->Cell(0, 6, 'Phone: 9822882755', 0, 1, 'C');
+            $pdf->Cell(0, 6, $businessAddress, 0, 1, 'C');
+            $pdf->Cell(0, 6, 'Phone: ' . $businessNumber, 0, 1, 'C');
 
             // Line separator
             $pdf->Ln(3);
@@ -265,7 +269,7 @@ class CustomerController extends Controller
             if (ob_get_contents()) ob_end_clean();
 
             // Output PDF
-            $filename = 'rajnandini_dairy_bill_' . $customer['name'] . '_' . date('Y-m-d') . '.pdf';
+            $filename = strtolower(str_replace(' ', '_', $businessName)) . '_bill_' . $customer['name'] . '_' . date('Y-m-d') . '.pdf';
             $pdf->Output($filename, 'I');
 
         } catch (Exception $e) {
