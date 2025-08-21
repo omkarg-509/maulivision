@@ -196,43 +196,49 @@
         </div>
       </div>
 
-      <!-- Vivek -->
-      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
-        <div class="card text-center team-card h-100">
-          <div class="card-body position-relative">
-            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vivek Gaikwad" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Vivek Gaikwad</h5>
-            <div class="team-role mb-2">PHP Developer</div>
-            <p class="text-muted small">Handles core PHP development, integrations and keeps the platform stable and secure.</p>
-            <div class="social-icons mt-3">
-              <a href="#" aria-label="Vivek - linkedin"><i class="bi bi-linkedin"></i></a>
-              <a href="#" aria-label="Vivek - github"><i class="bi bi-github"></i></a>
-            </div>
-            <div class="mt-3">
-              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-vivek">View bio</a>
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
-      <!-- Meera -->
-      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="190">
-        <div class="card text-center team-card h-100">
-          <div class="card-body position-relative">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Meera" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Meera</h5>
-            <div class="team-role mb-2">Customer Success</div>
-            <p class="text-muted small">Helps customers onboard, answers queries and ensures a smooth experience.</p>
-            <div class="social-icons mt-3">
-              <a href="#" aria-label="Meera - twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" aria-label="Meera - linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-            <div class="mt-3">
-              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-meera">View bio</a>
-            </div>
-          </div>
+    <!-- Vivek -->
+    <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
+      <div class="card text-center team-card h-100">
+        <div class="card-body position-relative">
+        <img src="/public/assets/img/users/vivek.png" alt="Vivek Gaikwad" class="team-photo mx-auto d-block">
+        <h5 class="mt-3 mb-1">Vivek Gaikwad</h5>
+        <div class="team-role mb-2">PHP Developer</div>
+        <p class="text-muted small">Backend developer focused on performance, payment integrations, and robust architecture.</p>
+        <div class="social-icons mt-3">
+          <a href="#" aria-label="Vivek - twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" aria-label="Vivek - linkedin"><i class="bi bi-linkedin"></i></a>
+          <a href="#" aria-label="Vivek - github"><i class="bi bi-github"></i></a>
+        </div>
+        <div class="mt-3">
+          <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-vivek">View bio</a>
+        </div>
         </div>
       </div>
+    </div>
+
+    <!-- Uttkarsha -->
+    <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170">
+      <div class="card text-center team-card h-100">
+        <div class="card-body position-relative">
+        <img src="/public/assets/img/users/uttkarsha.png" alt="Uttkarsha" class="team-photo mx-auto d-block">
+        <h5 class="mt-3 mb-1">Uttkarsha</h5>
+        <div class="team-role mb-2">Frontend Developer</div>
+        <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
+        <div class="social-icons mt-3">
+          <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
+          <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
+        </div>
+        <div class="mt-3">
+          <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  
     </div>
 
     <!-- Team modals -->
