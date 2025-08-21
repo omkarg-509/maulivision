@@ -3,11 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MilkDairy</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <title>MilkDairy - Smart Dairy Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .hero{background:#f8fafc}
-    .feature-icon{font-size:2rem;color:#0d6efd}
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1620451121352-c1faf3545557?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+      background-size: cover;
+      color: white;
+    }
+    .feature-icon {
+      font-size: 3rem;
+      color: var(--bs-primary);
+    }
+    .service-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    .testimonial-card {
+      background-color: #f8f9fa;
+    }
+    .testimonial-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -58,17 +87,17 @@
   </div>
 </div>
 
-<section class="hero py-5">
+<section class="hero py-5 text-center">
   <div class="container">
-    <div class="row align-items-center g-4">
-      <div class="col-md-6">
-        <h1 class="display-5 fw-bold">Smart Milk Dairy Management</h1>
-        <p class="lead text-muted">Manage daily entries, customers, billing, and subscriptions with ease. Accessible from any device.</p>
-        <a href="/public/auth/register" class="btn btn-primary btn-lg me-2">Start free</a>
-        <a href="/public/auth/login" class="btn btn-outline-secondary btn-lg">Sign in</a>
-      </div>
-      <div class="col-md-6">
-        <div class="ratio ratio-16x9 bg-light rounded shadow-sm"></div>
+    <div class="row py-lg-5">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="80" class="mb-4">
+        <h1 class="display-4 fw-bold">Smart Milk Dairy Management</h1>
+        <p class="lead">Manage daily entries, customers, billing, and subscriptions with ease. Accessible from any device, anywhere.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a href="/public/auth/register" class="btn btn-primary btn-lg px-4 gap-3">Start for Free</a>
+          <a href="/public/auth/login" class="btn btn-outline-light btn-lg px-4">Sign In</a>
+        </div>
       </div>
     </div>
   </div>
@@ -95,34 +124,69 @@
 
 <section id="services" class="py-5 bg-light">
   <div class="container">
-    <h2 class="mb-4">Services</h2>
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Our Services</h2>
+      <p class="lead text-muted">Everything you need to run your dairy business efficiently.</p>
+    </div>
     <div class="row g-4">
       <div class="col-md-4">
-        <div class="p-4 bg-white rounded shadow-sm h-100">
-          <div class="feature-icon mb-2">🧾</div>
-          <h5>Daily Milk Entry</h5>
-          <p class="text-muted">Fast recording of quantities, rates, and customer-wise logs.</p>
+        <div class="card h-100 text-center p-4 service-card shadow-sm">
+          <div class="feature-icon mx-auto mb-3"><i class="bi bi-journal-check"></i></div>
+          <h5 class="card-title">Daily Milk Entry</h5>
+          <p class="card-text text-muted">Fast recording of quantities, rates, and customer-wise logs.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="p-4 bg-white rounded shadow-sm h-100">
-          <div class="feature-icon mb-2">👥</div>
-          <h5>Customer Management</h5>
-          <p class="text-muted">Create, view, and manage your customer base and history.</p>
+        <div class="card h-100 text-center p-4 service-card shadow-sm">
+          <div class="feature-icon mx-auto mb-3"><i class="bi bi-people-fill"></i></div>
+          <h5 class="card-title">Customer Management</h5>
+          <p class="card-text text-muted">Create, view, and manage your customer base and history.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="p-4 bg-white rounded shadow-sm h-100">
-          <div class="feature-icon mb-2">💳</div>
-          <h5>Billing & Reports</h5>
-          <p class="text-muted">Generate bills, export PDFs, and track transactions easily.</p>
+        <div class="card h-100 text-center p-4 service-card shadow-sm">
+          <div class="feature-icon mx-auto mb-3"><i class="bi bi-receipt-cutoff"></i></div>
+          <h5 class="card-title">Billing & Reports</h5>
+          <p class="card-text text-muted">Generate bills, export PDFs, and track transactions easily.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="contact" class="py-5">
+<section id="testimonials" class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">What Our Users Say</h2>
+      <p class="lead text-muted">Trusted by dairy farmers and distributors.</p>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card testimonial-card p-4 text-center">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mx-auto mb-3" alt="User">
+          <p class="fst-italic">"This app has simplified my daily records. Highly recommended!"</p>
+          <h6 class="fw-bold">- John Doe</h6>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card testimonial-card p-4 text-center">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle mx-auto mb-3" alt="User">
+          <p class="fst-italic">"Managing customers and billing is now a breeze. A must-have tool."</p>
+          <h6 class="fw-bold">- Jane Smith</h6>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card testimonial-card p-4 text-center">
+          <img src="https://randomuser.me/api/portraits/men/56.jpg" class="rounded-circle mx-auto mb-3" alt="User">
+          <p class="fst-italic">"The best dairy management app I have used. Simple and effective."</p>
+          <h6 class="fw-bold">- Sam Wilson</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="py-5 bg-light">
   <div class="container">
     <h2 class="mb-4">Contact</h2>
     <div class="row g-4">
