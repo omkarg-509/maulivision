@@ -301,7 +301,7 @@ public function show($id)
                 'milk_entries' => $milk_entries
             ]);
         } else {
-            echo "You do not have permission to view this customer.";
+           $this->view('customer/view', ['customer' => $customer]);
         }
     } else {
         echo "Customer data not found.";
