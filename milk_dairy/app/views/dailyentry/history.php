@@ -25,6 +25,14 @@
               <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
             </div>
           </form>
+          <div class="row mt-3" id="todayTotals" style="display:none;">
+            <div class="col-12">
+              <div class="alert alert-info py-2 mb-0">
+                <strong>Today Total:</strong> <span id="todayTotalLiters">0.00</span> L
+                (Cow: <span id="todayCowLiters">0.00</span> | Buffalo: <span id="todayBuffaloLiters">0.00</span>)
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -96,13 +104,36 @@ function loadHistory(start,end){
           </tr>`;
         });
         $('#historyBody').html(rows);
+        updateTodayTotals(resp.data);
       }else{
         $('#historyBody').html('<tr><td colspan="5" class="text-center">No data found for selected range.</td></tr>');
+        updateTodayTotals([]);
       }
     },
     error: function(){
       $('#historyBody').html('<tr><td colspan="5" class="text-center text-danger">Failed to load data.</td></tr>');
+      updateTodayTotals([]);
     }
   });
+}
+
+function updateTodayTotals(data){
+  const todayStr = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+  let cow = 0, buffalo = 0;
+  data.forEach(function(r){
+    if(r.date === todayStr){
+      cow += parseFloat(r.cow_liter)||0;
+      buffalo += parseFloat(r.buffalo_liter)||0;
+    }
+  });
+  const total = cow + buffalo;
+  if(cow>0 || buffalo>0){
+    $('#todayTotals').show();
+  } else {
+    $('#todayTotals').show(); // still show with zeros for clarity
+  }
+  $('#todayCowLiters').text(cow.toFixed(2));
+  $('#todayBuffaloLiters').text(buffalo.toFixed(2));
+  $('#todayTotalLiters').text(total.toFixed(2));
 }
 </script>
