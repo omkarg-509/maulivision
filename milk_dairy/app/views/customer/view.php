@@ -520,15 +520,37 @@ ${dailySummary}
 function downloadPDF() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
+    const cowRate = document.getElementById('cowRate').value;
+    const buffaloRate = document.getElementById('buffaloRate').value;
     
     if (!startDate || !endDate) {
         toastr.error('Please select date range first');
         return;
     }
     
+    // Create PDF URL with parameters
+    const pdfParams = new URLSearchParams({
+        customer_id: customerData.id,
+        start_date: startDate,
+        end_date: endDate,
+        cow_rate: cowRate,
+        buffalo_rate: buffaloRate
+    });
+    
     // Open PDF in new window
-    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formatDate(startDate)}_to_${formatDate(endDate)}`;
-    window.open(pdfUrl, '_blank');
+    const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf?${pdfParams.toString()}`;
+    
+    // Show loading toast
+    toastr.info('Generating PDF... Please wait');
+    
+    // Try to open PDF
+    try {
+        window.open(pdfUrl, '_blank');
+        toastr.success('PDF opened in new tab');
+    } catch (error) {
+        console.error('PDF generation error:', error);
+        toastr.error('Failed to generate PDF. Please try again.');
+    }
 }
 
 // Delete entry with AJAX
@@ -558,52 +580,69 @@ function deleteEntry(entryId) {
 // Show bill modal
 function showBillModal(billData) {
     const modalHtml = `
-    <div class="modal fade" id="billModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="billModal" tabindex="-1" role="dialog" aria-labelledby="billModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">🥛 Milk Bill - ${billData.customer.name}</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="billModalLabel">🥛 Milk Bill - ${billData.customer.name}</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <h4>Rajnandini Dairy</h4>
-                        <p>Mhasoba Chowk, Gaywadi Nal<br>Phone: 9822882755</p>
+                    <div class="text-center mb-4">
+                        <h3 class="text-primary">🥛 राजनंदिनी डेयरी</h3>
+                        <h4>RAJNANDINI DAIRY</h4>
+                        <p class="mb-1">म्हसोबा चौक, गायवाडी नाळ | Mhasoba Chowk, Gaywadi Nal</p>
+                        <p><strong>📞 Phone: 9822882755</strong></p>
                     </div>
                     <hr>
                     <div class="row mb-3">
-                        <div class="col-6"><strong>Customer:</strong> ${billData.customer.name}</div>
-                        <div class="col-6"><strong>Bill ID:</strong> ${billData.customer.billId}</div>
-                        <div class="col-6"><strong>Period:</strong> ${formatDate(billData.startDate)} to ${formatDate(billData.endDate)}</div>
-                        <div class="col-6"><strong>Total Days:</strong> ${billData.summary.totalDays}</div>
+                        <div class="col-6"><strong>👤 Customer:</strong> ${billData.customer.name}</div>
+                        <div class="col-6"><strong>📋 Bill ID:</strong> ${billData.customer.billId}</div>
+                        <div class="col-6"><strong>📅 Period:</strong> ${formatDate(billData.startDate)} to ${formatDate(billData.endDate)}</div>
+                        <div class="col-6"><strong>📱 Total Days:</strong> ${billData.summary.totalDays}</div>
                     </div>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Milk Type</th>
-                            <th>Quantity (L)</th>
-                            <th>Rate (₹/L)</th>
-                            <th>Amount (₹)</th>
-                        </tr>
-                        <tr>
-                            <td>🐄 Cow Milk</td>
-                            <td>${billData.summary.cowLiters}</td>
-                            <td>${billData.cowRate}</td>
-                            <td>₹${billData.summary.cowAmount.toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>🐃 Buffalo Milk</td>
-                            <td>${billData.summary.buffaloLiters}</td>
-                            <td>${billData.buffaloRate}</td>
-                            <td>₹${billData.summary.buffaloAmount.toFixed(2)}</td>
-                        </tr>
-                        <tr class="table-info">
-                            <th>Total</th>
-                            <th>${billData.summary.totalLiters} L</th>
-                            <th>-</th>
-                            <th>₹${billData.summary.totalAmount.toFixed(2)}</th>
-                        </tr>
-                    </table>
-                    <p class="text-center mt-3"><em>Please arrange to pay the bill amount immediately.</em></p>
+                    
+                    <h5 class="text-center mb-3">💰 Bill Summary</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Milk Type</th>
+                                    <th>Quantity (L)</th>
+                                    <th>Rate (₹/L)</th>
+                                    <th>Amount (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🐄 Cow Milk</td>
+                                    <td>${billData.summary.cowLiters.toFixed(1)}</td>
+                                    <td>₹${billData.cowRate}</td>
+                                    <td>₹${billData.summary.cowAmount.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>🐃 Buffalo Milk</td>
+                                    <td>${billData.summary.buffaloLiters.toFixed(1)}</td>
+                                    <td>₹${billData.buffaloRate}</td>
+                                    <td>₹${billData.summary.buffaloAmount.toFixed(2)}</td>
+                                </tr>
+                                <tr class="table-info">
+                                    <th>Total</th>
+                                    <th>${billData.summary.totalLiters.toFixed(1)} L</th>
+                                    <th>-</th>
+                                    <th>₹${billData.summary.totalAmount.toFixed(2)}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info text-center">
+                        <strong>📊 Average per Day:</strong> ${(billData.summary.totalLiters / billData.summary.totalDays).toFixed(1)} L
+                    </div>
+                    
+                    <p class="text-center mt-3"><em>कृपया बिलाची रक्कम लगेच भरून सही करा.<br>Please arrange to pay the bill amount immediately.</em></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" onclick="sendWhatsApp()">
@@ -612,7 +651,12 @@ function showBillModal(billData) {
                     <button type="button" class="btn btn-primary" onclick="downloadPDF()">
                         <i class="fa fa-download"></i> Download PDF
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="printBill()">
+                        <i class="fa fa-print"></i> Print Bill
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fa fa-times"></i> Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -621,7 +665,92 @@ function showBillModal(billData) {
     // Remove existing modal and add new one
     $('#billModal').remove();
     $('body').append(modalHtml);
-    $('#billModal').modal('show');
+    
+    // Show modal with proper Bootstrap method
+    $('#billModal').modal({
+        backdrop: 'static',
+        keyboard: false,
+        show: true
+    });
+}
+
+// Add print functionality
+function printBill() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (!startDate || !endDate) {
+        toastr.error('Please select date range first');
+        return;
+    }
+    
+    // Create printable content
+    const printContent = `
+    <html>
+    <head>
+        <title>Rajnandini Dairy Bill</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 20px; }
+            .customer-info { margin-bottom: 15px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+            th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+            th { background-color: #f0f0f0; }
+            .total-row { background-color: #e0e0e0; font-weight: bold; }
+            .footer { text-align: center; margin-top: 20px; font-style: italic; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h2>🥛 राजनंदिनी डेयरी</h2>
+            <h3>RAJNANDINI DAIRY</h3>
+            <p>म्हसोबा चौक, गायवाडी नाळ | Phone: 9822882755</p>
+        </div>
+        
+        <div class="customer-info">
+            <p><strong>Customer:</strong> ${customerData.name} | <strong>Bill ID:</strong> ${customerData.billId}</p>
+            <p><strong>Period:</strong> ${formatDate(startDate)} to ${formatDate(endDate)} | <strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+        </div>
+        
+        <table>
+            <tr>
+                <th>Milk Type</th>
+                <th>Quantity (L)</th>
+                <th>Rate (₹/L)</th>
+                <th>Amount (₹)</th>
+            </tr>
+            <tr>
+                <td>🐄 Cow Milk</td>
+                <td>${document.getElementById('totalCowLiters').textContent}</td>
+                <td>₹${document.getElementById('cowRate').value}</td>
+                <td>₹${document.getElementById('cowAmount').textContent}</td>
+            </tr>
+            <tr>
+                <td>🐃 Buffalo Milk</td>
+                <td>${document.getElementById('totalBuffaloLiters').textContent}</td>
+                <td>₹${document.getElementById('buffaloRate').value}</td>
+                <td>₹${document.getElementById('buffaloAmount').textContent}</td>
+            </tr>
+            <tr class="total-row">
+                <td><strong>Total</strong></td>
+                <td><strong>${document.getElementById('grandTotalLiters').textContent}</strong></td>
+                <td><strong>-</strong></td>
+                <td><strong>₹${document.getElementById('grandTotalAmount').textContent}</strong></td>
+            </tr>
+        </table>
+        
+        <div class="footer">
+            <p>कृपया बिलाची रक्कम लगेच भरून सही करा.</p>
+            <p>Please arrange to pay the bill amount immediately and get the signature.</p>
+        </div>
+    </body>
+    </html>`;
+    
+    // Open print window
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
 }
 
 // Format date helper
