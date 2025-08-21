@@ -14,7 +14,7 @@
     :root{--primary:#0d6efd;--muted:#6c757d}
     body {font-family: 'Poppins', sans-serif; background:#fff;}
     /* Navbar */
-    .navbar {transition: background-color .35s ease, box-shadow .35s ease;}
+    .navbar {transition: background-color .35s ease, box-shadow .35s ease; border: none;}
     .nav-brand-img{height:44px}
     .nav-center{position:absolute; left:50%; transform:translateX(-50%);} 
     .nav-link{font-weight:500;color:rgba(0,0,0,.7)!important}
@@ -176,7 +176,8 @@
     </style>
 
     <div class="row g-4 justify-content-center">
-      <div class="col-sm-8 col-md-6 col-lg-4">
+      <!-- Omkar -->
+      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
         <div class="card text-center team-card h-100">
           <div class="card-body position-relative">
             <img src="/public/assets/img/users/omkar.png" alt="Omkar Vivek Gaikwad" class="team-photo mx-auto d-block">
@@ -188,6 +189,93 @@
               <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
               <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
             </div>
+            <div class="mt-3">
+              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-omkar">View bio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vivek -->
+      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="120">
+        <div class="card text-center team-card h-100">
+          <div class="card-body position-relative">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vivek Gaikwad" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Vivek Gaikwad</h5>
+            <div class="team-role mb-2">PHP Developer</div>
+            <p class="text-muted small">Handles core PHP development, integrations and keeps the platform stable and secure.</p>
+            <div class="social-icons mt-3">
+              <a href="#" aria-label="Vivek - linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="Vivek - github"><i class="bi bi-github"></i></a>
+            </div>
+            <div class="mt-3">
+              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-vivek">View bio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meera -->
+      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="190">
+        <div class="card text-center team-card h-100">
+          <div class="card-body position-relative">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Meera" class="team-photo mx-auto d-block">
+            <h5 class="mt-3 mb-1">Meera</h5>
+            <div class="team-role mb-2">Customer Success</div>
+            <p class="text-muted small">Helps customers onboard, answers queries and ensures a smooth experience.</p>
+            <div class="social-icons mt-3">
+              <a href="#" aria-label="Meera - twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" aria-label="Meera - linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+            <div class="mt-3">
+              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-meera">View bio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team modals -->
+    <div class="modal fade" id="bio-omkar" tabindex="-1" aria-labelledby="bioOmkarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bioOmkarLabel">Omkar Vivek Gaikwad — PHP Developer &amp; Product Lead</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Omkar leads product strategy and backend development for MilkDairy. He focuses on product vision, UX, and making the platform reliable and easy to use for dairy businesses. He also handles design and overall project direction.</p>
+            <p class="mb-0"><strong>Skills:</strong> PHP, MySQL, Bootstrap, UX Design, Product Management</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="bio-vivek" tabindex="-1" aria-labelledby="bioVivekLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bioVivekLabel">Vivek Gaikwad — PHP Developer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Vivek is the PHP developer responsible for the platform's backend, ensuring performance, secure payment integrations, and maintainable architecture. He works closely with product to implement features and keep the system robust.</p>
+            <p class="mb-0"><strong>Skills:</strong> PHP, APIs, Razorpay, Database Design, Security</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="bio-meera" tabindex="-1" aria-labelledby="bioMeeraLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bioMeeraLabel">Meera — Customer Success</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Meera helps customers onboard, answers questions and provides support to ensure everyone gets value from MilkDairy. She coordinates demos and collects user feedback to improve the product.</p>
+            <p class="mb-0"><strong>Skills:</strong> Customer Support, Onboarding, Documentation</p>
           </div>
         </div>
       </div>
