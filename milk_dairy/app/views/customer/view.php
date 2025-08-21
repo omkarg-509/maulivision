@@ -241,6 +241,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!-- Add Bootstrap JS and CSS for modal functionality -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 <script>
 // Global variables
@@ -508,7 +511,9 @@ function showBillModal(billData) {
     const modalHtml = `
     <div class="modal fade" id="billModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 <div class="modal-header">
                     <h5 class="modal-title">🥛 Milk Bill - ${billData.customer.name}</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
