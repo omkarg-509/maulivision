@@ -313,6 +313,13 @@
         // get existing Bootstrap Offcanvas instance or create one
         const bsOff = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
         bsOff.hide();
+        // Remove the backdrop manually if it remains
+        setTimeout(function(){
+          document.querySelectorAll('.offcanvas-backdrop').forEach(function(el){
+            el.parentNode.removeChild(el);
+          });
+          document.body.classList.remove('offcanvas-backdrop');
+        }, 400);
       }
     });
   })();
