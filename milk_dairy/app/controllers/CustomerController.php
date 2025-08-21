@@ -95,14 +95,12 @@ class CustomerController extends Controller
         $buffaloAmount = $totalBuffalo * $buffaloRate;
         $totalAmount = $cowAmount + $buffaloAmount;
 
-        // Header with Unicode support
-        $pdf->SetFont('dejavusans', 'B', 20);
-        $pdf->Cell(0, 12, '🥛 राजनंदिनी डेयरी', 0, 1, 'C');
-        $pdf->SetFont('dejavusans', 'B', 16);
-        $pdf->Cell(0, 8, 'RAJNANDINI DAIRY', 0, 1, 'C');
-        $pdf->SetFont('dejavusans', '', 10);
-        $pdf->Cell(0, 6, 'म्हसोबा चौक, गायवाडी नाळ | Mhasoba Chowk, Gaywadi Nal', 0, 1, 'C');
-        $pdf->Cell(0, 6, '📞 Phone: 9822882755', 0, 1, 'C');
+        // Header - English only
+        $pdf->SetFont('helvetica', 'B', 22);
+        $pdf->Cell(0, 12, 'RAJNANDINI DAIRY', 0, 1, 'C');
+        $pdf->SetFont('helvetica', '', 12);
+        $pdf->Cell(0, 6, 'Mhasoba Chowk, Gaywadi Nal', 0, 1, 'C');
+        $pdf->Cell(0, 6, 'Phone: 9822882755', 0, 1, 'C');
 
         // Line separator
         $pdf->Ln(3);
@@ -110,14 +108,14 @@ class CustomerController extends Controller
         $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
         $pdf->Ln(5);
 
-        // Customer Info
-        $pdf->SetFont('dejavusans', '', 12);
-        $pdf->Cell(95, 8, '👤 ग्राहक/Customer: ' . $customer['name'], 1, 0);
-        $pdf->Cell(95, 8, '🏠 पत्ता/Address: ' . ($customer['address'] ?? 'गायवाडी नाळ'), 1, 1);
-        $pdf->Cell(95, 8, '📋 बिल क्रमांक/Bill No: ' . $customer['bill_id'], 1, 0);
-        $pdf->Cell(95, 8, '📅 दिनांक/Date: ' . date('d/m/Y'), 1, 1);
-        $pdf->Cell(95, 8, '📅 कालावधी/Period: ' . date('d/m/Y', strtotime($startDate)), 1, 0);
-        $pdf->Cell(95, 8, 'ते/to: ' . date('d/m/Y', strtotime($endDate)), 1, 1);
+        // Customer Info - English only
+        $pdf->SetFont('helvetica', '', 11);
+        $pdf->Cell(95, 8, 'Customer: ' . $customer['name'], 1, 0);
+        $pdf->Cell(95, 8, 'Address: ' . ($customer['address'] ?? 'Gaywadi Nal'), 1, 1);
+        $pdf->Cell(95, 8, 'Bill No: ' . $customer['bill_id'], 1, 0);
+        $pdf->Cell(95, 8, 'Date: ' . date('d/m/Y'), 1, 1);
+        $pdf->Cell(95, 8, 'Period: ' . date('d/m/Y', strtotime($startDate)), 1, 0);
+        $pdf->Cell(95, 8, 'to: ' . date('d/m/Y', strtotime($endDate)), 1, 1);
 
         $pdf->Ln(5);
 
@@ -132,14 +130,14 @@ class CustomerController extends Controller
             $currentDate->modify('+1 day');
         }
 
-        // Daily milk table with improved formatting
+        // Daily milk table - English only
         $html = '
         <style>
-        body { font-family: dejavusans; }
+        body { font-family: helvetica; }
         table.milk-table {
             width: 100%;
             border-collapse: collapse;
-            font-family: dejavusans;
+            font-family: helvetica;
         }
         table.milk-table th, table.milk-table td {
             border: 1px solid #000;
@@ -162,19 +160,19 @@ class CustomerController extends Controller
         </style>
 
         <h3 style="text-align:center; margin: 15px 0; color: #2c3e50;">
-        📊 दैनिक दूध विवरण / Daily Milk Details<br>
-        <small style="font-size: 12px; color: #666;">(' . date('d/m/Y', strtotime($startDate)) . ' ते ' . date('d/m/Y', strtotime($endDate)) . ')</small>
+        Daily Milk Details<br>
+        <small style="font-size: 12px; color: #666;">(' . date('d/m/Y', strtotime($startDate)) . ' to ' . date('d/m/Y', strtotime($endDate)) . ')</small>
         </h3>
 
         <table class="milk-table">
             <thead>
                 <tr>
-                    <th width="12%">क्रमांक<br>Sr. No.</th>
-                    <th width="18%">📅 दिनांक<br>Date</th>
-                    <th width="18%">🐄 गाय दूध<br>Cow Milk (L)</th>
-                    <th width="18%">🐃 म्हैस दूध<br>Buffalo Milk (L)</th>
-                    <th width="16%">📊 एकूण<br>Total (L)</th>
-                    <th width="18%">💰 दैनिक रक्कम<br>Daily Amount</th>
+                    <th width="12%">Sr. No.</th>
+                    <th width="18%">Date</th>
+                    <th width="18%">Cow Milk (L)</th>
+                    <th width="18%">Buffalo Milk (L)</th>
+                    <th width="16%">Total (L)</th>
+                    <th width="18%">Daily Amount</th>
                 </tr>
             </thead>
             <tbody>';
@@ -198,50 +196,50 @@ class CustomerController extends Controller
                 <td class="cow-cell">' . ($milk['cow'] > 0 ? number_format($milk['cow'], 1) : '-') . '</td>
                 <td class="buffalo-cell">' . ($milk['buffalo'] > 0 ? number_format($milk['buffalo'], 1) : '-') . '</td>
                 <td class="total-cell">' . ($dayTotal > 0 ? number_format($dayTotal, 1) : '-') . '</td>
-                <td class="amount-cell">₹' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
+                <td class="amount-cell">Rs.' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
             </tr>';
         }
 
-        // Grand total row
+        // Grand total row - English only
         $html .= '
             <tr class="grand-total">
-                <td colspan="2"><strong>🎯 महिना एकूण / MONTHLY TOTAL</strong></td>
+                <td colspan="2"><strong>MONTHLY TOTAL</strong></td>
                 <td><strong>' . number_format($totalCow, 1) . ' L</strong></td>
                 <td><strong>' . number_format($totalBuffalo, 1) . ' L</strong></td>
                 <td><strong>' . number_format($totalLiters, 1) . ' L</strong></td>
-                <td><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
+                <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
             </tr>
         </tbody>
         </table>';
 
-        // Bill Summary
+        // Bill Summary - English only
         $html .= '
-        <h4 style="color: #2c3e50; text-align: center; margin-top: 20px;">💰 बिल सारांश / Bill Summary</h4>
+        <h4 style="color: #2c3e50; text-align: center; margin-top: 20px;">Bill Summary</h4>
         <table class="milk-table">
             <thead>
                 <tr class="summary-header">
-                    <th width="30%">तपशील / Description</th>
-                    <th width="20%">प्रमाण / Quantity</th>
-                    <th width="20%">दर / Rate (₹/L)</th>
-                    <th width="30%">रक्कम / Amount (₹)</th>
+                    <th width="30%">Description</th>
+                    <th width="20%">Quantity</th>
+                    <th width="20%">Rate (Rs/L)</th>
+                    <th width="30%">Amount (Rs)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="cow-cell">
-                    <td>🐄 गाय दूध / Cow Milk</td>
+                    <td>Cow Milk</td>
                     <td>' . number_format($totalCow, 1) . ' L</td>
-                    <td>₹' . $cowRate . '.00</td>
-                    <td>₹' . number_format($cowAmount, 2) . '</td>
+                    <td>Rs.' . $cowRate . '.00</td>
+                    <td>Rs.' . number_format($cowAmount, 2) . '</td>
                 </tr>
                 <tr class="buffalo-cell">
-                    <td>🐃 म्हैस दूध / Buffalo Milk</td>
+                    <td>Buffalo Milk</td>
                     <td>' . number_format($totalBuffalo, 1) . ' L</td>
-                    <td>₹' . $buffaloRate . '.00</td>
-                    <td>₹' . number_format($buffaloAmount, 2) . '</td>
+                    <td>Rs.' . $buffaloRate . '.00</td>
+                    <td>Rs.' . number_format($buffaloAmount, 2) . '</td>
                 </tr>
                 <tr class="grand-total">
-                    <td colspan="3"><strong>📋 एकूण देय रक्कम / TOTAL AMOUNT DUE</strong></td>
-                    <td><strong>₹' . number_format($totalAmount, 2) . '</strong></td>
+                    <td colspan="3"><strong>TOTAL AMOUNT DUE</strong></td>
+                    <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
                 </tr>
             </tbody>
         </table>';
@@ -249,16 +247,19 @@ class CustomerController extends Controller
         $pdf->writeHTML($html, true, false, false, false, '');
 
         // Footer
+        // Footer - English only
         $pdf->Ln(8);
         $pdf->SetLineWidth(0.3);
         $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
         $pdf->Ln(3);
-        $pdf->SetFont('dejavusans', 'I', 9);
-        $pdf->Cell(0, 5, 'कृपया बिलाची रक्कम लगेच भरून सही करा. | Please arrange to pay the bill amount immediately.', 0, 1, 'C');
+        $pdf->SetFont('helvetica', 'I', 9);
+        $pdf->Cell(0, 5, 'Please arrange to pay the bill amount immediately.', 0, 1, 'C');
 
         $pdf->Ln(5);
-        $pdf->SetFont('dejavusans', '', 8);
-        $pdf->Cell(95, 5, 'ग्राहकाची सही / Customer Signature: ________________', 0, 0);
+        $pdf->SetFont('helvetica', '', 8);
+        $pdf->Cell(95, 5, 'Customer Signature: ________________', 0, 0);
+        $pdf->Cell(95, 5, 'Shop Signature: ________________', 0, 1);
+
         // Clean output buffer and send PDF
         if (ob_get_contents()) ob_end_clean();
         
