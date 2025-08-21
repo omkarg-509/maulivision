@@ -229,21 +229,35 @@ class CustomerController extends Controller
 }
 public function searchCustomer()
 {
+    Auth::check(); // Add authentication check
+    
     if (isset($_GET['term'])) {
         $term = trim($_GET['term']);
         if (strlen($term) < 2) {
+            header('Content-Type: application/json');
+            echo json_encode([]);
+            return;
+        }
+
+        // Get vendor ID from session
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        if (!$vid) {
+            header('Content-Type: application/json');
             echo json_encode([]);
             return;
         }
 
         $customerModel = $this->model('Customer');
-        $results = $customerModel->searchByTerm($term);
+        $results = $customerModel->searchByTermAndVendor($term, $vid);
 
         header('Content-Type: application/json');
         echo json_encode($results);
         exit;
     }
     
+    // If no term provided, return empty array
+    header('Content-Type: application/json');
+    echo json_encode([]);
 }
 
 public function update($id)

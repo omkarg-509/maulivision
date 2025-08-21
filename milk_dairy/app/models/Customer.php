@@ -95,7 +95,7 @@ public function searchByTerm($term)
         "SELECT id, bill_id, name, mobile 
          FROM customers 
          WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
-         AND d_status = '0'"
+         AND d_status = 0"
     );
     $stmt->bind_param("ssss", $term, $term, $term, $term);
     $stmt->execute();
@@ -105,6 +105,28 @@ public function searchByTerm($term)
     while ($row = $result->fetch_assoc()) {
         $customers[] = $row;
     }
+    $stmt->close();
+    return $customers;
+}
+
+public function searchByTermAndVendor($term, $vid)
+{
+    $term = "%{$term}%";
+    $stmt = $this->db->prepare(
+        "SELECT id, bill_id, name, mobile 
+         FROM customers 
+         WHERE (name LIKE ? OR bill_id LIKE ? OR mobile LIKE ? OR id LIKE ?)
+         AND d_status = 0 AND vid = ?"
+    );
+    $stmt->bind_param("ssssi", $term, $term, $term, $term, $vid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $customers = [];
+    while ($row = $result->fetch_assoc()) {
+        $customers[] = $row;
+    }
+    $stmt->close();
     return $customers;
 }
 
