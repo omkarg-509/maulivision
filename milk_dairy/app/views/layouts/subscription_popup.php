@@ -89,7 +89,7 @@ function verifyPayment(resp, plan){
 }
 
 function freeActivate(planId){
-	// Simulate immediate activation without payment by calling verify with fake ids & signature (server side will trust 0 amount plan? could be extended)
+	// Free plan activation: server skips signature check for zero-amount plan
 	const fd = new URLSearchParams();
 	fd.append('razorpay_payment_id','FREE-'+Date.now());
 	fd.append('razorpay_order_id','FREE-'+Date.now());
@@ -97,7 +97,7 @@ function freeActivate(planId){
 	fd.append('plan_id', planId);
 	showStatus('Activating trial...');
 	fetch('<?php echo BASE_URL; ?>subscription/verify', {method:'POST', body:fd})
-		.then(r=>r.json()).then(j=>{ if(j.success){ showStatus('Trial active till '+j.end_date,'green'); setTimeout(()=>{ closeSubscriptionModal(); location.reload(); },1000);} else { showStatus(j.message || 'Activation failed'); } })
+		.then(r=>r.json()).then(j=>{ if(j.success){ showStatus('Trial active till '+j.end_date,'green'); setTimeout(()=>{ closeSubscriptionModal(false); location.reload(); },900);} else { showStatus(j.message || 'Activation failed'); } })
 		.catch(()=>showStatus('Network error during activation'));
 }
 

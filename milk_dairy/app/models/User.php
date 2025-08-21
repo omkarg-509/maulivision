@@ -16,20 +16,24 @@ class User extends Database
 
     public function create($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO vendor (name, email, password, mobile_number, business_name, business_number, business_address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        // Align columns with DB schema order
+        $stmt = $this->db->prepare("INSERT INTO vendor (name, business_name, business_number, business_address, email, mobile_number, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param(
-            "ssssss",
+            "sssssss",
             $data['name'],
-            $data['email'],
-            $data['password'],
-            $data['mobile_number'],
             $data['business_name'],
             $data['business_number'],
-            $data['business_address']
+            $data['business_address'],
+            $data['email'],
+            $data['mobile_number'],
+            $data['password']
         );
         if ($stmt->execute()) {
-            return $this->db->insert_id;
+            $id = $this->db->insert_id;
+            $stmt->close();
+            return $id;
         }
+        $stmt->close();
         return false;
     }
 
@@ -53,6 +57,15 @@ class User extends Database
     {
         $stmt = $this->db->prepare("SELECT * FROM vendor WHERE email = ? OR mobile_number = ? LIMIT 1");
         $stmt->bind_param("ss", $email_or_number, $email_or_number);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    public function findById($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM vendor WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();

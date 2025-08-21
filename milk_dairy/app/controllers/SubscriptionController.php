@@ -54,26 +54,39 @@ class SubscriptionController extends Controller
         $plans = json_decode(SUBSCRIPTION_PLANS, true);
         if (!isset($plans[$planId])) { echo json_encode(['success'=>false,'message'=>'Invalid plan']); return; }
         $plan = $plans[$planId];
-        // Signature check
-        $body = $_POST['razorpay_order_id'] . '|' . $_POST['razorpay_payment_id'];
-        $expected = hash_hmac('sha256', $body, RAZORPAY_KEY_SECRET);
-        if ($expected !== $_POST['razorpay_signature']) {
-            echo json_encode(['success'=>false,'message'=>'Signature mismatch']); return;
+        $isFree = ($plan['amount_paise'] == 0);
+        if (!$isFree) {
+            // Signature check for paid plans
+            $body = $_POST['razorpay_order_id'] . '|' . $_POST['razorpay_payment_id'];
+            $expected = hash_hmac('sha256', $body, RAZORPAY_KEY_SECRET);
+            if ($expected !== $_POST['razorpay_signature']) {
+                echo json_encode(['success'=>false,'message'=>'Signature mismatch']); return;
+            }
+        }
+        // Prevent creating new subscription if active already
+        $subModel = $this->model('Subscription');
+        $existing = $subModel->getActiveByVendor($vendor['id']);
+        if ($existing) {
+            $_SESSION['has_active_subscription'] = true;
+            echo json_encode(['success'=>true,'message'=>'Already active','end_date'=>$existing['end_date']]);
+            return;
         }
         // Store transaction & subscription
-        $txnModel = $this->model('VendorTransaction');
-        $subModel = $this->model('Subscription');
+    $txnModel = $this->model('VendorTransaction');
+    // $subModel already instantiated
         $amountInRupees = $plan['amount_paise'] / 100.0;
-        $txnModel->create([
-            'transaction_id' => $_POST['razorpay_payment_id'],
-            'vendor_id' => $vendor['id'],
-            'amount' => $amountInRupees,
-            'transaction_date' => date('Y-m-d H:i:s'),
-            'transaction_type' => 'subscription',
-            'status' => 'success',
-            'reference' => $_POST['razorpay_order_id'],
-            'remarks' => 'Plan '.$plan['plan_name'],
-        ]);
+        if (!$isFree) {
+            $txnModel->create([
+                'transaction_id' => $_POST['razorpay_payment_id'],
+                'vendor_id' => $vendor['id'],
+                'amount' => $amountInRupees,
+                'transaction_date' => date('Y-m-d H:i:s'),
+                'transaction_type' => 'subscription',
+                'status' => 'success',
+                'reference' => $_POST['razorpay_order_id'],
+                'remarks' => 'Plan '.$plan['plan_name'],
+            ]);
+        }
         $start = date('Y-m-d');
         $end = date('Y-m-d', strtotime('+'.$plan['duration_days'].' days -1 day'));
         $subModel->create([
