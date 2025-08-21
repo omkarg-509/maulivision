@@ -611,7 +611,7 @@ function showBillModal(billData) {
                     <button type="button" class="btn btn-primary" onclick="downloadPDF()">
                         <i class="fa fa-download"></i> Download PDF
                     </button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">Close</button>
                 </div>
             </div>
         </div>
