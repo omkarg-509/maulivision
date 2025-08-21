@@ -434,15 +434,42 @@ function generateBill() {
 
 // Send WhatsApp message
 function sendWhatsApp() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (!startDate || !endDate) {
-        toastr.error('Please select date range first');
-        return;
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+
+  if (!startDate || !endDate) {
+    toastr.error('Please select date range first');
+    return;
+  }
+
+  // Collect daily milk data for selected date range
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  // Prepare a map: date => { cow: 0, buffalo: 0 }
+  const dailyData = {};
+
+  filteredEntries.forEach(entry => {
+    const entryDate = entry.date.split(' ')[0];
+    if (!dailyData[entryDate]) {
+      dailyData[entryDate] = { cow: 0, buffalo: 0 };
     }
-    
-    const message = `
+    if (entry.milktype === 'cow') {
+      dailyData[entryDate].cow += entry.liter;
+    } else if (entry.milktype === 'buffalo') {
+      dailyData[entryDate].buffalo += entry.liter;
+    }
+  });
+
+  // Prepare daily summary string
+  let dailySummary = '';
+  // Sort dates ascending
+  const sortedDates = Object.keys(dailyData).sort();
+  sortedDates.forEach(dateStr => {
+    const d = dailyData[dateStr];
+    dailySummary += `\n${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(2)}L | 🐃 ${d.buffalo.toFixed(2)}L`;
+  });
+
+  const message = `
 🥛 *Rajnandini Dairy Bill*
 
 👤 Customer: ${customerData.name}
@@ -457,11 +484,15 @@ function sendWhatsApp() {
 📱 Days: ${document.getElementById('totalDays').textContent}
 📊 Avg/Day: ${document.getElementById('avgPerDay').textContent} L
 
+-------------------------
+🗓️ *Daily Details:*
+${dailySummary}
+
 Thank you for choosing Rajnandini Dairy! 🙏
-    `.trim();
-    
-    const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  `.trim();
+
+  const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
 }
 
 // Download PDF
