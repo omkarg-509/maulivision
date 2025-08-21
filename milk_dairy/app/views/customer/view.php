@@ -82,13 +82,13 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Cow Milk Rate (₹ per liter)</label>
-                        <input type="number" id="cowRate" class="form-control" value="50" step="0.01" onchange="calculateBill()">
+                        <input type="number" id="cowRate" class="form-control"  step="0.01" onchange="calculateBill()">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Buffalo Milk Rate (₹ per liter)</label>
-                        <input type="number" id="buffaloRate" class="form-control" value="60" step="0.01" onchange="calculateBill()">
+                        <input type="number" id="buffaloRate" class="form-control"  step="0.01" onchange="calculateBill()">
                       </div>
                     </div>
                   </div>
@@ -272,7 +272,9 @@ $(document).ready(function() {
     
     // Set current month as default
     const now = new Date();
+    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (first date of current month)
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    // शेवटचा दिवस म्हणजे चालू महिन्याचा शेवटचा दिवस (last date of current month)
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
     document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
