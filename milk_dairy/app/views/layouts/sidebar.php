@@ -84,4 +84,4 @@ if ($vendor && $isDashboard && !$snoozed) {
               </ul>
         </aside>
       </div>
-  <?php if (!$showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <?php if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
