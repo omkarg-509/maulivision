@@ -442,6 +442,47 @@ function sendWhatsApp() {
         return;
     }
     
+    // Get rates for calculation
+    const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+    const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
+    
+    // Collect daily milk data for selected date range
+    const dailyData = {};
+    let totalCowForPeriod = 0;
+    let totalBuffaloForPeriod = 0;
+    
+    filteredEntries.forEach(entry => {
+        const entryDate = entry.date.split(' ')[0];
+        if (!dailyData[entryDate]) {
+            dailyData[entryDate] = { cow: 0, buffalo: 0 };
+        }
+        if (entry.milktype === 'cow') {
+            dailyData[entryDate].cow += entry.liter;
+            totalCowForPeriod += entry.liter;
+        } else if (entry.milktype === 'buffalo') {
+            dailyData[entryDate].buffalo += entry.liter;
+            totalBuffaloForPeriod += entry.liter;
+        }
+    });
+    
+    // Prepare daily summary string with all entries
+    let dailySummary = '';
+    let dayCount = 0;
+    
+    // Sort dates ascending
+    const sortedDates = Object.keys(dailyData).sort();
+    sortedDates.forEach(dateStr => {
+        const d = dailyData[dateStr];
+        dayCount++;
+        const dayTotal = d.cow + d.buffalo;
+        dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(1)}L | 🐃 ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
+    });
+    
+    // Calculate amounts
+    const cowAmount = totalCowForPeriod * cowRate;
+    const buffaloAmount = totalBuffaloForPeriod * buffaloRate;
+    const totalAmount = cowAmount + buffaloAmount;
+    
     const message = `
 🥛 *Rajnandini Dairy Bill*
 
@@ -449,13 +490,23 @@ function sendWhatsApp() {
 📋 Bill ID: ${customerData.billId}
 📅 Period: ${formatDate(startDate)} to ${formatDate(endDate)}
 
-🐄 Cow Milk: ${document.getElementById('totalCowLiters').textContent} L
-🐃 Buffalo Milk: ${document.getElementById('totalBuffaloLiters').textContent} L
+� *Summary:*
+�🐄 Cow Milk: ${totalCowForPeriod.toFixed(1)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
+🐃 Buffalo Milk: ${totalBuffaloForPeriod.toFixed(1)}L × ₹${buffaloRate} = ₹${buffaloAmount.toFixed(2)}
 
-💰 *Total Amount: ₹${document.getElementById('grandTotalAmount').textContent}*
+💰 *Total Amount: ₹${totalAmount.toFixed(2)}*
 
-📱 Days: ${document.getElementById('totalDays').textContent}
-📊 Avg/Day: ${document.getElementById('avgPerDay').textContent} L
+📱 Total Days: ${dayCount}
+📊 Avg per Day: ${dayCount > 0 ? ((totalCowForPeriod + totalBuffaloForPeriod) / dayCount).toFixed(1) : 0}L
+
+═══════════════════════
+🗓️ *Daily Details:*
+${dailySummary}
+
+═══════════════════════
+🏪 Rajnandini Dairy
+📍 Mhasoba Chowk, Gaywadi Nal
+📞 9822882755
 
 Thank you for choosing Rajnandini Dairy! 🙏
     `.trim();
