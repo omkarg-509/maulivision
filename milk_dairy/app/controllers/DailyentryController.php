@@ -52,17 +52,22 @@ class DailyentryController extends Controller
             exit;
         }
     }
-    public function list()
+    public function list($vid = null)
     {
         Auth::check();
-        $dailyEntryModel = $this->model('customer');
-        $dailyEntries = $dailyEntryModel->getAll();
+        $customerModel = $this->model('customer');
+        if ($vid !== null) {
+            // If $vid is provided, filter by vendor/session id
+            $dailyEntries = $customerModel->getAllByVendorId($vid);
+        } else {
+            $dailyEntries = $customerModel->getAll();
+        }
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $dailyEntries]);
         exit;
     }
 
-     public function pdf()
+    public function pdf()
     {
         Auth::check(); // ✅ session check
 
