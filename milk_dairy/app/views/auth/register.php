@@ -37,7 +37,11 @@
                                     <label for="business_number">Business Number</label>
                                     <input id="business_number" type="text" class="form-control" name="business_number" tabindex="5" required>
                                 </div>
-
+                                
+                                <div class="form-group">
+                                    <label for="business_address">Business Address</label>
+                                    <input id="business_address" type="text" class="form-control" name="business_address" tabindex="6" required>
+                                </div>
                                 <div class="form-group">
                                     <label for="password" class="control-label">Password</label>
                                     <input id="password" type="password" class="form-control" name="password" tabindex="7" required>
