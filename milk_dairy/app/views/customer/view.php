@@ -556,71 +556,78 @@ function deleteEntry(entryId) {
 
 // Show bill modal
 function showBillModal(billData) {
-    const modalHtml = `
-    <div class="modal fade" id="billModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">🥛 Milk Bill - ${billData.customer.name}</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <h4>Rajnandini Dairy</h4>
-                        <p>Mhasoba Chowk, Gaywadi Nal<br>Phone: 9822882755</p>
-                    </div>
-                    <hr>
-                    <div class="row mb-3">
-                        <div class="col-6"><strong>Customer:</strong> ${billData.customer.name}</div>
-                        <div class="col-6"><strong>Bill ID:</strong> ${billData.customer.billId}</div>
-                        <div class="col-6"><strong>Period:</strong> ${formatDate(billData.startDate)} to ${formatDate(billData.endDate)}</div>
-                        <div class="col-6"><strong>Total Days:</strong> ${billData.summary.totalDays}</div>
-                    </div>
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Milk Type</th>
-                            <th>Quantity (L)</th>
-                            <th>Rate (₹/L)</th>
-                            <th>Amount (₹)</th>
-                        </tr>
-                        <tr>
-                            <td>🐄 Cow Milk</td>
-                            <td>${billData.summary.cowLiters}</td>
-                            <td>${billData.cowRate}</td>
-                            <td>₹${billData.summary.cowAmount.toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>🐃 Buffalo Milk</td>
-                            <td>${billData.summary.buffaloLiters}</td>
-                            <td>${billData.buffaloRate}</td>
-                            <td>₹${billData.summary.buffaloAmount.toFixed(2)}</td>
-                        </tr>
-                        <tr class="table-info">
-                            <th>Total</th>
-                            <th>${billData.summary.totalLiters} L</th>
-                            <th>-</th>
-                            <th>₹${billData.summary.totalAmount.toFixed(2)}</th>
-                        </tr>
-                    </table>
-                    <p class="text-center mt-3"><em>Please arrange to pay the bill amount immediately.</em></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" onclick="sendWhatsApp()">
-                        <i class="fa fa-whatsapp"></i> Send WhatsApp
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="downloadPDF()">
-                        <i class="fa fa-download"></i> Download PDF
-                    </button>
-                    <button type="button"  data-bs-dismiss="modal" aria-label="Close" class="close btn btn-secondary">Close</button>
-                </div>
-            </div>
+  // Get vendor info from PHP session (passed via JS)
+  const vendor = {
+    business_name: "<?= htmlspecialchars($_SESSION['vendor']['business_name'] ?? 'Rajnandini Dairy') ?>",
+    number: "<?= htmlspecialchars($_SESSION['vendor']['number'] ?? '9822882755') ?>",
+    address: "<?= htmlspecialchars($_SESSION['vendor']['address'] ?? 'Mhasoba Chowk, Gaywadi Nal') ?>"
+  };
+
+  const modalHtml = `
+  <div class="modal fade" id="billModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">🥛 Milk Bill - ${billData.customer.name}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
         </div>
-    </div>`;
-    
-    // Remove existing modal and add new one
-    $('#billModal').remove();
-    $('body').append(modalHtml);
-    $('#billModal').modal('show');
+        <div class="modal-body">
+          <div class="text-center mb-3">
+            <h4>${vendor.business_name}</h4>
+            <p>${vendor.address}<br>Phone: ${vendor.number}</p>
+          </div>
+          <hr>
+          <div class="row mb-3">
+            <div class="col-6"><strong>Customer:</strong> ${billData.customer.name}</div>
+            <div class="col-6"><strong>Bill ID:</strong> ${billData.customer.billId}</div>
+            <div class="col-6"><strong>Period:</strong> ${formatDate(billData.startDate)} to ${formatDate(billData.endDate)}</div>
+            <div class="col-6"><strong>Total Days:</strong> ${billData.summary.totalDays}</div>
+          </div>
+          <table class="table table-bordered">
+            <tr>
+              <th>Milk Type</th>
+              <th>Quantity (L)</th>
+              <th>Rate (₹/L)</th>
+              <th>Amount (₹)</th>
+            </tr>
+            <tr>
+              <td>🐄 Cow Milk</td>
+              <td>${billData.summary.cowLiters}</td>
+              <td>${billData.cowRate}</td>
+              <td>₹${billData.summary.cowAmount.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>🐃 Buffalo Milk</td>
+              <td>${billData.summary.buffaloLiters}</td>
+              <td>${billData.buffaloRate}</td>
+              <td>₹${billData.summary.buffaloAmount.toFixed(2)}</td>
+            </tr>
+            <tr class="table-info">
+              <th>Total</th>
+              <th>${billData.summary.totalLiters} L</th>
+              <th>-</th>
+              <th>₹${billData.summary.totalAmount.toFixed(2)}</th>
+            </tr>
+          </table>
+          <p class="text-center mt-3"><em>Please arrange to pay the bill amount immediately.</em></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="sendWhatsApp()">
+            <i class="fa fa-whatsapp"></i> Send WhatsApp
+          </button>
+          <button type="button" class="btn btn-primary" onclick="downloadPDF()">
+            <i class="fa fa-download"></i> Download PDF
+          </button>
+          <button type="button"  data-bs-dismiss="modal" aria-label="Close" class="close btn btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // Remove existing modal and add new one
+  $('#billModal').remove();
+  $('body').append(modalHtml);
+  $('#billModal').modal('show');
 }
 
 // Format date helper
