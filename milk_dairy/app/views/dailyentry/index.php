@@ -68,6 +68,10 @@
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
                       <div class="col-sm-9">
                         <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="0.5">
+                          <label class="form-check-label" for="liter1">0.5 Liter</label>
+                        </div>
+                        <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="1.0">
                           <label class="form-check-label" for="liter1">1.0 Liter</label>
                         </div>
