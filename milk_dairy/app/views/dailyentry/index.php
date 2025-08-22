@@ -21,28 +21,43 @@
                 <form method="POST" id="customerForm">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
-                    <div class="form-group row mb-3 justify-content-center">
-                      <label class="col-sm-3 col-form-label text-center">Date & Time</label>
-                      <div class="col-sm-9 position-relative d-flex justify-content-center">
-                        <input type="text" class="form-control w-75 text-center" id="indian_datetime" name="entry_datetime" disabled>
+                    <div class="form-group row mb-3 justify-content-center align-items-center">
+                      <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
+                      <div class="col-sm-9 d-flex justify-content-center align-items-center">
+                        <input type="datetime-local" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
+                        <button type="button" class="btn btn-outline-secondary ms-2" id="setNow">Now</button>
                       </div>
                     </div>
 
-                      <script>
-                        function updateIndianDateTime() {
-                          const now = new Date();
-                          const options = {
-                            year: 'numeric', month: '2-digit', day: '2-digit',
-                            hour: '2-digit', minute: '2-digit', second: '2-digit',
-                            hour12: true,
-                            timeZone: 'Asia/Kolkata'
-                          };
-                          const formatter = new Intl.DateTimeFormat('en-IN', options);
-                          document.getElementById('indian_datetime').value = formatter.format(now).replace(',', '');
-                        }
-                        updateIndianDateTime();
-                        setInterval(updateIndianDateTime, 1000);
-                      </script>
+                    <script>
+                      // return a string suitable for datetime-local input (YYYY-MM-DDTHH:MM)
+                      function getDateTimeLocalForTimeZone(timeZone) {
+                        const now = new Date();
+                        const dtf = new Intl.DateTimeFormat('en-GB', {
+                          timeZone: timeZone,
+                          year: 'numeric', month: '2-digit', day: '2-digit',
+                          hour: '2-digit', minute: '2-digit', hour12: false
+                        });
+                        const parts = dtf.formatToParts(now);
+                        const map = {};
+                        parts.forEach(p => map[p.type] = p.value);
+                        // parts include day, month, year, hour, minute
+                        const y = map.year, m = map.month, d = map.day, hh = map.hour, mm = map.minute;
+                        return `${y}-${m}-${d}T${hh}:${mm}`;
+                      }
+
+                      function setEntryDateTimeNow() {
+                        const val = getDateTimeLocalForTimeZone('Asia/Kolkata');
+                        const el = document.getElementById('entry_datetime');
+                        if (el) el.value = val;
+                      }
+
+                      // initialize once on load
+                      document.addEventListener('DOMContentLoaded', function(){
+                        setEntryDateTimeNow();
+                        document.getElementById('setNow').addEventListener('click', setEntryDateTimeNow);
+                      });
+                    </script>
                       <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
@@ -51,9 +66,7 @@
                         <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
                     </div>
-                    <script>
-                   
-                    </script>
+                 
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Type</label>
                       <div class="col-sm-9">
