@@ -271,11 +271,12 @@
         <p class="small text-muted">Email: <a href="mailto:support@maulivision.in">support@maulivision.in</a></p>
       </div>
       <div class="col-lg-6">
-        <form onsubmit="event.preventDefault(); alert('Thanks — we will contact you shortly');">
-          <div class="mb-3"><input class="form-control" placeholder="Your name" required></div>
-          <div class="mb-3"><input type="email" class="form-control" placeholder="Email" required></div>
-          <div class="mb-3"><textarea class="form-control" rows="3" placeholder="Message" required></textarea></div>
-          <div class="d-grid"><button class="btn btn-primary">Send message</button></div>
+        <div id="contactAlert"></div>
+        <form id="contactForm">
+          <div class="mb-3"><input name="name" class="form-control" placeholder="Your name" required></div>
+          <div class="mb-3"><input name="email" type="email" class="form-control" placeholder="Email" required></div>
+          <div class="mb-3"><textarea name="message" class="form-control" rows="3" placeholder="Message" required></textarea></div>
+          <div class="d-grid"><button class="btn btn-primary" type="submit">Send message</button></div>
         </form>
       </div>
     </div>
@@ -322,6 +323,28 @@
           document.body.classList.remove('offcanvas-backdrop');
         }, 400);
       }
+    });
+  })();
+  // Contact form AJAX submit
+  (function(){
+    const form = document.getElementById('contactForm');
+    const alertHolder = document.getElementById('contactAlert');
+    if(!form) return;
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      alertHolder.innerHTML = '';
+      const fd = new FormData(form);
+      fetch('<?php echo BASE_URL; ?>contact/send', {
+        method: 'POST',
+        body: fd,
+        credentials: 'same-origin'
+      }).then(r=>r.json()).then(function(json){
+        const type = json.success ? 'success' : 'danger';
+        alertHolder.innerHTML = `<div class="alert alert-${type} alert-dismissible" role="alert">${json.message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>`;
+        if(json.success) form.reset();
+      }).catch(function(err){
+        alertHolder.innerHTML = `<div class="alert alert-danger" role="alert">An error occurred. Please try again later.</div>`;
+      });
     });
   })();
 </script>
