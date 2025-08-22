@@ -151,7 +151,7 @@
         </ul>
       </div>
       <div class="col-lg-6">
-        <img src="/public/assets/img/image-gallery/hero-2.jpg" class="img-fluid rounded shadow-sm" alt="About">
+        <!-- <img src="/public/assets/img/image-gallery/hero-2.jpg" class="img-fluid rounded shadow-sm" alt="About"> -->
       </div>
     </div>
   </div>
