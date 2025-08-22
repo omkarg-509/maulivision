@@ -45,10 +45,18 @@ class AuthController extends Controller
             }
 
             $userModel = $this->model('User');
-            if ($userModel->findByEmail($email)) {
+            // Check for existing vendor by email or mobile number
+            $existingByEmail = $userModel->findByEmail($email);
+            $existingByMobile = $userModel->findByEmailOrNumber($mobile_number);
+            if ($existingByEmail || $existingByMobile) {
+                $errors = [];
+                if ($existingByEmail) $errors['email'] = 'Email already registered.';
+                if ($existingByMobile) $errors['mobile_number'] = 'Mobile number already registered.';
+
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Email already exists.'
+                    'message' => 'Vendor already registered.',
+                    'errors' => $errors
                 ]);
                 exit;
             }
