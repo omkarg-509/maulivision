@@ -1,27 +1,27 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-$vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
-// Determine if subscription popup should show ONLY on dashboard and only once per session (unless page reload after cookie expires)
-$showSubscriptionPopup = false;
-$path = $_GET['url'] ?? '';
-$isDashboard = ($path === '' || $path === 'dashboard');
-$hideUntil = $_COOKIE['hide_sub_popup_until'] ?? '';
-if ($hideUntil && strtotime($hideUntil) > time()) {
-  // User snoozed popup
-  $snoozed = true;
-} else {
-  $snoozed = false;
-}
-if ($vendor && $isDashboard && !$snoozed) {
-  if (empty($_SESSION['has_active_subscription'])) {
-    if (empty($_SESSION['subscription_popup_shown'])) {
-      $showSubscriptionPopup = true;
-      $_SESSION['subscription_popup_shown'] = true; // prevent multi-page spam
-    }
-  }
-}
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
+// $vendor = isset($_SESSION['vendor']) ? $_SESSION['vendor'] : null;
+// // Determine if subscription popup should show ONLY on dashboard and only once per session (unless page reload after cookie expires)
+// $showSubscriptionPopup = false;
+// $path = $_GET['url'] ?? '';
+// $isDashboard = ($path === '' || $path === 'dashboard');
+// $hideUntil = $_COOKIE['hide_sub_popup_until'] ?? '';
+// if ($hideUntil && strtotime($hideUntil) > time()) {
+//   // User snoozed popup
+//   $snoozed = true;
+// } else {
+//   $snoozed = false;
+// }
+// if ($vendor && $isDashboard && !$snoozed) {
+//   if (empty($_SESSION['has_active_subscription'])) {
+//     if (empty($_SESSION['subscription_popup_shown'])) {
+//       $showSubscriptionPopup = true;
+//       $_SESSION['subscription_popup_shown'] = true; // prevent multi-page spam
+//     }
+//   }
+// }
 ?>
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
@@ -76,12 +76,12 @@ if ($vendor && $isDashboard && !$snoozed) {
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
           </li>
           
-             <li class="">
+             <!-- <li class="">
           <a href="/public/subscription" class="nav-link">
               <i class="fas fa-bell"></i><span>Subscription</span>
           </a>
-             </li>
+             </li> -->
               </ul>
         </aside>
       </div>
-  <?php if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>

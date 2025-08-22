@@ -23,8 +23,20 @@ class DailyEntry extends Database
 
     public function insert($data)
     {
-        $stmt = $this->db->prepare("INSERT INTO daily_entries (vid,cid,milktype,milkliter) VALUES (?,?,?,?)");
-        $stmt->bind_param("iisd", $data['vid'], $data['cid'], $data['milktype'], $data['milkliter']);
+        // Ensure created_at is set and in MySQL DATETIME format (Y-m-d H:i:s).
+        $created_at = null;
+        if (!empty($data['created_at'])) {
+            // frontend may send datetime-local like "2025-08-22T08:30" -> convert to "2025-08-22 08:30:00"
+            $created_at = str_replace('T', ' ', $data['created_at']);
+            if (strlen($created_at) === 16) {
+                $created_at .= ':00';
+            }
+        } else {
+            $created_at = date('Y-m-d H:i:s');
+        }
+
+        $stmt = $this->db->prepare("INSERT INTO daily_entries (vid,cid,milktype,milkliter,created_at) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("iisds", $data['vid'], $data['cid'], $data['milktype'], $data['milkliter'], $created_at);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
