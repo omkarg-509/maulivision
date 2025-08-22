@@ -76,12 +76,12 @@
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
           </li>
           
-             <li class="">
+             <!-- <li class="">
           <a href="/public/subscription" class="nav-link">
               <i class="fas fa-bell"></i><span>Subscription</span>
           </a>
-             </li>
+             </li> -->
               </ul>
         </aside>
       </div>
-  <?php if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
