@@ -233,7 +233,7 @@
   
 
     <!-- Uttkarsha -->
-    <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170">
+    <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
       <div class="card text-center team-card h-100">
         <div class="card-body position-relative">
         <img src="/public/assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
