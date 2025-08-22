@@ -188,7 +188,7 @@
     $("#customer_search").on("keyup", function () {
       let keyword = $(this).val();
 
-      if (keyword.length >= 1) {
+      if (keyword.length >= 0) {
         $.ajax({
           url: "<?php echo BASE_URL; ?>customer/searchCustomer",
           method: "GET",
