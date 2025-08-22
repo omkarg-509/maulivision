@@ -47,7 +47,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">
+            <a href="index.html" class="w-50">
               <span class="logo-name"><?= htmlspecialchars($vendor['business_name']) ?></span>
             </a>
           
