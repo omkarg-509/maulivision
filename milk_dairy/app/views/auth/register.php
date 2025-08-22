@@ -61,9 +61,8 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label for="business_number" class="form-label">Business number</label>
-                                                                <input id="business_number" name="business_number" type="text" class="form-control" required>
-                                                                <div class="invalid-feedback">Enter a contact number for the business.</div>
+                                                                <input id="business_number" name="business_number" type="tel" inputmode="numeric" pattern="[0-9+\- ]{6,}" class="form-control" required placeholder="e.g. +91 9876543210">
+                                                                <div class="invalid-feedback">Enter a valid business contact number.</div>
                                                             </div>
 
                                                             <div class="mb-3">
