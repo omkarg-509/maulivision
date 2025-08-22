@@ -267,7 +267,7 @@
       <div class="col-lg-6">
         <h4>Contact Us</h4>
         <p class="text-muted">Need help or want a demo? Reach out and we'll get back to you.</p>
-        <p class="small text-muted">Email: <a href="mailto:support@maulivision.in">support@maulivision.in</a></p>
+        <p class="small text-muted">Email: <a href="mailto:support@maulivision.in"><span style="filter: blur(3px);" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='blur(3px)'">support@maulivision.in</span></a></p>
       </div>
       <div class="col-lg-6">
         <form onsubmit="event.preventDefault(); alert('Thanks — we will contact you shortly');">
