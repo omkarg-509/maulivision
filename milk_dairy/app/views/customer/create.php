@@ -33,10 +33,34 @@
                       </div>
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="mobile" placeholder="Enter mobile number">
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" required name="mobile" id="mobile" placeholder="Enter mobile number">
+                        </div>
+                        <div class="col-sm-2">
+                          <button type="button" class="btn btn-secondary" id="pickContactBtn" title="Pick from contacts">
+                            <i class="fa fa-address-book"></i>
+                          </button>
                         </div>
                       </div>
+                      <script>
+                        // Contact Picker API (supported on some browsers)
+                        document.getElementById('pickContactBtn').addEventListener('click', async function() {
+                          if ('contacts' in navigator && 'ContactsManager' in window) {
+                            try {
+                              const props = ['tel'];
+                              const opts = {multiple: false};
+                              const contacts = await navigator.contacts.select(props, opts);
+                              if (contacts.length && contacts[0].tel && contacts[0].tel.length) {
+                                document.getElementById('mobile').value = contacts[0].tel[0];
+                              }
+                            } catch (err) {
+                              toastr.error('Could not pick contact or permission denied.');
+                            }
+                          } else {
+                            toastr.warning('Contact Picker not supported on this browser.');
+                          }
+                        });
+                      </script>
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Address</label>
                         <div class="col-sm-9">
