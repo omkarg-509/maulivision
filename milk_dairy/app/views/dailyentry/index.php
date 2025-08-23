@@ -78,12 +78,12 @@
                       <div class="col-sm-9">
                         <div class="btn-group w-100" role="group" aria-label="Milk Type">
                           <input type="radio" class="btn-check" name="milktype" id="milk-buffalo" value="buffalo" autocomplete="off" required>
-                          <label class="btn btn-outline-primary d-flex align-items-center justify-content-center" for="milk-buffalo">
+                          <label class="btn btn-outline-danger d-flex align-items-center justify-content-center" for="milk-buffalo">
                             <i class="fas fa-hippo me-2"></i> म्हैस
                           </label>
 
                           <input type="radio" class="btn-check" name="milktype" id="milk-cow" value="cow" autocomplete="off" required>
-                          <label class="btn btn-outline-warning d-flex align-items-center justify-content-center" for="milk-cow">
+                          <label class="btn btn-outline-success d-flex align-items-center justify-content-center" for="milk-cow">
                             <i class="fas fa-cow me-2"></i> गाय
                           </label>
                         </div>
