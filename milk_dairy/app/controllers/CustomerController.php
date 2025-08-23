@@ -20,8 +20,21 @@ class CustomerController extends Controller
         $customerId = $_GET['customer_id'] ?? $customerId ?? null;
         $startDate = $_GET['start_date'] ?? $startDate ?? date('Y-m-01');
         $endDate = $_GET['end_date'] ?? $endDate ?? date('Y-m-t');
-        $cowRate = $_GET['cow_rate'] ?? 50;
-        $buffaloRate = $_GET['buffalo_rate'] ?? 60;
+    // manual rates allowed (including 0 and decimals)
+    $cowRate = (isset($_GET['cow_rate']) && is_numeric($_GET['cow_rate'])) ? (float)$_GET['cow_rate'] : 50.0;
+    $buffaloRate = (isset($_GET['buffalo_rate']) && is_numeric($_GET['buffalo_rate'])) ? (float)$_GET['buffalo_rate'] : 60.0;
+    // sanitize currency (allow simple text/symbols)
+    $currency = $_GET['currency'] ?? 'Rs';
+    $currency = htmlspecialchars(substr($currency, 0, 10), ENT_QUOTES, 'UTF-8');
+
+        // ensure valid dates and order
+        if (strtotime($startDate) === false || strtotime($endDate) === false) {
+            $startDate = date('Y-m-01');
+            $endDate = date('Y-m-t');
+        }
+        if ($startDate > $endDate) {
+            [$startDate, $endDate] = [$endDate, $startDate];
+        }
 
         if (!$customerId) {
             die('Customer ID is required for PDF generation. Please provide customer_id parameter.');
@@ -202,7 +215,7 @@ class CustomerController extends Controller
                     <td class="cow-cell">' . ($milk['cow'] > 0 ? number_format($milk['cow'], 1) : '-') . '</td>
                     <td class="buffalo-cell">' . ($milk['buffalo'] > 0 ? number_format($milk['buffalo'], 1) : '-') . '</td>
                     <td class="total-cell">' . ($dayTotal > 0 ? number_format($dayTotal, 1) : '-') . '</td>
-                    <td class="amount-cell">Rs.' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
+                    <td class="amount-cell">' . $currency . '.' . ($dayAmount > 0 ? number_format($dayAmount, 2) : '0.00') . '</td>
                 </tr>';
             }
 
@@ -213,7 +226,7 @@ class CustomerController extends Controller
                     <td><strong>' . number_format($totalCow, 1) . ' L</strong></td>
                     <td><strong>' . number_format($totalBuffalo, 1) . ' L</strong></td>
                     <td><strong>' . number_format($totalLiters, 1) . ' L</strong></td>
-                    <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
+                    <td><strong>' . $currency . '.' . number_format($totalAmount, 2) . '</strong></td>
                 </tr>
             </tbody>
             </table>';
@@ -226,26 +239,26 @@ class CustomerController extends Controller
                     <tr class="summary-header">
                         <th width="30%">Description</th>
                         <th width="20%">Quantity</th>
-                        <th width="20%">Rate (Rs/L)</th>
-                        <th width="30%">Amount (Rs)</th>
+                        <th width="20%">Rate (' . $currency . '/L)</th>
+                        <th width="30%">Amount (' . $currency . ')</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="cow-cell">
                         <td>Cow Milk</td>
                         <td>' . number_format($totalCow, 1) . ' L</td>
-                        <td>Rs.' . $cowRate . '.00</td>
-                        <td>Rs.' . number_format($cowAmount, 2) . '</td>
+                        <td>' . $currency . '.' . number_format($cowRate, 2) . '</td>
+                        <td>' . $currency . '.' . number_format($cowAmount, 2) . '</td>
                     </tr>
                     <tr class="buffalo-cell">
                         <td>Buffalo Milk</td>
                         <td>' . number_format($totalBuffalo, 1) . ' L</td>
-                        <td>Rs.' . $buffaloRate . '.00</td>
-                        <td>Rs.' . number_format($buffaloAmount, 2) . '</td>
+                        <td>' . $currency . '.' . number_format($buffaloRate, 2) . '</td>
+                        <td>' . $currency . '.' . number_format($buffaloAmount, 2) . '</td>
                     </tr>
                     <tr class="grand-total">
                         <td colspan="3"><strong>TOTAL AMOUNT DUE</strong></td>
-                        <td><strong>Rs.' . number_format($totalAmount, 2) . '</strong></td>
+                        <td><strong>' . $currency . '.' . number_format($totalAmount, 2) . '</strong></td>
                     </tr>
                 </tbody>
             </table>';
