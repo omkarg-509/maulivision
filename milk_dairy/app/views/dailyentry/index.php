@@ -76,13 +76,21 @@
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Type</label>
                       <div class="col-sm-9">
-                        <select class="form-control" name="milktype" required>
-                          <option value="">Select Milk Type</option>
-                            <option value="buffalo">म्हैस</option>
-                            <option value="cow">गाय</option>
-                        </select>
+                        <div class="btn-group w-100" role="group" aria-label="Milk Type">
+                          <input type="radio" class="btn-check" name="milktype" id="milk-buffalo" value="buffalo" autocomplete="off" required>
+                          <label class="btn btn-outline-primary d-flex align-items-center justify-content-center" for="milk-buffalo">
+                            <i class="fas fa-hippo me-2"></i> म्हैस
+                          </label>
+
+                          <input type="radio" class="btn-check" name="milktype" id="milk-cow" value="cow" autocomplete="off" required>
+                          <label class="btn btn-outline-warning d-flex align-items-center justify-content-center" for="milk-cow">
+                            <i class="fas fa-cow me-2"></i> गाय
+                          </label>
+                        </div>
                       </div>
                     </div>
+                    <!-- Font Awesome for icons -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
                       <div class="col-sm-9">
