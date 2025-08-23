@@ -61,7 +61,7 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <input id="business_number" name="business_number" type="tel" inputmode="numeric" pattern="[0-9+\- ]{6,}" class="form-control" required placeholder="e.g. 9876543210">
+                                                                <input id="business_number" name="business_number" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" class="form-control" required placeholder="e.g. 9876543210">
                                                                 <div class="invalid-feedback">Enter a valid business contact number.</div>
                                                             </div>
 
