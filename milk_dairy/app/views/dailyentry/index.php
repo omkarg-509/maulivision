@@ -17,20 +17,25 @@
                   <div class="card-header col-12">
                     <h4>MILK DAILY ENTRY</h4>
                   </div>
-                  <div id="massages"></div>
-                <form method="POST" id="customerForm">
-                  <div class="card-body">
+                    <div id="massages"></div>
+                    <div class="showcustomers"></div>
+                  <form method="POST" id="customerForm">
+                    <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
-
-
-
-                      <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Customer Name</label>
-                      <div class="col-sm-9 position-relative">
-                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
-                        <input type="hidden" name="cid" id="cid">
-                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Customer</label>
+                      <div class="col-sm-9">
+                      <select class="form-control" name="cid" id="cid" required>
+                        <option value="">Select Customer</option>
+                        <?php if (!empty($customers) && is_array($customers)): ?>
+                        <?php foreach ($customers as $customer): ?>
+                          <option value="<?php echo htmlspecialchars($customer['id']); ?>">
+                          <?php echo htmlspecialchars($customer['id']) . ' - ' . htmlspecialchars($customer['name']) . ' (' . htmlspecialchars($customer['number']) . ')'; ?>
+                          </option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                      </select>
                       </div>
                     </div>
 
