@@ -41,7 +41,7 @@
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
                       <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
                       <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">
-                        <i class="fa fa-calendar-check"></i> Today
+                        <i class="fa fa-calendar-check"></i> 
                       </button>
                       </div>
                     </div>
