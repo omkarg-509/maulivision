@@ -4,16 +4,6 @@
  //}
 $vendor = isset($_SESSION['vendor']) ?    
   $_SESSION['vendor'] : null;
-// Load active language setting if available
-$activeLang = null;
-try{
-  if (file_exists(__DIR__ . '/../../models/Setting.php')){
-    require_once __DIR__ . '/../../models/Setting.php';
-    $sModel = new Setting();
-    $act = $sModel->getActive(isset($vendor['id']) ? $vendor['id'] : null);
-    if($act && isset($act['options'])) $activeLang = $act['options'];
-  }
-}catch(Throwable $e){ /* ignore */ }
 // // Determine if subscription popup should show ONLY on dashboard and only once per session (unless page reload after cookie expires)
 // $showSubscriptionPopup = false;
 // $path = $_GET['url'] ?? '';
@@ -73,9 +63,6 @@ try{
             <li class="active">
               <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
-            <li>
-              <a href="<?=BASE_URL?>setting/index" class="nav-link"><i class="fas fa-cog"></i><span>Settings</span></a>
-            </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
               <ul class="dropdown-menu">
@@ -101,7 +88,7 @@ try{
         </aside>
       </div>
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
-<!-- Floating translator button (admin) -->
+<!-- Floating translator button (site-wide) -->
 <div id="gt_translate_wrapper" style="position:fixed;right:18px;bottom:18px;z-index:2000;">
   <button id="translateBtn" title="Translate page" type="button" class="btn btn-sm btn-outline-secondary" style="border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.12);">
     <i class="fas fa-globe"></i>
@@ -121,25 +108,7 @@ try{
       document.body.appendChild(gt);
       window.googleTranslateElementInit = function(){
         try{
-          new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en,es,fr'}, 'google_translate_element');
-          try{
-            var active = <?= json_encode($activeLang ?? null) ?>;
-            if(active){
-              setTimeout(function(){
-                var sel = document.querySelector('#google_translate_element select');
-                if(sel){
-                  for(var i=0;i<sel.options.length;i++){
-                    var opt = sel.options[i];
-                    if(opt.text.toLowerCase().indexOf(active.toLowerCase())!==-1 || opt.value.toLowerCase().indexOf(active.toLowerCase())!==-1){
-                      sel.selectedIndex = i;
-                      sel.dispatchEvent(new Event('change'));
-                      break;
-                    }
-                  }
-                }
-              }, 400);
-            }
-          }catch(e){console.warn(e)}
+          new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en'}, 'google_translate_element');
         }catch(e){
           console.warn('Google Translate init failed', e);
         }
