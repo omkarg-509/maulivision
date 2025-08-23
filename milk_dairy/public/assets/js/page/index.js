@@ -43,8 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
         };
       },
     });
+var canvasElement = document.getElementById("myChart");
+console.log(canvasElement); // This will likely log null
 
-    var ctx = document.getElementById("myChart").getContext("2d");
+var ctx = canvasElement.getContext("2d");
+// ... rest of your code
+    // var ctx = document.getElementById("myChart").getContext("2d");
     var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
     gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
     gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
@@ -54,8 +58,12 @@ document.addEventListener('DOMContentLoaded', function() {
     gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
     gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
 });
+var canvasElement = document.getElementById("myChart");
+console.log(canvasElement); // This will likely log null
 
-var ctx = document.getElementById("myChart").getContext("2d");
+var ctx = canvasElement.getContext("2d");
+// ... rest of your code
+// var ctx = document.getElementById("myChart").getContext("2d");
 var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
 gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
 gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
