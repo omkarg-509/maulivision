@@ -65,8 +65,13 @@
                         const display = document.getElementById('dateDisplay');
                         if (el && display && el.value) {
                           // Format: YYYY-MM-DD to DD-MM-YYYY
-                          const [y, m, d] = el.value.split('-');
-                          display.textContent = `${d}-${m}-${y}`;
+                          const parts = el.value.split('-');
+                          if (parts.length === 3) {
+                            const [y, m, d] = parts;
+                            display.textContent = `${d}-${m}-${y}`;
+                          } else {
+                            display.textContent = '';
+                          }
                         } else if (display) {
                           display.textContent = '';
                         }
