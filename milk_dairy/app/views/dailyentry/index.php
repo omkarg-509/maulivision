@@ -194,47 +194,50 @@
 
             <script> $(document).ready(function () {
     // customer search
+    // Live customer search with AJAX
     $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val();
+      let keyword = $(this).val().trim();
 
-      if (keyword.length >= 0) {
-        $.ajax({
-          url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-          method: "GET",
-          data: { term: keyword },
-          dataType: "json",
-          success: function (data) {
-            let suggestions = $("#suggestions");
+      if (keyword !== "") {
+      $.ajax({
+        url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+        method: "GET",
+        data: { term: keyword },
+        dataType: "json",
+        success: function (data) {
+        let suggestions = $("#suggestions");
+        suggestions.html("");
+
+        if (Array.isArray(data) && data.length > 0) {
+          data.forEach(function (customer) {
+          let div = $("<div>")
+            .addClass("list-group-item list-group-item-action")
+            .html(customer.bill_id + " : " + customer.name)
+            .on("click", function () {
+            $("#customer_search").val(customer.name);
+            $("#cid").val(customer.id);
             suggestions.html("");
-
-            data.forEach(function (customer) {
-              let div = $("<div>")
-                .addClass("list-group-item list-group-item-action")
-                .html(customer.bill_id + " : " + customer.name + " ")
-                .on("click", function () {
-                  $("#bid").val(customer.bill_id);
-                  $("#customer_search").val(customer.name);
-                  $("#cid").val(customer.id);
-                  suggestions.html("");
-                });
-
-              suggestions.append(div);
             });
-          },
-        });
+
+          suggestions.append(div);
+          });
+        } else {
+          suggestions.html('<div class="list-group-item">No results found.</div>');
+        }
+        }
+      });
       } else {
-        $("#suggestions").html("");
+      $("#suggestions").html("");
       }
     });
 
-    // form submit validation
+    // Form submit validation: ensure customer is selected from suggestions
     $("form").on("submit", function (e) {
       if (!$("#cid").val()) {
-        alert("Please select a customer from the suggestions.");
-        e.preventDefault();
+      alert("Please select a customer from the suggestions.");
+      e.preventDefault();
       }
     });
-  });
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
