@@ -281,17 +281,20 @@
               });
             });
            
+            // Define BASE_URL for JavaScript usage
+            var BASE_URL = "<?php echo BASE_URL; ?>";
+            
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
               
               $.ajax({
-                url: '<?php echo BASE_URL; ?>dailyentry/list',
+                url: BASE_URL + 'dailyentry/list',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
                   // console.log('loadEntriesTable response:', response); // Debug log
-
+            
                   if (response.success && Array.isArray(response.data) && response.data.length > 0) {
                     $('#entries-table-body').empty();
                     response.data.forEach(function(entry, idx) {
@@ -330,7 +333,7 @@
                 }
               });
             }
-
+            
             // Auto-load entries table on page load
             $(document).ready(function() {
               loadEntriesTable();
