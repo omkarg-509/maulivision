@@ -48,8 +48,8 @@ $vendor = isset($_SESSION['vendor']) ?
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html" style="font-size:50px;">
-  <span class="logo-name fs-6 fs-md-5 fs-lg-4">
+            <a href="index.html" style="font-size:12px !important">
+  <span class="logo-name">
     <?= htmlspecialchars($vendor['business_name']) ?>
 </span>
             </a>
