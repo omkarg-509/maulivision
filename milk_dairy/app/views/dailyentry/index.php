@@ -36,33 +36,47 @@
                     
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">
-                        <i class="fa fa-calendar-alt me-2" id="calendarIcon" style="cursor:pointer;"></i> Date &amp; Time
+                      <i class="fa fa-calendar-alt me-2" id="calendarIcon" style="cursor:pointer;"></i> Date &amp; Time
                       </label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
-                        <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">
-                          <i class="fa fa-calendar-check"></i> Today
-                        </button>
+                      <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
+                      <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">
+                        <i class="fa fa-calendar-check"></i> Today
+                      </button>
                       </div>
                     </div>
 
                     <script>
-                      function setEntryDateToday() {
-                        const today = new Date();
-                        const yyyy = today.getFullYear();
-                        const mm = String(today.getMonth() + 1).padStart(2, '0');
-                        const dd = String(today.getDate()).padStart(2, '0');
-                        const val = `${yyyy}-${mm}-${dd}`;
-                        const el = document.getElementById('entry_date');
-                        if (el) el.value = val;
+                      function setEntryDateToday(openPicker = false) {
+                      const today = new Date();
+                      const yyyy = today.getFullYear();
+                      const mm = String(today.getMonth() + 1).padStart(2, '0');
+                      const dd = String(today.getDate()).padStart(2, '0');
+                      const val = `${yyyy}-${mm}-${dd}`;
+                      const el = document.getElementById('entry_date');
+                      if (el) {
+                        el.value = val;
+                        if (openPicker && typeof el.showPicker === 'function') {
+                        el.showPicker();
+                        } else if (openPicker) {
+                        el.focus();
+                        }
+                      }
                       }
 
                       document.addEventListener('DOMContentLoaded', function(){
-                        setEntryDateToday();
-                        document.getElementById('setToday').addEventListener('click', setEntryDateToday);
-                        document.getElementById('calendarIcon').addEventListener('click', function() {
-                          document.getElementById('entry_date').focus();
-                        });
+                      setEntryDateToday();
+                      document.getElementById('setToday').addEventListener('click', function() {
+                        setEntryDateToday(true);
+                      });
+                      document.getElementById('calendarIcon').addEventListener('click', function() {
+                        const el = document.getElementById('entry_date');
+                        if (el && typeof el.showPicker === 'function') {
+                        el.showPicker();
+                        } else if (el) {
+                        el.focus();
+                        }
+                      });
                       });
                     </script>
                     <div class="form-group row mb-3">
