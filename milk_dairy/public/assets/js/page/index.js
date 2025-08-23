@@ -140,75 +140,75 @@ var myChart = new Chart(ctx, {
   },
 });
 
-var ctx = document.getElementById("chart-1").getContext("2d");
-var myChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: ["January", "February", "March", "April", "May"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [10, 35, 27, 55, 30],
-        borderWidth: 2,
-        backgroundColor: "rgba(78, 214, 193, .8)",
-        borderWidth: "3",
-        borderColor: "rgba(78, 214, 193, .8)",
-        pointBorderWidth: 5,
-        pointRadius: 2,
-        pointBackgroundColor: "red",
-        pointHoverBackgroundColor: "rgba(63,82,227,.8)",
-      },
-      {
-        label: "Budget",
-        data: [35, 20, 45, 35, 45],
-        borderWidth: 2,
+// var ctx = document.getElementById("chart-1").getContext("2d");
+// var myChart = new Chart(ctx, {
+//   type: "line",
+//   data: {
+//     labels: ["January", "February", "March", "April", "May"],
+//     datasets: [
+//       {
+//         label: "Sales",
+//         data: [10, 35, 27, 55, 30],
+//         borderWidth: 2,
+//         backgroundColor: "rgba(78, 214, 193, .8)",
+//         borderWidth: "3",
+//         borderColor: "rgba(78, 214, 193, .8)",
+//         pointBorderWidth: 5,
+//         pointRadius: 2,
+//         pointBackgroundColor: "red",
+//         pointHoverBackgroundColor: "rgba(63,82,227,.8)",
+//       },
+//       {
+//         label: "Budget",
+//         data: [35, 20, 45, 35, 45],
+//         borderWidth: 2,
 
-        backgroundColor: "rgba(226, 226, 226, .9)",
-        borderWidth: 0,
-        borderColor: "rgba(226, 226, 226, .9)",
-        pointBorderWidth: 5,
-        pointRadius: 2,
-        pointBackgroundColor: "transparent",
-        pointHoverBackgroundColor: "rgba(254,86,83,.8)",
-      },
-    ],
-  },
-  options: {
-    legend: {
-      display: true,
-    },
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            // display: false,
-            drawBorder: false,
-            color: "#f2f2f2",
-          },
-          ticks: {
-            beginAtZero: true,
-            stepSize: 10,
-            fontColor: "#9aa0ac", // Font Color
-            callback: function (value, index, values) {
-              return "$" + value;
-            },
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            display: false,
-            tickMarkLength: 15,
-          },
-          ticks: {
-            fontColor: "#9aa0ac", // Font Color
-          },
-        },
-      ],
-    },
-  },
-});
+//         backgroundColor: "rgba(226, 226, 226, .9)",
+//         borderWidth: 0,
+//         borderColor: "rgba(226, 226, 226, .9)",
+//         pointBorderWidth: 5,
+//         pointRadius: 2,
+//         pointBackgroundColor: "transparent",
+//         pointHoverBackgroundColor: "rgba(254,86,83,.8)",
+//       },
+//     ],
+//   },
+//   options: {
+//     legend: {
+//       display: true,
+//     },
+//     scales: {
+//       yAxes: [
+//         {
+//           gridLines: {
+//             // display: false,
+//             drawBorder: false,
+//             color: "#f2f2f2",
+//           },
+//           ticks: {
+//             beginAtZero: true,
+//             stepSize: 10,
+//             fontColor: "#9aa0ac", // Font Color
+//             callback: function (value, index, values) {
+//               return "$" + value;
+//             },
+//           },
+//         },
+//       ],
+//       xAxes: [
+//         {
+//           gridLines: {
+//             display: false,
+//             tickMarkLength: 15,
+//           },
+//           ticks: {
+//             fontColor: "#9aa0ac", // Font Color
+//           },
+//         },
+//       ],
+//     },
+//   },
+// });
 
 var options = {
   chart: {
