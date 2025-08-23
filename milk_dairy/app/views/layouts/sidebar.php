@@ -2,8 +2,8 @@
 // if (session_status() === PHP_SESSION_NONE) {
   //  session_start();
  //}
-// $vendor = isset($_SESSION['vendor']) ?    
-//   $_SESSION['vendor'] : null;
+$vendor = isset($_SESSION['vendor']) ?    
+  $_SESSION['vendor'] : null;
 // // Determine if subscription popup should show ONLY on dashboard and only once per session (unless page reload after cookie expires)
 // $showSubscriptionPopup = false;
 // $path = $_GET['url'] ?? '';
