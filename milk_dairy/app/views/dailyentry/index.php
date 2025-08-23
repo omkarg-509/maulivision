@@ -273,7 +273,7 @@
                 }
               });
             });
-            </script>
+           
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
