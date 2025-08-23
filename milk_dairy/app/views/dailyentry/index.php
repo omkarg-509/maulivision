@@ -22,13 +22,10 @@
                   <div class="card-body">
                     <input type="text" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
-
-
-
-                      <div class="form-group row mb-3">
+                    <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
-                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
+                        <input type="text" class="form-control" id="customer_search" placeholder="ग्राहक नाव किंवा नंबर टाका" autocomplete="off" required>
                         <input type="hidden" name="cid" id="cid">
                         <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
@@ -36,7 +33,7 @@
 
 
 
-                    
+
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
