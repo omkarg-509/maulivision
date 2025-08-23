@@ -206,12 +206,9 @@
                         </div>
                         <div class="profile-widget-item">
                           <div class="profile-widget-item-label">Number</div>
-                          <div class="profile-widget-item-value">${c.bill_id || ''}</div>
-                        </div>
-                        <div class="profile-widget-item">
-                          <div class="profile-widget-item-label">Mobile</div>
                           <div class="profile-widget-item-value">${c.mobile || ''}</div>
                         </div>
+                        
                       </div>
                       ${note ? `<div class="text-center text-muted" style="margin-top:6px;">${note}</div>` : ''}
                     </div>
