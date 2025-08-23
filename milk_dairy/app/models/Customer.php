@@ -78,6 +78,20 @@ class Customer extends Database
         return $success;
     }
 
+    /**
+     * Check if a customer already exists for the vendor by bill_id or mobile (active only)
+     */
+    public function existsByBillOrMobile($vid, $bill_id, $mobile)
+    {
+        $stmt = $this->db->prepare("SELECT id, name, bill_id, mobile FROM customers WHERE vid = ? AND d_status = 0 AND (bill_id = ? OR mobile = ?) LIMIT 1");
+        $stmt->bind_param("iss", $vid, $bill_id, $mobile);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+        return $row ?: null;
+    }
+
 
      public function delete($id)
 {

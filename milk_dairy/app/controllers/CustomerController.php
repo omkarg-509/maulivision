@@ -328,6 +328,20 @@ class CustomerController extends Controller
             }
 
             $customerModel = $this->model('Customer');
+
+            // Duplicate check by bill_id or mobile within vendor
+            $dupe = $customerModel->existsByBillOrMobile((int)$data['vid'], $data['bill_id'], $data['mobile']);
+            if ($dupe) {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'success' => false,
+                    'duplicate' => true,
+                    'message' => 'Customer already exists with this Bill ID or Mobile.',
+                    'existing' => $dupe,
+                ]);
+                exit;
+            }
+
             $result = $customerModel->insert($data);
 
             header('Content-Type: application/json');
