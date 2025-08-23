@@ -387,7 +387,7 @@ public function searchCustomer()
     
     if (isset($_GET['term'])) {
         $term = trim($_GET['term']);
-        if (strlen($term) < 2) {
+        if (strlen($term) < 1) {
             header('Content-Type: application/json');
             echo json_encode([]);
             return;
