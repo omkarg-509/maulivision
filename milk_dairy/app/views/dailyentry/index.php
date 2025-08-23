@@ -192,22 +192,38 @@
 // });
 </script>
 
-            <script> $(document).ready(function () {
+            <script>
+             $(document).ready(function () {
     // customer search
     // Customer search with name and number display, and direct cid assignment
-    $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val();
+    // Auto-fill customer details if user types customer ID, name, or number and it matches exactly
+    $("#customer_search").on("input", function () {
+      let keyword = $(this).val().trim();
+      let suggestions = $("#suggestions");
+      suggestions.html("");
+      $("#cid").val("");
 
-      if (keyword.length > 0) {
+      if (keyword.length === 0) return;
+
       $.ajax({
-        url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-        method: "GET",
-        data: { term: keyword },
-        dataType: "json",
-        success: function (data) {
-        let suggestions = $("#suggestions");
+      url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+      method: "GET",
+      data: { term: keyword },
+      dataType: "json",
+      success: function (data) {
+        if (data.length === 1 && (
+        data[0].bill_id === keyword ||
+        data[0].name.toLowerCase() === keyword.toLowerCase() ||
+        data[0].mobile === keyword
+        )) {
+        // Exact match: auto-fill and set cid
+        let customer = data[0];
+        let displayText = "[" + customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")";
+        $("#customer_search").val(displayText);
+        $("#cid").val(customer.id);
         suggestions.html("");
-
+        } else if (data.length > 0) {
+        // Show suggestions for partial matches
         data.forEach(function (customer) {
           let displayText = "[" + customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")";
           let div = $("<div>")
@@ -218,25 +234,24 @@
             $("#cid").val(customer.id);
             suggestions.html("");
           });
-
           suggestions.append(div);
         });
-        },
-      });
-      } else {
-      $("#suggestions").html("");
-      $("#cid").val("");
+        } else {
+        $("#cid").val("");
+        }
       }
+      });
     });
 
     // form submit validation
     $("form").on("submit", function (e) {
       if (!$("#cid").val()) {
-      alert("Please select a customer from the suggestions.");
+      alert("Please select a customer from the suggestions or enter a valid customer.");
       e.preventDefault();
       }
     });
     });
+
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
