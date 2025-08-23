@@ -3380,7 +3380,7 @@ textarea.form-control {
 }
 
 .table .team-member-sm:hover {
-    /* webkit-transform: translateY(-4px) scale(1.02); */
+    webkit-transform: translateY(-4px) scale(1.02);
     -moz-transform: translateY(-4px) scale(1.02);
     -ms-transform: translateY(-4px) scale(1.02);
     -o-transform: translateY(-4px) scale(1.02);
@@ -5520,7 +5520,7 @@ pre {
     height: 100%;
     width: 250px;
     background-color: #fff;
-    z-index: 1031;
+    z-index: 880;
     left: 0
 }
 
@@ -6293,7 +6293,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     .main-sidebar {
         position: fixed !important;
         margin-top: 0 !important;
-        z-index: 1031;
+        z-index: 891
     }
 
     body.layout-2 .main-wrapper,body.layout-3 .main-wrapper {
@@ -6361,7 +6361,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     opacity: 1
 }
 
-/* @-webkit-keyframes pulsate {
+@-webkit-keyframes pulsate {
     0% {
         -webkit-transform: scale(0.1, 0.1);
         opacity: 0
@@ -6375,7 +6375,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
         -webkit-transform: scale(1.2, 1.2);
         opacity: 0
     }
-} */
+}
 
 .dark-sidebar:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu>li.active ul.dropdown-menu li a {
     background-color: #353c48
