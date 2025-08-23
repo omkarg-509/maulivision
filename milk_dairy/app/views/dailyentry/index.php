@@ -93,17 +93,26 @@
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
-                      <div class="col-sm-9 d-flex flex-wrap align-items-center gap-2">
+                      <div class="col-sm-9">
+                      <div class="d-flex flex-wrap align-items-center gap-2">
                         <?php
-                          $liters = [0.5, 1.0, 1.5, 2.0];
-                          foreach ($liters as $i => $val): 
-                            $id = 'liter' . str_replace('.', '', $val);
-                        ?>
+                        $liters = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
+                        $perRow = 4;
+                        foreach (array_chunk($liters, $perRow) as $row) {
+                          echo '<div class="d-flex flex-wrap align-items-center gap-2 mb-2">';
+                          foreach ($row as $val) {
+                          $id = 'liter' . str_replace('.', '', $val);
+                          ?>
                           <input type="radio" class="btn-check" name="milkliter" id="<?= $id ?>" value="<?= $val ?>" autocomplete="off" required>
                           <label class="btn btn-outline-primary px-3 py-2 mb-1" for="<?= $id ?>" style="font-size:1.1rem;">
                             <?= $val ?> L
                           </label>
-                        <?php endforeach; ?>
+                          <?php
+                          }
+                          echo '</div>';
+                        }
+                        ?>
+                      </div>
                       </div>
                     </div>
                     <div class="form-group row">
