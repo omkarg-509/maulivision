@@ -72,7 +72,7 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label class="form-label">Password</label>
+                                                                <label for="password" class="form-label">Password</label>
                                                                 <div class="input-group">
                                                                     <input id="password" name="password" type="password" class="form-control" required minlength="6" aria-describedby="showPwd">
                                                                     <button class="btn btn-outline-secondary" type="button" id="togglePassword" title="Show / hide password"><i class="bi bi-eye"></i></button>
@@ -82,7 +82,7 @@
                                                             </div>
 
                                                             <div class="mb-3">
-                                                                <label class="form-label">Confirm password</label>
+                                                                <label for="password_confirm" class="form-label">Confirm password</label>
                                                                 <div class="input-group">
                                                                     <input id="password_confirm" name="password_confirm" type="password" class="form-control" required minlength="6">
                                                                     <button class="btn btn-outline-secondary" type="button" id="togglePasswordConfirm" title="Show / hide password"><i class="bi bi-eye"></i></button>
