@@ -93,23 +93,17 @@
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
-                      <div class="col-sm-9">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="0.5">
-                          <label class="form-check-label" for="liter1">0.5 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="1.0">
-                          <label class="form-check-label" for="liter1">1.0 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter15" value="1.5">
-                          <label class="form-check-label" for="liter15">1.5 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter2" value="2.0">
-                          <label class="form-check-label" for="liter2">2.0 Liter</label>
-                        </div>
+                      <div class="col-sm-9 d-flex flex-wrap align-items-center gap-2">
+                        <?php
+                          $liters = [0.5, 1.0, 1.5, 2.0];
+                          foreach ($liters as $i => $val): 
+                            $id = 'liter' . str_replace('.', '', $val);
+                        ?>
+                          <input type="radio" class="btn-check" name="milkliter" id="<?= $id ?>" value="<?= $val ?>" autocomplete="off" required>
+                          <label class="btn btn-outline-primary px-3 py-2 mb-1" for="<?= $id ?>" style="font-size:1.1rem;">
+                            <?= $val ?> L
+                          </label>
+                        <?php endforeach; ?>
                       </div>
                     </div>
                     <div class="form-group row">
