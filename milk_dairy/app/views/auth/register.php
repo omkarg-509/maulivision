@@ -50,7 +50,7 @@
 
                                                             <div class="mb-3">
                                                                 <label for="email" class="form-label">Email</label>
-                                                                <input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com">
+                                                                <input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com" autocomplete>
                                                                 <div class="invalid-feedback">Provide a valid email address.</div>
                                                             </div>
 
