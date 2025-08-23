@@ -33,11 +33,9 @@
                       </div>
                       <div class="form-group row mb-3">
                         <label class="col-sm-3 col-form-label text-center">Mobile Number</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-9 d-flex align-items-center">
                           <input type="text" class="form-control" required name="mobile" id="mobile" placeholder="Enter mobile number">
-                        </div>
-                        <div class="col-sm-2">
-                          <button type="button" class="btn btn-secondary" id="pickContactBtn" title="Pick from contacts">
+                          <button type="button" class="btn btn-secondary ms-2" id="pickContactBtn" title="Pick from contacts">
                             <i class="fa fa-address-book"></i>
                           </button>
                         </div>
