@@ -147,6 +147,25 @@ var myChart = new Chart(ctx, {
     },
   },
 });
+document.addEventListener('DOMContentLoaded', function() {
+  var canvasElement = document.getElementById("myChart");
+
+  if (canvasElement) { // Add a check to ensure the element was found
+    var ctx = canvasElement.getContext("2d");
+
+    var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
+    gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
+    gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
+
+    var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
+    gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
+    gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
+    gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
+  } else {
+    console.error("Canvas element with ID 'myChart' not found.");
+  }
+});
+
 
 // var ctx = document.getElementById("chart-1").getContext("2d");
 // var myChart = new Chart(ctx, {
