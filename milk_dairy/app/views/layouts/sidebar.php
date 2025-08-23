@@ -25,7 +25,7 @@ $vendor = isset($_SESSION['vendor']) ?
 // }
 ?>
 <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
+      <nav class="navbar navbar-expand-lg main-navbar fixed-top">
      <div class="form-inline me-auto">
           <ul class="navbar-nav navbar-left">
         
