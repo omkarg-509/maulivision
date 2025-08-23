@@ -128,10 +128,15 @@
               </div>
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
-                <div class="card-header">
-                  <h4>Customers Details</h4>
-                </div>
-                <div class="card-body" id="entries-table-container">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                      <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
+                      <div class="d-flex">
+                        <input id="entries-search" class="form-control form-control-sm me-2" placeholder="Search by name/type..." style="min-width:180px;">
+                        <button id="refreshEntries" class="btn btn-sm btn-outline-secondary me-2" title="Refresh"><i class="fa fa-sync"></i></button>
+                        <button id="exportCsv" class="btn btn-sm btn-outline-primary" title="Export CSV"><i class="fa fa-download"></i> CSV</button>
+                      </div>
+                    </div>
+                    <div class="card-body" id="entries-table-container">
                   <table class="table table-sm">
                     <thead>
                       <tr>
@@ -146,6 +151,25 @@
                       <!-- Table rows will be loaded here by loadEntriesTable() via AJAX -->
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delete confirmation modal -->
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="mb-0">Are you sure you want to delete this entry?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-sm btn-danger">Delete</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -234,6 +258,40 @@
                 });
               }, 250);
 
+              // Store last loaded entries for client-side filtering/export
+              var lastEntries = [];
+
+              function updateSummary(entries){
+                var total = entries.length;
+                var liters = entries.reduce(function(s, e){ return s + (parseFloat(e.milkliter) || 0); }, 0);
+                $('#entries-summary').text(` — ${total} entries, ${liters} L total`);
+              }
+
+              function renderEntries(entries) {
+                lastEntries = entries || [];
+                updateSummary(lastEntries);
+                if (!Array.isArray(lastEntries) || lastEntries.length === 0) {
+                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
+                  return;
+                }
+                $('#entries-table-body').empty();
+                lastEntries.forEach(function(entry, idx) {
+                  let customerName = entry.customer_name || entry.name || 'Unknown Customer';
+                  let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
+                  $('#entries-table-body').append(
+                    `<tr data-name="${(customerName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
+                       <td>${idx + 1}</td>
+                       <td>${customerName}</td>
+                       <td>${milkType}</td>
+                       <td>${entry.milkliter || '0'} L</td>
+                       <td>
+                         <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                       </td>
+                     </tr>`
+                  );
+                });
+              }
+
               function loadEntriesTable() {
                 $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
                 $.ajax({
@@ -241,25 +299,10 @@
                   type: 'GET',
                   dataType: 'json',
                   success: function(response) {
-                    if (response.success && Array.isArray(response.data) && response.data.length > 0) {
-                      $('#entries-table-body').empty();
-                      response.data.forEach(function(entry, idx) {
-                        let customerName = entry.customer_name || entry.name || 'Unknown Customer';
-                        let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
-                        $('#entries-table-body').append(
-                          `<tr>
-                             <td>${idx + 1}</td>
-                             <td>${customerName}</td>
-                             <td>${milkType}</td>
-                             <td>${entry.milkliter || '0'} L</td>
-                             <td>
-                               <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
-                             </td>
-                           </tr>`
-                        );
-                      });
+                    if (response.success && Array.isArray(response.data)) {
+                      renderEntries(response.data);
                     } else {
-                      $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
+                      renderEntries([]);
                     }
                   },
                   error: function(xhr, status, error) {
@@ -282,27 +325,90 @@
                   }
                 });
 
-                // Handle delete-entry
+                // Delete flow using modal confirmation
+                var selectedEntryId = null;
                 $(document).on('click', '.delete-entry', function() {
-                  var entryId = $(this).data('id');
-                  if (confirm('Are you sure you want to delete this entry?')) {
-                    $.ajax({
-                      url: BASE_URL + 'dailyentry/delete/' + entryId,
-                      type: 'POST',
-                      dataType: 'json',
-                      success: function(response) {
-                        if (response.success) {
-                          toastr.success(response.message || 'Entry deleted successfully.');
-                          loadEntriesTable();
-                        } else {
-                          toastr.error(response.message || 'Failed to delete entry.');
-                        }
-                      },
-                      error: function() {
-                        toastr.error('An error occurred. Please try again.');
+                  selectedEntryId = $(this).data('id');
+                  var modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+                  modal.show();
+                });
+
+                $('#confirmDeleteBtn').on('click', function(){
+                  if (!selectedEntryId) return;
+                  var btn = $(this).prop('disabled', true).text('Deleting...');
+                  $.ajax({
+                    url: BASE_URL + 'dailyentry/delete/' + selectedEntryId,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                      btn.prop('disabled', false).text('Delete');
+                      var modalEl = document.getElementById('confirmDeleteModal');
+                      var modal = bootstrap.Modal.getInstance(modalEl);
+                      if (modal) modal.hide();
+                      if (response.success) {
+                        toastr.success(response.message || 'Entry deleted successfully.');
+                        loadEntriesTable();
+                      } else {
+                        toastr.error(response.message || 'Failed to delete entry.');
                       }
-                    });
+                      selectedEntryId = null;
+                    },
+                    error: function() {
+                      btn.prop('disabled', false).text('Delete');
+                      toastr.error('An error occurred. Please try again.');
+                    }
+                  });
+                });
+
+                // Client-side search/filter
+                $('#entries-search').on('input', debounce(function(){
+                  var q = $(this).val().toLowerCase().trim();
+                  if (!q) {
+                    // show all
+                    $('#entries-table-body tr').show();
+                    updateSummary(lastEntries);
+                    return;
                   }
+                  var filtered = lastEntries.filter(function(e){
+                    var name = (e.customer_name||e.name||'').toLowerCase();
+                    var type = (e.milktype||'').toLowerCase();
+                    return name.indexOf(q) !== -1 || type.indexOf(q) !== -1 || String(e.id||'').indexOf(q) !== -1 || String(e.bill_id||'').indexOf(q) !== -1;
+                  });
+                  // re-render rows from filtered set
+                  if (filtered.length === 0) {
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries match.</td></tr>');
+                  } else {
+                    renderEntries(filtered);
+                  }
+                }, 200));
+
+                // Refresh & export
+                $('#refreshEntries').on('click', function(){
+                  loadEntriesTable();
+                });
+
+                function exportToCsv(filename, rows) {
+                  if (!rows || !rows.length) return toastr.info('No data to export');
+                  var headers = ['#','Customer','Type','Liters','ID','Bill ID','Date'];
+                  var csv = headers.join(',') + '\n';
+                  rows.forEach(function(r, i){
+                    var line = [i+1, '"'+(r.customer_name||r.name||'')+'"', (r.milktype||''), (r.milkliter||''), (r.id||''), (r.bill_id||''), (r.entry_date||'')];
+                    csv += line.join(',') + '\n';
+                  });
+                  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                  var link = document.createElement('a');
+                  var url = URL.createObjectURL(blob);
+                  link.setAttribute('href', url);
+                  link.setAttribute('download', filename);
+                  link.style.visibility = 'hidden';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  URL.revokeObjectURL(url);
+                }
+
+                $('#exportCsv').on('click', function(){
+                  exportToCsv('entries.csv', lastEntries);
                 });
 
                 // Submit via AJAX and reload table
