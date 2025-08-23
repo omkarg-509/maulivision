@@ -369,6 +369,26 @@
       window.googleTranslateElementInit = function(){
         try{
           new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en,es,fr'}, 'google_translate_element');
+          // If server provided an active language, try to select it
+          try{
+            var active = <?= json_encode($activeLang ?? null) ?>;
+            if(active){
+              // Wait a tick for the widget DOM
+              setTimeout(function(){
+                var sel = document.querySelector('#google_translate_element select');
+                if(sel){
+                  for(var i=0;i<sel.options.length;i++){
+                    var opt = sel.options[i];
+                    if(opt.text.toLowerCase().indexOf(active.toLowerCase())!==-1 || opt.value.toLowerCase().indexOf(active.toLowerCase())!==-1){
+                      sel.selectedIndex = i; // pick it
+                      sel.dispatchEvent(new Event('change'));
+                      break;
+                    }
+                  }
+                }
+              }, 400);
+            }
+          }catch(e){console.warn(e)}
         }catch(e){
           console.warn('Google Translate init failed', e);
         }

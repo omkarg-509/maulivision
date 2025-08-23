@@ -31,4 +31,19 @@ class Setting extends Database
         $stmt->close();
         return $row;
     }
+
+    public function getActive($vid = null)
+    {
+        if ($vid !== null) {
+            $stmt = $this->db->prepare("SELECT * FROM settings WHERE status = 1 AND (vid = ? OR vid IS NULL) LIMIT 1");
+            $stmt->bind_param('i', $vid);
+        } else {
+            $stmt = $this->db->prepare("SELECT * FROM settings WHERE status = 1 LIMIT 1");
+        }
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $row = $res->fetch_assoc();
+        $stmt->close();
+        return $row;
+    }
 }
