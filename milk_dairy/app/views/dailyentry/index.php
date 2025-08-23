@@ -195,9 +195,9 @@
             <script> $(document).ready(function () {
     // customer search
     $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val().trim();
+      let keyword = $(this).val();
 
-      if (keyword.length > 0) {
+      if (keyword.length >= 0) {
         $.ajax({
           url: "<?php echo BASE_URL; ?>customer/searchCustomer",
           method: "GET",
@@ -212,7 +212,7 @@
                 .addClass("list-group-item list-group-item-action")
                 .html(customer.bill_id + " : " + customer.name + " ")
                 .on("click", function () {
-                  // Removed $("#bid").val(customer.bill_id); as there is no input with id 'bid'
+                  $("#bid").val(customer.bill_id);
                   $("#customer_search").val(customer.name);
                   $("#cid").val(customer.id);
                   suggestions.html("");
