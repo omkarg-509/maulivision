@@ -25,8 +25,6 @@ class DailyentryController extends Controller
                 'cid' => $_POST['cid'] ?? '',
                 'milktype' => $_POST['milktype'] ?? '',
                 'milkliter' => $_POST['milkliter'] ?? '',
-                // Map the frontend datetime-local input (entry_datetime) to created_at
-                'created_at' => $_POST['entry_datetime'] ?? null,
             ];
 
             // Debug: Check if all required fields are present
@@ -97,61 +95,6 @@ class DailyentryController extends Controller
         $dailyEntryModel = $this->model('DailyEntry');
         $entries = $dailyEntryModel->getEntriesByDateRangeAll($vendorId, $start, $end);
         echo json_encode(['success' => true, 'data' => $entries]);
-    }
-
-    /**
-     * AJAX: Search customer summaries (totals and last date) and return JSON
-     * GET: term, start (optional), end (optional), cow_rate (optional), buffalo_rate (optional)
-     */
-    public function searchSummary()
-    {
-        Auth::check();
-        header('Content-Type: application/json; charset=utf-8');
-
-        $vendorId = $_SESSION['vendor']['id'] ?? null;
-        if (!$vendorId) {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized']);
-            return;
-        }
-
-        $term = isset($_GET['term']) ? trim($_GET['term']) : '';
-        if ($term === '') {
-            echo json_encode(['success' => true, 'data' => []]);
-            return;
-        }
-
-        $start = $_GET['start'] ?? null;
-        $end   = $_GET['end'] ?? null;
-        // default to current month if not provided
-        if (!$start || !$end) {
-            $start = date('Y-m-01');
-            $end = date('Y-m-t');
-        }
-
-        // rates
-        $cowRate = isset($_GET['cow_rate']) && is_numeric($_GET['cow_rate']) ? (float)$_GET['cow_rate'] : 50.0;
-        $buffaloRate = isset($_GET['buffalo_rate']) && is_numeric($_GET['buffalo_rate']) ? (float)$_GET['buffalo_rate'] : 60.0;
-
-        $dailyEntryModel = $this->model('DailyEntry');
-        $rows = $dailyEntryModel->searchSummaries($vendorId, $term, $start, $end);
-
-        // map and compute amounts
-        $data = array_map(function($r) use ($cowRate, $buffaloRate){
-            $cow = (float)($r['cow_liters'] ?? 0);
-            $buff = (float)($r['buffalo_liters'] ?? 0);
-            $amount = ($cow * $cowRate) + ($buff * $buffaloRate);
-            return [
-                'id' => (int)$r['id'],
-                'name' => $r['name'],
-                'bill_id' => $r['bill_id'],
-                'mobile' => $r['mobile'],
-                'total_liters' => (float)($r['total_liters'] ?? 0),
-                'total_amount' => round($amount, 2),
-                'last_date' => $r['last_date'] ?? null,
-            ];
-        }, $rows);
-
-        echo json_encode(['success' => true, 'data' => $data]);
     }
     public function list($vid = null)
     {
