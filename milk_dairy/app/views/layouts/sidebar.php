@@ -31,7 +31,7 @@ $vendor = isset($_SESSION['vendor']) ?
         left: 0;
         right: 0;
         bottom: auto; /* Or remove this line */
-        z-index: 1030; /* keep navbar above other elements */
+        z-index: 891; /* keep navbar above other elements */
     }
 </style>
 <div class="navbar-bg">
