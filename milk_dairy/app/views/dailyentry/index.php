@@ -36,7 +36,7 @@
                     
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">
-                        <i class="fa fa-calendar-alt me-2"></i> Date &amp; Time
+                        <i class="fa fa-calendar-alt me-2" id="calendarIcon" style="cursor:pointer;"></i> Date &amp; Time
                       </label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
                         <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
@@ -60,6 +60,9 @@
                       document.addEventListener('DOMContentLoaded', function(){
                         setEntryDateToday();
                         document.getElementById('setToday').addEventListener('click', setEntryDateToday);
+                        document.getElementById('calendarIcon').addEventListener('click', function() {
+                          document.getElementById('entry_date').focus();
+                        });
                       });
                     </script>
                     <div class="form-group row mb-3">
