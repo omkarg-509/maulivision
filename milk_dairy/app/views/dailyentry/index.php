@@ -249,7 +249,7 @@
                   success: function (data) {
                     if (Array.isArray(data) && data.length > 0) {
                       const selected = bestMatch(keyword, data);
-                      const multi = data.length > 1 && !(selected && ((String(selected.id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
+                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
                       $("#cid").val(selected.id || '');
                       renderSelectedCustomer(selected, multi ? 'Multiple matches found — showing closest match' : '');
                     } else {
