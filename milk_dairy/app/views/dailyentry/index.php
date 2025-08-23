@@ -18,6 +18,7 @@
                     <h4>MILK DAILY ENTRY</h4>
                   </div>
                   <div id="massages"></div>
+                  <div class="searchResults"></div>
                 <form method="POST" id="customerForm">
                   <div class="card-body">
                     <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
