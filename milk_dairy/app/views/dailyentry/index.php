@@ -20,12 +20,15 @@
                   <div id="massages"></div>
                 <form method="POST" id="customerForm">
                   <div class="card-body">
-                    <input type="text" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
+                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
-                    <div class="form-group row mb-3">
+
+
+
+                      <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
-                        <input type="text" class="form-control" id="customer_search" placeholder="ग्राहक नाव किंवा नंबर टाका" autocomplete="off" required>
+                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
                         <input type="hidden" name="cid" id="cid">
                         <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
@@ -33,7 +36,7 @@
 
 
 
-
+                    
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
@@ -191,47 +194,49 @@
 
             <script> $(document).ready(function () {
     // customer search
+    // Customer search with name and number display, and direct cid assignment
     $("#customer_search").on("keyup", function () {
       let keyword = $(this).val();
 
-      if (keyword.length >= 0) {
-        $.ajax({
-          url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-          method: "GET",
-          data: { term: keyword },
-          dataType: "json",
-          success: function (data) {
-            let suggestions = $("#suggestions");
+      if (keyword.length > 0) {
+      $.ajax({
+        url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+        method: "GET",
+        data: { term: keyword },
+        dataType: "json",
+        success: function (data) {
+        let suggestions = $("#suggestions");
+        suggestions.html("");
+
+        data.forEach(function (customer) {
+          let displayText = "[" + customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")";
+          let div = $("<div>")
+          .addClass("list-group-item list-group-item-action")
+          .text(displayText)
+          .on("click", function () {
+            $("#customer_search").val(displayText);
+            $("#cid").val(customer.id);
             suggestions.html("");
+          });
 
-            data.forEach(function (customer) {
-              let div = $("<div>")
-                .addClass("list-group-item list-group-item-action")
-                .html("[" + +customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")")
-                .on("click", function () {
-                  $("#bid").val(customer.bill_id);
-                  $("#customer_search").val(customer.name);
-                  $("#cid").val(customer.id);
-                  suggestions.html("");
-                });
-
-              suggestions.append(div);
-            });
-          },
+          suggestions.append(div);
         });
+        },
+      });
       } else {
-        $("#suggestions").html("");
+      $("#suggestions").html("");
+      $("#cid").val("");
       }
     });
 
     // form submit validation
     $("form").on("submit", function (e) {
       if (!$("#cid").val()) {
-        alert("Please select a customer from the suggestions.");
-        e.preventDefault();
+      alert("Please select a customer from the suggestions.");
+      e.preventDefault();
       }
     });
-  });
+    });
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
