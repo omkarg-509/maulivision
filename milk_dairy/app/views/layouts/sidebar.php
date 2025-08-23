@@ -108,7 +108,11 @@ $vendor = isset($_SESSION['vendor']) ?
       document.body.appendChild(gt);
       window.googleTranslateElementInit = function(){
         try{
-          new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en'}, 'google_translate_element');
+          new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            includedLanguages: 'hi,en,mt,mr'
+          }, 'google_translate_element');
         }catch(e){
           console.warn('Google Translate init failed', e);
         }
