@@ -40,46 +40,27 @@
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Date</label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
-                        <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">Today</button>
-                        <span id="dateDisplay" class="ms-3"></span>
+                      <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
+                      <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">Today</button>
                       </div>
                     </div>
                     <script>
                       function getDateForTimeZone(timeZone) {
-                        const now = new Date();
-                        const dtf = new Intl.DateTimeFormat('en-CA', {
-                          timeZone: timeZone,
-                          year: 'numeric', month: '2-digit', day: '2-digit'
-                        });
-                        return dtf.format(now);
+                      const now = new Date();
+                      const dtf = new Intl.DateTimeFormat('en-CA', {
+                        timeZone: timeZone,
+                        year: 'numeric', month: '2-digit', day: '2-digit'
+                      });
+                      return dtf.format(now);
                       }
                       function setEntryDateToday() {
-                        const val = getDateForTimeZone('Asia/Kolkata');
-                        const el = document.getElementById('entry_date');
-                        if (el) el.value = val;
-                        updateDateDisplay();
-                      }
-                      function updateDateDisplay() {
-                        const el = document.getElementById('entry_date');
-                        const display = document.getElementById('dateDisplay');
-                        if (el && display && el.value) {
-                          // Format: YYYY-MM-DD to DD-MM-YYYY
-                          const parts = el.value.split('-');
-                          if (parts.length === 3) {
-                            const [y, m, d] = parts;
-                            display.textContent = `${d}-${m}-${y}`;
-                          } else {
-                            display.textContent = '';
-                          }
-                        } else if (display) {
-                          display.textContent = '';
-                        }
+                      const val = getDateForTimeZone('Asia/Kolkata');
+                      const el = document.getElementById('entry_date');
+                      if (el) el.value = val;
                       }
                       document.addEventListener('DOMContentLoaded', function(){
-                        setEntryDateToday();
-                        document.getElementById('setToday').addEventListener('click', setEntryDateToday);
-                        document.getElementById('entry_date').addEventListener('change', updateDateDisplay);
+                      setEntryDateToday();
+                      document.getElementById('setToday').addEventListener('click', setEntryDateToday);
                       });
                     </script>
 <!-- 
