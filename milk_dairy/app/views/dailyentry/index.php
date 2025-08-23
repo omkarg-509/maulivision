@@ -210,7 +210,7 @@
             data.forEach(function (customer) {
               let div = $("<div>")
                 .addClass("list-group-item list-group-item-action")
-                .html("[" + +customer.bill_id + "] " + customer.name + " (" + customer.mobile + ")")
+                .html(customer.bill_id + " : " + customer.name + " ")
                 .on("click", function () {
                   $("#bid").val(customer.bill_id);
                   $("#customer_search").val(customer.name);
