@@ -57,7 +57,8 @@ if ($success) {
     $updated_at = $transaction_date;
 
     require_once '../core/Database.php';
-    $db = (new Database())->db;
+    $database = new Database();
+    $db = $database->getConnection(); // Use the correct method to get the database connection
 
     if ($db->connect_errno) {
         echo "Database connection failed: " . $db->connect_error;
