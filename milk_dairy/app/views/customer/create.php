@@ -28,7 +28,7 @@
                         
                         <label class="col-sm-3 col-form-label text-center">Full Name</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" required name="name" placeholder="Enter full name">
+                          <input type="text" class="form-control" required name="name" id="name" placeholder="Enter full name">
                         </div>
                       </div>
                       <div class="form-group row mb-3">
@@ -45,19 +45,40 @@
                       <script>
                         // Contact Picker API (supported on some browsers)
                         document.getElementById('pickContactBtn').addEventListener('click', async function() {
+                          // Prefer name and telephone
                           if ('contacts' in navigator && 'ContactsManager' in window) {
                             try {
-                              const props = ['tel'];
+                              const props = ['name','tel'];
                               const opts = {multiple: false};
                               const contacts = await navigator.contacts.select(props, opts);
-                              if (contacts.length && contacts[0].tel && contacts[0].tel.length) {
-                                document.getElementById('mobile').value = contacts[0].tel[0];
+                              if (contacts.length) {
+                                const c = contacts[0];
+                                // Fill mobile if available
+                                if (c.tel && c.tel.length) {
+                                  document.getElementById('mobile').value = c.tel[0];
+                                }
+                                // Fill name if available
+                                if (c.name && c.name.length) {
+                                  // name may be an array of name parts
+                                  const nameVal = Array.isArray(c.name) ? c.name[0] : c.name;
+                                  document.getElementById('name').value = nameVal;
+                                }
                               }
                             } catch (err) {
+                              console.error('Contact picker error', err);
                               toastr.error('Could not pick contact or permission denied.');
                             }
                           } else {
-                            toastr.warning('Contact Picker not supported on this browser.');
+                            // Fallback: prompt the user to enter or paste contact details
+                            toastr.info('Contact Picker not supported — please enter details manually.');
+                            try {
+                              const fallbackName = window.prompt('Contact name (optional):', '');
+                              const fallbackTel = window.prompt('Contact mobile number (optional):', '');
+                              if (fallbackName) document.getElementById('name').value = fallbackName;
+                              if (fallbackTel) document.getElementById('mobile').value = fallbackTel;
+                            } catch (e) {
+                              console.warn('Fallback prompts cancelled', e);
+                            }
                           }
                         });
                       </script>
