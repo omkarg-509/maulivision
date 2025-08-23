@@ -44,101 +44,101 @@ document.addEventListener('DOMContentLoaded', function() {
       },
     });
 
-//     var ctx = document.getElementById("myChart").getContext("2d");
-//     var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
-//     gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
-//     gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
+    gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
+    gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
 
-//     var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
-//     gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
-//     gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
-//     gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
-// });
+    var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
+    gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
+    gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
+    gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
+});
 
-// var ctx = document.getElementById("myChart").getContext("2d");
-// var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
-// gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
-// gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
+var ctx = document.getElementById("myChart").getContext("2d");
+var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
+gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
+gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
 
-// var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
-// gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
-// gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
-// gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
+var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
+gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
+gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
+gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
 
-// var myChart = new Chart(ctx, {
-//   type: "lineShadow",
-//   data: {
-//     labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
-//     type: "line",
-//     defaultFontFamily: "Poppins",
-//     datasets: [
-//       {
-//         label: "Income",
-//         borderColor: gradientStroke2,
-//         pointBorderColor: gradientStroke2,
-//         pointHoverBackgroundColor: gradientStroke2,
-//         pointHoverBorderColor: gradientStroke2,
-//         borderWidth: "3",
-//         backgroundColor: "rgba(255,128,0,.4)",
-//         pointBorderWidth: 10,
-//         pointHoverRadius: 10,
-//         pointHoverBorderWidth: 1,
-//         pointRadius: 1,
-//         fill: false,
-//         borderWidth: 4,
-//         data: [0, 30, 10, 120, 50, 63, 10],
-//       },
-//       {
-//         label: "Expenses",
-//         borderColor: gradientStroke,
-//         pointBorderColor: gradientStroke,
-//         pointHoverBackgroundColor: gradientStroke,
-//         pointHoverBorderColor: gradientStroke,
-//         borderWidth: "1",
-//         backgroundColor: "rgba(67,231,148,.9)",
-//         pointBorderWidth: 10,
-//         pointHoverRadius: 10,
-//         pointHoverBorderWidth: 1,
-//         pointRadius: 1,
-//         fill: false,
-//         borderWidth: 4,
-//         data: [0, 50, 40, 80, 40, 79, 120],
-//       },
-//     ],
-//   },
-//   options: {
-//     legend: {
-//       position: "top",
-//       labels: {},
-//     },
-//     responsive: true,
-//     tooltips: {
-//       mode: "index",
-//       intersect: false,
-//     },
-//     hover: {
-//       mode: "nearest",
-//       intersect: true,
-//     },
-//     scales: {
-//       xAxes: [
-//         {
-//           ticks: {
-//             fontColor: "#9aa0ac", // Font Color
-//           },
-//         },
-//       ],
-//       yAxes: [
-//         {
-//           ticks: {
-//             beginAtZero: true,
-//             fontColor: "#9aa0ac", // Font Color
-//           },
-//         },
-//       ],
-//     },
-//   },
-// });
+var myChart = new Chart(ctx, {
+  type: "lineShadow",
+  data: {
+    labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+    type: "line",
+    defaultFontFamily: "Poppins",
+    datasets: [
+      {
+        label: "Income",
+        borderColor: gradientStroke2,
+        pointBorderColor: gradientStroke2,
+        pointHoverBackgroundColor: gradientStroke2,
+        pointHoverBorderColor: gradientStroke2,
+        borderWidth: "3",
+        backgroundColor: "rgba(255,128,0,.4)",
+        pointBorderWidth: 10,
+        pointHoverRadius: 10,
+        pointHoverBorderWidth: 1,
+        pointRadius: 1,
+        fill: false,
+        borderWidth: 4,
+        data: [0, 30, 10, 120, 50, 63, 10],
+      },
+      {
+        label: "Expenses",
+        borderColor: gradientStroke,
+        pointBorderColor: gradientStroke,
+        pointHoverBackgroundColor: gradientStroke,
+        pointHoverBorderColor: gradientStroke,
+        borderWidth: "1",
+        backgroundColor: "rgba(67,231,148,.9)",
+        pointBorderWidth: 10,
+        pointHoverRadius: 10,
+        pointHoverBorderWidth: 1,
+        pointRadius: 1,
+        fill: false,
+        borderWidth: 4,
+        data: [0, 50, 40, 80, 40, 79, 120],
+      },
+    ],
+  },
+  options: {
+    legend: {
+      position: "top",
+      labels: {},
+    },
+    responsive: true,
+    tooltips: {
+      mode: "index",
+      intersect: false,
+    },
+    hover: {
+      mode: "nearest",
+      intersect: true,
+    },
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            fontColor: "#9aa0ac", // Font Color
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            fontColor: "#9aa0ac", // Font Color
+          },
+        },
+      ],
+    },
+  },
+});
 
 // var ctx = document.getElementById("chart-1").getContext("2d");
 // var myChart = new Chart(ctx, {
