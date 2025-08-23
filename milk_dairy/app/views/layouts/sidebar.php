@@ -24,26 +24,16 @@ $vendor = isset($_SESSION['vendor']) ?
 //   }
 // }
 ?>
-<?php
-// Ensure $vendor exists and has safe defaults to avoid notices in the template
-if (!isset($vendor) || !is_array($vendor)) {
-  $vendor = [
-    'id' => '',
-    'business_name' => '',
-    'business_number' => ''
-  ];
-}
-?>
 <style>
   .navbar.fixed-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1030; /* keep navbar above other elements */
-  }
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto; /* Or remove this line */
+    }
 </style>
-<div class="navbar-bg"></div>
+<div class="navbar-bg">
       <nav class="navbar navbar-expand-lg main-navbar fixed-top">
         <div class="container-fluid">
           <ul class="navbar-nav me-auto">
@@ -62,6 +52,7 @@ if (!isset($vendor) || !is_array($vendor)) {
           </ul>
         </div>
       </nav>
+      </div>
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
