@@ -26,24 +26,22 @@ $vendor = isset($_SESSION['vendor']) ?
 ?>
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar fixed-top">
-     <div class="form-inline me-auto">
-          <ul class="navbar-nav navbar-left">
-        
-          <a href="<?=BASE_URL?>dailyentry/" 
-              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="">
-
-            </a>
-          
-        </ul>
-          
-        </div>
-        <ul class="navbar-nav me-3">
-            
-            <li><a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
-                  class="fas fa-bars"></i></a></li>
-           
+        <div class="container-fluid">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a href="<?=BASE_URL?>dailyentry/" class="nav-link nav-link-lg nav-link-user">
+                <img alt="logo" src="<?=BASE_URL?>assets/img/logo-1.png" style="height:40px;">
+              </a>
+            </li>
           </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                <i class="fas fa-bars"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
