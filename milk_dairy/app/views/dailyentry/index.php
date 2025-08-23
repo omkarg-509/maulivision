@@ -1,5 +1,8 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
 <div class="main-content">
   <div class="loader"></div>
@@ -95,8 +98,6 @@
                         </div>
                       </div>
                     </div>
-                    <!-- Font Awesome for icons -->
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
                       <div class="col-sm-9">
@@ -161,46 +162,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-// $(document).ready(function() {
-
-//   $('#customerForm').on('submit', function(e) {
-//     e.preventDefault();
-//     var form = $(this);
-//     var formData = form.serialize();
-
-//     $.ajax({
-//       url: '/public/dailyentry/store', // Adjust to your actual endpoint
-//       type: 'POST',
-//       data: formData,
-//       dataType: 'json',
-//       // beforeSend: function() {
-//       //   $('.loader').show();
-//       // },
-//       success: function(response) {
-//         $('.loader').hide();
-//         if (response.success) {
-          
-//     toastr.success(response.message || 'Entry added successfully.');
-//           setTimeout(function() {
-//             location.reload();
-//           }, 1200);
-     
-//         } else {
-//             toastr.error(response.message || 'Failed to add entry.');
-//         }
-//       },
-//       error: function(xhr) {
-//         $('.loader').hide();
-//         alert('An error occurred. Please try again.');
-//       }
-//     });
-//   });
-// });
-</script>
 
             <script>
-            $(document).ready(function () {
+            (function(){
+              // Define BASE_URL early for scripts
+              var BASE_URL = "<?php echo BASE_URL; ?>";
+
               // Debounce helper
               function debounce(fn, delay){ let t; return function(){ clearTimeout(t); const a=arguments, c=this; t=setTimeout(()=>fn.apply(c,a), delay); }; }
 
@@ -218,7 +185,6 @@
                           <div class="profile-widget-item-label">Number</div>
                           <div class="profile-widget-item-value">${c.mobile || ''}</div>
                         </div>
-                        
                       </div>
                       ${note ? `<div class="text-center text-muted" style="margin-top:6px;">${note}</div>` : ''}
                     </div>
@@ -231,7 +197,6 @@
                 if (!list || !list.length) return null;
                 const isDigits = /^\d+$/.test(term);
                 const lower = term.toLowerCase();
-                // exact priority: id -> bill_id -> name
                 if (isDigits){
                   let m = list.find(x => String(x.id) === term);
                   if (m) return m;
@@ -241,7 +206,6 @@
                   let m = list.find(x => String(x.name).toLowerCase() === lower);
                   if (m) return m;
                 }
-                // fallback to first
                 return list[0];
               }
 
@@ -249,14 +213,14 @@
                 const keyword = $("#customer_search").val().trim();
                 if (!keyword){ $(".showcustomers").empty(); $("#cid").val(''); return; }
                 $.ajax({
-                  url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+                  url: BASE_URL + "customer/searchCustomer",
                   method: "GET",
                   data: { term: keyword },
                   dataType: "json",
                   success: function (data) {
                     if (Array.isArray(data) && data.length > 0) {
                       const selected = bestMatch(keyword, data);
-                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
+                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
                       $("#cid").val(selected.id || '');
                       renderSelectedCustomer(selected, multi ? 'Multiple matches found — showing closest match' : '');
                     } else {
@@ -270,126 +234,108 @@
                 });
               }, 250);
 
-              $("#customer_search").on("keyup", doAutoSelect);
-
-              // Form submit validation: ensure a customer got auto-selected
-              $("form").on("submit", function (e) {
-                if (!$("#cid").val()) {
-                  alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
-                  e.preventDefault();
-                }
-              });
-            });
-           
-            // Define BASE_URL for JavaScript usage
-            var BASE_URL = "<?php echo BASE_URL; ?>";
-            
-            function loadEntriesTable() {
-              // Show loading indicator
-              $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
-              
-              $.ajax({
-                url: BASE_URL + 'dailyentry/list',
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                  // console.log('loadEntriesTable response:', response); // Debug log
-            
-                  if (response.success && Array.isArray(response.data) && response.data.length > 0) {
-                    $('#entries-table-body').empty();
-                    response.data.forEach(function(entry, idx) {
-                      // Handle missing customer_name gracefully
-                      let customerName = entry.customer_name || entry.name || 'Unknown Customer';
-                      let milkType = '';
-                      
-                      // Handle milk type translation
-                      if (entry.milktype === 'buffalo') {
-                        milkType = 'म्हैस';
-                      } else if (entry.milktype === 'cow') {
-                        milkType = 'गाय';
-                      } else {
-                        milkType = entry.milktype || 'Unknown';
-                      }
-                      
-                      $('#entries-table-body').append(
-                        `<tr>
-                           <td>${idx + 1}</td>
-                           <td>${customerName}</td>
-                           <td>${milkType}</td>
-                           <td>${entry.milkliter || '0'} L</td>
-                           <td>
-                             <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
-                           </td>
-                         </tr>`
-                      );
-                    });
-                  } else {
-                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
-                  }
-                },
-                error: function(xhr, status, error) {
-                  console.error('loadEntriesTable error:', xhr, status, error); // Debug log
-                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
-                }
-              });
-            }
-            
-            // Auto-load entries table on page load
-            $(document).ready(function() {
-              loadEntriesTable();
-            });
-            // Handle delete button click with AJAX
-            $(document).on('click', '.delete-entry', function() {
-              var entryId = $(this).data('id');
-              if (confirm('Are you sure you want to delete this entry?')) {
-              $.ajax({
-                url: '<?php echo BASE_URL; ?>dailyentry/delete/' + entryId,
-                type: 'POST',
-                dataType: 'json',
-                success: function(response) {
-                if (response.success) {
-                  toastr.success(response.message || 'Entry deleted successfully.');
-                  loadEntriesTable();
-                } else {
-                  toastr.error(response.message || 'Failed to delete entry.');
-                }
-                },
-                error: function() {
-                toastr.error('An error occurred. Please try again.');
-                }
-              });
-              }
-            });
-            // Update form submit to reload table via AJAX
-            $(document).ready(function() {
-              
-              $('#customerForm').off('submit').on('submit', function(e) {
-                e.preventDefault();
-                var form = $(this);
-                var formData = form.serialize();
-
+              function loadEntriesTable() {
+                $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
                 $.ajax({
-                  url: '<?php echo BASE_URL; ?>dailyentry/store',
-                  type: 'POST',
-                  data: formData,
+                  url: BASE_URL + 'dailyentry/list',
+                  type: 'GET',
                   dataType: 'json',
                   success: function(response) {
-                    $('.loader').hide();
-                    if (response.success) {
-                      toastr.success(response.message || 'Entry added successfully.');
-                      loadEntriesTable();
-                      form[0].reset();
-                      $('#cid').val('');
+                    if (response.success && Array.isArray(response.data) && response.data.length > 0) {
+                      $('#entries-table-body').empty();
+                      response.data.forEach(function(entry, idx) {
+                        let customerName = entry.customer_name || entry.name || 'Unknown Customer';
+                        let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
+                        $('#entries-table-body').append(
+                          `<tr>
+                             <td>${idx + 1}</td>
+                             <td>${customerName}</td>
+                             <td>${milkType}</td>
+                             <td>${entry.milkliter || '0'} L</td>
+                             <td>
+                               <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                             </td>
+                           </tr>`
+                        );
+                      });
                     } else {
-                      toastr.error(response.message || 'Failed to add entry.');
+                      $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
                     }
                   },
-                  error: function(xhr) {
-                    $('.loader').hide();
-                    alert('An error occurred. Please try again.');
+                  error: function(xhr, status, error) {
+                    console.error('loadEntriesTable error:', xhr, status, error);
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
                   }
                 });
+              }
+
+              $(document).ready(function () {
+                // Bind events
+                $("#customer_search").on("keyup", doAutoSelect);
+
+                // Form submit validation (prevent submit if no customer selected)
+                $("form").on("submit", function (e) {
+                  if (!$("#cid").val()) {
+                    alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
+                    e.preventDefault();
+                    return false;
+                  }
+                });
+
+                // Handle delete-entry
+                $(document).on('click', '.delete-entry', function() {
+                  var entryId = $(this).data('id');
+                  if (confirm('Are you sure you want to delete this entry?')) {
+                    $.ajax({
+                      url: BASE_URL + 'dailyentry/delete/' + entryId,
+                      type: 'POST',
+                      dataType: 'json',
+                      success: function(response) {
+                        if (response.success) {
+                          toastr.success(response.message || 'Entry deleted successfully.');
+                          loadEntriesTable();
+                        } else {
+                          toastr.error(response.message || 'Failed to delete entry.');
+                        }
+                      },
+                      error: function() {
+                        toastr.error('An error occurred. Please try again.');
+                      }
+                    });
+                  }
+                });
+
+                // Submit via AJAX and reload table
+                $('#customerForm').off('submit').on('submit', function(e) {
+                  e.preventDefault();
+                  var form = $(this);
+                  var formData = form.serialize();
+                  $('.loader').show();
+                  $.ajax({
+                    url: BASE_URL + 'dailyentry/store',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                      $('.loader').hide();
+                      if (response.success) {
+                        toastr.success(response.message || 'Entry added successfully.');
+                        loadEntriesTable();
+                        form[0].reset();
+                        $('#cid').val('');
+                      } else {
+                        toastr.error(response.message || 'Failed to add entry.');
+                      }
+                    },
+                    error: function(xhr) {
+                      $('.loader').hide();
+                      alert('An error occurred. Please try again.');
+                    }
+                  });
+                });
+
+                // Initial load
+                loadEntriesTable();
               });
-              
-            });
+            })();
             </script>
