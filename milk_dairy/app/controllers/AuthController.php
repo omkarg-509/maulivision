@@ -207,8 +207,9 @@ class AuthController extends Controller
             session_start();
         }
 
-        // Check session first
+        // If session is set, redirect to dashboard
         if (isset($_SESSION['vendor']) && !empty($_SESSION['vendor'])) {
+            $this->redirectToDashboard();
             return true;
         }
 
@@ -221,6 +222,7 @@ class AuthController extends Controller
             if ($vendor) {
                 // Restore session from cookie
                 $_SESSION['vendor'] = $vendor;
+                $this->redirectToDashboard();
                 return true;
             }
         }
