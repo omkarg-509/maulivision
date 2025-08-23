@@ -35,44 +35,33 @@
 
                     
                     <div class="form-group row mb-3 justify-content-center align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
+                      <label class="col-sm-3 col-form-label text-center">
+                        <i class="fa fa-calendar-alt me-2"></i> Date &amp; Time
+                      </label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="date" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
-                        <button type="button" class="btn btn-outline-secondary ms-2" id="setNow">Now</button>
+                        <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
+                        <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">
+                          <i class="fa fa-calendar-check"></i> Today
+                        </button>
                       </div>
                     </div>
 
                     <script>
-                      // return a string suitable for datetime-local input (YYYY-MM-DDTHH:MM)
-                      function getDateTimeLocalForTimeZone(timeZone) {
-                        const now = new Date();
-                        const dtf = new Intl.DateTimeFormat('en-GB', {
-                          timeZone: timeZone,
-                          year: 'numeric', month: '2-digit', day: '2-digit',
-                          hour: '2-digit', minute: '2-digit', hour12: false
-                        });
-                        const parts = dtf.formatToParts(now);
-                        const map = {};
-                        parts.forEach(p => map[p.type] = p.value);
-                        // parts include day, month, year, hour, minute
-                        const y = map.year, m = map.month, d = map.day, hh = map.hour, mm = map.minute;
-                        return `${y}-${m}-${d}T${hh}:${mm}`;
-                      }
-
-                      function setEntryDateTimeNow() {
-                        const val = getDateTimeLocalForTimeZone('Asia/Kolkata');
-                        const el = document.getElementById('entry_datetime');
+                      function setEntryDateToday() {
+                        const today = new Date();
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0');
+                        const dd = String(today.getDate()).padStart(2, '0');
+                        const val = `${yyyy}-${mm}-${dd}`;
+                        const el = document.getElementById('entry_date');
                         if (el) el.value = val;
                       }
 
-                      // initialize once on load
                       document.addEventListener('DOMContentLoaded', function(){
-                        setEntryDateTimeNow();
-                        document.getElementById('setNow').addEventListener('click', setEntryDateTimeNow);
+                        setEntryDateToday();
+                        document.getElementById('setToday').addEventListener('click', setEntryDateToday);
                       });
                     </script>
-                    
-                 
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Type</label>
                       <div class="col-sm-9">
