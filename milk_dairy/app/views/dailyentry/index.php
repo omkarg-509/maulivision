@@ -202,7 +202,7 @@
                       <div class="profile-widget-items">
                         <div class="profile-widget-item">
                           <div class="profile-widget-item-label">ID</div>
-                          <div class="profile-widget-item-value">${c.id || ''}</div>
+                          <div class="profile-widget-item-value">${c.bill_id || ''}</div>
                         </div>
                         <div class="profile-widget-item">
                           <div class="profile-widget-item-label">Number</div>
@@ -226,7 +226,7 @@
                 const lower = term.toLowerCase();
                 // exact priority: id -> bill_id -> name
                 if (isDigits){
-                  let m = list.find(x => String(x.id) === term);
+                  let m = list.find(x => String(x.bill_id) === term);
                   if (m) return m;
                   m = list.find(x => String(x.bill_id) === term);
                   if (m) return m;
