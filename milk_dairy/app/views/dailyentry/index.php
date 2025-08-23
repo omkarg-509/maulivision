@@ -19,25 +19,19 @@
                   </div>
                     <div id="massages"></div>
                     <div class="showcustomers"></div>
-                  <form method="POST" id="customerForm">
+                    <form method="POST" id="customerForm">
                     <div class="card-body">
-                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
+                      <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
-                    <div class="form-group row mb-3">
-                      <label class="col-sm-3 col-form-label text-center">Customer</label>
-                      <div class="col-sm-9">
-                      <select class="form-control" name="cid" id="cid" required>
-                        <option value="">Select Customer</option>
-                        <?php if (!empty($customers) && is_array($customers)): ?>
-                        <?php foreach ($customers as $customer): ?>
-                          <option value="<?php echo htmlspecialchars($customer['id']); ?>">
-                          <?php echo htmlspecialchars($customer['id']) . ' - ' . htmlspecialchars($customer['name']) . ' (' . htmlspecialchars($customer['number']) . ')'; ?>
-                          </option>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
-                      </select>
+                      <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Customer Name</label>
+                      <div class="col-sm-9 position-relative">
+                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" autocomplete="off" required>
+                        <input type="hidden" name="cid" id="cid">
+                        <!-- Suggestions dropdown -->
+                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
-                    </div>
+                      </div>
 
 
 
@@ -197,52 +191,65 @@
 // });
 </script>
 
-            <script> $(document).ready(function () {
-    // customer search
-    // Live customer search with AJAX
-    $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val().trim();
+            <script>
+            $(document).ready(function () {
+              // Live customer search with AJAX
+              $("#customer_search").on("keyup", function () {
+                let keyword = $(this).val().trim();
 
-      if (keyword !== "") {
-      $.ajax({
-        url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-        method: "GET",
-        data: { term: keyword },
-        dataType: "json",
-        success: function (data) {
-        let suggestions = $("#suggestions");
-        suggestions.html("");
+                if (keyword !== "") {
+                  $.ajax({
+                    url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+                    method: "GET",
+                    data: { term: keyword },
+                    dataType: "json",
+                    success: function (data) {
+                      let suggestions = $("#suggestions");
+                      suggestions.html("");
 
-        if (Array.isArray(data) && data.length > 0) {
-          data.forEach(function (customer) {
-          let div = $("<div>")
-            .addClass("list-group-item list-group-item-action")
-            .html(customer.bill_id + " : " + customer.name)
-            .on("click", function () {
-            $("#customer_search").val(customer.name);
-            $("#cid").val(customer.id);
-            suggestions.html("");
+                      if (Array.isArray(data) && data.length > 0) {
+                        data.forEach(function (customer) {
+                          let div = $("<div>")
+                            .addClass("list-group-item list-group-item-action")
+                            .html(
+                              "<strong>ID:</strong> " + customer.id +
+                              " <strong>Number:</strong> " + customer.bill_id +
+                              " <strong>Name:</strong> " + customer.name
+                            )
+                            .on("click", function () {
+                              $("#customer_search").val(customer.name + " (" + customer.bill_id + ")");
+                              $("#cid").val(customer.id);
+                              suggestions.html("");
+                            });
+
+                          suggestions.append(div);
+                        });
+                      } else {
+                        suggestions.html('<div class="list-group-item">No results found.</div>');
+                      }
+                    }
+                  });
+                } else {
+                  $("#suggestions").html("");
+                }
+              });
+
+              // If user clicks outside suggestions, hide them
+              $(document).on("click", function (e) {
+                if (!$(e.target).closest("#customer_search, #suggestions").length) {
+                  $("#suggestions").html("");
+                }
+              });
+
+              // Form submit validation: ensure customer is selected from suggestions
+              $("form").on("submit", function (e) {
+                if (!$("#cid").val()) {
+                  alert("Please select a customer from the suggestions.");
+                  e.preventDefault();
+                }
+              });
             });
-
-          suggestions.append(div);
-          });
-        } else {
-          suggestions.html('<div class="list-group-item">No results found.</div>');
-        }
-        }
-      });
-      } else {
-      $("#suggestions").html("");
-      }
-    });
- });
-    // Form submit validation: ensure customer is selected from suggestions
-    $("form").on("submit", function (e) {
-      if (!$("#cid").val()) {
-      alert("Please select a customer from the suggestions.");
-      e.preventDefault();
-      }
-    });
+            </script>
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
