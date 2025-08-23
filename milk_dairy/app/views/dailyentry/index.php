@@ -40,7 +40,7 @@
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="datetime" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
+                        <input type="date" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
                         <button type="button" class="btn btn-outline-secondary ms-2" id="setNow">Now</button>
                       </div>
                     </div>
