@@ -6293,7 +6293,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     .main-sidebar {
         position: fixed !important;
         margin-top: 0 !important;
-        z-index: 1031
+        z-index: 1031;
     }
 
     body.layout-2 .main-wrapper,body.layout-3 .main-wrapper {
