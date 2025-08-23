@@ -48,8 +48,8 @@ $vendor = isset($_SESSION['vendor']) ?
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html" style="font-size:12px !important">
-  <span class="logo-name">
+            <a href="index.html">
+  <span class="logo-name"  style="font-size:12px !important">
     <?= htmlspecialchars($vendor['business_name']) ?>
 </span>
             </a>
@@ -88,3 +88,43 @@ $vendor = isset($_SESSION['vendor']) ?
         </aside>
       </div>
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+<!-- Floating translator button (site-wide) -->
+<div id="gt_translate_wrapper" style="position:fixed;right:18px;bottom:18px;z-index:2000;">
+  <button id="translateBtn" title="Translate page" type="button" class="btn btn-sm btn-outline-secondary" style="border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.12);">
+    <i class="fas fa-globe"></i>
+  </button>
+  <div id="google_translate_element" style="display:none;margin-top:8px;background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);"></div>
+</div>
+
+<script>
+  (function(){
+    var inited = false;
+    function loadGoogleTranslate(){
+      if (inited) return;
+      inited = true;
+      var gt = document.createElement('script');
+      gt.type = 'text/javascript';
+      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.body.appendChild(gt);
+      window.googleTranslateElementInit = function(){
+        try{
+          new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en'}, 'google_translate_element');
+        }catch(e){
+          console.warn('Google Translate init failed', e);
+        }
+      };
+    }
+    var btn = document.getElementById('translateBtn');
+    var widget = document.getElementById('google_translate_element');
+    if(btn){
+      btn.addEventListener('click', function(){
+        if(widget.style.display === 'none' || widget.style.display === ''){
+          widget.style.display = 'block';
+          loadGoogleTranslate();
+        } else {
+          widget.style.display = 'none';
+        }
+      });
+    }
+  })();
+</script>
