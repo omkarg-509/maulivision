@@ -233,7 +233,7 @@
                 const lower = term.toLowerCase();
                 // exact priority: id -> bill_id -> name
                 if (isDigits){
-                  let m = list.find(x => String(x.bill_id) === term);
+                  let m = list.find(x => String(x.id) === term);
                   if (m) return m;
                   m = list.find(x => String(x.bill_id) === term);
                   if (m) return m;
