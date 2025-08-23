@@ -24,6 +24,15 @@ $vendor = isset($_SESSION['vendor']) ?
 //   }
 // }
 ?>
+<style>
+  .navbar.fixed-top {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto; /* Or remove this line */
+    }
+</style>
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar fixed-top">
         <div class="container-fluid">
