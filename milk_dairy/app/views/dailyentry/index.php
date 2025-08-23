@@ -230,7 +230,7 @@
       $("#suggestions").html("");
       }
     });
-
+ });
     // Form submit validation: ensure customer is selected from suggestions
     $("form").on("submit", function (e) {
       if (!$("#cid").val()) {
