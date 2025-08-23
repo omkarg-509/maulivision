@@ -25,8 +25,6 @@ class DailyentryController extends Controller
                 'cid' => $_POST['cid'] ?? '',
                 'milktype' => $_POST['milktype'] ?? '',
                 'milkliter' => $_POST['milkliter'] ?? '',
-                // Map the frontend datetime-local input (entry_datetime) to created_at
-                'created_at' => $_POST['entry_datetime'] ?? null,
             ];
 
             // Debug: Check if all required fields are present

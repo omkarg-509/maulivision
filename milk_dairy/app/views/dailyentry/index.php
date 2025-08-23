@@ -17,22 +17,19 @@
                   <div class="card-header col-12">
                     <h4>MILK DAILY ENTRY</h4>
                   </div>
-                  <div id="massages"></div>
-                <form method="POST" id="customerForm">
-                  <div class="card-body">
-                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
-
-
-
+                    <div id="massages"></div>
+                    <div class="showcustomers"></div>
+                    <form method="POST" id="customerForm">
+                    <div class="card-body">
+                      <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
 
                       <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9 position-relative">
-                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" required>
+                        <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" autocomplete="off" required>
                         <input type="hidden" name="cid" id="cid">
-                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
-                    </div>
+                      </div>
 
 
 
@@ -40,7 +37,7 @@
                     <div class="form-group row mb-3 justify-content-center align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="datetime-local" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
+                        <input type="date" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
                         <button type="button" class="btn btn-outline-secondary ms-2" id="setNow">Now</button>
                       </div>
                     </div>
@@ -192,49 +189,88 @@
 // });
 </script>
 
-            <script> $(document).ready(function () {
-    // customer search
-    $("#customer_search").on("keyup", function () {
-      let keyword = $(this).val();
+            <script>
+            $(document).ready(function () {
+              // Debounce helper
+              function debounce(fn, delay){ let t; return function(){ clearTimeout(t); const a=arguments, c=this; t=setTimeout(()=>fn.apply(c,a), delay); }; }
 
-      if (keyword.length >= 0) {
-        $.ajax({
-          url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-          method: "GET",
-          data: { term: keyword },
-          dataType: "json",
-          success: function (data) {
-            let suggestions = $("#suggestions");
-            suggestions.html("");
+              function renderSelectedCustomer(c, note){
+                const html = `
+                  <div class="card profile-widget">
+                    <div class="profile-widget-header">
+                      <h4 class="text-center">${c.name || ''}</h4>
+                      <div class="profile-widget-items">
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">ID</div>
+                          <div class="profile-widget-item-value">${c.bill_id || ''}</div>
+                        </div>
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Number</div>
+                          <div class="profile-widget-item-value">${c.mobile || ''}</div>
+                        </div>
+                        
+                      </div>
+                      ${note ? `<div class="text-center text-muted" style="margin-top:6px;">${note}</div>` : ''}
+                    </div>
+                  </div>`;
+                $(".showcustomers").html(html);
+              }
 
-            data.forEach(function (customer) {
-              let div = $("<div>")
-                .addClass("list-group-item list-group-item-action")
-                .html(customer.bill_id + " : " + customer.name + " ")
-                .on("click", function () {
-                  $("#bid").val(customer.bill_id);
-                  $("#customer_search").val(customer.name);
-                  $("#cid").val(customer.id);
-                  suggestions.html("");
+              function bestMatch(term, list){
+                term = term.trim();
+                if (!list || !list.length) return null;
+                const isDigits = /^\d+$/.test(term);
+                const lower = term.toLowerCase();
+                // exact priority: id -> bill_id -> name
+                if (isDigits){
+                  let m = list.find(x => String(x.bill_id) === term);
+                  if (m) return m;
+                  m = list.find(x => String(x.bill_id) === term);
+                  if (m) return m;
+                } else {
+                  let m = list.find(x => String(x.name).toLowerCase() === lower);
+                  if (m) return m;
+                }
+                // fallback to first
+                return list[0];
+              }
+
+              const doAutoSelect = debounce(function(){
+                const keyword = $("#customer_search").val().trim();
+                if (!keyword){ $(".showcustomers").empty(); $("#cid").val(''); return; }
+                $.ajax({
+                  url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+                  method: "GET",
+                  data: { term: keyword },
+                  dataType: "json",
+                  success: function (data) {
+                    if (Array.isArray(data) && data.length > 0) {
+                      const selected = bestMatch(keyword, data);
+                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
+                      $("#cid").val(selected.id || '');
+                      renderSelectedCustomer(selected, multi ? 'Multiple matches found — showing closest match' : '');
+                    } else {
+                      $("#cid").val('');
+                      $(".showcustomers").html('<div class="text-center text-muted">No customer found.</div>');
+                    }
+                  },
+                  error: function(){
+                    $(".showcustomers").html('<div class="text-center text-muted">Search failed. Try again.</div>');
+                  }
                 });
+              }, 250);
 
-              suggestions.append(div);
+              $("#customer_search").on("keyup", doAutoSelect);
+
+              // Form submit validation: ensure a customer got auto-selected
+              $("form").on("submit", function (e) {
+                if (!$("#cid").val()) {
+                  alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
+                  e.preventDefault();
+                }
+              });
             });
-          },
-        });
-      } else {
-        $("#suggestions").html("");
-      }
-    });
-
-    // form submit validation
-    $("form").on("submit", function (e) {
-      if (!$("#cid").val()) {
-        alert("Please select a customer from the suggestions.");
-        e.preventDefault();
-      }
-    });
-  });
+           
             function loadEntriesTable() {
               // Show loading indicator
               $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');

@@ -69,7 +69,8 @@
                       </div>
                       <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3 text-center">
-                          <button type="submit" class="btn btn-primary px-4">Submit</button>
+                          <button type="submit" id="submitBtn" class="btn btn-primary px-4">Submit</button>
+                          <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display:none;"></span>
                         </div>
                       </div>
                     </div>
@@ -79,36 +80,48 @@
             </div>
           </div>
           <script>
-          // $(document).ready(function() {
-          //   $('#customerForm').off('submit').on('submit', function(e) {
-          //     e.preventDefault();
-          //     $('.loader').show();
-          //     var form = $(this);
-          //     var formData = form.serialize();
+          $(document).ready(function() {
+            $('#customerForm').off('submit').on('submit', function(e) {
+              e.preventDefault();
+              const form = $(this);
+              const formData = form.serialize();
+              $('#submitBtn').prop('disabled', true);
+              $('#submitSpinner').show();
+              $('.loader').show();
 
-          //     $.ajax({
-          //       url: '/public/customer/store',
-          //       type: 'POST',
-          //       data: formData,
-          //       dataType: 'json',
-          //       success: function(response) {
-          //         $('.loader').hide();
-          //         if (response.success) {
-          //           toastr.success(response.message || 'Customer added successfully.');
-          //           form[0].reset();
-          //           // Optionally reload customer table if needed
-          //           location.reload(); // Or call a function to reload the customer table via AJAX
-          //         } else {
-          //           toastr.error(response.message || 'Failed to add customer.');
-          //         }
-          //       },
-          //       error: function(xhr) {
-          //         $('.loader').hide();
-          //         toastr.error('An error occurred. Please try again.');
-          //       }
-          //     });
-          //   });
-          // });
+              $.ajax({
+                url: '/public/customer/store',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                  $('.loader').hide();
+                  $('#submitBtn').prop('disabled', false);
+                  $('#submitSpinner').hide();
+                  if (response.success) {
+                    toastr.success(response.message || 'Customer added successfully.');
+                    form[0].reset();
+                    // Refresh table
+                    if (typeof loadEntriesTable === 'function') {
+                      loadEntriesTable();
+                    } else {
+                      location.reload();
+                    }
+                  } else if (response.duplicate) {
+                    toastr.warning('Duplicate: customer already exists.');
+                  } else {
+                    toastr.error(response.message || 'Failed to add customer.');
+                  }
+                },
+                error: function() {
+                  $('.loader').hide();
+                  $('#submitBtn').prop('disabled', false);
+                  $('#submitSpinner').hide();
+                  toastr.error('An error occurred. Please try again.');
+                }
+              });
+            });
+          });
           </script>
          
   </div>
