@@ -28,8 +28,6 @@
                       <div class="col-sm-9 position-relative">
                         <input type="text" class="form-control" id="customer_search" placeholder="Enter customer name or number" autocomplete="off" required>
                         <input type="hidden" name="cid" id="cid">
-                        <!-- Suggestions dropdown -->
-                        <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
                       </div>
                       </div>
 
@@ -193,58 +191,84 @@
 
             <script>
             $(document).ready(function () {
-              // Live customer search with AJAX
-              $("#customer_search").on("keyup", function () {
-                let keyword = $(this).val().trim();
+              // Debounce helper
+              function debounce(fn, delay){ let t; return function(){ clearTimeout(t); const a=arguments, c=this; t=setTimeout(()=>fn.apply(c,a), delay); }; }
 
-                if (keyword !== "") {
-                  $.ajax({
-                    url: "<?php echo BASE_URL; ?>customer/searchCustomer",
-                    method: "GET",
-                    data: { term: keyword },
-                    dataType: "json",
-                    success: function (data) {
-                      let suggestions = $("#suggestions");
-                      suggestions.html("");
+              function renderSelectedCustomer(c, note){
+                const html = `
+                  <div class="card profile-widget">
+                    <div class="profile-widget-header">
+                      <h4 class="text-center">${c.name || ''}</h4>
+                      <div class="profile-widget-items">
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">ID</div>
+                          <div class="profile-widget-item-value">${c.id || ''}</div>
+                        </div>
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Number</div>
+                          <div class="profile-widget-item-value">${c.bill_id || ''}</div>
+                        </div>
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Mobile</div>
+                          <div class="profile-widget-item-value">${c.mobile || ''}</div>
+                        </div>
+                      </div>
+                      ${note ? `<div class="text-center text-muted" style="margin-top:6px;">${note}</div>` : ''}
+                    </div>
+                  </div>`;
+                $(".showcustomers").html(html);
+              }
 
-                      if (Array.isArray(data) && data.length > 0) {
-                        data.forEach(function (customer) {
-                          let div = $("<div>")
-                            .addClass("list-group-item list-group-item-action")
-                            .html(
-                              "<strong>ID:</strong> " + customer.id +
-                              " <strong>Number:</strong> " + customer.bill_id +
-                              " <strong>Name:</strong> " + customer.name
-                            )
-                            .on("click", function () {
-                              $("#customer_search").val(customer.name + " (" + customer.bill_id + ")");
-                              $("#cid").val(customer.id);
-                              suggestions.html("");
-                            });
-
-                          suggestions.append(div);
-                        });
-                      } else {
-                        suggestions.html('<div class="list-group-item">No results found.</div>');
-                      }
-                    }
-                  });
+              function bestMatch(term, list){
+                term = term.trim();
+                if (!list || !list.length) return null;
+                const isDigits = /^\d+$/.test(term);
+                const lower = term.toLowerCase();
+                // exact priority: id -> bill_id -> name
+                if (isDigits){
+                  let m = list.find(x => String(x.id) === term);
+                  if (m) return m;
+                  m = list.find(x => String(x.bill_id) === term);
+                  if (m) return m;
                 } else {
-                  $("#suggestions").html("");
+                  let m = list.find(x => String(x.name).toLowerCase() === lower);
+                  if (m) return m;
                 }
-              });
+                // fallback to first
+                return list[0];
+              }
 
-              // If user clicks outside suggestions, hide them
-              $(document).on("click", function (e) {
-                if (!$(e.target).closest("#customer_search, #suggestions").length) {
-                  $("#suggestions").html("");
-                }
-              });
+              const doAutoSelect = debounce(function(){
+                const keyword = $("#customer_search").val().trim();
+                if (!keyword){ $(".showcustomers").empty(); $("#cid").val(''); return; }
+                $.ajax({
+                  url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+                  method: "GET",
+                  data: { term: keyword },
+                  dataType: "json",
+                  success: function (data) {
+                    if (Array.isArray(data) && data.length > 0) {
+                      const selected = bestMatch(keyword, data);
+                      const multi = data.length > 1 && !(selected && ((String(selected.id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
+                      $("#cid").val(selected.id || '');
+                      renderSelectedCustomer(selected, multi ? 'Multiple matches found — showing closest match' : '');
+                    } else {
+                      $("#cid").val('');
+                      $(".showcustomers").html('<div class="text-center text-muted">No customer found.</div>');
+                    }
+                  },
+                  error: function(){
+                    $(".showcustomers").html('<div class="text-center text-muted">Search failed. Try again.</div>');
+                  }
+                });
+              }, 250);
 
-              // Form submit validation: ensure customer is selected from suggestions
+              $("#customer_search").on("keyup", doAutoSelect);
+
+              // Form submit validation: ensure a customer got auto-selected
               $("form").on("submit", function (e) {
                 if (!$("#cid").val()) {
-                  alert("Please select a customer from the suggestions.");
+                  alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
                   e.preventDefault();
                 }
               });
