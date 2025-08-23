@@ -26,6 +26,34 @@ Chart.controllers.lineShadow = Chart.controllers.line.extend({
     };
   },
 });
+document.addEventListener('DOMContentLoaded', function() {
+    Chart.controllers.lineShadow = Chart.controllers.line.extend({
+      draw: function () {
+        draw.apply(this, arguments);
+        var ctx = this.chart.chart.ctx;
+        var _stroke = ctx.stroke;
+        ctx.stroke = function () {
+          ctx.save();
+          ctx.shadowColor = "#00000075";
+          ctx.shadowBlur = 10;
+          ctx.shadowOffsetX = 8;
+          ctx.shadowOffsetY = 8;
+          _stroke.apply(this, arguments);
+          ctx.restore();
+        };
+      },
+    });
+
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
+    gradientStroke.addColorStop(0, "rgba(55, 154, 80, 1)");
+    gradientStroke.addColorStop(1, "rgba(131, 210, 151, 1)");
+
+    var gradientStroke2 = ctx.createLinearGradient(0, 0, 700, 0);
+    gradientStroke2.addColorStop(0, "rgba(255, 204, 128, 1)");
+    gradientStroke2.addColorStop(0.5, "rgba(255, 152, 0, 1)");
+    gradientStroke2.addColorStop(1, "rgba(239, 108, 0, 1)");
+});
 
 var ctx = document.getElementById("myChart").getContext("2d");
 var gradientStroke = ctx.createLinearGradient(500, 0, 0, 0);
