@@ -154,6 +154,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<style>
+  /* minimal spacing for search cards */
+  #summary-search-wrap{margin:10px 0 20px;}
+  .profile-widget{border:1px solid #e3e6f0;border-radius:8px;padding:10px;margin-bottom:12px;}
+  .profile-widget-header h4{margin:0 0 8px 0;}
+  .profile-widget-items{display:flex;gap:12px;justify-content:center;}
+  .profile-widget-item{padding:8px 10px;border-radius:6px;background:#f8f9fc;min-width:140px;text-align:center;}
+  .profile-widget-item-label{font-size:12px;color:#6c757d;}
+  .profile-widget-item-value{font-weight:600;font-size:16px;}
+</style>
 <script>
 // $(document).ready(function() {
 
@@ -346,4 +356,58 @@
               });
               
             });
+
+            // --- Summary search UI and logic (always visible) ---
+            (function(){
+              const container = $("<div class='card'><div class='card-header'><h4>Search Customers (Summary)</h4></div><div class='card-body' id='summary-search-wrap'><input type='text' id='summary_search' class='form-control' placeholder='Type name / bill id / mobile'><div id='searchResults' class='mt-3'></div></div></div>");
+              $(".section-body .row .col-12.col-md-12.col-lg-12").append(container);
+            })();
+
+            function debounce(fn, delay){ let t; return function(){ clearTimeout(t); const a=arguments; const c=this; t=setTimeout(()=>fn.apply(c,a), delay); }; }
+
+            function renderCards(items){
+              const wrap = $("#searchResults");
+              if (!items || !items.length){ wrap.html('<div class="text-center text-muted">No results.</div>'); return; }
+              let html = '';
+              items.forEach(it => {
+                const name = it.name ? String(it.name) : '—';
+                const totalAmt = (it.total_amount !== undefined) ? it.total_amount.toFixed(0) : '0';
+                const totalLit = (it.total_liters !== undefined) ? Number(it.total_liters).toFixed(0) : '0';
+                const lastDate = it.last_date ? it.last_date : '-';
+                html += `
+                  <div class="card profile-widget">
+                    <div class="profile-widget-header">
+                      <h4 class="text-center">${name}</h4>
+                      <div class="profile-widget-items">
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Total Amount</div>
+                          <div class="profile-widget-item-value">${totalAmt}</div>
+                        </div>
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Total</div>
+                          <div class="profile-widget-item-value">${totalLit}</div>
+                        </div>
+                        <div class="profile-widget-item">
+                          <div class="profile-widget-item-label">Last Date</div>
+                          <div class="profile-widget-item-value">${lastDate}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>`;
+              });
+              wrap.html(html);
+            }
+
+            const doSearch = debounce(function(){
+              const q = $('#summary_search').val().trim();
+              if (!q){ $('#searchResults').empty(); return; }
+              $.ajax({
+                url: '<?php echo BASE_URL; ?>dailyentry/searchSummary',
+                data: { term: q },
+                dataType: 'json',
+                success: function(res){ if (res && res.success){ renderCards(res.data); } else { renderCards([]); } },
+                error: function(){ renderCards([]); }
+              });
+            }, 300);
+            $(document).on('keyup', '#summary_search', doSearch);
             </script>

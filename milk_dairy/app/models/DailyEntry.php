@@ -107,4 +107,52 @@ class DailyEntry extends Database
         $stmt->close();
         return $entries;
     }
+
+    /**
+     * Search customers (by name/bill/mobile) within vendor and return totals + last date
+     * Optional date window filter on entries.
+     */
+    public function searchSummaries($vendorId, $term, $startDate = null, $endDate = null)
+    {
+        $like = "%{$term}%";
+
+        // Build dynamic query for optional date filter
+        $sql = "SELECT 
+                    c.id,
+                    c.name,
+                    c.bill_id,
+                    c.mobile,
+                    COALESCE(SUM(CASE WHEN de.milktype='cow' THEN de.milkliter END),0) AS cow_liters,
+                    COALESCE(SUM(CASE WHEN de.milktype='buffalo' THEN de.milkliter END),0) AS buffalo_liters,
+                    COALESCE(SUM(de.milkliter),0) AS total_liters,
+                    MAX(DATE(de.created_at)) AS last_date
+                FROM customers c
+                LEFT JOIN daily_entries de 
+                    ON de.cid = c.id AND de.vid = ?";
+
+        $params = [$vendorId];
+        $types = 'i';
+
+        if ($startDate && $endDate) {
+            $sql .= " AND DATE(de.created_at) BETWEEN ? AND ?";
+            $params[] = $startDate; $params[] = $endDate; $types .= 'ss';
+        }
+
+        $sql .= " WHERE c.vid = ? AND c.d_status = 0 AND (c.name LIKE ? OR c.bill_id LIKE ? OR c.mobile LIKE ?) ";
+        $params[] = $vendorId; $types .= 'i';
+        $params[] = $like; $params[] = $like; $params[] = $like; $types .= 'sss';
+
+    // Order: non-null last_date first (DESC), nulls last, then name
+    $sql .= " GROUP BY c.id, c.name, c.bill_id, c.mobile ORDER BY (last_date IS NULL) ASC, last_date DESC, c.name ASC";
+
+        $stmt = $this->db->prepare($sql);
+
+        // Bind params dynamically
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $rows;
+    }
 }
