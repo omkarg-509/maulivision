@@ -12,9 +12,7 @@
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
-          <div class="d-flex justify-content-end mb-2">
-            <a href="/public/auth/register" class="btn btn-outline-primary btn-sm">Register</a>
-          </div>
+         
 
           <div class="card shadow-sm login-card">
             <div class="row g-0">
@@ -48,10 +46,6 @@
                       <div class="invalid-feedback">Please enter your password.</div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                      <a href="/public/auth/forgot" class="small">Forgot Password?</a>
-                      <small class="small-note">Need an account? <a href="/public/auth/register">Register</a></small>
-                    </div>
 
                     <div class="d-grid mb-2">
                       <button id="loginBtn" type="submit" class="btn btn-primary">
