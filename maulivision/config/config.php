@@ -1,2 +1,2 @@
 <?php
-define('BASE_URL', '/maulivision/public/');
+define('BASE_URL', '/public/');
