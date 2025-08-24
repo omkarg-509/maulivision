@@ -1,412 +1,343 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MilkDairy - Smart Dairy Management</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    :root{--primary:#0d6efd;--muted:#6c757d}
-    body {font-family: 'Poppins', sans-serif; background:#fff;}
-    /* Navbar */
-    .navbar {transition: background-color .35s ease, box-shadow .35s ease;}
-    .nav-brand-img{height:44px}
-    .nav-center{position:absolute; left:50%; transform:translateX(-50%);} 
-    .nav-link{font-weight:500;color:rgba(0,0,0,.7)!important}
-    .navbar-scrolled{background:#fff!important;box-shadow:0 6px 25px rgba(13,38,59,.08);}
-    .navbar-transparent{background:transparent}
 
-    /* Hero */
-    .hero{background:linear-gradient(to bottom, rgba(9,30,63,.55), rgba(9,30,63,.25)), url('/public/assets/img/image-gallery/hero.jpg'); background-size:cover; background-position:center; color:#fff; min-height:80vh; display:flex; align-items:center}
-    .hero .lead{color:rgba(255,255,255,.9)}
-
-    /* Services */
-    .service-card{border-radius:12px}
-
-    /* Footer */
-    .footer{background:#071022;color:#9aa4af;padding:48px 0}
-
-    /* Responsive tweaks */
-    @media(max-width:991px){
-      .nav-center{position:static;transform:none;margin-left:0}
-    }
-  </style>
-</head>
-<body>
- <!-- Team modals -->
-    <div class="modal fade" id="bio-omkar" tabindex="-1" aria-labelledby="bioOmkarLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="bioOmkarLabel">Omkar Vivek Gaikwad — PHP Developer &amp; Product Lead</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</header>
+    <!-- /header -->
+    <section class="wrapper bg-light" id="home">
+      <div class="container pt-10 pt-md-14 pb-14 pb-md-16 text-center">
+        <div class="row gx-lg-8 gx-xl-12 gy-10 gy-xl-0 mb-14 align-items-center">
+          <div class="col-lg-7 order-lg-2">
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i21.png" srcset="assets/img/illustrations/i21.png" alt="" /></figure>
           </div>
-          <div class="modal-body">
-            <p>Omkar leads product strategy and backend development for MilkDairy. He focuses on product vision, UX, and making the platform reliable and easy to use for dairy businesses. He also handles design and overall project direction.</p>
-            <p class="mb-0"><strong>Skills:</strong> PHP, MySQL, Bootstrap, UX Design, Product Management</p>
+         
+          <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start">
+            <h1 class="display-1 fs-54 mb-5 mx-md-n5 mx-lg-0 mt-7">A digital agency <br class="d-md-none">specializing on <br class="d-md-none"><span class="rotator-fade text-primary">mobile design,web design,Software development
+            </span></h1>
+            <p class="lead fs-lg mb-7">We are an award winning design agency that strongly believes in the power of creative ideas.</p>
+           
           </div>
+  
+        </div>
+        
+      </div>
+    
+      <div class="overflow-hidden">
+        <div class="divider text-soft-primary mx-n2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path fill="currentColor" d="M1260,1.65c-60-5.07-119.82,2.47-179.83,10.13s-120,11.48-180,9.57-120-7.66-180-6.42c-60,1.63-120,11.21-180,16a1129.52,1129.52,0,0,1-180,0c-60-4.78-120-14.36-180-19.14S60,7,30,7H0v93H1440V30.89C1380.07,23.2,1319.93,6.15,1260,1.65Z" />
+          </svg>
         </div>
       </div>
-    </div>
-
-    <div class="modal fade" id="bio-uttkarsha" tabindex="-1" aria-labelledby="bioUttkarshaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="bioUttkarshaLabel">Uttkarsha Gundalkar — Frontend Developer</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Uttkarsha designs and implements user interfaces for MilkDairy, focusing on usability and a seamless experience. She ensures the platform is visually appealing and easy to navigate for all users.</p>
-            <p class="mb-0"><strong>Skills:</strong> HTML, CSS, JavaScript, Bootstrap, UI/UX Design</p>
-          </div>
-        </div>
-      </div>
-    </div>
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-transparent fixed-top py-3">
-  <div class="container position-relative">
-    <a class="navbar-brand d-flex align-items-center" href="/public">
-      <img src="/public/assets/img/logo-1.png" alt="MilkDairy" class="nav-brand-img me-2 animate-logo">
-      <span class="fw-bold text-dark animate-name">MilkDairy</span>
-    </a>
-    <style>
+    
+    </section>
    
-    </style>
-
-    <!-- center links (desktop) -->
-    <div class="nav-center d-none d-lg-block">
-      <ul class="navbar-nav d-flex flex-row gap-3">
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
-    </div>
-
-    <!-- right CTAs -->
-    <div class="d-none d-lg-flex ms-auto align-items-center gap-2">
-      <a href="/public/auth/login" class="btn btn-sm btn-outline-primary">Login</a>
-      <a href="/public/auth/register" class="btn btn-sm btn-primary">Get Started</a>
-    </div>
-
-    <!-- mobile toggle -->
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" style="border:none; box-shadow:none;">
-      <i class="bi bi-list" style="font-size:1.25rem;color:var(--primary)"></i>
-    </button>
-  </div>
-</nav>
-
-<!-- MOBILE OFFCANVAS -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="list-unstyled mb-4">
-      <li class="mb-2"><a class="text-decoration-none fs-5" href="#about">About</a></li>
-      <li class="mb-2"><a class="text-decoration-none fs-5" href="#services">Services</a></li>
-      <li class="mb-2"><a class="text-decoration-none fs-5" href="#testimonials">Testimonials</a></li>
-      <li class="mb-2"><a class="text-decoration-none fs-5" href="#contact">Contact</a></li>
-    </ul>
-    <div class="d-grid gap-2">
-      <a href="/public/auth/login" class="btn btn-outline-primary">Login</a>
-      <a href="/public/auth/register" class="btn btn-primary">Get Started</a>
-    </div>
-    <hr class="my-4">
-    <div class="small text-muted">Contact: <a href="mailto:support@maulivision.in">support@maulivision.in</a></div>
-  </div>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container text-center" data-aos="fade-up">
-    <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="90" class="mb-3">
-    <h1 class="display-5 fw-bold">Manage Your Dairy — Smarter</h1>
-    <p class="lead mb-4">Record daily milk entries, manage customers, generate bills and run subscriptions from one place.</p>
-    <div class="d-flex justify-content-center gap-3">
-      <a class="btn btn-lg btn-primary px-4" href="/public/auth/register">Get Started</a>
-      <a class="btn btn-lg btn-outline-light px-4" href="/public/auth/login">Sign In</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="py-5">
-  <div class="container" data-aos="fade-up">
-    <div class="row align-items-center">
-      <div class="col-lg-6">
-        <h2 class="fw-bold">About MilkDairy</h2>
-        <p class="text-muted">MilkDairy helps small and medium dairy businesses streamline daily operations. Capture entries, track customers, bill easily, and export reports.</p>
-        <ul class="text-muted">
-          <li>Quick daily entry workflow</li>
-          <li>Customer management and history</li>
-          <li>Billing, invoices and PDF export</li>
-        </ul>
-      </div>
-      <div class="col-lg-6">
-        <!-- <img src="/public/assets/img/image-gallery/hero-2.jpg" class="img-fluid rounded shadow-sm" alt="About"> -->
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="py-5 bg-light">
-  <div class="container" data-aos="fade-up">
-    <div class="text-center mb-4">
-      <h3 class="fw-bold">Features</h3>
-      <p class="text-muted">Tools built specifically for the dairy business</p>
-    </div>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card p-4 service-card h-100">
-          <div class="mb-3 text-primary h1"><i class="bi bi-journal-check"></i></div>
-          <h5>Daily Entry</h5>
-          <p class="text-muted">Fast input for quantities, fat, SNF and rates per customer.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card p-4 service-card h-100">
-          <div class="mb-3 text-primary h1"><i class="bi bi-people-fill"></i></div>
-          <h5>Customer Management</h5>
-          <p class="text-muted">Maintain customer profiles, contact and billing history.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card p-4 service-card h-100">
-          <div class="mb-3 text-primary h1"><i class="bi bi-receipt-cutoff"></i></div>
-          <h5>Billing & Reports</h5>
-          <p class="text-muted">Generate bills, view transactions and export PDFs.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OUR TEAM -->
-<section id="team" class="py-5">
-  <div class="container" data-aos="fade-up">
-    <div class="text-center mb-4">
-      <h3 class="fw-bold">Our Team</h3>
-      <p class="text-muted">Small team, big impact — people who build and support MilkDairy.</p>
-    </div>
-
-    <style>
-      .team-card{border-radius:14px;transition:transform .28s ease,box-shadow .28s ease}
-      .team-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(10,40,80,.12)}
-      .team-photo{width:110px;height:110px;object-fit:cover;border-radius:50%;border:6px solid #fff;margin-top:-66px;box-shadow:0 6px 20px rgba(10,40,80,.08)}
-      .team-role{font-size:.9rem;color:var(--muted)}
-      .social-icons a{color:var(--primary);margin:0 .35rem}
-      .team-card .card-body{padding-top:4rem}
-    </style>
-
-    <div class="row g-4 justify-content-center">
-      <!-- Omkar -->
-      <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
-        <div class="card text-center team-card h-100">
-          <div class="card-body position-relative">
-            <img src="/public/assets/img/users/omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
-            <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
-            <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
-            <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for MilkDairy.</p>
-            <div class="social-icons mt-3">
-              <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
-              <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
-            </div>
-            <div class="mt-3">
-              <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-omkar">View bio</a>
-            </div>
+    <section class="wrapper bg-gradient-primary"  id="About">
+      <div class="container pt-12 pt-lg-8 pb-14 pb-md-17">
+        <div class="row text-center">
+          <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <h2 class="fs-16 text-uppercase text-primary mb-3">What We Do?</h2>
+            <h3 class="display-3 mb-10 px-xxl-10">The service we offer is specifically designed to meet your needs.</h3>
           </div>
+         
+        </div>
+        <!-- /.row -->
+        <div class="row gx-lg-8 gx-xl-12 gy-11 px-xxl-5 text-center d-flex align-items-end">
+          <div class="col-lg-4">
+            <div class="px-md-15 px-lg-3">
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i24.png" alt="" /></figure>
+              <h3>Web Design</h3>
+              <p class="mb-2">Web design is the process of creating and designing the visual appearance and functionality of a website. It involves a variety of disciplines such as graphic design, user interface design, user experience design, and search engine optimization.</p>
+              
+            </div>
+            <!--/.px -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-4">
+            <div class="px-md-15 px-lg-3">
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i19.png"  alt="" /></figure>
+              <h3>Graphic Design</h3>
+              <p class="mb-2">Graphic designers may create designs for a variety of media, including print and digital media. They may work on projects such as logo design, website design, advertising campaigns, packaging design, and more.</p>
+              
+            </div>
+            <!--/.px -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-4">
+            <div class="px-md-15 px-lg-3">
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i18.png"  alt="" /></figure>
+              <h3>Digital Markting</h3>
+              <p class="mb-2">Digital marketing refers to the use of digital channels, such as search engines, social media, email, and websites, to promote a product or service. It involves a range of tactics that businesses can use to reach and engage with their target audience online.</p>
+              
+            </div>
+            <!--/.px -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
+    <section class="wrapper bg-light">
+      <div class="container pb-14 pb-md-17">
+        <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="card shadow-lg me-lg-6">
+              <div class="card-body p-6">
+                <div class="d-flex flex-row">
+                  <div>
+                    <span class="icon btn btn-circle btn-lg btn-soft-primary pe-none me-4"><span class="number">01</span></span>
+                  </div>
+                  <div>
+                    <h4 class="mb-1">Project requirements:</h4>
+                    <p class="mb-0">project is to identify the requirements of the project.</p>
+                  </div>
+                </div>
+              </div>
+              <!--/.card-body -->
+            </div>
+            <!--/.card -->
+            <div class="card shadow-lg ms-lg-13 mt-6">
+              <div class="card-body p-6">
+                <div class="d-flex flex-row">
+                  <div>
+                    <span class="icon btn btn-circle btn-lg btn-soft-primary pe-none me-4"><span class="number">02</span></span>
+                  </div>
+                  <div>
+                    <h4 class="mb-1">Sitemap and wireframes</h4>
+                    <p class="mb-0">A sitemap is a visual representation of the website's structure, while wireframes are basic sketches of each page's layout and content. </p>
+                  </div>
+                </div>
+              </div>
+              <!--/.card-body -->
+            </div>
+            <!--/.card -->
+            <div class="card shadow-lg mx-lg-6 mt-6">
+              <div class="card-body p-6">
+                <div class="d-flex flex-row">
+                  <div>
+                    <span class="icon btn btn-circle btn-lg btn-soft-primary pe-none me-4"><span class="number">03</span></span>
+                  </div>
+                  <div>
+                    <h4 class="mb-1">Design style guide</h4>
+                    <p class="mb-0">To maintain consistency and ensure that the website's design aligns with the client's brand</p>
+                  </div>
+                </div>
+              </div>
+              <!--/.card-body -->
+            </div>
+            <!--/.card -->
+          </div>
+          <!--/column -->
+          <div class="col-lg-6">
+            <h2 class="fs-16 text-uppercase text-primary mb-3">Our Strategy</h2>
+            <h3 class="display-3 mb-4">Here are 3 working steps to organize our projects.</h3>
+            <p>it's important to establish clear objectives. This includes identifying the scope of the project, the target audience, and any specific requirements or constraints.</p>
+            <p class="mb-6"> This will help you stay on track and ensure that the final product meets the needs of the client.</p>
+            <a href="#" class="btn btn-primary rounded-pill mb-0">Learn More</a>
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
+    
+    <section class="wrapper bg-gradient-reverse-primary">
+      <div class="container pb-14 pb-md-16">
+        <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
+          <div class="col-lg-7">
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i22.wabp"  alt="" /></figure>
+          </div>
+          <!--/column -->
+          <div class="col-lg-5">
+            <h2 class="fs-15 text-uppercase text-primary mb-3">Why Choose Us?</h2>
+            <h3 class="display-3 mb-7">We bring solutions to make life easier.</h3>
+            <div class="accordion accordion-wrapper" id="accordionExample">
+              <div class="card plain accordion-item">
+                <div class="card-header" id="headingOne">
+                  <a class="accordion-a" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">User-friendly design</a>
+                </div>
+                <!--/.card-header -->
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="card-body">
+                    <p> A well-designed website should be easy to navigate and use. By incorporating user-friendly design principles, such as clear navigation, intuitive layouts, and easily readable text, businesses can make it easier for customers to find what they're looking for and complete desired actions on the website, such as making a purchase or filling out a contact form.</p>
+                  </div>
+                  <!--/.card-body -->
+                </div>
+                <!--/.accordion-collapse -->
+              </div>
+              <!--/.accordion-item -->
+              <div class="card plain accordion-item">
+                <div class="card-header" id="headingTwo">
+                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Mobile-responsive design </a>
+                </div>
+                <!--/.card-header -->
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="card-body">
+                    <p>With more people using mobile devices to access the internet, it's important for websites to be optimized for mobile devices. By creating a mobile-responsive design, businesses can ensure that their website is easy to view and use on a variety of devices, making it more convenient for customers to access their website on-the-go.</p>
+                  </div>
+                  <!--/.card-body -->
+                </div>
+                <!--/.accordion-collapse -->
+              </div>
+              <!--/.accordion-item -->
+              <div class="card plain accordion-item">
+                <div class="card-header" id="headingThree">
+                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Integration with other systems </a>
+                </div>
+                <!--/.card-header -->
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                  <div class="card-body">
+                    <p>Web design can also help businesses integrate their website with other systems, such as e-commerce platforms, customer relationship management (CRM) software, and marketing automation tools. By integrating these systems with the website, businesses can streamline their processes and make it easier to manage customer interactions and transactions.</p>
+                  </div>
+                  <!--/.card-body -->
+                </div>
+                <!--/.accordion-collapse -->
+              </div>
+              <!--/.accordion-item -->
+            </div>
+            <!--/.accordion -->
+          </div>
+          <!--/column -->
+        </div>
+        <!--/.row -->
+      </div>
+      <!-- /.container -->
+      <div class="overflow-hidden">
+        <div class="divider text-light mx-n2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path fill="currentColor" d="M1260,1.65c-60-5.07-119.82,2.47-179.83,10.13s-120,11.48-180,9.57-120-7.66-180-6.42c-60,1.63-120,11.21-180,16a1129.52,1129.52,0,0,1-180,0c-60-4.78-120-14.36-180-19.14S60,7,30,7H0v93H1440V30.89C1380.07,23.2,1319.93,6.15,1260,1.65Z" />
+          </svg>
         </div>
       </div>
-
+      <!-- /.overflow-hidden -->
+    </section>
+    <!-- /section -->
+    <section class="wrapper bg-light">
+      <div class="container pt-12 pt-lg-8 pb-14 pb-md-16">
+        <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0 mb-11">
+          <div class="col-lg-4 text-center text-lg-start">
+            <h2 class="fs-16 text-uppercase text-primary mb-3">Company Facts</h2>
+            <h3 class="display-3 mb-4 pe-xxl-5">We are proud of our design team</h3>
+            <p class="mb-0 pe-xxl-11">Just sit back and relax while we take care of your business needs for you.</p>
+          </div>
+          <!-- /column -->
+          <div class="col-lg-8 mt-lg-2">
+            <div class="row align-items-center counter-wrapper gy-6 text-center">
+              <div class="col-md-4">
+                <div class="icon btn btn-circle btn-lg btn-soft-primary pe-none mb-4"> <i class="fa fa-check"></i> </div>
+                <h3 class="counter">2+</h3>
+                <p>Completed Projects</p>
+              </div>
+              <!--/column -->
+              <div class="col-md-4">
+                <div class="icon btn btn-circle btn-lg btn-soft-primary pe-none mb-4"> <i class="fa fa-users"></i> </div>
+                <h3 class="counter">5+</h3>
+                <p>Happy Customers</p>
+              </div>
+              <!--/column -->
+              <div class="col-md-4">
+                <div class="icon btn btn-circle btn-lg btn-soft-primary pe-none mb-4"> <i class="fa fa-user"></i> </div>
+                <h3 class="counter">2+</h3>
+                <p>Team Member</p>
+              </div>
+              <!--/column -->
+            </div>
+            <!--/.row -->
+          </div>
+          <!-- /column -->
+        </div>
      
-
-  
-
-    <!-- Uttkarsha -->
-    <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
-      <div class="card text-center team-card h-100">
-        <div class="card-body position-relative">
-        <img src="/public/assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
-        <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
-        <div class="team-role mb-2">Frontend Developer</div>
-        <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
-        <div class="social-icons mt-3">
-          <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
-          <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
-          <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
+      </div>
+      <!-- /.container -->
+      <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-6175226312586147">
+</amp-auto-ads>
+      <div class="overflow-hidden" id="Projects">
+        <div class="container pt-12 pt-lg-7 pb-14 pb-md-16">
+          <div class="row">
+            <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto text-center">
+              <h2 class="fs-16 text-uppercase text-primary mb-3">Latest Projects</h2>
+              <h3 class="display-3 mb-10">Check out some of our awesome projects with creative ideas and great design.</h3>
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+          <div class="container  nav-color mb-14" data-margin="30" data-dots="false" data-nav="false" data-items-md="2" data-items-xs="1">
+            <div class="overflow-visible">
+              <div class="wrapper">
+                
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/aus.wabp"  alt="" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="https://auslightingind.com/">Aus Lighting Industry</a></h2>
+                      <div class="post-category text-ash">light  manufacturing</div>
+                    </div>
+                    <!-- /.post-header text-center -->
+                  </div>
+                  <!-- /.project-details -->
+                </div>
+             
+           
+              </div>
+              <!--/.wrapper -->
+            </div>
+            <!-- /.-->
+          </div>
+          <!-- /.container -->
         </div>
-        <div class="mt-3">
-          <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
-        </div>
+        <!-- /.container -->
+        <div class="divider text-soft-primary mx-n2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path fill="currentColor" d="M1260,1.65c-60-5.07-119.82,2.47-179.83,10.13s-120,11.48-180,9.57-120-7.66-180-6.42c-60,1.63-120,11.21-180,16a1129.52,1129.52,0,0,1-180,0c-60-4.78-120-14.36-180-19.14S60,7,30,7H0v93H1440V30.89C1380.07,23.2,1319.93,6.15,1260,1.65Z" />
+          </svg>
         </div>
       </div>
-    </div>
-
-  
-    </div>
-
+      <!-- /.overflow-hidden -->
+    </section>
+    <!-- /section -->
+    <section class="wrapper bg-gradient-primary">
+      <div class="container pt-12 pt-lg-8 pb-14 pb-md-17">
+        <div class="row text-center">
+          <div class="col-lg-8 offset-lg-2">
+            <h2 class="fs-16 text-uppercase text-primary mb-3">Happy Customers</h2>
+            <h3 class="display-3 mb-10 px-xxl-10">Don't take our word for it. See what customers are saying about us.</h3>
+          </div>
+          <!-- /column -->
+        </div>
+        <!-- /.row -->
+        <div class="grid">
+          <div class="row isotope gy-6">
+            <div class="item col-md-6 col-xl-4">
+              <div class="card shadow-lg">
+                <div class="card-body">
+                  <span class="ratings four mb-2"></span>
+                  <blockquote class="border-0 mb-0">
+                    <p>“The website's customer service is outstanding. I had a question and reached out to their support team, and they were prompt, knowledgeable, and courteous in their response”</p>
+                    <div class="blockquote-details">
+                      <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets/img/avatars/te1.jpg"  alt="" /> -->
+                      <div class="info">
+                        <h5 class="mb-1">Ashish Mishra</h5>
+                        <p class="mb-0">Aus Lighting Industry</p>
+                      </div>
+                    </div>
+                  </blockquote>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+         
+           
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.grid-view -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /section -->
    
-
+    <!-- /section -->
   </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="py-5 bg-light">
-  <div class="container" data-aos="fade-up">
-    <div class="row">
-      <div class="col-lg-6">
-        <h4>Contact Us</h4>
-        <p class="text-muted">Need help or want a demo? Reach out and we'll get back to you.</p>
-        <!-- <span style="filter: blur(3px);" onmouseover="this.style.filter='none'" onmouseout="this.style.filter='blur(3px)'"><span> -->
-        <p class="small text-muted">Email: <a href="mailto:support@maulivision.in">support@maulivision.in</a></p>
-      </div>
-      <div class="col-lg-6">
-        <div id="contactAlert"></div>
-        <form id="contactForm">
-          <div class="mb-3"><input name="name" class="form-control" placeholder="Your name" required></div>
-          <div class="mb-3"><input name="email" type="email" class="form-control" placeholder="Email" required></div>
-          <div class="mb-3"><textarea name="message" class="form-control" rows="3" placeholder="Message" required></textarea></div>
-          <div class="d-grid"><button class="btn btn-primary" type="submit">Send message</button></div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container text-center">
-    <img src="/public/assets/img/logo-1.png" alt="MilkDairy" height="48" class="mb-3">
-    <p class="mb-1">Smart Dairy Management</p>
-    <small class="text-muted">© <?php echo date('Y'); ?> MilkDairy</small>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init({duration:700,once:true});
-  // navbar scroll behavior
-  const nav = document.querySelector('.navbar');
-  window.addEventListener('scroll', ()=>{
-    if(window.scrollY>50) nav.classList.add('navbar-scrolled'); else nav.classList.remove('navbar-scrolled');
-  });
-  // auto-close mobile offcanvas when a link is clicked
-  (function(){
-    const offcanvasEl = document.getElementById('mobileMenu');
-    if(!offcanvasEl) return;
-    // delegate clicks on links inside the offcanvas
-    offcanvasEl.addEventListener('click', function(e){
-      const target = e.target.closest('a');
-      if(!target) return;
-      // only close for internal anchor links or navigation links
-      const href = target.getAttribute('href') || '';
-      if(href.startsWith('#') || href.indexOf('/public') === 0 || target.classList.contains('nav-link') || target.classList.contains('text-decoration-none')){
-        // get existing Bootstrap Offcanvas instance or create one
-        const bsOff = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
-        bsOff.hide();
-        // Remove the backdrop manually if it remains
-        setTimeout(function(){
-          document.querySelectorAll('.offcanvas-backdrop').forEach(function(el){
-            el.parentNode.removeChild(el);
-          });
-          document.body.classList.remove('offcanvas-backdrop');
-        }, 400);
-      }
-    });
-  })();
-  // Contact form AJAX submit
-  (function(){
-    const form = document.getElementById('contactForm');
-    const alertHolder = document.getElementById('contactAlert');
-    if(!form) return;
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      alertHolder.innerHTML = '';
-      const fd = new FormData(form);
-      fetch('<?php echo BASE_URL; ?>contact/send', {
-        method: 'POST',
-        body: fd,
-        credentials: 'same-origin'
-      }).then(r=>r.json()).then(function(json){
-        const type = json.success ? 'success' : 'danger';
-        alertHolder.innerHTML = `<div class="alert alert-${type} alert-dismissible" role="alert">${json.message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>`;
-        if(json.success) form.reset();
-      }).catch(function(err){
-        alertHolder.innerHTML = `<div class="alert alert-danger" role="alert">An error occurred. Please try again later.</div>`;
-      });
-    });
-  })();
-</script>
-<!-- Floating translator button (public) -->
-<div id="gt_translate_wrapper" style="position:fixed;right:18px;bottom:18px;z-index:2000;">
-  <button id="translateBtn" title="Translate page" type="button" class="btn btn-sm btn-outline-secondary" style="border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.12);">
-    <i class="bi bi-translate" style="font-size:1.15rem"></i>
-  </button>
-  <div id="google_translate_element" style="display:none;margin-top:8px;background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);"></div>
-</div>
-
-<script>
-  (function(){
-    var inited = false;
-    function loadGoogleTranslate(){
-      if (inited) return;
-      inited = true;
-      var gt = document.createElement('script');
-      gt.type = 'text/javascript';
-      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      document.body.appendChild(gt);
-      window.googleTranslateElementInit = function(){
-        try{
-          new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en,es,fr'}, 'google_translate_element');
-          // If server provided an active language, try to select it
-          try{
-            var active = <?= json_encode($activeLang ?? null) ?>;
-            if(active){
-              // Wait a tick for the widget DOM
-              setTimeout(function(){
-                var sel = document.querySelector('#google_translate_element select');
-                if(sel){
-                  for(var i=0;i<sel.options.length;i++){
-                    var opt = sel.options[i];
-                    if(opt.text.toLowerCase().indexOf(active.toLowerCase())!==-1 || opt.value.toLowerCase().indexOf(active.toLowerCase())!==-1){
-                      sel.selectedIndex = i; // pick it
-                      sel.dispatchEvent(new Event('change'));
-                      break;
-                    }
-                  }
-                }
-              }, 400);
-            }
-          }catch(e){console.warn(e)}
-        }catch(e){
-          console.warn('Google Translate init failed', e);
-        }
-      };
-    }
-    var btn = document.getElementById('translateBtn');
-    var widget = document.getElementById('google_translate_element');
-    if(btn){
-      btn.addEventListener('click', function(){
-        if(widget.style.display === 'none' || widget.style.display === ''){
-          widget.style.display = 'block';
-          loadGoogleTranslate();
-        } else {
-          widget.style.display = 'none';
-        }
-      });
-    }
-  })();
-</script>
-</body>
-</html>
