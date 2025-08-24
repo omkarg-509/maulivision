@@ -50,6 +50,14 @@ $vendor = isset($_SESSION['vendor']) ?
                 <i class="fas fa-bars"></i>
               </a>
             </li>
+            <li class="nav-item d-flex align-items-center ms-2">
+              <select id="siteLangSelect" class="form-select form-select-sm" style="width:auto; min-width:110px;">
+                <option value="auto">Language: Auto</option>
+                <option value="en">English</option>
+                <option value="mr">Marathi</option>
+                <option value="hi">Hindi</option>
+              </select>
+            </li>
           </ul>
         </div>
       </nav>
@@ -97,3 +105,52 @@ $vendor = isset($_SESSION['vendor']) ?
         </aside>
       </div>
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <script>
+    (function(){
+      // key used in localStorage
+      var LS_KEY = 'maulivision_lang';
+      var select = document.getElementById('siteLangSelect');
+
+      function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + (days*24*60*60*1000));
+          expires = '; expires=' + date.toUTCString();
+        }
+        var domain = location.hostname;
+        document.cookie = name + '=' + value + expires + '; path=/';
+      }
+
+      function applyLang(lang, save) {
+        // set document language attribute
+        if (lang && lang !== 'auto') document.documentElement.lang = lang; else document.documentElement.removeAttribute('lang');
+        // store selection
+        if (save) localStorage.setItem(LS_KEY, lang);
+        // set google translate cookie to instruct widget (common pattern)
+        try {
+          var val = '/auto/' + (lang === 'auto' ? '' : lang);
+          // set cookie twice for compatibility
+          setCookie('googtrans', val, 365);
+          setCookie('__googtrans', val, 365);
+        } catch(e) { console.warn('Could not set translate cookie', e); }
+        // reload to let any translation widget pick up the change
+        // For a smoother UX you can remove reload and integrate with the translate widget API if present
+        window.location.reload();
+      }
+
+      // init select from localStorage
+      try {
+        var cur = localStorage.getItem(LS_KEY) || 'auto';
+        if (select) {
+          select.value = cur;
+          select.addEventListener('change', function(){ applyLang(this.value, true); });
+        }
+        // apply initially without saving if present
+        if (cur && cur !== 'auto') {
+          // set cookie so translate widget applies across pages
+          setCookie('googtrans', '/auto/' + cur, 365);
+        }
+      } catch(err) { console.warn(err); }
+    })();
+  </script>
