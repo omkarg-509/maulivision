@@ -1,10 +1,17 @@
 <div id="app">
   <style>
+    :root {
+      /* Brand colors (edit these two to quickly change the theme) */
+      --brand-1: #198754; /* primary */
+      --brand-2: #157347; /* darker */
+      --brand-focus: rgba(25, 135, 84, 0.18);
+    }
+
     .login-card { border-radius: 12px; overflow: hidden; }
-    .login-left { background: linear-gradient(180deg,#0d6efd,#0a58ca); color: #fff; }
+    .login-left { background: linear-gradient(180deg, var(--brand-1), var(--brand-2)); color: #fff; }
     .login-left img { filter: brightness(1.05); }
-    .form-control:focus { box-shadow: 0 0 0 .12rem rgba(13,110,253,.12); }
-    .btn-primary { background: linear-gradient(90deg,#0d6efd,#0069d9); border: none; }
+    .form-control:focus { box-shadow: 0 0 0 .12rem var(--brand-focus); }
+    .btn-primary { background: linear-gradient(90deg, var(--brand-1), var(--brand-2)); border: none; }
     .small-note { color: #6c757d; font-size: .9rem; }
   </style>
 
