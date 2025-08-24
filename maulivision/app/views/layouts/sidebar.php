@@ -59,7 +59,7 @@
           <div class="sidebar-brand">
             <a href="index.html">
   <span class="logo-name"  style="font-size:12px !important">
-    <?=// htmlspecialchars($vendor['business_name']) ?>
+    <?//=htmlspecialchars($vendor['business_name']) ?>
 </span>
             </a>
           
