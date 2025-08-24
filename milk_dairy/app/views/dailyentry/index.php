@@ -1,5 +1,26 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+            <!-- Delete confirmation modal -->
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="mb-0">Are you sure you want to delete this entry?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 <div class="main-content">
   <div class="loader"></div>
@@ -35,72 +56,80 @@
 
                     
                     <div class="form-group row mb-3 justify-content-center align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Date &amp; Time</label>
+                      <label class="col-sm-3 col-form-label text-center">
+                      <i class="fa fa-calendar-alt me-2" id="calendarIcon" style="cursor:pointer;"></i> Date &amp; Time
+                      </label>
                       <div class="col-sm-9 d-flex justify-content-center align-items-center">
-                        <input type="date" class="form-control w-75 text-center" id="entry_datetime" name="entry_datetime" required>
-                        <button type="button" class="btn btn-outline-secondary ms-2" id="setNow">Now</button>
+                      <input type="date" class="form-control w-75 text-center" id="entry_date" name="entry_date" required>
+                      <button type="button" class="btn btn-outline-secondary ms-2" id="setToday">
+                        <i class="fa fa-calendar-check"></i> 
+                      </button>
                       </div>
                     </div>
 
                     <script>
-                      // return a string suitable for datetime-local input (YYYY-MM-DDTHH:MM)
-                      function getDateTimeLocalForTimeZone(timeZone) {
-                        const now = new Date();
-                        const dtf = new Intl.DateTimeFormat('en-GB', {
-                          timeZone: timeZone,
-                          year: 'numeric', month: '2-digit', day: '2-digit',
-                          hour: '2-digit', minute: '2-digit', hour12: false
-                        });
-                        const parts = dtf.formatToParts(now);
-                        const map = {};
-                        parts.forEach(p => map[p.type] = p.value);
-                        // parts include day, month, year, hour, minute
-                        const y = map.year, m = map.month, d = map.day, hh = map.hour, mm = map.minute;
-                        return `${y}-${m}-${d}T${hh}:${mm}`;
+                      function setEntryDateToday(openPicker = false) {
+                      const today = new Date();
+                      const yyyy = today.getFullYear();
+                      const mm = String(today.getMonth() + 1).padStart(2, '0');
+                      const dd = String(today.getDate()).padStart(2, '0');
+                      const val = `${yyyy}-${mm}-${dd}`;
+                      const el = document.getElementById('entry_date');
+                      if (el) {
+                        el.value = val;
+                        if (openPicker && typeof el.showPicker === 'function') {
+                        el.showPicker();
+                        } else if (openPicker) {
+                        el.focus();
+                        }
+                      }
                       }
 
-                      function setEntryDateTimeNow() {
-                        const val = getDateTimeLocalForTimeZone('Asia/Kolkata');
-                        const el = document.getElementById('entry_datetime');
-                        if (el) el.value = val;
-                      }
-
-                      // initialize once on load
                       document.addEventListener('DOMContentLoaded', function(){
-                        setEntryDateTimeNow();
-                        document.getElementById('setNow').addEventListener('click', setEntryDateTimeNow);
+                      setEntryDateToday();
+                      document.getElementById('setToday').addEventListener('click', function() {
+                        setEntryDateToday(true);
+                      });
+                      document.getElementById('calendarIcon').addEventListener('click', function() {
+                        const el = document.getElementById('entry_date');
+                        if (el && typeof el.showPicker === 'function') {
+                        el.showPicker();
+                        } else if (el) {
+                        el.focus();
+                        }
+                      });
                       });
                     </script>
-                    
-                 
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Type</label>
                       <div class="col-sm-9">
-                        <select class="form-control" name="milktype" required>
-                          <option value="">Select Milk Type</option>
-                            <option value="buffalo">म्हैस</option>
-                            <option value="cow">गाय</option>
-                        </select>
+                        <div class="btn-group w-100" role="group" aria-label="Milk Type">
+                          <input type="radio" class="btn-check" name="milktype" id="milk-buffalo" value="buffalo" autocomplete="off" required>
+                          <label class="btn btn-outline-danger d-flex align-items-center justify-content-center" for="milk-buffalo">
+                            <i class="fas fa-hippo me-2"></i> म्हैस
+                          </label>
+
+                          <input type="radio" class="btn-check" name="milktype" id="milk-cow" value="cow" autocomplete="off" required>
+                          <label class="btn btn-outline-success d-flex align-items-center justify-content-center" for="milk-cow">
+                            <i class="fas fa-cow me-2"></i> गाय
+                          </label>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group row mb-3">
                       <label class="col-sm-3 col-form-label text-center">Milk Liter</label>
                       <div class="col-sm-9">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="0.5">
-                          <label class="form-check-label" for="liter1">0.5 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter1" value="1.0">
-                          <label class="form-check-label" for="liter1">1.0 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter15" value="1.5">
-                          <label class="form-check-label" for="liter15">1.5 Liter</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="milkliter" id="liter2" value="2.0">
-                          <label class="form-check-label" for="liter2">2.0 Liter</label>
+                        <div class="btn-group w-100" role="group" aria-label="Milk Liter">
+                          <?php
+                            $liters = [0.5, 1.0, 1.5, 2.0];
+                            foreach ($liters as $i => $val):
+                              $id = 'liter' . str_replace('.', '', $val);
+                          ?>
+                            <input type="radio" class="btn-check" name="milkliter" id="<?= $id ?>" value="<?= $val ?>" autocomplete="off" required>
+                            <label class="btn btn-outline-primary" for="<?= $id ?>" style="font-size:1.1rem;">
+                              <?= $val ?> L
+                            </label>
+                          <?php endforeach; ?>
                         </div>
                       </div>
                     </div>
@@ -117,10 +146,15 @@
               </div>
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
-                <div class="card-header">
-                  <h4>Customers Details</h4>
-                </div>
-                <div class="card-body" id="entries-table-container">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                      <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
+                      <div class="d-flex">
+                        <input id="entries-search" class="form-control form-control-sm me-2" placeholder="Search by name/type..." style="min-width:180px;">
+                        <button id="refreshEntries" class="btn btn-sm btn-outline-secondary me-2" title="Refresh"><i class="fa fa-sync"></i></button>
+                        <button id="exportCsv" class="btn btn-sm btn-outline-primary" title="Export CSV"><i class="fa fa-download"></i> CSV</button>
+                      </div>
+                    </div>
+                    <div class="card-body" id="entries-table-container">
                   <table class="table table-sm">
                     <thead>
                       <tr>
@@ -139,6 +173,7 @@
               </div>
             </div>
 
+
         </section>       
     </div>
     
@@ -151,46 +186,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-// $(document).ready(function() {
-
-//   $('#customerForm').on('submit', function(e) {
-//     e.preventDefault();
-//     var form = $(this);
-//     var formData = form.serialize();
-
-//     $.ajax({
-//       url: '/public/dailyentry/store', // Adjust to your actual endpoint
-//       type: 'POST',
-//       data: formData,
-//       dataType: 'json',
-//       // beforeSend: function() {
-//       //   $('.loader').show();
-//       // },
-//       success: function(response) {
-//         $('.loader').hide();
-//         if (response.success) {
-          
-//     toastr.success(response.message || 'Entry added successfully.');
-//           setTimeout(function() {
-//             location.reload();
-//           }, 1200);
-     
-//         } else {
-//             toastr.error(response.message || 'Failed to add entry.');
-//         }
-//       },
-//       error: function(xhr) {
-//         $('.loader').hide();
-//         alert('An error occurred. Please try again.');
-//       }
-//     });
-//   });
-// });
-</script>
 
             <script>
-            $(document).ready(function () {
+            (function(){
+              // Define BASE_URL early for scripts
+              var BASE_URL = "<?php echo BASE_URL; ?>";
+
               // Debounce helper
               function debounce(fn, delay){ let t; return function(){ clearTimeout(t); const a=arguments, c=this; t=setTimeout(()=>fn.apply(c,a), delay); }; }
 
@@ -208,7 +209,6 @@
                           <div class="profile-widget-item-label">Number</div>
                           <div class="profile-widget-item-value">${c.mobile || ''}</div>
                         </div>
-                        
                       </div>
                       ${note ? `<div class="text-center text-muted" style="margin-top:6px;">${note}</div>` : ''}
                     </div>
@@ -221,9 +221,8 @@
                 if (!list || !list.length) return null;
                 const isDigits = /^\d+$/.test(term);
                 const lower = term.toLowerCase();
-                // exact priority: id -> bill_id -> name
                 if (isDigits){
-                  let m = list.find(x => String(x.bill_id) === term);
+                  let m = list.find(x => String(x.id) === term);
                   if (m) return m;
                   m = list.find(x => String(x.bill_id) === term);
                   if (m) return m;
@@ -231,7 +230,6 @@
                   let m = list.find(x => String(x.name).toLowerCase() === lower);
                   if (m) return m;
                 }
-                // fallback to first
                 return list[0];
               }
 
@@ -239,14 +237,14 @@
                 const keyword = $("#customer_search").val().trim();
                 if (!keyword){ $(".showcustomers").empty(); $("#cid").val(''); return; }
                 $.ajax({
-                  url: "<?php echo BASE_URL; ?>customer/searchCustomer",
+                  url: BASE_URL + "customer/searchCustomer",
                   method: "GET",
                   data: { term: keyword },
                   dataType: "json",
                   success: function (data) {
                     if (Array.isArray(data) && data.length > 0) {
                       const selected = bestMatch(keyword, data);
-                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
+                      const multi = data.length > 1 && !(selected && ((String(selected.bill_id)===keyword) || (String(selected.name).toLowerCase()===keyword.toLowerCase())));
                       $("#cid").val(selected.id || '');
                       renderSelectedCustomer(selected, multi ? 'Multiple matches found — showing closest match' : '');
                     } else {
@@ -260,123 +258,194 @@
                 });
               }, 250);
 
-              $("#customer_search").on("keyup", doAutoSelect);
+              // Store last loaded entries for client-side filtering/export
+              var lastEntries = [];
 
-              // Form submit validation: ensure a customer got auto-selected
-              $("form").on("submit", function (e) {
-                if (!$("#cid").val()) {
-                  alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
-                  e.preventDefault();
-                }
-              });
-            });
-           
-            function loadEntriesTable() {
-              // Show loading indicator
-              $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
-              
-              $.ajax({
-                url: '<?php echo BASE_URL; ?>dailyentry/list',
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                  // console.log('loadEntriesTable response:', response); // Debug log
-
-                  if (response.success && Array.isArray(response.data) && response.data.length > 0) {
-                    $('#entries-table-body').empty();
-                    response.data.forEach(function(entry, idx) {
-                      // Handle missing customer_name gracefully
-                      let customerName = entry.customer_name || entry.name || 'Unknown Customer';
-                      let milkType = '';
-                      
-                      // Handle milk type translation
-                      if (entry.milktype === 'buffalo') {
-                        milkType = 'म्हैस';
-                      } else if (entry.milktype === 'cow') {
-                        milkType = 'गाय';
-                      } else {
-                        milkType = entry.milktype || 'Unknown';
-                      }
-                      
-                      $('#entries-table-body').append(
-                        `<tr>
-                           <td>${idx + 1}</td>
-                           <td>${customerName}</td>
-                           <td>${milkType}</td>
-                           <td>${entry.milkliter || '0'} L</td>
-                           <td>
-                             <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
-                           </td>
-                         </tr>`
-                      );
-                    });
-                  } else {
-                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
-                  }
-                },
-                error: function(xhr, status, error) {
-                  console.error('loadEntriesTable error:', xhr, status, error); // Debug log
-                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
-                }
-              });
-            }
-
-            // Auto-load entries table on page load
-            $(document).ready(function() {
-              loadEntriesTable();
-            });
-            // Handle delete button click with AJAX
-            $(document).on('click', '.delete-entry', function() {
-              var entryId = $(this).data('id');
-              if (confirm('Are you sure you want to delete this entry?')) {
-              $.ajax({
-                url: '<?php echo BASE_URL; ?>dailyentry/delete/' + entryId,
-                type: 'POST',
-                dataType: 'json',
-                success: function(response) {
-                if (response.success) {
-                  toastr.success(response.message || 'Entry deleted successfully.');
-                  loadEntriesTable();
-                } else {
-                  toastr.error(response.message || 'Failed to delete entry.');
-                }
-                },
-                error: function() {
-                toastr.error('An error occurred. Please try again.');
-                }
-              });
+              function updateSummary(entries){
+                var total = entries.length;
+                var liters = entries.reduce(function(s, e){ return s + (parseFloat(e.milkliter) || 0); }, 0);
+                $('#entries-summary').text(` — ${total} entries, ${liters} L total`);
               }
-            });
-            // Update form submit to reload table via AJAX
-            $(document).ready(function() {
-              
-              $('#customerForm').off('submit').on('submit', function(e) {
-                e.preventDefault();
-                var form = $(this);
-                var formData = form.serialize();
 
+              function renderEntries(entries) {
+                lastEntries = entries || [];
+                updateSummary(lastEntries);
+                if (!Array.isArray(lastEntries) || lastEntries.length === 0) {
+                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
+                  return;
+                }
+                $('#entries-table-body').empty();
+                lastEntries.forEach(function(entry, idx) {
+                  let customerName = entry.customer_name || entry.name || 'Unknown Customer';
+                  let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
+                  $('#entries-table-body').append(
+                    `<tr data-name="${(customerName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
+                       <td>${idx + 1}</td>
+                       <td>${customerName}</td>
+                       <td>${milkType}</td>
+                       <td>${entry.milkliter || '0'} L</td>
+                       <td>
+                         <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
+                       </td>
+                     </tr>`
+                  );
+                });
+              }
+
+              function loadEntriesTable() {
+                $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
                 $.ajax({
-                  url: '<?php echo BASE_URL; ?>dailyentry/store',
-                  type: 'POST',
-                  data: formData,
+                  url: BASE_URL + 'dailyentry/list',
+                  type: 'GET',
                   dataType: 'json',
                   success: function(response) {
-                    $('.loader').hide();
-                    if (response.success) {
-                      toastr.success(response.message || 'Entry added successfully.');
-                      loadEntriesTable();
-                      form[0].reset();
-                      $('#cid').val('');
+                    if (response.success && Array.isArray(response.data)) {
+                      renderEntries(response.data);
                     } else {
-                      toastr.error(response.message || 'Failed to add entry.');
+                      renderEntries([]);
                     }
                   },
-                  error: function(xhr) {
-                    $('.loader').hide();
-                    alert('An error occurred. Please try again.');
+                  error: function(xhr, status, error) {
+                    console.error('loadEntriesTable error:', xhr, status, error);
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
                   }
                 });
+              }
+
+              $(document).ready(function () {
+                // Bind events
+                $("#customer_search").on("keyup", doAutoSelect);
+
+                // Form submit validation (prevent submit if no customer selected)
+                $("form").on("submit", function (e) {
+                  if (!$("#cid").val()) {
+                    alert("Please enter a valid customer (ID / Number / Name) to auto-select.");
+                    e.preventDefault();
+                    return false;
+                  }
+                });
+
+                // Delete flow using modal confirmation
+                var selectedEntryId = null;
+                $(document).on('click', '.delete-entry', function() {
+                  selectedEntryId = $(this).data('id');
+                  var modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+                  modal.show();
+                });
+
+                $('#confirmDeleteBtn').on('click', function(){
+                  if (!selectedEntryId) return;
+                  var btn = $(this).prop('disabled', true).text('Deleting...');
+                  $.ajax({
+                    url: BASE_URL + 'dailyentry/delete/' + selectedEntryId,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                      btn.prop('disabled', false).text('Delete');
+                      var modalEl = document.getElementById('confirmDeleteModal');
+                      var modal = bootstrap.Modal.getInstance(modalEl);
+                      if (modal) modal.hide();
+                      if (response.success) {
+                        toastr.success(response.message || 'Entry deleted successfully.');
+                        loadEntriesTable();
+                      } else {
+                        toastr.error(response.message || 'Failed to delete entry.');
+                      }
+                      selectedEntryId = null;
+                    },
+                    error: function() {
+                      btn.prop('disabled', false).text('Delete');
+                      toastr.error('An error occurred. Please try again.');
+                    }
+                  });
+                });
+
+                // Client-side search/filter
+                $('#entries-search').on('input', debounce(function(){
+                  var q = $(this).val().toLowerCase().trim();
+                  if (!q) {
+                    // show all
+                    $('#entries-table-body tr').show();
+                    updateSummary(lastEntries);
+                    return;
+                  }
+                  var filtered = lastEntries.filter(function(e){
+                    var name = (e.customer_name||e.name||'').toLowerCase();
+                    var type = (e.milktype||'').toLowerCase();
+                    return name.indexOf(q) !== -1 || type.indexOf(q) !== -1 || String(e.id||'').indexOf(q) !== -1 || String(e.bill_id||'').indexOf(q) !== -1;
+                  });
+                  // re-render rows from filtered set
+                  if (filtered.length === 0) {
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries match.</td></tr>');
+                  } else {
+                    renderEntries(filtered);
+                  }
+                }, 200));
+
+                // Refresh & export
+                $('#refreshEntries').on('click', function(){
+                  loadEntriesTable();
+                });
+
+                function exportToCsv(filename, rows) {
+                  if (!rows || !rows.length) return toastr.info('No data to export');
+                  var headers = ['#','Customer','Type','Liters','ID','Bill ID','Date'];
+                  var csv = headers.join(',') + '\n';
+                  rows.forEach(function(r, i){
+                    var line = [i+1, '"'+(r.customer_name||r.name||'')+'"', (r.milktype||''), (r.milkliter||''), (r.id||''), (r.bill_id||''), (r.entry_date||'')];
+                    csv += line.join(',') + '\n';
+                  });
+                  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                  var link = document.createElement('a');
+                  var url = URL.createObjectURL(blob);
+                  link.setAttribute('href', url);
+                  link.setAttribute('download', filename);
+                  link.style.visibility = 'hidden';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  URL.revokeObjectURL(url);
+                }
+
+                $('#exportCsv').on('click', function(){
+                  exportToCsv('entries.csv', lastEntries);
+                });
+
+                // Submit via AJAX and reload table
+                $('#customerForm').off('submit').on('submit', function(e) {
+                  e.preventDefault();
+                  var form = $(this);
+                  var formData = form.serialize();
+                  $('.loader').show();
+                  $.ajax({
+                    url: BASE_URL + 'dailyentry/store',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                      $('.loader').hide();
+                        if (response.success) {
+                        toastr.success(response.message || 'Entry added successfully.');
+                        loadEntriesTable();
+                        // Reset all fields except date
+                        var dateVal = $('#entry_date').val();
+                        form[0].reset();
+                        $('#cid').val('');
+                        $('#entry_date').val(dateVal);
+                        
+                      } else {
+                        toastr.error(response.message || 'Failed to add entry.');
+                      }
+                    },
+                    error: function(xhr) {
+                      $('.loader').hide();
+                      alert('An error occurred. Please try again.');
+                    }
+                  });
+                });
+
+                // Initial load
+                loadEntriesTable();
               });
-              
-            });
+            })();
             </script>

@@ -532,12 +532,16 @@ function downloadPDF() {
     return;
   }
 
+  // Get rates
+  const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+  const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
+
   // Format dates as yyyy-mm-dd for URL
   const formattedStart = startDate;
   const formattedEnd = endDate;
 
-  // Open PDF in new window for selected date range
-  const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formattedStart}/${formattedEnd}`;
+  // Open PDF in new window for selected date range and rates
+  const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formattedStart}/${formattedEnd}?cow_rate=${encodeURIComponent(cowRate)}&buffalo_rate=${encodeURIComponent(buffaloRate)}`;
   window.open(pdfUrl, '_blank');
 }
 
