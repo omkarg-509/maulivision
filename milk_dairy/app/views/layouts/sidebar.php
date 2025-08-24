@@ -107,7 +107,6 @@ $vendor = isset($_SESSION['vendor']) ?
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
   <script>
     (function(){
-      // key used in localStorage
       var LS_KEY = 'maulivision_lang';
       var select = document.getElementById('siteLangSelect');
 
@@ -118,52 +117,87 @@ $vendor = isset($_SESSION['vendor']) ?
           date.setTime(date.getTime() + (days*24*60*60*1000));
           expires = '; expires=' + date.toUTCString();
         }
-        var domain = location.hostname;
         document.cookie = name + '=' + value + expires + '; path=/';
       }
 
-      function applyLang(lang, save) {
-        // set document language attribute
-        if (lang && lang !== 'auto') document.documentElement.lang = lang; else document.documentElement.removeAttribute('lang');
-        // store selection
-        if (save) localStorage.setItem(LS_KEY, lang);
-        // set google translate cookie to instruct widget (common pattern)
-        try {
-          var val = '/auto/' + (lang === 'auto' ? '' : lang);
-          // set cookie twice for compatibility
-          setCookie('googtrans', val, 365);
-          setCookie('__googtrans', val, 365);
-        } catch(e) { console.warn('Could not set translate cookie', e); }
-        // reload to let any translation widget pick up the change
-        // For a smoother UX you can remove reload and integrate with the translate widget API if present
-        window.location.reload();
+      function loadGoogleTranslate(cb) {
+        if (window.google && window.google.translate) {
+          return cb && cb();
+        }
+        // create hidden container if not present
+        if (!document.getElementById('google_translate_element')) {
+          var div = document.createElement('div');
+          div.id = 'google_translate_element';
+          div.style.display = 'none';
+          document.body.appendChild(div);
+        }
+        window.__gtOnLoad = function(){
+          try{
+            new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, includedLanguages: 'hi,en,es,fr'}, 'google_translate_element');
+          }catch(e){console.warn('GT init', e)}
+          cb && setTimeout(cb, 200);
+        };
+        if (!document.getElementById('__google_translate_script')) {
+          var s = document.createElement('script');
+          s.id = '__google_translate_script';
+          s.src = '//translate.google.com/translate_a/element.js?cb=__gtOnLoad';
+          s.async = true;
+          document.body.appendChild(s);
+        }
       }
 
-      // init select from localStorage
+      function setWidgetLang(lang) {
+        var sel = document.querySelector('#google_translate_element select');
+        if (!sel) return false;
+        // try to match by value or text
+        var target = (lang === 'auto' ? '' : lang).toLowerCase();
+        for(var i=0;i<sel.options.length;i++){
+          var opt = sel.options[i];
+          if ((opt.value || '').toLowerCase().indexOf(target) !== -1 || (opt.text || '').toLowerCase().indexOf(target) !== -1) {
+            sel.selectedIndex = i;
+            sel.dispatchEvent(new Event('change'));
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function applyLang(lang, save) {
+        try { if (lang && lang !== 'auto') document.documentElement.lang = lang; else document.documentElement.removeAttribute('lang'); } catch(e){}
+        if (save) try{ localStorage.setItem(LS_KEY, lang); }catch(e){}
+        var val = '/auto/' + (lang === 'auto' ? '' : lang);
+        try{ setCookie('googtrans', val, 365); setCookie('__googtrans', val, 365); }catch(e){console.warn(e)}
+
+        // try apply immediately via widget; if not available load it then apply
+        if (setWidgetLang(lang)) return;
+        loadGoogleTranslate(function(){
+          // small delay to let widget build
+          setTimeout(function(){ setWidgetLang(lang); }, 400);
+        });
+      }
+
+      // init
       try {
         var cur = localStorage.getItem(LS_KEY) || 'auto';
         if (select) {
           select.value = cur;
-            select.addEventListener('change', function(){ 
-              var v = this.value;
-              // save to server if vendor present
-              try {
-                var vendorId = <?= json_encode($vendor['id'] ?? null) ?>;
-              } catch(e) { var vendorId = null; }
-              // attempt AJAX save, but proceed to apply immediately
-              if (vendorId) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '<?= BASE_URL ?>set_language.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('vendor_id=' + encodeURIComponent(vendorId) + '&lang=' + encodeURIComponent(v));
-              }
-              applyLang(this.value, true); 
-            });
+          select.addEventListener('change', function(){ 
+            var v = this.value;
+            try { var vendorId = <?= json_encode($vendor['id'] ?? null) ?>; } catch(e) { var vendorId = null; }
+            if (vendorId) {
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', '<?= BASE_URL ?>set_language.php', true);
+              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+              xhr.send('vendor_id=' + encodeURIComponent(vendorId) + '&lang=' + encodeURIComponent(v));
+            }
+            applyLang(v, true);
+          });
         }
-        // apply initially without saving if present
+        // apply initial language silently
         if (cur && cur !== 'auto') {
-          // set cookie so translate widget applies across pages
-          setCookie('googtrans', '/auto/' + cur, 365);
+          try{ setCookie('googtrans', '/auto/' + cur, 365); setCookie('__googtrans', '/auto/' + cur, 365); }catch(e){}
+          // ensure widget exists and apply
+          loadGoogleTranslate(function(){ setWidgetLang(cur); });
         }
       } catch(err) { console.warn(err); }
     })();
