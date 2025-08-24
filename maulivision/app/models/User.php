@@ -15,7 +15,7 @@ class User extends Database
         if ($identifier === '') return null;
 
         // Try common columns on users table
-        $sql = "SELECT * FROM users WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
+        $sql = "SELECT * FROM superadmin WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
         if ($stmt = $this->db->prepare($sql)) {
             $stmt->bind_param('sss', $identifier, $identifier, $identifier);
             if ($stmt->execute()) {
@@ -51,7 +51,7 @@ class User extends Database
         if ($id <= 0) return null;
 
         // users table first
-        $sql = "SELECT * FROM users WHERE id = ? LIMIT 1";
+        $sql = "SELECT * FROM superadmin WHERE id = ? LIMIT 1";
         if ($stmt = $this->db->prepare($sql)) {
             $stmt->bind_param('i', $id);
             if ($stmt->execute()) {
@@ -65,7 +65,7 @@ class User extends Database
         }
 
         // fallback vendors table
-        $sql2 = "SELECT * FROM vendors WHERE id = ? LIMIT 1";
+        $sql2 = "SELECT * FROM superadmin WHERE id = ? LIMIT 1";
         if ($stmt2 = $this->db->prepare($sql2)) {
             $stmt2->bind_param('i', $id);
             if ($stmt2->execute()) {
