@@ -65,7 +65,7 @@ class CustomerController extends Controller
             $businessNumber = $vendor['business_number'] ?? '';
             $businessAddress = $vendor['business_address'] ?? '';
 
-            // If business name is not in English, transliterate to English (basic)
+            // Marathi to English transliteration (if not already English)
             if (!preg_match('/^[\x20-\x7E]+$/', $businessName)) {
                 if (function_exists('transliterator_transliterate')) {
                     $businessName = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessName);
