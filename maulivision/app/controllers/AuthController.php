@@ -24,6 +24,7 @@ $password = "Mvision@509";
 
 // Password hashing (bcrypt)
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+echo $hashedPassword;
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
