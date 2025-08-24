@@ -13,16 +13,8 @@
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
              <div class="card shadow-sm login-card">
-
-             
-            <div class="row g-0">
-              <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center login-left p-4">
-                <div class="text-center">
-                  <img src="/public/assets/img/logo-1.png" alt="MilkDairy" style="height:64px" class="mb-3">
-                  <h5 class="mb-0">Welcome Back</h5>
-                  <small class="d-block small-note">Sign in to manage your dairy</small>
-                </div>
-              </div>
+<div class="row g-0">
+           
 
               <div class="col-md-7">
                 <div class="card-body">
