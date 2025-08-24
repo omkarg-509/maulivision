@@ -15,9 +15,9 @@ class User extends Database
         if ($identifier === '') return null;
 
         // Try common columns on users table
-        $sql = "SELECT * FROM superadmin WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
+        $sql = "SELECT * FROM superadmin WHERE email = ? OR mobile = ?  LIMIT 1";
         if ($stmt = $this->db->prepare($sql)) {
-            $stmt->bind_param('sss', $identifier, $identifier, $identifier);
+            $stmt->bind_param('ss', $identifier, $identifier);
             if ($stmt->execute()) {
                 $result = $stmt->get_result();
                 $row = $result ? $result->fetch_assoc() : null;
@@ -29,9 +29,9 @@ class User extends Database
         }
 
         // Try vendors table as fallback (since app uses vendor session)
-        $sql2 = "SELECT * FROM superadmin WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
+        $sql2 = "SELECT * FROM superadmin WHERE email = ? OR mobile = ?  LIMIT 1";
         if ($stmt2 = $this->db->prepare($sql2)) {
-            $stmt2->bind_param('sss', $identifier, $identifier, $identifier);
+            $stmt2->bind_param('ss', $identifier, $identifier);
             if ($stmt2->execute()) {
                 $result2 = $stmt2->get_result();
                 $row2 = $result2 ? $result2->fetch_assoc() : null;
