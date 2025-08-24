@@ -11,7 +11,6 @@ class Controller
     public function view($view, $data = [])
 {
     require_once "../app/views/layouts/header.php";
-    require_once "../app/views/layouts/sidebar.php";
     require_once '../app/views/' . $view . '.php';
     require_once "../app/views/layouts/footer.php";
     
