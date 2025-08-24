@@ -1,5 +1,4 @@
 <?php
-
 require_once '../app/helpers/Auth.php';
 
 class AuthController extends Controller
