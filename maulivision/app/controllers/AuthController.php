@@ -31,15 +31,14 @@ class AuthController extends Controller
             header('Content-Type: application/json');
 
           $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
-            $password = isset($_POST['password']) ? $_POST['password'] : '';
-echo $password;
-            if (empty($email_or_number) || empty($password)) {
-                echo json_encode([
-                    'status' => 'error',
-                    'message' => 'Email or mobile number and password are required.'
-                ]);
-                exit;
-            }
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+if (empty($email_or_number) || empty($password)) {
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Email or mobile number and password are required.'
+    ]);
+    exit;
+}
 
             $userModel = $this->model('User');
             $superadmin = $userModel->findByEmailOrNumber($email_or_number);
