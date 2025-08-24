@@ -30,7 +30,7 @@ class AuthController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
 
-            $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
+         echo $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
             $password = isset($_POST['password']) ? $_POST['password'] : '';
 
             if (empty($email_or_number) || empty($password)) {
