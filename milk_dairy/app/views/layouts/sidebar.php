@@ -58,8 +58,25 @@ $vendor = isset($_SESSION['vendor']) ?
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-  <span class="logo-name"  style="font-size:12px !important">
-    <?= htmlspecialchars($vendor['business_name']) ?>
+  <span class="logo-name" style="font-size:12px !important">
+    <?php
+      $businessName = $vendor['business_name'] ?? '';
+      if (isset($_SESSION['lang'])) {
+        switch ($_SESSION['lang']) {
+          case 'hi':
+            $businessName = $vendor['business_name_hi'] ?? $businessName;
+            break;
+          case 'mr':
+            $businessName = $vendor['business_name_mr'] ?? $businessName;
+            break;
+          case 'en':
+          default:
+            // Use default business_name
+            break;
+        }
+      }
+      echo htmlspecialchars($businessName);
+    ?>
 </span>
             </a>
           
