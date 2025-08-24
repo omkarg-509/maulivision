@@ -9,6 +9,6 @@ class HomeController extends Controller
 
     public function about()
     {
-        $this->home('about/index');
+        $this->view('home/about');
     }
 }
