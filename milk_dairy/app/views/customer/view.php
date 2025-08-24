@@ -533,8 +533,8 @@ function downloadPDF() {
   }
 
   // Get rates
-  const cowRate = parseFloat(document.getElementById('cow_rate').value) || 0;
-  const buffaloRate = parseFloat(document.getElementById('buffalo_rate').value) || 0;
+  const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+  const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
 
   // Format dates as yyyy-mm-dd for URL
   const formattedStart = startDate;
