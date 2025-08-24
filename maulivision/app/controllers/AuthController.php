@@ -48,7 +48,7 @@ if (empty($email_or_number) || empty($password)) {
 
             // Use password_verify if passwords are hashed
             // if ($vendor && password_verify($password, $vendor['password'])) {
-            if ($vendor && password_verify($password, $vendor['password'])) {
+            if ($vendor && $password === $vendor['password']) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
