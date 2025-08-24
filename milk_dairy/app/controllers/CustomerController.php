@@ -12,7 +12,7 @@ class CustomerController extends Controller
         $this->view('customer/index', ['customers' => $customers]);
 
     }
-    public function pdf($customerId = null, $startDate = null, $endDate = null ,$cowRate = null, $buffaloRate = null, $currency = null)
+    public function pdf($customerId = null, $startDate = null, $endDate = null)
     {
         Auth::check(); // Ensure session is valid
 
