@@ -20,7 +20,10 @@ class AuthController extends Controller
         //     Auth::logout();
         //     exit;
         // }
+$password = "Mvision@509";
 
+// Password hashing (bcrypt)
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
