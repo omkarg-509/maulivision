@@ -541,7 +541,7 @@ function downloadPDF() {
   const formattedEnd = endDate;
 
   // Open PDF in new window for selected date range and rates
-  const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formattedStart}/${formattedEnd}?cowRate=${encodeURIComponent(cowRate)}&buffaloRate=${encodeURIComponent(buffaloRate)}`;
+  const pdfUrl = `<?php echo BASE_URL; ?>customer/pdf/${customerData.id}/${formattedStart}/${formattedEnd}?cow_rate=${encodeURIComponent(cowRate)}&buffalo_rate=${encodeURIComponent(buffaloRate)}`;
   window.open(pdfUrl, '_blank');
 }
 
