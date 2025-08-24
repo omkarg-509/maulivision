@@ -1,4 +1,114 @@
-<?php require_once __DIR__ . '/../layouts/sidebar.php';?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mauli Vision — Solo developer building fast, modern websites, apps, and digital experiences.">
+  <meta name="keywords" content="maulivision, digital marketing,web design,web development,">
+  <meta name="author" content="Mauli Vision (Solo Developer)">
+  <title>Mauli Vision — Web, Apps, Design</title>
+  <link rel="shortcut icon" href="<?= BASE_URL ?>assets/favicon-1.png">
+
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/colors/sky.css">
+  <meta name="google-adsense-account" content="ca-pub-6175226312586147">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6175226312586147"
+     crossorigin="anonymous"></script>
+     <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+</head>
+
+<body>
+
+
+  <div class="content-wrapper">
+
+<header class="wrapper bg-light">
+<nav class="navbar navbar-expand-lg classic transparent navbar-light">
+  <div class="container flex-lg-row flex-nowrap align-items-center">
+    <div class="navbar-brand w-100">
+      <a href="<?= BASE_URL ?>">
+        <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:10%;"/>
+      </a>
+    </div>
+    <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
+      <div class="offcanvas-header d-lg-none bg-light">
+       <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:15%;"/>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas" ><i class="fa fa-close"></i></button>
+      </div>
+      <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
+        <ul class="navbar-nav">
+         
+          <li class="nav-item dropdown">
+            <a class="nav-link " href="#home">Home</a>
+         
+          </li>
+           <li class="nav-item dropdown">
+            <a class="nav-link " href="#About">About</a>
+         
+          </li>
+          <!--  <li class="nav-item dropdown">
+            <a class="nav-link " href="services.html">Services</a>
+         
+          </li> -->
+           <li class="nav-item dropdown">
+            <a class="nav-link " href="#Projects">Projects</a>
+         
+          </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link " href="10-best-online-business-ideas.html">Business Ideas</a>
+         
+          </li>
+          <!--  <li class="nav-item dropdown">
+            <a class="nav-link " href="tel: 7448224412">Contacts</a>
+         
+          </li> -->
+          
+        </ul>
+        <!-- /.navbar-nav -->
+        <div class="offcanvas-footer d-lg-none">
+          <div>
+            <a><span class="text-warning">maulivision@gmail.com</span></a>
+            <br /> +91 (744) 822 4412 <br />
+            <nav class="nav social social-white mt-4">
+              <!-- <a href="#"><i class="uil uil-twitter"></i></a>
+              <a href="#"><i class="uil uil-facebook-f"></i></a>
+              <a href="#"><i class="uil uil-dribbble"></i></a>
+              <a href="#"><i class="uil uil-instagram"></i></a>
+              <a href="#"><i class="uil uil-youtube"></i></a> -->
+            </nav>
+            <!-- /.social -->
+          </div>
+        </div>
+        <!-- /.offcanvas-footer -->
+      </div>
+      <!-- /.offcanvas-body -->
+    </div>
+    <!-- /.navbar-collapse -->
+    <div class="navbar-other ms-lg-4">
+      <ul class="navbar-nav flex-row align-items-center ms-auto">
+        <li class="nav-item d-none d-md-block">
+          <a href="tel: 7448224412" class="btn btn-sm btn-yellow rounded-pill">Contact</a>
+        </li>
+        <li class="nav-item d-none d-md-block ms-2">
+          <a href="<?= BASE_URL ?>auth" class="btn btn-sm btn-primary rounded-pill">Login</a>
+        </li>
+        <li class="nav-item d-lg-none">
+          <button class="hamburger offcanvas-nav-btn"><span></span></button>
+        </li>
+      </ul>
+      <!-- /.navbar-nav -->
+    </div>
+    <!-- /.navbar-other -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- /.navbar -->
 
 </header>
     <!-- /header -->
@@ -370,3 +480,42 @@
    
     <!-- /section -->
   </div>
+ <!-- /.content-wrapper -->
+ <footer class="bg-navy text-inverse">
+    <div class="container pt-12 pt-lg-6 pb-13 pb-md-15">
+     
+      <!--/div -->
+      <hr class="mt-11 mb-12" />
+      <div class="row gy-6 gy-lg-0">
+        <div class="col-md-4 col-lg-3">
+          <div class="widget">
+          <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:30%;"/>
+            <p class="mb-4">© 2025 MauliVision. <br class="d-none d-lg-block" />All rights reserved.</p>
+            <nav class="nav social social-white">
+            
+            </nav>
+           
+          </div>
+        
+        </div>
+        
+        
+        
+
+        
+      </div>
+      
+      
+      
+      
+     
+    </div>
+  
+  </footer>
+  
+
+
+<script src="<?= BASE_URL ?>assets/js/plugins.js"></script>
+  <script src="<?= BASE_URL ?>assets/js/theme.js"></script>
+</body>
+</html>
