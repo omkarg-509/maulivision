@@ -144,7 +144,21 @@ $vendor = isset($_SESSION['vendor']) ?
         var cur = localStorage.getItem(LS_KEY) || 'auto';
         if (select) {
           select.value = cur;
-          select.addEventListener('change', function(){ applyLang(this.value, true); });
+            select.addEventListener('change', function(){ 
+              var v = this.value;
+              // save to server if vendor present
+              try {
+                var vendorId = <?= json_encode($vendor['id'] ?? null) ?>;
+              } catch(e) { var vendorId = null; }
+              // attempt AJAX save, but proceed to apply immediately
+              if (vendorId) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?= BASE_URL ?>set_language.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('vendor_id=' + encodeURIComponent(vendorId) + '&lang=' + encodeURIComponent(v));
+              }
+              applyLang(this.value, true); 
+            });
         }
         // apply initially without saving if present
         if (cur && cur !== 'auto') {
