@@ -153,3 +153,11 @@ $vendor = isset($_SESSION['vendor']) ?
       <?php endif; ?>
     </script>
   </div>
+  <?php
+  // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lang'])) {
+  //     $_SESSION['lang'] = $_POST['lang'];
+  //     // Optionally reload to apply language change
+  //     header("Location: " . $_SERVER['REQUEST_URI']);
+  //     exit;
+  // }
+  ?>
