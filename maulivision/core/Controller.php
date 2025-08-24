@@ -12,6 +12,7 @@ class Controller
 {
     require_once "../app/views/layouts/header.php";
     require_once '../app/views/' . $view . '.php';
+    require_once "../app/views/layouts/footer.php";
     require_once "../app/views/layouts/tel.php";
 }
 

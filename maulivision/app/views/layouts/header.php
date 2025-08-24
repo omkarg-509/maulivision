@@ -4,10 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
+  <meta name="description" content="Mauli Vision — Solo developer building fast, modern websites, apps, and digital experiences.">
   <meta name="keywords" content="maulivision, digital marketing,web design,web development,">
-  <meta name="author" content="Omkar">
-  <title>Mauli Vision</title>
+  <meta name="author" content="Mauli Vision (Solo Developer)">
+  <title>Mauli Vision — Web, Apps, Design</title>
   <link rel="shortcut icon" href="<?= BASE_URL ?>assets/favicon-1.png">
 
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins.css">

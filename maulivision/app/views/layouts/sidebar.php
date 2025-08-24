@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg classic transparent navbar-light">
   <div class="container flex-lg-row flex-nowrap align-items-center">
     <div class="navbar-brand w-100">
-      <a href="index.html">
+      <a href="<?= BASE_URL ?>">
         <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:10%;"/>
       </a>
     </div>
@@ -67,6 +67,9 @@
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         <li class="nav-item d-none d-md-block">
           <a href="tel: 7448224412" class="btn btn-sm btn-yellow rounded-pill">Contact</a>
+        </li>
+        <li class="nav-item d-none d-md-block ms-2">
+          <a href="<?= BASE_URL ?>auth" class="btn btn-sm btn-primary rounded-pill">Login</a>
         </li>
         <li class="nav-item d-lg-none">
           <button class="hamburger offcanvas-nav-btn"><span></span></button>

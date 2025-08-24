@@ -55,7 +55,7 @@ class AuthController extends Controller
 
                 echo json_encode([
                     'status' => 'success',
-                    'redirect' => BASE_URL . 'dashboard'
+                    'redirect' => BASE_URL
                 ]);
                 exit;
             } else {
@@ -114,8 +114,8 @@ class AuthController extends Controller
      */
     private function redirectToDashboard()
     {
-        $redirectUrl = (defined('BASE_URL') ? rtrim(BASE_URL, '/') . '/' : '/') . 'dashboard';
-        header('Location: ' . $redirectUrl);
+    $redirectUrl = defined('BASE_URL') ? BASE_URL : '/';
+    header('Location: ' . $redirectUrl);
         exit;
     }
 }

@@ -1,5 +1,3 @@
-<?php require_once __DIR__ . '/../layouts/header.php';?>
-
 <?php require_once __DIR__ . '/../layouts/sidebar.php';?>
 
 </header>
@@ -8,14 +6,15 @@
       <div class="container pt-10 pt-md-14 pb-14 pb-md-16 text-center">
         <div class="row gx-lg-8 gx-xl-12 gy-10 gy-xl-0 mb-14 align-items-center">
           <div class="col-lg-7 order-lg-2">
-            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i21.png" srcset="assets/img/illustrations/i21.png" alt="" /></figure>
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i21.png" alt="Illustration" /></figure>
           </div>
          
           <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start">
-            <h1 class="display-1 fs-54 mb-5 mx-md-n5 mx-lg-0 mt-7">A digital agency <br class="d-md-none">specializing on <br class="d-md-none"><span class="rotator-fade text-primary">mobile design,web design,Software development
+            <h1 class="display-1 fs-54 mb-5 mx-md-n5 mx-lg-0 mt-7">A digital agency <br class="d-md-none">specializing in <br class="d-md-none"><span class="rotator-fade text-primary">mobile design, web design, software development
             </span></h1>
-            <p class="lead fs-lg mb-7">We are an award winning design agency that strongly believes in the power of creative ideas.</p>
-           
+            <p class="lead fs-lg mb-3">We build clean, fast, and user-friendly products.</p>
+            <small class="text-muted d-block mb-4">Team: Solo developer (Mauli Vision)</small>
+            <a href="<?= BASE_URL ?>auth" class="btn btn-primary rounded-pill">Login</a>
           </div>
   
         </div>
@@ -45,7 +44,7 @@
         <div class="row gx-lg-8 gx-xl-12 gy-11 px-xxl-5 text-center d-flex align-items-end">
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i24.png" alt="" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i24.png" alt="Web design" /></figure>
               <h3>Web Design</h3>
               <p class="mb-2">Web design is the process of creating and designing the visual appearance and functionality of a website. It involves a variety of disciplines such as graphic design, user interface design, user experience design, and search engine optimization.</p>
               
@@ -55,7 +54,7 @@
           <!--/column -->
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i19.png"  alt="" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i19.png"  alt="Graphic design" /></figure>
               <h3>Graphic Design</h3>
               <p class="mb-2">Graphic designers may create designs for a variety of media, including print and digital media. They may work on projects such as logo design, website design, advertising campaigns, packaging design, and more.</p>
               
@@ -65,7 +64,7 @@
           <!--/column -->
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i18.png"  alt="" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i18.png"  alt="Digital marketing" /></figure>
               <h3>Digital Markting</h3>
               <p class="mb-2">Digital marketing refers to the use of digital channels, such as search engines, social media, email, and websites, to promote a product or service. It involves a range of tactics that businesses can use to reach and engage with their target audience online.</p>
               
@@ -149,7 +148,7 @@
       <div class="container pb-14 pb-md-16">
         <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
           <div class="col-lg-7">
-            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i22.wabp"  alt="" /></figure>
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i22.wabp"  alt="Why choose us" /></figure>
           </div>
           <!--/column -->
           <div class="col-lg-5">
@@ -271,7 +270,7 @@
               <div class="wrapper">
                 
                 <div class="slide">
-                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/aus.wabp"  alt="" /></a></figure>
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/aus.wabp"  alt="Aus Lighting Industry" /></a></figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3"><a target="_blank" class="link-dark" href="https://auslightingind.com/">Aus Lighting Industry</a></h2>
@@ -343,4 +342,4 @@
     <!-- /section -->
    
     <!-- /section -->
-  </div><?php require_once __DIR__ . '/../layouts/footer.php';?>
+  </div>
