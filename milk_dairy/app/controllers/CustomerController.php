@@ -70,8 +70,15 @@ class CustomerController extends Controller
             // Start output buffering to prevent headers already sent errors
             if (ob_get_level() == 0) ob_start();
 
-            // Load TCPDF library
-            require_once __DIR__ . '/../lib/tcpdf/tcpdf.php';
+            // Load TCPDF library if not already loaded
+            if (!class_exists('TCPDF')) {
+                $tcpdfPath = __DIR__ . '/../lib/tcpdf/tcpdf.php';
+                if (file_exists($tcpdfPath)) {
+                    require_once $tcpdfPath;
+                } else {
+                    throw new Exception('TCPDF library not found at: ' . $tcpdfPath);
+                }
+            }
 
             // Create PDF with proper error handling
             $pdf = new TCPDF();
