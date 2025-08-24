@@ -97,3 +97,21 @@ $vendor = isset($_SESSION['vendor']) ?
         </aside>
       </div>
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <!-- Language Switcher Button -->
+  <div style="position: fixed; bottom: 20px; left: 20px; z-index: 999;">
+    <form method="post" action="" id="lang-switch-form">
+      <select name="lang" onchange="document.getElementById('lang-switch-form').submit();" class="form-select form-select-sm">
+        <option value="en" <?= (isset($_SESSION['lang']) && $_SESSION['lang'] === 'en') ? 'selected' : '' ?>>English</option>
+        <option value="hi" <?= (isset($_SESSION['lang']) && $_SESSION['lang'] === 'hi') ? 'selected' : '' ?>>हिन्दी</option>
+        <!-- Add more languages as needed -->
+      </select>
+    </form>
+  </div>
+  <?php
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lang'])) {
+      $_SESSION['lang'] = $_POST['lang'];
+      // Optionally reload to apply language change
+      header("Location: " . $_SERVER['REQUEST_URI']);
+      exit;
+  }
+  ?>
