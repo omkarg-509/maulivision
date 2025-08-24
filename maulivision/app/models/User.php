@@ -14,8 +14,8 @@ class User extends Database
         $identifier = trim($identifier);
         if ($identifier === '') return null;
 
-        // Try common columns on users table
-        $sql = "SELECT * FROM superadmin WHERE email = ? OR mobile = ?  LIMIT 1";
+        // Try common columns on superadmin table
+        $sql = "SELECT * FROM superadmin WHERE email = ? OR mobile = ? LIMIT 1";
         if ($stmt = $this->db->prepare($sql)) {
             $stmt->bind_param('ss', $identifier, $identifier);
             if ($stmt->execute()) {
