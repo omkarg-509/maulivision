@@ -1,4 +1,4 @@
-<?php require_once '../app/views/layouts/sidebar.php';?>
+<?php require_once __DIR__ . '/../layouts/sidebar.php';?>
 
 <div class="main-content">
   <div class="loader" style="display:none;"></div>
@@ -114,6 +114,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 (function($){

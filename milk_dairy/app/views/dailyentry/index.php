@@ -156,7 +156,7 @@
             </div>
 
             <!-- Delete confirmation modal -->
-            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-9" aria-hidden="true">
               <div class="modal-dialog modal-sm modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
