@@ -110,45 +110,43 @@ $vendor = isset($_SESSION['vendor']) ?
     <div id="google_translate_element" style="display:none;"></div>
     <script type="text/javascript">
       function googleTranslateElementInit() {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'en,hi,mr',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-      }, 'google_translate_element');
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,hi,mr',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
       }
 
       // Load Google Translate script
       (function() {
-      var gt = document.createElement('script');
-      gt.type = 'text/javascript';
-      gt.async = true;
-      gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(gt, s);
+        var gt = document.createElement('script');
+        gt.type = 'text/javascript';
+        gt.async = true;
+        gt.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(gt, s);
       })();
 
       // Map your language codes to Google Translate codes
       const langMap = {
-      'en': 'en',
-      'hi': 'hi',
-      'mr': 'mr'
+        'en': 'en',
+        'hi': 'hi',
+        'mr': 'mr'
       };
 
       document.getElementById('lang-select').addEventListener('change', function() {
-      var lang = this.value;
-      var googleLang = langMap[lang] || 'en';
-      // Set Google Translate cookie and reload
-      document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
-      location.reload();
+        // Submit the form to trigger PHP session update and reload
+        document.getElementById('lang-switch-form').submit();
       });
 
       // On page load, set Google Translate language if session lang is set
       <?php if (isset($_SESSION['lang'])): ?>
       (function() {
-      var googleLang = langMap['<?= $_SESSION['lang'] ?>'] || 'en';
-      if (googleLang !== 'en') {
-        document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
-      }
+        var langMap = { 'en': 'en', 'hi': 'hi', 'mr': 'mr' };
+        var googleLang = langMap['<?= $_SESSION['lang'] ?>'] || 'en';
+        if (googleLang !== 'en') {
+          document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
+        }
       })();
       <?php endif; ?>
     </script>
