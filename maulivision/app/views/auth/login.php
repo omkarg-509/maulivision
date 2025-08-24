@@ -12,11 +12,9 @@
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8 col-xl-6">
-          <div class="d-flex justify-content-end mb-2">
-            <a href="/public/auth/register" class="btn btn-outline-primary btn-sm">Register</a>
-          </div>
+             <div class="card shadow-sm login-card">
 
-          <div class="card shadow-sm login-card">
+             
             <div class="row g-0">
               <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center login-left p-4">
                 <div class="text-center">
