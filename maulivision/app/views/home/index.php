@@ -1,3 +1,6 @@
+<?php require_once __DIR__ . '/../layouts/header.php';?>
+
+<?php require_once __DIR__ . '/../layouts/sidebar.php';?>
 
 </header>
     <!-- /header -->
@@ -340,4 +343,4 @@
     <!-- /section -->
    
     <!-- /section -->
-  </div>
+  </div><?php require_once __DIR__ . '/../layouts/footer.php';?>
