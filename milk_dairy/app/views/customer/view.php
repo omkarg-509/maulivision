@@ -98,10 +98,10 @@
                         <label>Select Date Range</label>
                         <div class="row">
                           <div class="col-6">
-                            <input type="date" id="startDate" class="form-control" onchange="filterByDate()">
+                            <input type="date" id="startDate" class="form-control" onchange="filterByDate()" placeholder="Start date (optional)">
                           </div>
                           <div class="col-6">
-                            <input type="date" id="endDate" class="form-control" onchange="filterByDate()">
+                            <input type="date" id="endDate" class="form-control" onchange="filterByDate()" placeholder="End date (optional)">
                           </div>
                         </div>
                       </div>
@@ -244,253 +244,245 @@
 
 <script>
 // Global variables
-let allEntries = [];
-let filteredEntries = [];
+ let allEntries = [];
+ let filteredEntries = [];
+ 
+ // Initialize data from PHP
+ const customerData = {
+     name: "<?= htmlspecialchars($data['customer']['name'] ?? '') ?>",
+     billId: "<?= htmlspecialchars($data['customer']['bill_id'] ?? '') ?>",
+     mobile: "<?= htmlspecialchars($data['customer']['mobile'] ?? '') ?>",
+     id: "<?= htmlspecialchars($data['customer']['id'] ?? '') ?>"
+ };
 
-// Initialize data from PHP
-const customerData = {
-    name: "<?= htmlspecialchars($data['customer']['name'] ?? '') ?>",
-    billId: "<?= htmlspecialchars($data['customer']['bill_id'] ?? '') ?>",
-    mobile: "<?= htmlspecialchars($data['customer']['mobile'] ?? '') ?>",
-    id: "<?= htmlspecialchars($data['customer']['id'] ?? '') ?>"
-};
+ // Load all entries into JavaScript
+ $(document).ready(function() {
+     // default milk rates (adjust as needed)
+     document.getElementById('cowRate').value = 50;
+     document.getElementById('buffaloRate').value = 60;
++
++    // Extract entries from table
++    $('#milkEntriesTable tbody tr[data-date]').each(function() {
++        const entry = {
++            date: $(this).data('date'),
++            milktype: $(this).data('milktype'),
++            liter: parseFloat($(this).data('liter')) || 0
++        };
++        allEntries.push(entry);
++    });
++
++    // By default show all entries (start/end left empty is allowed)
++    filteredEntries = [...allEntries];
++
++    // Do not prefill start/end – leave inputs empty so "no date filter" = all entries
++    // If inputs are empty, filterByDate() will use all entries.
++    calculateBill();
++    highlightFilteredRows();
+ });
+ 
+ // Calculate bill based on current filtered entries
+ function calculateBill() {
+     const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+     const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
+     
+     let totalCowLiters = 0;
+     let totalBuffaloLiters = 0;
+     const uniqueDates = new Set();
+     
+     filteredEntries.forEach(entry => {
+         if (entry.milktype === 'cow') {
+             totalCowLiters += entry.liter;
+         } else if (entry.milktype === 'buffalo') {
+             totalBuffaloLiters += entry.liter;
+         }
+         uniqueDates.add(entry.date.split(' ')[0]); // Get date part only
+     });
+     
+     const cowAmount = totalCowLiters * cowRate;
+     const buffaloAmount = totalBuffaloLiters * buffaloRate;
+     const grandTotalLiters = totalCowLiters + totalBuffaloLiters;
+     const grandTotalAmount = cowAmount + buffaloAmount;
+     const totalDays = uniqueDates.size;
+     const avgPerDay = totalDays > 0 ? (grandTotalLiters / totalDays).toFixed(2) : 0;
+     
+     // Update UI
+     document.getElementById('totalCowLiters').textContent = totalCowLiters.toFixed(2);
+     document.getElementById('totalBuffaloLiters').textContent = totalBuffaloLiters.toFixed(2);
+     document.getElementById('cowAmount').textContent = cowAmount.toFixed(2);
+     document.getElementById('buffaloAmount').textContent = buffaloAmount.toFixed(2);
+     document.getElementById('grandTotalLiters').textContent = grandTotalLiters.toFixed(2);
+     document.getElementById('grandTotalAmount').textContent = grandTotalAmount.toFixed(2);
+     document.getElementById('totalDays').textContent = totalDays;
+     document.getElementById('avgPerDay').textContent = avgPerDay;
+ }
 
-// Load all entries into JavaScript
-$(document).ready(function() {
-    // Set default milk rates
-    document.getElementById('cowRate').value = 50;
-    document.getElementById('buffaloRate').value = 60;
-    
-    // Extract entries from table
-    $('#milkEntriesTable tbody tr[data-date]').each(function() {
-        const entry = {
-            date: $(this).data('date'),
-            milktype: $(this).data('milktype'),
-            liter: parseFloat($(this).data('liter')) || 0
-        };
-        allEntries.push(entry);
-    });
-    
-    filteredEntries = [...allEntries];
-    
-    // Set current month as default (1st day to last day of current month)
-    const now = new Date();
-    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (1st date of current month)
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // शेवटचा दिवस म्हणजे चालू महिन्याचा शेवटचा दिवस (last date of current month)
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    
-    // Set the date inputs to current month range
-    document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
-    document.getElementById('endDate').value = lastDay.toISOString().split('T')[0];
-    
-    // Apply the date filter and calculate bill
-    filterByDate();
-    calculateBill();
-});
+ // Filter entries by date range
+ function filterByDate() {
+     const startDate = document.getElementById('startDate').value;
+     const endDate = document.getElementById('endDate').value;
+     
+     if (!startDate || !endDate) {
+         // empty inputs -> show all entries
+         filteredEntries = [...allEntries];
+     } else {
+         const start = new Date(startDate);
+         const end = new Date(endDate);
+         
+         filteredEntries = allEntries.filter(entry => {
+             const entryDate = new Date(entry.date.split(' ')[0]);
+             return entryDate >= start && entryDate <= end;
+         });
+     }
+     
+     calculateBill();
+     highlightFilteredRows();
+ }
 
-// Calculate bill based on current filtered entries
-function calculateBill() {
-    const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
-    const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
-    
-    let totalCowLiters = 0;
-    let totalBuffaloLiters = 0;
-    const uniqueDates = new Set();
-    
-    filteredEntries.forEach(entry => {
-        if (entry.milktype === 'cow') {
-            totalCowLiters += entry.liter;
-        } else if (entry.milktype === 'buffalo') {
-            totalBuffaloLiters += entry.liter;
-        }
-        uniqueDates.add(entry.date.split(' ')[0]); // Get date part only
-    });
-    
-    const cowAmount = totalCowLiters * cowRate;
-    const buffaloAmount = totalBuffaloLiters * buffaloRate;
-    const grandTotalLiters = totalCowLiters + totalBuffaloLiters;
-    const grandTotalAmount = cowAmount + buffaloAmount;
-    const totalDays = uniqueDates.size;
-    const avgPerDay = totalDays > 0 ? (grandTotalLiters / totalDays).toFixed(2) : 0;
-    
-    // Update UI
-    document.getElementById('totalCowLiters').textContent = totalCowLiters.toFixed(2);
-    document.getElementById('totalBuffaloLiters').textContent = totalBuffaloLiters.toFixed(2);
-    document.getElementById('cowAmount').textContent = cowAmount.toFixed(2);
-    document.getElementById('buffaloAmount').textContent = buffaloAmount.toFixed(2);
-    document.getElementById('grandTotalLiters').textContent = grandTotalLiters.toFixed(2);
-    document.getElementById('grandTotalAmount').textContent = grandTotalAmount.toFixed(2);
-    document.getElementById('totalDays').textContent = totalDays;
-    document.getElementById('avgPerDay').textContent = avgPerDay;
-}
+ // Quick date selection
+ function quickDateSelect(period) {
+     const now = new Date();
+     let startDate, endDate;
+     
+     switch(period) {
+         case 'today':
+             startDate = endDate = now;
+             break;
+         case 'yesterday':
+             startDate = endDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+             break;
+         case 'thisweek':
+             const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+             startDate = startOfWeek;
+             endDate = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
+             break;
+         case 'thismonth':
+             startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+             endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+             break;
+         case 'lastmonth':
+             startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+             endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+             break;
+         default:
+             return;
+     }
+     
+     document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+     document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+     
+     filterByDate();
+ }
 
-// Filter entries by date range
-function filterByDate() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (!startDate || !endDate) {
-        filteredEntries = [...allEntries];
-    } else {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        
-        filteredEntries = allEntries.filter(entry => {
-            const entryDate = new Date(entry.date.split(' ')[0]);
-            return entryDate >= start && entryDate <= end;
-        });
-    }
-    
-    calculateBill();
-    highlightFilteredRows();
-}
+ // Highlight filtered rows in table
+ function highlightFilteredRows() {
+     $('#milkEntriesTable tbody tr[data-date]').removeClass('table-warning');
+     
+     const startDate = document.getElementById('startDate').value;
+     const endDate = document.getElementById('endDate').value;
+     
+     if (startDate && endDate) {
+         const start = new Date(startDate);
+         const end = new Date(endDate);
+         
+         $('#milkEntriesTable tbody tr[data-date]').each(function() {
+             const rowDate = new Date($(this).data('date').split(' ')[0]);
+             if (rowDate >= start && rowDate <= end) {
+                 $(this).addClass('table-warning');
+             }
+         });
+     }
+ }
 
-// Quick date selection
-function quickDateSelect(period) {
-    const now = new Date();
-    let startDate, endDate;
-    
-    switch(period) {
-        case 'today':
-            startDate = endDate = now;
-            break;
-        case 'yesterday':
-            startDate = endDate = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-            break;
-        case 'thisweek':
-            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-            startDate = startOfWeek;
-            endDate = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000);
-            break;
-        case 'thismonth':
-            startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-            endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            break;
-        case 'lastmonth':
-            startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-            endDate = new Date(now.getFullYear(), now.getMonth(), 0);
-            break;
-        default:
-            return;
-    }
-    
-    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
-    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
-    
-    filterByDate();
-}
-
-// Highlight filtered rows in table
-function highlightFilteredRows() {
-    $('#milkEntriesTable tbody tr[data-date]').removeClass('table-warning');
-    
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (startDate && endDate) {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        
-        $('#milkEntriesTable tbody tr[data-date]').each(function() {
-            const rowDate = new Date($(this).data('date').split(' ')[0]);
-            if (rowDate >= start && rowDate <= end) {
-                $(this).addClass('table-warning');
-            }
-        });
-    }
-}
-
-// Generate and display bill
-function generateBill() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (!startDate || !endDate) {
-        toastr.error('Please select date range first');
-        return;
-    }
-    
-    const billData = {
-        customer: customerData,
-        startDate: startDate,
-        endDate: endDate,
-        cowRate: parseFloat(document.getElementById('cowRate').value),
-        buffaloRate: parseFloat(document.getElementById('buffaloRate').value),
-        summary: {
-            cowLiters: parseFloat(document.getElementById('totalCowLiters').textContent),
-            buffaloLiters: parseFloat(document.getElementById('totalBuffaloLiters').textContent),
-            cowAmount: parseFloat(document.getElementById('cowAmount').textContent),
-            buffaloAmount: parseFloat(document.getElementById('buffaloAmount').textContent),
-            totalLiters: parseFloat(document.getElementById('grandTotalLiters').textContent),
-            totalAmount: parseFloat(document.getElementById('grandTotalAmount').textContent),
-            totalDays: parseInt(document.getElementById('totalDays').textContent)
-        }
-    };
-    
-    // Show bill in modal or new window
-    showBillModal(billData);
-}
+ // Generate and display bill
+ function generateBill() {
+     const startDate = document.getElementById('startDate').value;
+     const endDate = document.getElementById('endDate').value;
+     
+     if (!startDate || !endDate) {
+         toastr.error('Please select date range first');
+         return;
+     }
+     
+     const billData = {
+         customer: customerData,
+         startDate: startDate,
+         endDate: endDate,
+         cowRate: parseFloat(document.getElementById('cowRate').value),
+         buffaloRate: parseFloat(document.getElementById('buffaloRate').value),
+         summary: {
+             cowLiters: parseFloat(document.getElementById('totalCowLiters').textContent),
+             buffaloLiters: parseFloat(document.getElementById('totalBuffaloLiters').textContent),
+             cowAmount: parseFloat(document.getElementById('cowAmount').textContent),
+             buffaloAmount: parseFloat(document.getElementById('buffaloAmount').textContent),
+             totalLiters: parseFloat(document.getElementById('grandTotalLiters').textContent),
+             totalAmount: parseFloat(document.getElementById('grandTotalAmount').textContent),
+             totalDays: parseInt(document.getElementById('totalDays').textContent)
+         }
+     };
+     
+     // Show bill in modal or new window
+     showBillModal(billData);
+ }
 
  // Send WhatsApp message
-function sendWhatsApp() {
-  const startDate = document.getElementById('startDate').value;
-  const endDate = document.getElementById('endDate').value;
+ function sendWhatsApp() {
+   const startDate = document.getElementById('startDate').value;
+   const endDate = document.getElementById('endDate').value;
 
-  if (!startDate || !endDate) {
-    toastr.error('Please select date range first');
-    return;
-  }
+   if (!startDate || !endDate) {
+     toastr.error('Please select date range first');
+     return;
+   }
 
-  // Get vendor info from PHP session
-  const vendor = {
-    business_name: "<?= htmlspecialchars($_SESSION['vendor']['business_name'] ?? 'Rajnandini Dairy') ?>",
-    number: "<?= htmlspecialchars($_SESSION['vendor']['business_number'] ?? '9822882755') ?>",
-    address: "<?= htmlspecialchars($_SESSION['vendor']['business_address'] ?? 'Mhasoba Chowk, Gaywadi Nal') ?>"
-  };
+   // Get vendor info from PHP session
+   const vendor = {
+     business_name: "<?= htmlspecialchars($_SESSION['vendor']['business_name'] ?? 'Rajnandini Dairy') ?>",
+     number: "<?= htmlspecialchars($_SESSION['vendor']['business_number'] ?? '9822882755') ?>",
+     address: "<?= htmlspecialchars($_SESSION['vendor']['business_address'] ?? 'Mhasoba Chowk, Gaywadi Nal') ?>"
+   };
 
-  // Get rates for calculation
-  const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
-  const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
+   // Get rates for calculation
+   const cowRate = parseFloat(document.getElementById('cowRate').value) || 0;
+   const buffaloRate = parseFloat(document.getElementById('buffaloRate').value) || 0;
 
-  // Collect daily milk data for selected date range
-  const dailyData = {};
-  let totalCowForPeriod = 0;
-  let totalBuffaloForPeriod = 0;
+   // Collect daily milk data for selected date range
+   const dailyData = {};
+   let totalCowForPeriod = 0;
+   let totalBuffaloForPeriod = 0;
 
-  filteredEntries.forEach(entry => {
-    const entryDate = entry.date.split(' ')[0];
-    if (!dailyData[entryDate]) {
-      dailyData[entryDate] = { cow: 0, buffalo: 0 };
-    }
-    if (entry.milktype === 'cow') {
-      dailyData[entryDate].cow += entry.liter;
-      totalCowForPeriod += entry.liter;
-    } else if (entry.milktype === 'buffalo') {
-      dailyData[entryDate].buffalo += entry.liter;
-      totalBuffaloForPeriod += entry.liter;
-    }
-  });
+   filteredEntries.forEach(entry => {
+     const entryDate = entry.date.split(' ')[0];
+     if (!dailyData[entryDate]) {
+       dailyData[entryDate] = { cow: 0, buffalo: 0 };
+     }
+     if (entry.milktype === 'cow') {
+       dailyData[entryDate].cow += entry.liter;
+       totalCowForPeriod += entry.liter;
+     } else if (entry.milktype === 'buffalo') {
+       dailyData[entryDate].buffalo += entry.liter;
+       totalBuffaloForPeriod += entry.liter;
+     }
+   });
 
-  // Prepare daily summary string with all entries
-  let dailySummary = '';
-  let dayCount = 0;
+   // Prepare daily summary string with all entries
+   let dailySummary = '';
+   let dayCount = 0;
 
-  // Sort dates ascending
-  const sortedDates = Object.keys(dailyData).sort();
-  sortedDates.forEach(dateStr => {
-    const d = dailyData[dateStr];
-    dayCount++;
-    const dayTotal = d.cow + d.buffalo;
-    dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(1)}L | 🐃 ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
-  });
+   // Sort dates ascending
+   const sortedDates = Object.keys(dailyData).sort();
+   sortedDates.forEach(dateStr => {
+     const d = dailyData[dateStr];
+     dayCount++;
+     const dayTotal = d.cow + d.buffalo;
+     dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(1)}L | 🐃 ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
+   });
 
-  // Calculate amounts
-  const cowAmount = totalCowForPeriod * cowRate;
-  const buffaloAmount = totalBuffaloForPeriod * buffaloRate;
-  const totalAmount = cowAmount + buffaloAmount;
+   // Calculate amounts
+   const cowAmount = totalCowForPeriod * cowRate;
+   const buffaloAmount = totalBuffaloForPeriod * buffaloRate;
+   const totalAmount = cowAmount + buffaloAmount;
 
-  const message = `
+   const message = `
 🥛 *${vendor.business_name} Bill*
 
 👤 Customer: ${customerData.name}
@@ -651,7 +643,6 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-IN');
 }
 </script>
- 
 
 
-  
+
