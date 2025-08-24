@@ -6,4 +6,9 @@ class HomeController extends Controller
     {
         $this->home('home/index');
     }
+
+    public function about()
+    {
+        $this->home('about/index');
+    }
 }
