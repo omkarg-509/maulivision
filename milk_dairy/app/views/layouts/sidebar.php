@@ -1,4 +1,12 @@
 <?php
+// Handle language POST before any output
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lang'])) {
+    session_start();
+    $_SESSION['lang'] = $_POST['lang'];
+    // Optionally reload to apply language change
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit;
+}
 // if (session_status() === PHP_SESSION_NONE) {
   //  session_start();
  //}
@@ -143,14 +151,7 @@ $vendor = isset($_SESSION['vendor']) ?
       <?php if (isset($_SESSION['lang'])): ?>
       (function() {
         var langMap = { 'en': 'en', 'hi': 'hi', 'mr': 'mr' };
-        var googleLang = langMap['<?= $_SESSION['lang'] ?>'] || 'en';
-        if (googleLang !== 'en') {
-          document.cookie = 'googtrans=/en/' + googleLang + ';path=/';
-        }
-      })();
-      <?php endif; ?>
-    </script>
-  </div>
+  <!-- Language POST handling moved to top of file to prevent header errors -->div>
   <?php
   if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lang'])) {
       $_SESSION['lang'] = $_POST['lang'];
