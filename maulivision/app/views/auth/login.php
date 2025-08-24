@@ -2,8 +2,8 @@
   <style>
     :root {
       /* Brand colors (edit these two to quickly change the theme) */
-      --brand-1: #198754; /* primary */
-      --brand-2: #157347; /* darker */
+      --brand-1: #ff7b00ff; /* primary */
+      --brand-2: #010101b7; /* darker */
       --brand-focus: rgba(25, 135, 84, 0.18);
     }
 
