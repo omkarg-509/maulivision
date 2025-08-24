@@ -124,7 +124,6 @@ $vendor = isset($_SESSION['vendor']) ?
         if (window.google && window.google.translate) {
           return cb && cb();
         }
-        // create hidden container if not present
         if (!document.getElementById('google_translate_element')) {
           var div = document.createElement('div');
           div.id = 'google_translate_element';
@@ -149,7 +148,6 @@ $vendor = isset($_SESSION['vendor']) ?
       function setWidgetLang(lang) {
         var sel = document.querySelector('#google_translate_element select');
         if (!sel) return false;
-        // try to match by value or text
         var target = (lang === 'auto' ? '' : lang).toLowerCase();
         for(var i=0;i<sel.options.length;i++){
           var opt = sel.options[i];
@@ -168,35 +166,39 @@ $vendor = isset($_SESSION['vendor']) ?
         var val = '/auto/' + (lang === 'auto' ? '' : lang);
         try{ setCookie('googtrans', val, 365); setCookie('__googtrans', val, 365); }catch(e){console.warn(e)}
 
-        // try apply immediately via widget; if not available load it then apply
         if (setWidgetLang(lang)) return;
         loadGoogleTranslate(function(){
-          // small delay to let widget build
-          setTimeout(function(){ setWidgetLang(lang); }, 400);
+          setTimeout(function(){ setWidgetLang(lang); }, 200);
         });
       }
 
-      // init
+      // Fast AJAX language set
+      function setLangAjax(vendorId, lang) {
+        if (!vendorId) return;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '<?= BASE_URL ?>set_language.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // Optionally handle response
+          }
+        };
+        xhr.send('vendor_id=' + encodeURIComponent(vendorId) + '&lang=' + encodeURIComponent(lang));
+      }
+
       try {
         var cur = localStorage.getItem(LS_KEY) || 'auto';
         if (select) {
           select.value = cur;
           select.addEventListener('change', function(){ 
             var v = this.value;
-            try { var vendorId = <?= json_encode($vendor['id'] ?? null) ?>; } catch(e) { var vendorId = null; }
-            if (vendorId) {
-              var xhr = new XMLHttpRequest();
-              xhr.open('POST', '<?= BASE_URL ?>set_language.php', true);
-              xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-              xhr.send('vendor_id=' + encodeURIComponent(vendorId) + '&lang=' + encodeURIComponent(v));
-            }
+            var vendorId = <?= json_encode($vendor['id'] ?? null) ?>;
+            setLangAjax(vendorId, v);
             applyLang(v, true);
           });
         }
-        // apply initial language silently
         if (cur && cur !== 'auto') {
           try{ setCookie('googtrans', '/auto/' + cur, 365); setCookie('__googtrans', '/auto/' + cur, 365); }catch(e){}
-          // ensure widget exists and apply
           loadGoogleTranslate(function(){ setWidgetLang(cur); });
         }
       } catch(err) { console.warn(err); }
