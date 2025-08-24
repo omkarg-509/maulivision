@@ -60,9 +60,27 @@ class CustomerController extends Controller
             // Get vendor info from session
             $vendor = $_SESSION['vendor'] ?? [];
             $vendorId = $vendor['id'] ?? 1;
-            $businessName = $vendor['business_name'] ?? 'RAJNANDINI DAIRY';
-            $businessNumber = $vendor['business_number'] ?? '9822882755';
-            $businessAddress = $vendor['business_address'] ?? 'Mhasoba Chowk, Gaywadi Nal';
+            // Convert business name, number, and address to English if not already
+            $businessName = $vendor['business_name'] ?? '';
+            $businessNumber = $vendor['business_number'] ?? '';
+            $businessAddress = $vendor['business_address'] ?? '';
+
+            // If business name is not in English, transliterate to English (basic)
+            if (!preg_match('/^[\x20-\x7E]+$/', $businessName)) {
+                if (function_exists('transliterator_transliterate')) {
+                    $businessName = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessName);
+                }
+            }
+            if (!preg_match('/^[\x20-\x7E]+$/', $businessAddress)) {
+                if (function_exists('transliterator_transliterate')) {
+                    $businessAddress = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessAddress);
+                }
+            }
+            if (!preg_match('/^[\x20-\x7E]+$/', $businessNumber)) {
+                if (function_exists('transliterator_transliterate')) {
+                    $businessNumber = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessNumber);
+                }
+            }
 
             // Get milk entries for the date range
             $milkEntries = $dailyEntryModel->getEntriesByDateRange($customerId, $startDate, $endDate, $vendorId);
