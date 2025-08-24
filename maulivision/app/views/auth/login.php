@@ -46,10 +46,6 @@
                       <div class="invalid-feedback">Please enter your password.</div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                      <a href="/public/auth/forgot" class="small">Forgot Password?</a>
-                      <small class="small-note">Need an account? <a href="/public/auth/register">Register</a></small>
-                    </div>
 
                     <div class="d-grid mb-2">
                       <button id="loginBtn" type="submit" class="btn btn-primary">
