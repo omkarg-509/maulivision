@@ -63,7 +63,7 @@
                 <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
                 <div class="d-flex gap-2">
                   <input id="entries-search" class="form-control form-control-sm" placeholder="Search name or mobile" style="min-width:150px;">
-                  <button id="refreshEntries" class="btn btn-sm btn-outline-primary" title="Refresh"><i class="fa fa-refresh"></i></button>
+                  <button id="refreshEntries" class="btn btn-sm btn-outline-primary" title="Refresh"><i class="fa fa-sync"></i></button>
                 </div>
               </div>
 
