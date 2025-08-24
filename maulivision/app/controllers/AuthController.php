@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             // Use password_verify if passwords are hashed
             // if ($superadmin && password_verify($password, $superadmin['password'])) {
-            if ($superadmin && $password == $superadmin['password']) {
+            if ($superadmin && password_verify($password, $superadmin['password'])) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
