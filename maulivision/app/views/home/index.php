@@ -8,11 +8,11 @@
   <meta name="keywords" content="maulivision, digital marketing,web design,web development,">
   <meta name="author" content="Mauli Vision (Solo Developer)">
   <title>Mauli Vision — Web, Apps, Design</title>
-  <link rel="shortcut icon" href="<?= BASE_URL ?>assets/favicon-1.png">
+  <link rel="shortcut icon" href="<?= BASE_URL ?>assets1/favicon-1.png">
 
-  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
-  <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/colors/sky.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets1/css/plugins.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets1/css/style.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>assets1/css/colors/sky.css">
   <meta name="google-adsense-account" content="ca-pub-6175226312586147">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -33,12 +33,12 @@
   <div class="container flex-lg-row flex-nowrap align-items-center">
     <div class="navbar-brand w-100">
       <a href="<?= BASE_URL ?>">
-        <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:10%;"/>
+        <img src="<?= BASE_URL ?>assets1/favicon-1.png" alt="" style="width:10%;"/>
       </a>
     </div>
     <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
       <div class="offcanvas-header d-lg-none bg-light">
-       <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:15%;"/>
+       <img src="<?= BASE_URL ?>assets1/favicon-1.png" alt="" style="width:15%;"/>
         <button type="button" class="btn btn-primary" data-bs-dismiss="offcanvas" ><i class="fa fa-close"></i></button>
       </div>
       <div class="offcanvas-body ms-lg-auto d-flex flex-column h-100">
@@ -116,7 +116,7 @@
       <div class="container pt-10 pt-md-14 pb-14 pb-md-16 text-center">
         <div class="row gx-lg-8 gx-xl-12 gy-10 gy-xl-0 mb-14 align-items-center">
           <div class="col-lg-7 order-lg-2">
-            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i21.png" alt="Illustration" /></figure>
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets1/img/illustrations/i21.png" alt="Illustration" /></figure>
           </div>
          
           <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start">
@@ -154,7 +154,7 @@
         <div class="row gx-lg-8 gx-xl-12 gy-11 px-xxl-5 text-center d-flex align-items-end">
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i24.png" alt="Web design" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets1/img/illustrations/i24.png" alt="Web design" /></figure>
               <h3>Vision</h3>
               <p class="mb-2">Build clean, accessible products that load fast, look great, and just work—so owners can focus on their business, not their website.</p>
               
@@ -164,7 +164,7 @@
           <!--/column -->
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i19.png"  alt="Graphic design" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets1/img/illustrations/i19.png"  alt="Graphic design" /></figure>
               <h3>Goals</h3>
               <p class="mb-2">Ship useful features weekly, keep SEO and performance high, and deliver measurable results: leads, calls, sales.</p>
               
@@ -174,7 +174,7 @@
           <!--/column -->
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
-              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i18.png"  alt="Digital marketing" /></figure>
+              <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets1/img/illustrations/i18.png"  alt="Digital marketing" /></figure>
               <h3>Core Values</h3>
               <p class="mb-2">Simple UX, performance-first builds, transparent process, and long-term support. Tools: PHP, MySQL, jQuery, Bootstrap, and modern best practices.</p>
               
@@ -258,7 +258,7 @@
       <div class="container pb-14 pb-md-16">
         <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
           <div class="col-lg-7">
-            <figure><img class="img-auto" src="<?= BASE_URL ?>assets/img/illustrations/i22.wabp"  alt="Why choose us" /></figure>
+            <figure><img class="img-auto" src="<?= BASE_URL ?>assets1/img/illustrations/i22.wabp"  alt="Why choose us" /></figure>
           </div>
           <!--/column -->
           <div class="col-lg-5">
@@ -380,7 +380,7 @@
               <div class="wrapper">
                 
                 <div class="slide">
-                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/aus.wabp"  alt="Aus Lighting Industry" /></a></figure>
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/aus.wabp"  alt="Aus Lighting Industry" /></a></figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3"><a target="_blank" class="link-dark" href="https://auslightingind.com/">Aus Lighting Industry</a></h2>
@@ -391,7 +391,7 @@
                   <!-- /.project-details -->
                 </div>
                 <div class="slide">
-                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/bessw.png"  alt="Client project" /></a></figure>
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/bessw.png"  alt="Client project" /></a></figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Brand & E‑commerce</a></h2>
@@ -400,7 +400,7 @@
                   </div>
                 </div>
                 <div class="slide">
-                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/pas.png"  alt="Client project" /></a></figure>
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/pas.png"  alt="Client project" /></a></figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Local Business Site</a></h2>
@@ -409,7 +409,7 @@
                   </div>
                 </div>
                 <div class="slide">
-                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/sbcn.png"  alt="Client project" /></a></figure>
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/sbcn.png"  alt="Client project" /></a></figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Corporate Landing</a></h2>
@@ -455,7 +455,7 @@
                   <blockquote class="border-0 mb-0">
                     <p>“The website's customer service is outstanding. I had a question and reached out to their support team, and they were prompt, knowledgeable, and courteous in their response”</p>
                     <div class="blockquote-details">
-                      <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets/img/avatars/te1.jpg"  alt="" /> -->
+                      <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets1/img/avatars/te1.jpg"  alt="" /> -->
                       <div class="info">
                         <h5 class="mb-1">Ashish Mishra</h5>
                         <p class="mb-0">Aus Lighting Industry</p>
@@ -489,7 +489,7 @@
       <div class="row gy-6 gy-lg-0">
         <div class="col-md-4 col-lg-3">
           <div class="widget">
-          <img src="<?= BASE_URL ?>assets/favicon-1.png" alt="" style="width:30%;"/>
+          <img src="<?= BASE_URL ?>assets1/favicon-1.png" alt="" style="width:30%;"/>
             <p class="mb-4">© 2025 MauliVision. <br class="d-none d-lg-block" />All rights reserved.</p>
             <nav class="nav social social-white">
             
@@ -515,7 +515,7 @@
   
 
 
-<script src="<?= BASE_URL ?>assets/js/plugins.js"></script>
-  <script src="<?= BASE_URL ?>assets/js/theme.js"></script>
+<script src="<?= BASE_URL ?>assets1/js/plugins.js"></script>
+  <script src="<?= BASE_URL ?>assets1/js/theme.js"></script>
 </body>
 </html>
