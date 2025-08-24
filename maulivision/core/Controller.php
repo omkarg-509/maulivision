@@ -16,4 +16,9 @@ class Controller
     require_once "../app/views/layouts/tel.php";
 }
 
+    public function home($home , $data = [])
+{
+       require_once '../app/views/' . $home . '.php';
+}
+
 }
