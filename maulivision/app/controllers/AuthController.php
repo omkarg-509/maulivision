@@ -20,7 +20,7 @@ class AuthController extends Controller
         //     Auth::logout();
         //     exit;
         // }
-$password = "Mvision@509";
+
 
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
