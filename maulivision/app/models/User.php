@@ -28,20 +28,6 @@ class User extends Database
             }
         }
 
-        // Try vendors table as fallback (since app uses vendor session)
-        $sql2 = "SELECT * FROM superadmin WHERE email = ? OR mobile = ?  LIMIT 1";
-        if ($stmt2 = $this->db->prepare($sql2)) {
-            $stmt2->bind_param('ss', $identifier, $identifier);
-            if ($stmt2->execute()) {
-                $result2 = $stmt2->get_result();
-                $row2 = $result2 ? $result2->fetch_assoc() : null;
-                $stmt2->close();
-                if ($row2) return $row2;
-            } else {
-                $stmt2->close();
-            }
-        }
-
         return null;
     }
 
