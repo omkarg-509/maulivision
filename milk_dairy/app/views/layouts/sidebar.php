@@ -103,6 +103,7 @@ $vendor = isset($_SESSION['vendor']) ?
       <select name="lang" onchange="document.getElementById('lang-switch-form').submit();" class="form-select form-select-sm">
         <option value="en" <?= (isset($_SESSION['lang']) && $_SESSION['lang'] === 'en') ? 'selected' : '' ?>>English</option>
         <option value="hi" <?= (isset($_SESSION['lang']) && $_SESSION['lang'] === 'hi') ? 'selected' : '' ?>>हिन्दी</option>
+        <option value="mr" <?= (isset($_SESSION['lang']) && $_SESSION['lang'] === 'mr') ? 'selected' : '' ?>>मराठी</option>
         <!-- Add more languages as needed -->
       </select>
     </form>
