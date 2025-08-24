@@ -29,7 +29,7 @@ class User extends Database
         }
 
         // Try vendors table as fallback (since app uses vendor session)
-        $sql2 = "SELECT * FROM vendors WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
+        $sql2 = "SELECT * FROM superadmin WHERE email = ? OR mobile = ? OR number = ? LIMIT 1";
         if ($stmt2 = $this->db->prepare($sql2)) {
             $stmt2->bind_param('sss', $identifier, $identifier, $identifier);
             if ($stmt2->execute()) {
