@@ -513,8 +513,6 @@
   
   </footer>
   
-
-
 <script src="<?= BASE_URL ?>assets1/js/plugins.js"></script>
   <script src="<?= BASE_URL ?>assets1/js/theme.js"></script>
 </body>
