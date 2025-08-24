@@ -31,12 +31,12 @@
     
     </section>
    
-    <section class="wrapper bg-gradient-primary"  id="About">
+  <section class="wrapper bg-gradient-primary"  id="About">
       <div class="container pt-12 pt-lg-8 pb-14 pb-md-17">
         <div class="row text-center">
           <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <h2 class="fs-16 text-uppercase text-primary mb-3">What We Do?</h2>
-            <h3 class="display-3 mb-10 px-xxl-10">The service we offer is specifically designed to meet your needs.</h3>
+      <h2 class="fs-16 text-uppercase text-primary mb-3">My Vision & Goals</h2>
+      <h3 class="display-3 mb-10 px-xxl-10">I craft fast, simple, and reliable digital experiences for small businesses.</h3>
           </div>
          
         </div>
@@ -45,8 +45,8 @@
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
               <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i24.png" alt="Web design" /></figure>
-              <h3>Web Design</h3>
-              <p class="mb-2">Web design is the process of creating and designing the visual appearance and functionality of a website. It involves a variety of disciplines such as graphic design, user interface design, user experience design, and search engine optimization.</p>
+              <h3>Vision</h3>
+              <p class="mb-2">Build clean, accessible products that load fast, look great, and just work—so owners can focus on their business, not their website.</p>
               
             </div>
             <!--/.px -->
@@ -55,8 +55,8 @@
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
               <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i19.png"  alt="Graphic design" /></figure>
-              <h3>Graphic Design</h3>
-              <p class="mb-2">Graphic designers may create designs for a variety of media, including print and digital media. They may work on projects such as logo design, website design, advertising campaigns, packaging design, and more.</p>
+              <h3>Goals</h3>
+              <p class="mb-2">Ship useful features weekly, keep SEO and performance high, and deliver measurable results: leads, calls, sales.</p>
               
             </div>
             <!--/.px -->
@@ -65,8 +65,8 @@
           <div class="col-lg-4">
             <div class="px-md-15 px-lg-3">
               <figure class="mb-6"><img class="img-fluid" src="<?= BASE_URL ?>assets/img/illustrations/i18.png"  alt="Digital marketing" /></figure>
-              <h3>Digital Markting</h3>
-              <p class="mb-2">Digital marketing refers to the use of digital channels, such as search engines, social media, email, and websites, to promote a product or service. It involves a range of tactics that businesses can use to reach and engage with their target audience online.</p>
+              <h3>Core Values</h3>
+              <p class="mb-2">Simple UX, performance-first builds, transparent process, and long-term support. Tools: PHP, MySQL, jQuery, Bootstrap, and modern best practices.</p>
               
             </div>
             <!--/.px -->
@@ -130,11 +130,11 @@
           </div>
           <!--/column -->
           <div class="col-lg-6">
-            <h2 class="fs-16 text-uppercase text-primary mb-3">Our Strategy</h2>
-            <h3 class="display-3 mb-4">Here are 3 working steps to organize our projects.</h3>
-            <p>it's important to establish clear objectives. This includes identifying the scope of the project, the target audience, and any specific requirements or constraints.</p>
-            <p class="mb-6"> This will help you stay on track and ensure that the final product meets the needs of the client.</p>
-            <a href="#" class="btn btn-primary rounded-pill mb-0">Learn More</a>
+            <h2 class="fs-16 text-uppercase text-primary mb-3">How I Work</h2>
+            <h3 class="display-3 mb-4">Discover → Design → Deliver</h3>
+            <p>Clear scope, quick wireframes, rapid iteration. Performance, SEO, and analytics wired from day one.</p>
+            <p class="mb-6">You get a modern site/app with simple editing, training, and support.</p>
+            <a href="#Projects" class="btn btn-primary rounded-pill mb-0">View Portfolio</a>
           </div>
           <!--/column -->
         </div>
@@ -152,17 +152,17 @@
           </div>
           <!--/column -->
           <div class="col-lg-5">
-            <h2 class="fs-15 text-uppercase text-primary mb-3">Why Choose Us?</h2>
-            <h3 class="display-3 mb-7">We bring solutions to make life easier.</h3>
+            <h2 class="fs-15 text-uppercase text-primary mb-3">Why work with me?</h2>
+            <h3 class="display-3 mb-7">Reliable, end‑to‑end solutions for real business outcomes.</h3>
             <div class="accordion accordion-wrapper" id="accordionExample">
               <div class="card plain accordion-item">
                 <div class="card-header" id="headingOne">
-                  <a class="accordion-a" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">User-friendly design</a>
+                  <a class="accordion-a" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Simple, user‑first design</a>
                 </div>
                 <!--/.card-header -->
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                   <div class="card-body">
-                    <p> A well-designed website should be easy to navigate and use. By incorporating user-friendly design principles, such as clear navigation, intuitive layouts, and easily readable text, businesses can make it easier for customers to find what they're looking for and complete desired actions on the website, such as making a purchase or filling out a contact form.</p>
+                    <p>Clear navigation, readable content, and focused actions. Fewer clicks, better results. Built with accessibility in mind.</p>
                   </div>
                   <!--/.card-body -->
                 </div>
@@ -171,12 +171,12 @@
               <!--/.accordion-item -->
               <div class="card plain accordion-item">
                 <div class="card-header" id="headingTwo">
-                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Mobile-responsive design </a>
+                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Performance & SEO </a>
                 </div>
                 <!--/.card-header -->
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                   <div class="card-body">
-                    <p>With more people using mobile devices to access the internet, it's important for websites to be optimized for mobile devices. By creating a mobile-responsive design, businesses can ensure that their website is easy to view and use on a variety of devices, making it more convenient for customers to access their website on-the-go.</p>
+                    <p>Mobile‑first layouts, fast load times, structured data, and on‑page SEO essentials so your site ranks and converts.</p>
                   </div>
                   <!--/.card-body -->
                 </div>
@@ -185,12 +185,12 @@
               <!--/.accordion-item -->
               <div class="card plain accordion-item">
                 <div class="card-header" id="headingThree">
-                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Integration with other systems </a>
+                  <a class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="#collapseThree"> End‑to‑end and integrations </a>
                 </div>
                 <!--/.card-header -->
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                   <div class="card-body">
-                    <p>Web design can also help businesses integrate their website with other systems, such as e-commerce platforms, customer relationship management (CRM) software, and marketing automation tools. By integrating these systems with the website, businesses can streamline their processes and make it easier to manage customer interactions and transactions.</p>
+                    <p>From domain and hosting to payments, email, CRM, and analytics—get a single partner to wire it all together.</p>
                   </div>
                   <!--/.card-body -->
                 </div>
@@ -219,9 +219,9 @@
       <div class="container pt-12 pt-lg-8 pb-14 pb-md-16">
         <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0 mb-11">
           <div class="col-lg-4 text-center text-lg-start">
-            <h2 class="fs-16 text-uppercase text-primary mb-3">Company Facts</h2>
-            <h3 class="display-3 mb-4 pe-xxl-5">We are proud of our design team</h3>
-            <p class="mb-0 pe-xxl-11">Just sit back and relax while we take care of your business needs for you.</p>
+            <h2 class="fs-16 text-uppercase text-primary mb-3">About Me</h2>
+            <h3 class="display-3 mb-4 pe-xxl-5">Solo developer focused on outcomes</h3>
+            <p class="mb-0 pe-xxl-11">I handle design, development, and launch—keeping things fast, simple, and maintainable.</p>
           </div>
           <!-- /column -->
           <div class="col-lg-8 mt-lg-2">
@@ -240,8 +240,8 @@
               <!--/column -->
               <div class="col-md-4">
                 <div class="icon btn btn-circle btn-lg btn-soft-primary pe-none mb-4"> <i class="fa fa-user"></i> </div>
-                <h3 class="counter">2+</h3>
-                <p>Team Member</p>
+                <h3 class="counter">1</h3>
+                <p>Solo Developer</p>
               </div>
               <!--/column -->
             </div>
@@ -279,6 +279,33 @@
                     <!-- /.post-header text-center -->
                   </div>
                   <!-- /.project-details -->
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/bessw.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Brand & E‑commerce</a></h2>
+                      <div class="post-category text-ash">design / storefront</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/pas.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Local Business Site</a></h2>
+                      <div class="post-category text-ash">website / seo</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets/clients/sbcn.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Corporate Landing</a></h2>
+                      <div class="post-category text-ash">ui / performance</div>
+                    </div>
+                  </div>
                 </div>
              
            
