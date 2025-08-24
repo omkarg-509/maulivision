@@ -7,7 +7,6 @@ class AuthController extends Controller
         // Check if user is already logged in and redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
-            return;
         }
         $this->view('auth/login');
     }
@@ -22,11 +21,10 @@ class AuthController extends Controller
         //     exit;
         // }
 
+
         // If already logged in, redirect to dashboard
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
-            return;
-        }
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -76,6 +74,8 @@ if (empty($email_or_number) || empty($password)) {
     public function logout()
     {
         Auth::logout();
+    }
+
     /**
      * Check if user is logged in via session or cookie
      */
@@ -85,8 +85,9 @@ if (empty($email_or_number) || empty($password)) {
             session_start();
         }
 
-        // If session is set, user is logged in
+        // If session is set, redirect to dashboard
         if (isset($_SESSION['vendor']) && !empty($_SESSION['vendor'])) {
+            $this->redirectToDashboard();
             return true;
         }
 
@@ -99,12 +100,11 @@ if (empty($email_or_number) || empty($password)) {
             if ($vendor) {
                 // Restore session from cookie
                 $_SESSION['vendor'] = $vendor;
+                $this->redirectToDashboard();
                 return true;
             }
         }
 
-        return false;
-    }
         return false;
     }
 
