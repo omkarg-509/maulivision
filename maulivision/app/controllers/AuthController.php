@@ -9,7 +9,7 @@ class AuthController extends Controller
         if ($this->isUserLoggedIn()) {
             $this->redirectToDashboard();
         }
-        $this->view('auth/login');
+        $this->view('login');
     }
 
    
