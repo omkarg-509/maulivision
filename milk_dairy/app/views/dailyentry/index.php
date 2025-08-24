@@ -424,11 +424,15 @@
                     dataType: 'json',
                     success: function(response) {
                       $('.loader').hide();
-                      if (response.success) {
+                        if (response.success) {
                         toastr.success(response.message || 'Entry added successfully.');
                         loadEntriesTable();
+                        // Reset all fields except date
+                        var dateVal = $('#entry_date').val();
                         form[0].reset();
                         $('#cid').val('');
+                        $('#entry_date').val(dateVal);
+                        
                       } else {
                         toastr.error(response.message || 'Failed to add entry.');
                       }
