@@ -3,6 +3,24 @@
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+            <!-- Delete confirmation modal -->
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-sm modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Confirm delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="mb-0">Are you sure you want to delete this entry?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-sm btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 <div class="main-content">
   <div class="loader"></div>
@@ -155,24 +173,6 @@
               </div>
             </div>
 
-            <!-- Delete confirmation modal -->
-            <div class="modal fade" id="confirmDeleteModal" tabindex="-9" aria-hidden="true">
-              <div class="modal-dialog modal-sm modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Confirm delete</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <p class="mb-0">Are you sure you want to delete this entry?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" id="confirmDeleteBtn" class="btn btn-sm btn-danger">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
         </section>       
     </div>
