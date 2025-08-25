@@ -9,11 +9,11 @@ class DailyentryController extends Controller
         
         // Get current vendor ID from session
         $vendorId = $_SESSION['vendor']['id'] ?? null;
-        
+        $vendorLng = $dailyEntryModel->fetchLngByVid($vendorId);
         // Get all daily entries for the current vendor
         $dailyEntries = $dailyEntryModel->getAll($vendorId);
-        $this->view('dailyentry/index', ['dailyEntries' => $dailyEntries] );
-        
+        $this->view('dailyentry/index', ['dailyEntries' => $dailyEntries, 'vendorLng' => $vendorLng]);
+
     }
 
     public function store()

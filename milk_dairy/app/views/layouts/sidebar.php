@@ -67,7 +67,12 @@ $vendor = isset($_SESSION['vendor']) ?
             <ul class="sidebar-menu">
             <?php
             // Check if session language is 'mr' (Marathi)
-            $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
+            $vid = isset($vendor['id']) ? $vendor['id'] : null;
+            if ($vid && function_exists('fetchLngByVid')) {
+              $lang = fetchLngByVid($vid);
+            } else {
+              $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
+            }
 
             // Menu labels in English and Marathi
             $labels = [
