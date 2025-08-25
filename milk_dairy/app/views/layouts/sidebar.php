@@ -64,42 +64,62 @@ $vendor = isset($_SESSION['vendor']) ?
             </a>
           
           </div>
-          <ul class="sidebar-menu">
+            <ul class="sidebar-menu">
             <?php
             // Check if session language is 'mr' (Marathi)
             $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
-            echo $lang;
+
+            // Menu labels in English and Marathi
+            $labels = [
+              'main' => ['en' => 'Main', 'mr' => 'मुख्य'],
+              'dashboard' => ['en' => 'Dashboard', 'mr' => 'डॅशबोर्ड'],
+              'customers' => ['en' => 'Customers', 'mr' => 'ग्राहक'],
+              'create_customers' => ['en' => 'Create Customers', 'mr' => 'ग्राहक तयार करा'],
+              'customers_details' => ['en' => 'Customers Details', 'mr' => 'ग्राहक तपशील'],
+              'history' => ['en' => 'History', 'mr' => 'इतिहास'],
+              'logout' => ['en' => 'Logout', 'mr' => 'बाहेर पडा'],
+              'subscription' => ['en' => 'Subscription', 'mr' => 'सदस्यता'],
+            ];
             ?>
             <li class="menu-header">
-              <?= ($lang === 'mr') ? 'मुख्य' : 'Main' ?>
+              <?= $labels['main'][$lang] ?? $labels['main']['en'] ?>
             </li>
-             
-
-
             <li class="active">
-                <?php
-                // Use session language to display menu in Marathi or English
-                $dashboardLabel = ($lang === 'mr') ? 'डॅशबोर्ड' : 'Dashboard';
-                ?>
-                <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span><?= $dashboardLabel ?></span></a>
+              <a href="<?=BASE_URL?>dashboard" class="nav-link ">
+                <i class="fas fa-home"></i>
+                <span><?= $labels['dashboard'][$lang] ?? $labels['dashboard']['en'] ?></span>
+              </a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
+              <a href="#" class="nav-link has-dropdown">
+              <i class="fas fa-users"></i>
+              <span><?= $labels['customers'][$lang] ?? $labels['customers']['en'] ?></span>
+              </a>
               <ul class="dropdown-menu">
-                <li class=""><a class="nav-link" href="<?=BASE_URL?>customer/create">Create Customers</a></li>
-                <li><a class="nav-link" href="<?=BASE_URL?>customer/index">Customers Details</a></li>
-                
+              <li class="">
+                <a class="nav-link" href="<?=BASE_URL?>customer/create">
+                <?= $labels['create_customers'][$lang] ?? $labels['create_customers']['en'] ?>
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="<?=BASE_URL?>customer/index">
+                <?= $labels['customers_details'][$lang] ?? $labels['customers_details']['en'] ?>
+                </a>
+              </li>
               </ul>
             </li>
             <li>
-              <a href="<?=BASE_URL?>dailyentry/history" class="nav-link"><i class="fas fa-history"></i><span>History</span></a>
+              <a href="<?=BASE_URL?>dailyentry/history" class="nav-link">
+              <i class="fas fa-history"></i>
+              <span><?= $labels['history'][$lang] ?? $labels['history']['en'] ?></span>
+              </a>
             </li>
-          
-          <li class="">
-              <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
-          </li>
-          
-             <!-- <li class="">
+            <li class="">
+              <a href="<?=BASE_URL?>auth/logout" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+              <span><?= $labels['logout'][$lang] ?? $labels['logout']['en'] ?></span>
+              </a>
+            </li>
           <a href="/public/subscription" class="nav-link">
               <i class="fas fa-bell"></i><span>Subscription</span>
           </a>
