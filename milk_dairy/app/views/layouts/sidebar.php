@@ -63,6 +63,16 @@ $vendor = isset($_SESSION['vendor']) ?
 </span>
             </a>
           
+          <!-- Sidebar language selector (keeps in sync with navbar selector) -->
+          <div class="mt-2 px-3">
+            <label for="siteLangSelectSidebar" class="form-label mb-1" style="font-size:12px;">Language</label>
+            <select id="siteLangSelectSidebar" class="form-select form-select-sm" style="width:100%;">
+              <option value="auto">Auto</option>
+              <option value="en">English</option>
+              <option value="mr">Marathi</option>
+              <option value="hi">Hindi</option>
+            </select>
+          </div>
           </div>
             <ul class="sidebar-menu">
             <?php
@@ -129,3 +139,21 @@ $vendor = isset($_SESSION['vendor']) ?
         </aside>
       </div>
   <?php // if ($showSubscriptionPopup) { include '../app/views/layouts/subscription_popup.php'; } ?>
+  <script>
+    (function(){
+      try{
+        var navSel = document.getElementById('siteLangSelect');
+        var sideSel = document.getElementById('siteLangSelectSidebar');
+        if(!navSel || !sideSel) return;
+        // initialize sidebar select to nav's value
+        sideSel.value = navSel.value || 'auto';
+        // when sidebar changes, update navbar and trigger its change
+        sideSel.addEventListener('change', function(){
+          navSel.value = this.value;
+          navSel.dispatchEvent(new Event('change'));
+        });
+        // keep sidebar in sync if nav changes programmatically
+        navSel.addEventListener('change', function(){ sideSel.value = navSel.value; });
+      }catch(e){console.warn(e)}
+    })();
+  </script>
