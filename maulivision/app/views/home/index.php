@@ -509,7 +509,7 @@
           <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170">
             <div class="card text-center team-card h-100">
               <div class="card-body position-relative">
-                <img src="<?= BASE_URL ?>assets/img/rohit.png" alt="Rohit Kamble" class="team-photo mx-auto d-block">
+                <img src="<?= BASE_URL ?>assets1/img/rohit.png" alt="Rohit Kamble" class="team-photo mx-auto d-block">
                 <h5 class="mt-3 mb-1">Rohit Kamble</h5>
                 <div class="team-role mb-2">Relationship Manager</div>
                 <p class="text-muted small">Manages client relationships, ensuring clear communication and smooth project delivery for all partners.</p>
