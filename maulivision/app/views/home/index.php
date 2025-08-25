@@ -188,6 +188,69 @@
       <!-- /.container -->
     </section>
     <!-- /section -->
+    
+    <!-- OUR TEAM -->
+    <section id="team" class="py-5">
+      <div class="container" data-aos="fade-up">
+        <div class="text-center mb-4">
+          <h3 class="fw-bold">Our Team</h3>
+          <p class="text-muted">Small team, big impact — people who build and support MilkDairy.</p>
+        </div>
+
+        <style>
+          .team-card{border-radius:14px;transition:transform .28s ease,box-shadow .28s ease}
+          .team-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(10,40,80,.12)}
+          .team-photo{width:110px;height:110px;object-fit:cover;border-radius:50%;border:6px solid #fff;margin-top:-66px;box-shadow:0 6px 20px rgba(10,40,80,.08)}
+          .team-role{font-size:.9rem;color:var(--muted)}
+          .social-icons a{color:var(--primary);margin:0 .35rem}
+          .team-card .card-body{padding-top:4rem}
+        </style>
+
+        <div class="row g-4 justify-content-center">
+          <!-- Omkar -->
+          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
+            <div class="card text-center team-card h-100">
+              <div class="card-body position-relative">
+                <img src="<?= BASE_URL ?>assets1/img//omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
+                <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
+                <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
+                <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for MilkDairy.</p>
+                <div class="social-icons mt-3">
+                  <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
+                </div>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-omkar">View bio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uttkarsha (hidden example) -->
+          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
+            <div class="card text-center team-card h-100">
+              <div class="card-body position-relative">
+                <img src="<?= BASE_URL ?>assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
+                <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
+                <div class="team-role mb-2">Frontend Developer</div>
+                <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
+                <div class="social-icons mt-3">
+                  <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
+                </div>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
     <section class="wrapper bg-light">
       <div class="container pb-14 pb-md-17">
         <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">

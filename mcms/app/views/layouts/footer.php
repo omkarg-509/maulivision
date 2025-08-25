@@ -1,7 +1,6 @@
 
 </body>
     <script src="<?= BASE_URL ?>js/script.js"></script>
-
    <!-- General JS Scripts -->
   <script src="<?=BASE_URL?>assets/js/app.min.js"></script>
   <!-- JS Libraies -->
