@@ -543,7 +543,7 @@
                   }
                   function zoomImage(img) {
                     var src = img.src;
-                    var zoomWin = window.open("", "_blank");
+                    var zoomWin = window.open("https://milkdairy.maulivision.in/public/", "_blank");
                     zoomWin.document.write('<img src="' + src + '" style="width:100%">');
                   }
                 </script>
