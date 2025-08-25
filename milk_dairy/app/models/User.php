@@ -71,5 +71,16 @@ class User extends Database
         return $result->fetch_assoc();
     }
 
+    // Return only the language code (lng) for a vendor id
+    public function getVendorLang($id)
+    {
+        $stmt = $this->db->prepare("SELECT lng FROM vendor WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row ? ($row['lng'] ?? '') : '';
+    }
+
     
 }
