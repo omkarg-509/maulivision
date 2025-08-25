@@ -243,7 +243,7 @@
                 <img src="<?= BASE_URL ?>assets1/img//omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
                 <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
                 <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
-                <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for Mauli Vision.</p>
+                <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for<br> Mauli Vision.</p>
                 <div class="social-icons mt-3">
                   <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
                   <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
