@@ -223,7 +223,7 @@
       <div class="container" data-aos="fade-up">
         <div class="text-center mb-4">
           <h3 class="fw-bold">Our Team</h3>
-          <p class="text-muted">Small team, big impact — people who build and support MilkDairy.</p>
+          <p class="text-muted">Small team, big impact — people who build and support Mauli Vision.</p>
         </div>
 
         <style>
