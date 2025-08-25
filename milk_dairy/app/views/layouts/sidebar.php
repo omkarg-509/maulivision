@@ -67,7 +67,7 @@ $vendor = isset($_SESSION['vendor']) ?
           <ul class="sidebar-menu">
             <?php
             // Check if session language is 'mr' (Marathi)
-            $lang = isset($_SESSION['lang']) ? $_SESSION['lang'] : 'en';
+            $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
             ?>
             <li class="menu-header">
               <?= ($lang === 'mr') ? 'मुख्य' : 'Main' ?>
