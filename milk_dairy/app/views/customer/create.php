@@ -309,4 +309,193 @@
   $(document).ready(function(){ loadEntriesTable(); });
 
 })(jQuery);
+</script>eteId = null;
+  let searchTimeout = null;
+
+  function formatMobile(mobile) {
+    if (!mobile) return '';
+    const digits = mobile.replace(/\D/g,'');
+    if (digits.length <= 6) return mobile;
+    return digits.replace(/^(\d{3})(\d{3})(\d+)/, '$1 $2 $3');
+  }
+
+  function renderEntries(customers) {
+    lastCustomers = customers || [];
+    const $body = $('#entries-table-body');
+    $body.empty();
+    if (!lastCustomers.length) {
+      $body.html('<tr><td colspan="5" class="text-center py-4">No customers found.</td></tr>');
+      $('#entries-summary').text('');
+      return;
+    }
+    let total = lastCustomers.length;
+    $('#entries-summary').text(`${total} customers`);
+    lastCustomers.forEach((cust, idx) => {
+      const mobileLink = cust.mobile ? `<a href="tel:${cust.mobile}">${escapeHtml(formatMobile(cust.mobile))}</a>` : '';
+      $body.append(`
+        <tr data-id="${cust.id}">
+          <td>${idx+1}</td>
+          <td>${escapeHtml(cust.bill_id || '')}</td>
+          <td>${escapeHtml(cust.name || '')}</td>
+          <td>${mobileLink}</td>
+          <td class="text-end">
+            <button class="btn btn-danger btn-sm delete-cust" data-id="${cust.id}" title="Delete"><i class="fa fa-trash"></i></button>
+            <a href="${BASE_URL}/customer/show/${cust.id}" class="btn btn-info btn-sm ms-1" title="View"><i class="fa fa-eye"></i></a>
+          </td>
+        </tr>
+      `);
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"'`]/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[m]; });
+  }
+
+  function loadEntriesTable() {
+    $.ajax({
+      url: BASE_URL + '/customer/list',
+      type: 'GET',
+      dataType: 'json',
+      success: function(res) {
+        if (res && res.success && Array.isArray(res.data)) {
+          renderEntries(res.data);
+        } else {
+          renderEntries([]);
+          toastr.error(res.message || 'Failed to load customers.');
+        }
+      },
+      error: function() {
+        renderEntries([]);
+        toastr.error('Failed to load customers. Check your network.');
+      }
+    });
+  }
+
+  // Debounced client-side search (filters lastCustomers)
+  function applySearch(term) {
+    term = (term || '').trim().toLowerCase();
+    if (!term) {
+      renderEntries(lastCustomers);
+      return;
+    }
+    const filtered = lastCustomers.filter(c => {
+      return (c.name || '').toLowerCase().includes(term) || (c.mobile || '').toLowerCase().includes(term) || (c.bill_id || '').toLowerCase().includes(term);
+    });
+    renderEntries(filtered);
+  }
+
+  // Contact picker fill
+  $('#pickContactBtn').on('click', async function(){
+    if ('contacts' in navigator && 'ContactsManager' in window) {
+      try {
+        const props = ['name','tel'];
+        const opts = {multiple:false};
+        const contacts = await navigator.contacts.select(props, opts);
+        if (contacts && contacts.length) {
+          const c = contacts[0];
+          if (c.name && c.name.length) $('#name').val(Array.isArray(c.name)?c.name[0]:c.name);
+          if (c.tel && c.tel.length) $('#mobile').val(c.tel[0]);
+        }
+      } catch(err){
+        console.error(err);
+        toastr.error('Contact picker not available or permission denied.');
+      }
+    } else {
+      toastr.info('Contact Picker not supported in this browser.');
+      const fallbackName = prompt('Contact name (optional):','');
+      const fallbackTel = prompt('Contact mobile (optional):','');
+      if (fallbackName) $('#name').val(fallbackName);
+      if (fallbackTel) $('#mobile').val(fallbackTel);
+    }
+  });
+
+  // Single submit handler
+  $('#customerForm').on('submit', function(e){
+    e.preventDefault();
+    const $form = $(this);
+    const $btn = $('#submitBtn');
+    const $spinner = $('#btnSpinner');
+    if ($btn.prop('disabled')) return;
+    $btn.prop('disabled', true);
+    $spinner.show();
+    $('.loader').show();
+
+    $.ajax({
+      url: BASE_URL + '/customer/store',
+      type: 'POST',
+      data: $form.serialize(),
+      dataType: 'json',
+      success: function(resp){
+        $('.loader').hide();
+        $btn.prop('disabled', false);
+        $spinner.hide();
+        if (resp && resp.success) {
+          toastr.success(resp.message || 'Customer added.');
+          $form[0].reset();
+          loadEntriesTable();
+        } else if (resp && resp.duplicate) {
+          toastr.warning(resp.message || 'Customer already exists.');
+          // Optionally highlight duplicate field
+        } else {
+          toastr.error(resp.message || 'Failed to add customer.');
+        }
+      },
+      error: function(xhr){
+        $('.loader').hide();
+        $btn.prop('disabled', false);
+        $spinner.hide();
+        toastr.error('Server error. Try again.');
+        console.error(xhr);
+      }
+    });
+  });
+
+  // Refresh button
+  $('#refreshEntries').on('click', function(){ loadEntriesTable(); });
+
+  // Search input
+  $('#entries-search').on('input', function(){
+    clearTimeout(searchTimeout);
+    const val = $(this).val();
+    searchTimeout = setTimeout(()=> applySearch(val), 250);
+  });
+
+  // Delete flow using modal
+  $(document).on('click', '.delete-cust', function(){
+    deleteId = $(this).data('id');
+    const modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    modal.show();
+  });
+
+  $('#confirmDeleteBtn').on('click', function(){
+    if (!deleteId) return;
+    $('#confirmDeleteBtn').prop('disabled', true).text('Deleting...');
+    $.ajax({
+      url: BASE_URL + '/customer/delete/' + deleteId,
+      type: 'POST',
+      dataType: 'json',
+      success: function(res){
+        $('#confirmDeleteBtn').prop('disabled', false).text('Delete');
+        const modalEl = document.getElementById('confirmDeleteModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+        if (res && res.success) {
+          toastr.success(res.message || 'Customer deleted.');
+          loadEntriesTable();
+        } else {
+          toastr.error(res.message || 'Failed to delete customer.');
+        }
+      },
+      error: function(xhr){
+        $('#confirmDeleteBtn').prop('disabled', false).text('Delete');
+        toastr.error('Delete failed.');
+        console.error(xhr);
+      }
+    });
+  });
+
+  // initial load
+  $(document).ready(function(){ loadEntriesTable(); });
+
+})(jQuery);
 </script>
