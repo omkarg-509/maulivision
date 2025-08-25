@@ -58,11 +58,16 @@
             'customers' => 'Customers',
             'history' => 'History',
           ],
-          'hi' => [
+            'hi' => [
             'daily_entry' => 'दैनिक प्रविष्टि',
             'customers' => 'ग्राहक',
             'history' => 'इतिहास',
-          ],
+            ],
+            'mr' => [
+            'daily_entry' => 'दैनंदिन नोंद',
+            'customers' => 'ग्राहक',
+            'history' => 'इतिहास',
+            ],
           // Add more languages as needed
         ];
         $t = $translations[$lang];
