@@ -218,68 +218,7 @@
     </section>
     <!-- /section -->
     
-    <!-- OUR TEAM -->
-    <section id="team" class="py-5">
-      <div class="container" data-aos="fade-up">
-        <div class="text-center mb-4">
-          <h3 class="fw-bold">Our Team</h3>
-          <p class="text-muted">Small team, big impact — people who build and support Mauli Vision.</p>
-        </div>
-
-        <style>
-          .team-card{border-radius:14px;transition:transform .28s ease,box-shadow .28s ease}
-          .team-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(10,40,80,.12)}
-          .team-photo{width:110px;height:110px;object-fit:cover;border-radius:50%;border:6px solid #fff;margin-top:-66px;box-shadow:0 6px 20px rgba(10,40,80,.08)}
-          .team-role{font-size:.9rem;color:var(--muted)}
-          .social-icons a{color:var(--primary);margin:0 .35rem}
-          .team-card .card-body{padding-top:4rem}
-        </style>
-
-        <div class="row g-4 justify-content-center">
-          <!-- Omkar -->
-          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
-            <div class="card text-center team-card h-100">
-              <div class="card-body position-relative">
-                <img src="<?= BASE_URL ?>assets1/img//omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
-                <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
-                <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
-                <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for<br> Mauli Vision.</p>
-                <div class="social-icons mt-3">
-                  <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
-                  <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
-                  <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
-                </div>
-                <div class="mt-3">
-                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-omkar">View bio</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Uttkarsha (hidden example) -->
-          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
-            <div class="card text-center team-card h-100">
-              <div class="card-body position-relative">
-                <img src="<?= BASE_URL ?>assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
-                <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
-                <div class="team-role mb-2">Frontend Developer</div>
-                <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
-                <div class="social-icons mt-3">
-                  <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
-                  <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
-                  <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
-                </div>
-                <div class="mt-3">
-                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
+   
     <section class="wrapper bg-light">
       <div class="container pb-14 pb-md-17">
         <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">
@@ -528,6 +467,68 @@
       <!-- /.overflow-hidden -->
     </section>
     <!-- /section -->
+      <!-- OUR TEAM -->
+    <section id="team" class="py-5">
+      <div class="container" data-aos="fade-up">
+        <div class="text-center mb-4">
+          <h3 class="fw-bold">Our Team</h3>
+          <p class="text-muted">Small team, big impact — people who build and support Mauli Vision.</p>
+        </div>
+
+        <style>
+          .team-card{border-radius:14px;transition:transform .28s ease,box-shadow .28s ease}
+          .team-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(10,40,80,.12)}
+          .team-photo{width:110px;height:110px;object-fit:cover;border-radius:50%;border:6px solid #fff;margin-top:-66px;box-shadow:0 6px 20px rgba(10,40,80,.08)}
+          .team-role{font-size:.9rem;color:var(--muted)}
+          .social-icons a{color:var(--primary);margin:0 .35rem}
+          .team-card .card-body{padding-top:4rem}
+        </style>
+
+        <div class="row g-4 justify-content-center">
+          <!-- Omkar -->
+          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
+            <div class="card text-center team-card h-100">
+              <div class="card-body position-relative">
+                <img src="<?= BASE_URL ?>assets1/img//omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
+                <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
+                <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
+                <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for<br> Mauli Vision.</p>
+                <div class="social-icons mt-3">
+                  <a href="#" aria-label="Omkar - twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="#" aria-label="Omkar - linkedin"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" aria-label="Omkar - github"><i class="bi bi-github"></i></a>
+                </div>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-omkar">View bio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uttkarsha (hidden example) -->
+          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
+            <div class="card text-center team-card h-100">
+              <div class="card-body position-relative">
+                <img src="<?= BASE_URL ?>assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
+                <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
+                <div class="team-role mb-2">Frontend Developer</div>
+                <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
+                <div class="social-icons mt-3">
+                  <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
+                </div>
+                <div class="mt-3">
+                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
     <section class="wrapper bg-gradient-primary">
       <div class="container pt-12 pt-lg-8 pb-14 pb-md-17">
         <div class="row text-center">
@@ -536,31 +537,28 @@
             <h3 class="display-3 mb-10 px-xxl-10">Don't take our word for it. See what customers are saying about us.</h3>
           </div>
           <!-- /column -->
-        </div>
         <!-- /.row -->
         <div class="grid">
           <div class="row isotope gy-6">
             <div class="item col-md-6 col-xl-4">
               <div class="card shadow-lg">
-                <div class="card-body">
-                  <span class="ratings four mb-2"></span>
-                  <blockquote class="border-0 mb-0">
-                    <p>“The website's customer service is outstanding. I had a question and reached out to their support team, and they were prompt, knowledgeable, and courteous in their response”</p>
-                    <div class="blockquote-details">
-                      <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets1/img/avatars/te1.jpg"  alt="" /> -->
-                      <div class="info">
-                        <h5 class="mb-1">Ashish Mishra</h5>
-                        <p class="mb-0">Aus Lighting Industry</p>
-                      </div>
-                    </div>
-                  </blockquote>
+          <div class="card-body text-center">
+            <span class="ratings four mb-2 d-inline-block"></span>
+            <blockquote class="border-0 mb-0">
+              <p>“The website's customer service is outstanding. I had a question and reached out to their support team, and they were prompt, knowledgeable, and courteous in their response”</p>
+              <div class="blockquote-details d-flex flex-column align-items-center">
+                <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets1/img/avatars/te1.jpg"  alt="" /> -->
+                <div class="info text-center">
+            <h5 class="mb-1">Ashish Mishra</h5>
+            <p class="mb-0">Aus Lighting Industry</p>
                 </div>
-                <!-- /.card-body -->
+              </div>
+            </blockquote>
+          </div>
+          <!-- /.card-body -->
               </div>
               <!-- /.card -->
             </div>
-         
-           
           </div>
           <!-- /.row -->
         </div>
@@ -573,37 +571,21 @@
     <!-- /section -->
   </div>
  <!-- /.content-wrapper -->
- <footer class="bg-navy text-inverse">
-    <div class="container pt-12 pt-lg-6 pb-13 pb-md-15">
-     
-      <!--/div -->
-      <hr class="mt-11 mb-12" />
-      <div class="row gy-6 gy-lg-0">
-        <div class="col-md-4 col-lg-3">
-          <div class="widget">
+<footer class="bg-navy text-inverse">
+  <div class="container pt-12 pt-lg-6 pb-13 pb-md-15">
+    <hr class="mt-11 mb-12" />
+    <div class="row gy-6 gy-lg-0 justify-content-center">
+      <div class="col-md-4 col-lg-3 text-center">
+        <div class="widget">
           <img src="<?= BASE_URL ?>assets1/favicon-1.png" alt="" style="width:30%;"/>
-            <p class="mb-4">© 2025 MauliVision. <br class="d-none d-lg-block" />All rights reserved.</p>
-            <nav class="nav social social-white">
-            
-            </nav>
-           
-          </div>
-        
+          <p class="mb-4">© 2025 MauliVision. <br class="d-none d-lg-block" />All rights reserved.</p>
+          <nav class="nav social social-white">
+          </nav>
         </div>
-        
-        
-        
-
-        
       </div>
-      
-      
-      
-      
-     
     </div>
-  
-  </footer>
+  </div>
+</footer>
   
 <script src="<?= BASE_URL ?>assets1/js/plugins.js"></script>
   <script src="<?= BASE_URL ?>assets1/js/theme.js"></script>
