@@ -120,9 +120,9 @@ $vendor = isset($_SESSION['vendor']) ?
               <span><?= $labels['logout'][$lang] ?? $labels['logout']['en'] ?></span>
               </a>
             </li>
-          <a href="/public/subscription" class="nav-link">
+          <!-- <a href="/public/subscription" class="nav-link">
               <i class="fas fa-bell"></i><span>Subscription</span>
-          </a>
+          </a> -->
              </li> -->
               </ul>
         </aside>
