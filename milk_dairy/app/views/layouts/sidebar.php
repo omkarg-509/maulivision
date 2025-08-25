@@ -23,6 +23,17 @@ $vendor = isset($_SESSION['vendor']) ?
 //     }
 //   }
 // }
+if ($vendor && isset($vendor['id'])) {
+  // Fetch latest 'lng' from database for this vendor
+  $db = new PDO('mysql:host=localhost;dbname=your_db_name;charset=utf8', 'your_db_user', 'your_db_pass');
+  $stmt = $db->prepare('SELECT lng FROM vendors WHERE id = ? LIMIT 1');
+  $stmt->execute([$vendor['id']]);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  if ($row && isset($row['lng'])) {
+    $vendor['lng'] = $row['lng'];
+    $_SESSION['vendor']['lng'] = $row['lng'];
+  }
+}
 ?>
 <style>
   .navbar-bg {
