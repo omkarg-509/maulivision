@@ -517,6 +517,9 @@
                             <div class="carousel-item">
                               <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy3.png" class="d-block w-100" alt="Milk Dairy Screenshot 3" style="cursor:zoom-in;" onclick="zoomImage(this)">
                             </div>
+                            <div class="carousel-item">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy4.png" class="d-block w-100" alt="Milk Dairy Screenshot 3" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                            </div>
                           </div>
                           <button class="carousel-control-prev" type="button" data-bs-target="#milkDairyCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
