@@ -10,6 +10,11 @@
             'mobile' => 'Mobile',
             'address' => 'Address',
             'submit' => 'Submit',
+            'customer_details' => 'Customer Details',
+            'delete_customer' => 'Delete Customer?',
+            'delete_warning' => 'This action cannot be undone.',
+            'cancel' => 'Cancel',
+            'delete' => 'Delete',
           ],
             'hi' => [
             'add_customer' => 'ग्राहक जोड़े',
@@ -18,7 +23,14 @@
             'mobile' => 'मोबाइल',
             'address' => 'पत्ता',
             'submit' => 'सबमिट',
-            ],
+            'customer_details' => 'ग्राहक माहिती',
+            'delete_customer' => 'ग्राहक हटवा?',
+            'delete_warning' => 'ही क्रिया पूर्ववत केली जाऊ शकत नाही.',
+            'cancel' => 'रद्द करा',
+            'delete' => 'हटवा',
+           
+          ],
+           
             'mr' => [
             'add_customer' => 'ग्राहक जोड़े',
             'bill_id' => 'बिल आयडी',
@@ -26,6 +38,11 @@
             'mobile' => 'मोबाइल',
             'address' => 'पत्ता',
             'submit' => 'सबमिट',
+            'customer_details' => 'ग्राहक माहिती',
+            'delete_customer' => 'ग्राहक हटवा?',
+            'delete_warning' => 'ही क्रिया पूर्ववत केली जाऊ शकत नाही.',
+            'cancel' => 'रद्द करा',
+            'delete' => 'हटवा',
             ],
           // Add more languages as needed
         ];
@@ -91,7 +108,7 @@
           <div class="col-12 col-md-6">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between">
-                <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
+                <h4 class="m-0"><?= $t['customer_details']; ?> <small class="text-muted" id="entries-summary"></small></h4>
                 <div class="d-flex gap-2">
                   <input id="entries-search" class="form-control form-control-sm" placeholder="Search name or mobile" style="min-width:150px;">
                   <button id="refreshEntries" class="btn btn-sm btn-outline-primary" title="Refresh"><i class="fa fa-sync"></i></button>
@@ -104,10 +121,10 @@
                     <thead class="table-light">
                       <tr>
                         <th>#</th>
-                        <th>Bill ID</th>
-                        <th>Customer</th>
-                        <th>Mobile</th>
-                        <th class="text-end">Action</th>
+                        <th><?= $t['bill_id']; ?></th>
+                        <th><?= $t['customer']; ?></th>
+                        <th><?= $t['mobile']; ?></th>
+                        <th class="text-end"><?= $t['action']; ?></th>
                       </tr>
                     </thead>
                     <tbody id="entries-table-body">
@@ -130,11 +147,11 @@
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body text-center p-4">
-        <h5 class="mb-3">Delete customer?</h5>
-        <p class="text-muted mb-3">This action cannot be undone.</p>
+        <h5 class="mb-3"><?= $t['delete_customer']; ?></h5>
+        <p class="text-muted mb-3"><?= $t['delete_warning']; ?></p>
         <div class="d-flex justify-content-center gap-2">
-          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-          <button id="confirmDeleteBtn" type="button" class="btn btn-danger btn-sm">Delete</button>
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><?= $t['cancel']; ?></button>
+          <button id="confirmDeleteBtn" type="button" class="btn btn-danger btn-sm"><?= $t['delete']; ?></button>
         </div>
       </div>
     </div>
