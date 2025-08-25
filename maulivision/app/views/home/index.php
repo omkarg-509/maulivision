@@ -535,15 +535,13 @@
                   </div>
                 </div>
                 <!-- End Milk Dairy Modal -->
-
                 <script>
                   function openMilkDairyModal() {
-                    var modal = new bootstrap.Modal(document.getElementById('milkDairyModal'));
-                    modal.show();
+                    window.location.href = "https://milkdairy.maulivision.in/public/";
                   }
                   function zoomImage(img) {
                     var src = img.src;
-                    var zoomWin = window.open("https://milkdairy.maulivision.in/public/", "_blank");
+                    var zoomWin = window.open("", "_blank");
                     zoomWin.document.write('<img src="' + src + '" style="width:100%">');
                   }
                 </script>
