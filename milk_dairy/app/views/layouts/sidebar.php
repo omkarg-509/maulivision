@@ -77,7 +77,11 @@ $vendor = isset($_SESSION['vendor']) ?
 
 
             <li class="active">
-              <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
+                <?php
+                // Use session language to display menu in Marathi or English
+                $dashboardLabel = ($lang === 'mr') ? 'डॅशबोर्ड' : 'Dashboard';
+                ?>
+                <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span><?= $dashboardLabel ?></span></a>
             </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
