@@ -1,5 +1,25 @@
 <?php require_once __DIR__ . '/../layouts/sidebar.php';?>
 
+   <?php
+        // Example translations, you should replace with your actual translation logic
+        $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
+        $translations = [
+          'en' => [
+            'Add_Customer' => 'Add Customer',
+           
+          ],
+            'hi' => [
+            'Add_Customer' => 'ग्राहक जोड़ें',
+           
+            ],
+            'mr' => [
+            'Add_Customer' => 'ग्राहक जोडा',
+           
+            ],
+          // Add more languages as needed
+        ];
+        $t = $translations[$lang];
+        ?>
 <div class="main-content">
   <div class="loader" style="display:none;"></div>
   <div id="app">
@@ -9,7 +29,7 @@
           <div class="col-12 col-md-6">
             <div class="card">
               <div class="card-header">
-                <h4>Add Customer</h4>
+                <h4><?= $t['add_customer']; ?></h4>
               </div>
               <form id="customerForm" autocomplete="off">
                 <div class="card-body">
