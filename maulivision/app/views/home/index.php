@@ -483,14 +483,14 @@
                 <!-- Milk Dairy Project with Zoomable Slideshow -->
                 <div class="slide">
                   <figure class="rounded mb-7">
-                    <a target="_blank" href="<?= BASE_URL ?>milk_dairy1.php">
+                    <a target="_blank" href="https://milkdairy.maulivision.in/public/">
                       <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy1.png" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
                     </a>
                   </figure>
                   <div class="project-details d-flex justify-content-center flex-column">
                     <div class="post-header text-center">
                       <h2 class="post-title h3">
-                        <a target="_blank" class="link-dark" href="<?= BASE_URL ?>milk_dairy1.php">Milk Dairy Platform</a>
+                        <a target="_blank" class="link-dark" href="https://milkdairy.maulivision.in/public/">Milk Dairy Platform</a>
                       </h2>
                       <div class="post-category text-ash">Web App / Inventory / Billing</div>
                     </div>
@@ -502,7 +502,7 @@
                   <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="milkDairyModalLabel">Milk Dairy Project Screenshots</h5>
+                        <h5 class="modal-title" id="milkDairyModalLabel">Milk Dairy Project</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
