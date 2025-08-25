@@ -71,13 +71,5 @@ class User extends Database
         return $result->fetch_assoc();
     }
 
-    public function fetchLngByVid($vid)
-    {
-        $stmt = $this->db->prepare("SELECT lng FROM vendor WHERE id = ? LIMIT 1");
-        $stmt->bind_param("i", $vid);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        return $row ? $row['lng'] : null;
-    }
+    
 }
