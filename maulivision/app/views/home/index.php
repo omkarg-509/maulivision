@@ -484,7 +484,7 @@
                 <div class="slide">
                   <figure class="rounded mb-7">
                     <a target="_blank" href="<?= BASE_URL ?>milk_dairy1.php">
-                      <img src="<?= BASE_URL ?>assets1/clients/milk_dairy1.png" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
+                      <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy1.png" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
                     </a>
                   </figure>
                   <div class="project-details d-flex justify-content-center flex-column">
