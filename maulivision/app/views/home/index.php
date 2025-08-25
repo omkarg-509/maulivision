@@ -489,7 +489,7 @@
           <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
             <div class="card text-center team-card h-100">
               <div class="card-body position-relative">
-                <img src="<?= BASE_URL ?>assets1/img//omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
+                <img src="<?= BASE_URL ?>assets1/img/omkar.png" alt="Omkar Gaikwad" class="team-photo mx-auto d-block">
                 <h5 class="mt-3 mb-1">Omkar Gaikwad</h5>
                 <div class="team-role mb-2">PHP Developer &amp; Product Lead</div>
                 <p class="text-muted small">Leads backend development and product direction — manages vision, context and overall delivery for<br> Mauli Vision.</p>
@@ -505,21 +505,21 @@
             </div>
           </div>
 
-          <!-- Uttkarsha (hidden example) -->
-          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170" hidden>
+          <!-- Rohit Kamble -->
+          <div class="col-sm-8 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="170">
             <div class="card text-center team-card h-100">
               <div class="card-body position-relative">
-                <img src="<?= BASE_URL ?>assets/img/users/uttkarsha.png" alt="Uttkarsha Gundalkar" class="team-photo mx-auto d-block">
-                <h5 class="mt-3 mb-1">Uttkarsha Gundalkar</h5>
-                <div class="team-role mb-2">Frontend Developer</div>
-                <p class="text-muted small">Designs and implements user interfaces, ensuring a seamless and intuitive experience for all users.</p>
+                <img src="<?= BASE_URL ?>assets/img/rohit.png" alt="Rohit Kamble" class="team-photo mx-auto d-block">
+                <h5 class="mt-3 mb-1">Rohit Kamble</h5>
+                <div class="team-role mb-2">Relationship Manager</div>
+                <p class="text-muted small">Manages client relationships, ensuring clear communication and smooth project delivery for all partners.</p>
                 <div class="social-icons mt-3">
-                  <a href="#" aria-label="Uttkarsha - twitter"><i class="bi bi-twitter"></i></a>
-                  <a href="#" aria-label="Uttkarsha - linkedin"><i class="bi bi-linkedin"></i></a>
-                  <a href="#" aria-label="Uttkarsha - github"><i class="bi bi-github"></i></a>
+                  <a href="#" aria-label="Rohit - twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="#" aria-label="Rohit - linkedin"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" aria-label="Rohit - github"><i class="bi bi-github"></i></a>
                 </div>
                 <div class="mt-3">
-                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-uttkarsha">View bio</a>
+                  <a href="#" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bio-rohit">View bio</a>
                 </div>
               </div>
             </div>
