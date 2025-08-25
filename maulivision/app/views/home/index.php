@@ -484,7 +484,7 @@
                 <div class="slide">
                   <figure class="rounded mb-7">
                     <a target="_blank" href="<?= BASE_URL ?>milk_dairy1.php">
-                      <img src="<?= BASE_URL ?>assets1/clients/milk_dairy1.jpg" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
+                      <img src="<?= BASE_URL ?>assets1/clients/milk_dairy1.png" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
                     </a>
                   </figure>
                   <div class="project-details d-flex justify-content-center flex-column">
@@ -509,13 +509,13 @@
                         <div id="milkDairyCarousel" class="carousel slide" data-bs-ride="carousel">
                           <div class="carousel-inner">
                             <div class="carousel-item active">
-                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy1.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 1" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy1.png" class="d-block w-100" alt="Milk Dairy Screenshot 1" style="cursor:zoom-in;" onclick="zoomImage(this)">
                             </div>
                             <div class="carousel-item">
-                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy2.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 2" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy2.png" class="d-block w-100" alt="Milk Dairy Screenshot 2" style="cursor:zoom-in;" onclick="zoomImage(this)">
                             </div>
                             <div class="carousel-item">
-                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy3.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 3" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy3.png" class="d-block w-100" alt="Milk Dairy Screenshot 3" style="cursor:zoom-in;" onclick="zoomImage(this)">
                             </div>
                           </div>
                           <button class="carousel-control-prev" type="button" data-bs-target="#milkDairyCarousel" data-bs-slide="prev">
@@ -681,7 +681,7 @@
             <blockquote class="border-0 mb-0">
               <p>“The website's customer service is outstanding. I had a question and reached out to their support team, and they were prompt, knowledgeable, and courteous in their response”</p>
               <div class="blockquote-details d-flex flex-column align-items-center">
-                <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets1/img/avatars/te1.jpg"  alt="" /> -->
+                <!-- <img class="rounded-circle w-12" src="<?= BASE_URL ?>assets1/img/avatars/te1.png"  alt="" /> -->
                 <div class="info text-center">
             <h5 class="mb-1">Ashish Mishra</h5>
             <p class="mb-0">Aus Lighting Industry</p>
