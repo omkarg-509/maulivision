@@ -51,7 +51,7 @@
 
         <?php
         // Example translations, you should replace with your actual translation logic
-        $lang = isset($_SESSION['lng']) ? $_SESSION['lng'] : 'en';
+        $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
         $translations = [
           'en' => [
             'daily_entry' => 'Daily Entry',
