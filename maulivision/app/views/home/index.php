@@ -464,6 +464,139 @@
           </svg>
         </div>
       </div>
+      
+
+      <div class="overflow-hidden" id="Projects">
+        <div class="container pt-12 pt-lg-7 pb-14 pb-md-16">
+          <div class="row">
+            <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto text-center">
+              <h2 class="fs-16 text-uppercase text-primary mb-3">Latest Projects</h2>
+              <h3 class="display-3 mb-10">Check out some of our awesome projects with creative ideas and great design.</h3>
+            </div>
+            <!-- /column -->
+          </div>
+          <!-- /.row -->
+          <div class="container nav-color mb-14" data-margin="30" data-dots="false" data-nav="false" data-items-md="2" data-items-xs="1">
+            <div class="overflow-visible">
+              <div class="wrapper">
+
+                <!-- Milk Dairy Project with Zoomable Slideshow -->
+                <div class="slide">
+                  <figure class="rounded mb-7">
+                    <a target="_blank" href="<?= BASE_URL ?>milk_dairy1.php">
+                      <img src="<?= BASE_URL ?>assets1/clients/milk_dairy1.jpg" alt="Milk Dairy Project" style="cursor:zoom-in;" onclick="openMilkDairyModal();return false;">
+                    </a>
+                  </figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3">
+                        <a target="_blank" class="link-dark" href="<?= BASE_URL ?>milk_dairy1.php">Milk Dairy Platform</a>
+                      </h2>
+                      <div class="post-category text-ash">Web App / Inventory / Billing</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal for Milk Dairy Slideshow -->
+                <div class="modal fade" id="milkDairyModal" tabindex="-1" aria-labelledby="milkDairyModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="milkDairyModalLabel">Milk Dairy Project Screenshots</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div id="milkDairyCarousel" class="carousel slide" data-bs-ride="carousel">
+                          <div class="carousel-inner">
+                            <div class="carousel-item active">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy1.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 1" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                            </div>
+                            <div class="carousel-item">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy2.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 2" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                            </div>
+                            <div class="carousel-item">
+                              <img src="<?= BASE_URL ?>assets1/img/project/milk_dairy3.jpg" class="d-block w-100" alt="Milk Dairy Screenshot 3" style="cursor:zoom-in;" onclick="zoomImage(this)">
+                            </div>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#milkDairyCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#milkDairyCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Milk Dairy Modal -->
+
+                <script>
+                  function openMilkDairyModal() {
+                    var modal = new bootstrap.Modal(document.getElementById('milkDairyModal'));
+                    modal.show();
+                  }
+                  function zoomImage(img) {
+                    var src = img.src;
+                    var zoomWin = window.open("", "_blank");
+                    zoomWin.document.write('<img src="' + src + '" style="width:100%">');
+                  }
+                </script>
+
+                <!-- Other Projects -->
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/aus.wabp"  alt="Aus Lighting Industry" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="https://auslightingind.com/">Aus Lighting Industry</a></h2>
+                      <div class="post-category text-ash">light  manufacturing</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/bessw.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Brand & E‑commerce</a></h2>
+                      <div class="post-category text-ash">design / storefront</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/pas.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Local Business Site</a></h2>
+                      <div class="post-category text-ash">website / seo</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="slide">
+                  <figure class="rounded mb-7"><a target="_blank" href="#"><img src="<?= BASE_URL ?>assets1/clients/sbcn.png"  alt="Client project" /></a></figure>
+                  <div class="project-details d-flex justify-content-center flex-column">
+                    <div class="post-header text-center">
+                      <h2 class="post-title h3"><a target="_blank" class="link-dark" href="#">Corporate Landing</a></h2>
+                      <div class="post-category text-ash">ui / performance</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!--/.wrapper -->
+            </div>
+            <!-- /.-->
+          </div>
+          <!-- /.container -->
+        </div>
+        <!-- /.container -->
+        <div class="divider text-soft-primary mx-n2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+            <path fill="currentColor" d="M1260,1.65c-60-5.07-119.82,2.47-179.83,10.13s-120,11.48-180,9.57-120-7.66-180-6.42c-60,1.63-120,11.21-180,16a1129.52,1129.52,0,0,1-180,0c-60-4.78-120-14.36-180-19.14S60,7,30,7H0v93H1440V30.89C1380.07,23.2,1319.93,6.15,1260,1.65Z" />
+          </svg>
+        </div>
+      </div>
       <!-- /.overflow-hidden -->
     </section>
     <!-- /section -->
