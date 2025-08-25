@@ -5,13 +5,27 @@
         $translations = [
           'en' => [
             'add_customer' => 'Add Customer',
+            'bill_id' => 'Bill ID',
+            'full_name' => 'Full Name',
+            'mobile' => 'Mobile',
+            'address' => 'Address',
+            'submit' => 'Submit',
           ],
             'hi' => [
             'add_customer' => 'ग्राहक जोड़े',
+            'bill_id' => 'बिल आईडी',
+            'full_name' => 'पूर्ण नाव',
+            'mobile' => 'मोबाइल',
+            'address' => 'पत्ता',
+            'submit' => 'सबमिट',
             ],
             'mr' => [
             'add_customer' => 'ग्राहक जोड़े',
-
+            'bill_id' => 'बिल आयडी',
+            'full_name' => 'पूर्ण नाव',
+            'mobile' => 'मोबाइल',
+            'address' => 'पत्ता',
+            'submit' => 'सबमिट',
             ],
           // Add more languages as needed
         ];
@@ -33,21 +47,21 @@
                   <input type="hidden" name="vid" value="<?php echo $_SESSION['vendor']['id'] ?? ''; ?>">
 
                   <div class="mb-3 row">
-                    <label class="col-sm-3 col-form-label">Bill ID</label>
+                    <label class="col-sm-3 col-form-label"><?= $t['bill_id']; ?></label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" name="bill_id" placeholder="Enter bill ID" required>
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-3 col-form-label">Full Name</label>
+                    <label class="col-sm-3 col-form-label"><?= $t['full_name']; ?></label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control" name="name" id="name" placeholder="Enter full name" required>
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-3 col-form-label">Mobile</label>
+                    <label class="col-sm-3 col-form-label"><?= $t['mobile']; ?></label>
                     <div class="col-sm-9 d-flex gap-2">
                       <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile number" required>
                       <button type="button" class="btn btn-secondary" id="pickContactBtn" title="Pick from contacts">
@@ -57,7 +71,7 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-3 col-form-label">Address</label>
+                    <label class="col-sm-3 col-form-label"><?= $t['address']; ?></label>
                     <div class="col-sm-9">
                       <textarea class="form-control" name="address" rows="2" placeholder="Enter address" required></textarea>
                     </div>
@@ -65,7 +79,7 @@
 
                   <div class="text-end">
                     <button type="submit" id="submitBtn" class="btn btn-primary px-4">
-                      <span id="btnText">Submit</span>
+                      <span id="btnText"><?= $t['submit']; ?></span>
                       <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true" style="display:none;"></span>
                     </button>
                   </div>
