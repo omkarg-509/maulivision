@@ -1,7 +1,7 @@
 <div id="app">
   <style>
     .login-card { border-radius: 12px; overflow: hidden; }
-    .login-left { background: linear-gradient(180deg,#0d6efd,#0a58ca); color: #fff; }
+    .login-left {background: linear-gradient(180deg, #212529, #212529);}
     .login-left img { filter: brightness(1.05); }
     .form-control:focus { box-shadow: 0 0 0 .12rem rgba(253, 149, 13, 0.37); }
     .btn-primary { background: linear-gradient(90deg,#0d6efd,#0069d9); border: none; }
