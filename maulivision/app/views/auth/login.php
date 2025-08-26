@@ -31,7 +31,7 @@
 
                   <form id="loginForm" novalidate>
                     <div class="mb-3">
-                      <label for="email_or_number" class="form-label">Email or Mobile</label>
+                      <label for="email_or_number" class="form-label">Username</label>
                       <input id="email_or_number" name="email_or_number" type="text" class="form-control" required autofocus placeholder="Email or phone">
                       <div class="invalid-feedback">Please enter your email or mobile number.</div>
                     </div>
