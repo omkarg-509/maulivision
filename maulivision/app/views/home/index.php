@@ -99,7 +99,7 @@
         <!-- /.navbar-nav -->
         <div class="offcanvas-footer d-lg-none">
           <div>
-            <a><span class="text-warning">maulivision@gmail.com</span></a>
+            <a><span class="text-warning">maulivision1@gmail.com</span></a>
             <br /> +91 (744) 822 4412 <br />
             <nav class="nav social social-white mt-4">
               <!-- <a href="#"><i class="uil uil-twitter"></i></a>
