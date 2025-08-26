@@ -39,7 +39,7 @@
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <div class="input-group">
-                        <input id="password" name="password" type="password" class="form-control" required minlength="6">
+                        <input id="password" name="password" type="password" class="form-control" required minlength="6" placeholder="Password">
                         <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword" title="Show / hide password"><i class="bi bi-eye"></i></button>
                       </div>
                       <div class="invalid-feedback">Please enter your password.</div>
