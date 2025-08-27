@@ -89,10 +89,7 @@
             <a class="nav-link " href="#Projects">Projects</a>
          
           </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link " href="10-best-online-business-ideas.html">Business Ideas</a>
-         
-          </li>
+       
           <!--  <li class="nav-item dropdown">
             <a class="nav-link " href="tel: 7448224412">Contacts</a>
          
@@ -102,7 +99,7 @@
         <!-- /.navbar-nav -->
         <div class="offcanvas-footer d-lg-none">
           <div>
-            <a><span class="text-warning">maulivision@gmail.com</span></a>
+            <a><span class="text-warning">maulivision1@gmail.com</span></a>
             <br /> +91 (744) 822 4412 <br />
             <nav class="nav social social-white mt-4">
               <!-- <a href="#"><i class="uil uil-twitter"></i></a>

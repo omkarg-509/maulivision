@@ -1,9 +1,9 @@
 <div id="app">
   <style>
     .login-card { border-radius: 12px; overflow: hidden; }
-    .login-left { background: linear-gradient(180deg,#0d6efd,#0a58ca); color: #fff; }
+    .login-left {background: linear-gradient(180deg, #212529, #212529);}
     .login-left img { filter: brightness(1.05); }
-    .form-control:focus { box-shadow: 0 0 0 .12rem rgba(13,110,253,.12); }
+    .form-control:focus { box-shadow: 0 0 0 .12rem rgba(253, 149, 13, 0.37); }
     .btn-primary { background: linear-gradient(90deg,#0d6efd,#0069d9); border: none; }
     .small-note { color: #6c757d; font-size: .9rem; }
   </style>
@@ -18,29 +18,28 @@
             <div class="row g-0">
               <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center login-left p-4">
                 <div class="text-center">
-                  <img src="/public/assets/img/logo-1.png" alt="MilkDairy" style="height:64px" class="mb-3">
-                  <h5 class="mb-0">Welcome Back</h5>
-                  <small class="d-block small-note">Sign in to manage your dairy</small>
+                  <img src="<?= BASE_URL ?>assets1/favicon-1.png" alt="MauliVision" style="height:64px" class="mb-3">
+                  <h5 class="mb-0 text-white">MAULI VISION</h5>
                 </div>
               </div>
 
               <div class="col-md-7">
                 <div class="card-body">
-                  <h5 class="card-title text-center mb-3">Login</h5>
+                  <h5 class="card-title text-center mb-3">Welcome Back Omkar</h5>
 
                   <div id="loginMessage" class="d-none"></div>
 
                   <form id="loginForm" novalidate>
                     <div class="mb-3">
-                      <label for="email_or_number" class="form-label">Email or Mobile</label>
-                      <input id="email_or_number" name="email_or_number" type="text" class="form-control" required autofocus placeholder="Email or phone">
+                      <label for="email_or_number" class="form-label">Username</label>
+                      <input id="email_or_number" name="email_or_number" type="text" class="form-control" required autofocus placeholder="Username....">
                       <div class="invalid-feedback">Please enter your email or mobile number.</div>
                     </div>
 
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <div class="input-group">
-                        <input id="password" name="password" type="password" class="form-control" required minlength="6">
+                        <input id="password" name="password" type="password" class="form-control" required minlength="6" placeholder="Password">
                         <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword" title="Show / hide password"><i class="bi bi-eye"></i></button>
                       </div>
                       <div class="invalid-feedback">Please enter your password.</div>
