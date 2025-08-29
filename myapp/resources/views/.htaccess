@@ -1,0 +1,5 @@
+# Redirect all requests to /login except for /login itself and assets
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/login
+RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$
+RewriteRule ^(.*)$ /login [R=302,L]
