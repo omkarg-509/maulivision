@@ -1,8 +1,7 @@
 <?php
-class HomeController extends Controller
+class DashboardController extends Controller
 {
-
-    public function dashboard()
+    public function index()
     {
         $this->view('dashboard/index');
     }
