@@ -3,7 +3,8 @@
     "description": "Milk Dairy management application",
     "type": "project",
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "mpdf/mpdf": "^6.1"
     },
     "autoload": {
         "psr-4": {
