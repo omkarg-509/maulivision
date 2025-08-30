@@ -278,7 +278,7 @@ $(document).ready(function() {
     // Set first day of current month
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
     // Set last day of current month
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 2, 0);
 
     
     // Set the date inputs to current month range
