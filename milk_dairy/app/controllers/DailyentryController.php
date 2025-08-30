@@ -101,20 +101,33 @@ class DailyentryController extends Controller
     {
         Auth::check();
         $dailyEntryModel = $this->model('DailyEntry');
-        
+
         // Get vendor ID from parameter or session
         if ($vid === null) {
             $vid = $_SESSION['vendor']['id'] ?? null;
         }
-        
+
+        $date = $_GET['date'] ?? null;
+        $dateField = $_GET['dateField'] ?? null; // 'selected_date' or 'created_at'
+
         if ($vid !== null) {
-            // Get daily entries for the specific vendor
-            $dailyEntries = $dailyEntryModel->getAll($vid);
+            if ($date) {
+                // Basic validation YYYY-MM-DD
+                if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'message' => 'Invalid date format']);
+                    exit;
+                }
+                $dailyEntries = $dailyEntryModel->getByDate($vid, $date, $dateField === 'created_at' ? 'created_at' : 'selected_date');
+            } else {
+                // Get daily entries for the specific vendor
+                $dailyEntries = $dailyEntryModel->getAll($vid);
+            }
         } else {
             // If no vendor ID, return empty array
             $dailyEntries = [];
         }
-        
+
         header('Content-Type: application/json');
         echo json_encode(['success' => true, 'data' => $dailyEntries]);
         exit;

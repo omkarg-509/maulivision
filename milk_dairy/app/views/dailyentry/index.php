@@ -66,6 +66,23 @@
                       </button>
                       </div>
                     </div>
+                    <div class="form-group row mb-3">
+                      <label class="col-sm-3 col-form-label text-center">Use date for</label>
+                      <div class="col-sm-9 d-flex flex-wrap align-items-center">
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_selected_date" value="selected_date" checked>
+                          <label class="form-check-label" for="use_selected_date">Selected date</label>
+                        </div>
+                        <div class="form-check me-3">
+                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_created_at" value="created_at">
+                          <label class="form-check-label" for="use_created_at">Created at (now)</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="setCreatedAtFromSelected" />
+                          <label class="form-check-label" for="setCreatedAtFromSelected">Also set created_at from selected date</label>
+                        </div>
+                      </div>
+                    </div>
 
                     <script>
                       function setEntryDateToday(openPicker = false) {
@@ -155,13 +172,14 @@
                       </div>
                     </div>
                     <div class="card-body" id="entries-table-container">
-                  <table class="table table-sm">
+      <table class="table table-sm">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">ग्राहक</th>
                         <th scope="col">प्रकार</th>
                         <th scope="col">लिटर</th>
+        <th scope="col">Date</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -271,19 +289,21 @@
                 lastEntries = entries || [];
                 updateSummary(lastEntries);
                 if (!Array.isArray(lastEntries) || lastEntries.length === 0) {
-                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">No entries found.</td></tr>');
+                  $('#entries-table-body').html('<tr><td colspan="6" class="text-center">No entries found.</td></tr>');
                   return;
                 }
                 $('#entries-table-body').empty();
                 lastEntries.forEach(function(entry, idx) {
                   let customerName = entry.customer_name || entry.name || 'Unknown Customer';
                   let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
+                  let dateVal = entry.selected_date || (entry.created_at ? entry.created_at.substring(0,10) : '');
                   $('#entries-table-body').append(
                     `<tr data-name="${(customerName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
                        <td>${idx + 1}</td>
                        <td>${customerName}</td>
                        <td>${milkType}</td>
                        <td>${entry.milkliter || '0'} L</td>
+                       <td>${dateVal}</td>
                        <td>
                          <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
                        </td>
@@ -292,12 +312,21 @@
                 });
               }
 
+              function currentDateField(){
+                var mode = $('input[name="date_use_mode"]:checked').val();
+                // For listing, when mode is created_at, we filter by created_at; else selected_date
+                return (mode === 'created_at') ? 'created_at' : 'selected_date';
+              }
+
               function loadEntriesTable() {
-                $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
+                $('#entries-table-body').html('<tr><td colspan="6" class="text-center">Loading...</td></tr>');
+                var d = $('#entry_date').val();
+                var df = currentDateField();
                 $.ajax({
                   url: BASE_URL + 'dailyentry/list',
                   type: 'GET',
                   dataType: 'json',
+                  data: d ? { date: d, dateField: df } : {},
                   success: function(response) {
                     if (response.success && Array.isArray(response.data)) {
                       renderEntries(response.data);
@@ -307,7 +336,7 @@
                   },
                   error: function(xhr, status, error) {
                     console.error('loadEntriesTable error:', xhr, status, error);
-                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
+                    $('#entries-table-body').html('<tr><td colspan="6" class="text-center">Failed to load entries. Please try again.</td></tr>');
                   }
                 });
               }
@@ -382,6 +411,10 @@
                   }
                 }, 200));
 
+                // Reload on date or mode change
+                $('#entry_date').on('change', function(){ loadEntriesTable(); });
+                $('input[name="date_use_mode"]').on('change', function(){ loadEntriesTable(); });
+
                 // Refresh & export
                 $('#refreshEntries').on('click', function(){
                   loadEntriesTable();
@@ -392,7 +425,8 @@
                   var headers = ['#','Customer','Type','Liters','ID','Bill ID','Date'];
                   var csv = headers.join(',') + '\n';
                   rows.forEach(function(r, i){
-                    var line = [i+1, '"'+(r.customer_name||r.name||'')+'"', (r.milktype||''), (r.milkliter||''), (r.id||''), (r.bill_id||''), (r.entry_date||'')];
+                    var dateVal = r.selected_date || (r.created_at ? r.created_at.substring(0,10) : '');
+                    var line = [i+1, '"'+(r.customer_name||r.name||'')+'"', (r.milktype||''), (r.milkliter||''), (r.id||''), (r.bill_id||''), dateVal];
                     csv += line.join(',') + '\n';
                   });
                   var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -415,7 +449,17 @@
                 $('#customerForm').off('submit').on('submit', function(e) {
                   e.preventDefault();
                   var form = $(this);
-                  var formData = form.serialize();
+                  var formData = form.serializeArray();
+                  // Optionally set created_at from selected date at 00:00:00 to preserve chosen day
+                  if ($('#setCreatedAtFromSelected').is(':checked')){
+                    var sel = $('#entry_date').val();
+                    if (sel){
+                      // Use 00:00 time so grouping by DATE(created_at) matches selected day
+                      formData.push({name:'created_at', value: sel + ' 00:00:00'});
+                    }
+                  }
+                  // Convert to query string
+                  formData = $.param(formData);
                   $('.loader').show();
                   $.ajax({
                     url: BASE_URL + 'dailyentry/store',
@@ -432,6 +476,9 @@
                         form[0].reset();
                         $('#cid').val('');
                         $('#entry_date').val(dateVal);
+                        // Keep date mode selections after reset
+                        $('#use_selected_date').prop('checked', true);
+                        $('#setCreatedAtFromSelected').prop('checked', false);
                         
                       } else {
                         toastr.error(response.message || 'Failed to add entry.');

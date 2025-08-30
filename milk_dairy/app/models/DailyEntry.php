@@ -21,6 +21,38 @@ class DailyEntry extends Database
         }
     }
     
+    /**
+     * Get entries for a vendor filtered by a specific date on a chosen field.
+     * $field can be 'selected_date' (DATE) or 'created_at' (DATETIME, compared by DATE()).
+     */
+    public function getByDate($vid, $date, $field = 'selected_date')
+    {
+        // Whitelist field
+        $field = ($field === 'created_at') ? 'created_at' : 'selected_date';
+
+        if ($field === 'selected_date') {
+            $sql = "SELECT de.*, c.name AS customer_name
+                    FROM daily_entries de
+                    JOIN customers c ON de.cid = c.id
+                    WHERE de.vid = ? AND de.selected_date = ?
+                    ORDER BY de.id DESC";
+        } else {
+            $sql = "SELECT de.*, c.name AS customer_name
+                    FROM daily_entries de
+                    JOIN customers c ON de.cid = c.id
+                    WHERE de.vid = ? AND DATE(de.created_at) = ?
+                    ORDER BY de.id DESC";
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("is", $vid, $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $entries = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $entries;
+    }
+
 
     public function insert($data)
     {
