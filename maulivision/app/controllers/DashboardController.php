@@ -5,5 +5,6 @@ class DashboardController extends Controller
     {
   require_once '../app/views/layouts/sidebar.php';
         $this->view('dashboard/index');
+        require_once '../app/views/layouts/footer.php';
     }
 }
