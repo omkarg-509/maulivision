@@ -369,6 +369,7 @@ if (file_exists($fontPath)) {
                 'name' => $_POST['name'] ?? '',
                 'mobile' => $_POST['mobile'] ?? '',
                 'address' => $_POST['address'] ?? '',
+                
             ];
 
             // Debug: Check if all required fields are present

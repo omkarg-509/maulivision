@@ -25,10 +25,11 @@ class DailyentryController extends Controller
                 'cid' => $_POST['cid'] ?? '',
                 'milktype' => $_POST['milktype'] ?? '',
                 'milkliter' => $_POST['milkliter'] ?? '',
+                'entrydate' => $_POST['selected_date'] ?? date('Y-m-d'),
             ];
 
             // Debug: Check if all required fields are present
-            if (empty($data['vid']) || empty($data['cid']) || empty($data['milktype']) || empty($data['milkliter'])) {
+            if (empty($data['vid']) || empty($data['cid']) || empty($data['milktype']) || empty($data['milkliter']) || empty($data['entrydate'])) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'All fields are required.', 'data' => $data]);
                 exit;
