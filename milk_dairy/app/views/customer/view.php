@@ -472,18 +472,18 @@ function sendWhatsApp() {
     }
   });
 
-  // Prepare daily summary string with all entries
+  // Prepare daily summary string with all entries, showing 1, 2, 3... for each date
   let dailySummary = '';
   let dayCount = 0;
 
   // Sort dates ascending
   const sortedDates = Object.keys(dailyData).sort();
-  sortedDates.forEach(dateStr => {
+  sortedDates.forEach((dateStr, idx) => {
     const d = dailyData[dateStr];
-    dayCount++;
     const dayTotal = d.cow + d.buffalo;
-    dailySummary += `\n${dayCount}. ${formatDate(dateStr)} | Cow: ${d.cow.toFixed(2)}L | Buffalo: ${d.buffalo.toFixed(2)}L | Total: ${dayTotal.toFixed(2)}L`;
+    dailySummary += `\n${idx + 1}. ${formatDate(dateStr)} | Cow: ${d.cow.toFixed(2)}L | Buffalo: ${d.buffalo.toFixed(2)}L | Total: ${dayTotal.toFixed(2)}L`;
   });
+  dayCount = sortedDates.length;
 
   // Calculate amounts
   const cowAmount = totalCowForPeriod * cowRate;
