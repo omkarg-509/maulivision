@@ -39,7 +39,7 @@ class User extends Database
 
     public function findByEmailAndNumber($email, $number)
     {
-        $stmt = $this->db->prepare("SELECT * FROM superadmin WHERE email = ? AND mobile_number = ? LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM superadmin WHERE email = ? AND mobile = ? LIMIT 1");
         $stmt->bind_param("ss", $email, $number);
         $stmt->execute();
         $result = $stmt->get_result();

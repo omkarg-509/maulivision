@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function login()
     {
         // If cookie exists but session does not, logout and exit
-        // if (isset($_COOKIE['vendor']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['vendor']))) {
+        // if (isset($_COOKIE['supperadmin']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['supperadmin']))) {
         //     Auth::logout();
         //     exit;
         // }
@@ -41,16 +41,16 @@ if (empty($email_or_number) || empty($password)) {
 }
 
             $userModel = $this->model('User');
-            $vendor = $userModel->findByEmailOrNumber($email_or_number);
+            $supperadmin = $userModel->findByEmailOrNumber($email_or_number);
 
             // Use password_verify if passwords are hashed
-            // if ($vendor && password_verify($password, $vendor['password'])) {
-            if ($vendor && $password === $vendor['password']) {
+            // if ($supperadmin && password_verify($password, $supperadmin['password'])) {
+            if ($supperadmin && $password === $supperadmin['password']) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
-                $_SESSION['vendor'] = $vendor;
-                setcookie("vendor", $vendor['id'], time() + (7 * 24 * 60 * 60), "/");
+                $_SESSION['supperadmin'] = $supperadmin;
+                setcookie("supperadmin", $supperadmin['id'], time() + (7 * 24 * 60 * 60), "/");
 
                 echo json_encode([
                     'status' => 'success',
@@ -86,20 +86,20 @@ if (empty($email_or_number) || empty($password)) {
         }
 
         // If session is set, redirect to dashboard
-        if (isset($_SESSION['vendor']) && !empty($_SESSION['vendor'])) {
+        if (isset($_SESSION['supperadmin']) && !empty($_SESSION['supperadmin'])) {
             $this->redirectToDashboard();
             return true;
         }
 
         // Check cookie if session doesn't exist
-        if (isset($_COOKIE['vendor']) && !empty($_COOKIE['vendor'])) {
+        if (isset($_COOKIE['supperadmin']) && !empty($_COOKIE['supperadmin'])) {
             // Validate cookie by fetching user from database
             $userModel = $this->model('User');
-            $vendor = $userModel->findById($_COOKIE['vendor']);
+            $supperadmin = $userModel->findById($_COOKIE['supperadmin']);
             
-            if ($vendor) {
+            if ($supperadmin) {
                 // Restore session from cookie
-                $_SESSION['vendor'] = $vendor;
+                $_SESSION['supperadmin'] = $supperadmin;
                 $this->redirectToDashboard();
                 return true;
             }
