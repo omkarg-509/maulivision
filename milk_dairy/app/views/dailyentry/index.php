@@ -179,8 +179,7 @@
                         <th scope="col">ग्राहक</th>
                         <th scope="col">प्रकार</th>
                         <th scope="col">लिटर</th>
-        <th scope="col">Date</th>
-                    
+        <th scope="col">दिनांक</th>
                     </thead>
                     <tbody id="entries-table-body">
                       <!-- Table rows will be loaded here by loadEntriesTable() via AJAX -->
