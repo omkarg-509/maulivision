@@ -100,7 +100,7 @@ class CustomerController extends Controller
 
             // Create PDF with proper error handling
             $pdf = new TCPDF();
-            $pdf->SetFont('notosansdevanagari', 'B', 20);
+          
             $pdf->SetCreator($businessName . ' System');
             $pdf->SetAuthor($businessName);
             $pdf->SetTitle('दूध बिल - ' . $customer['name']);
