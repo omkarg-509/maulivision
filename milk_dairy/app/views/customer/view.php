@@ -187,10 +187,10 @@
           }
           
           // Format date for display
-          $entryDate = date('d-m-Y', strtotime($entry['created_at']));
+          $entryDate = date('d-m-Y', strtotime($entry['selected_date']));
 
       ?>
-          <tr data-date="<?= htmlspecialchars($entry['created_at']) ?>" data-milktype="<?= htmlspecialchars($entry['milktype']) ?>" data-liter="<?= htmlspecialchars($entry['milkliter']) ?>">
+          <tr data-date="<?= htmlspecialchars($entry['selected_date']) ?>" data-milktype="<?= htmlspecialchars($entry['milktype']) ?>" data-liter="<?= htmlspecialchars($entry['milkliter']) ?>">
         <td><?= $index + 1 ?></td>
         <td><?= $entryDate ?></td>
         <td>
