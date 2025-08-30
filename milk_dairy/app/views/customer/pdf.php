@@ -99,7 +99,8 @@ $pdf->SetAutoPageBreak(true, 15);
 $pdf->AddPage();
 
 // Header
-$pdf->SetFont('dejavusans', 'B', 20);
+// $pdf->SetFont('dejavusans', 'B', 20);
+$pdf->SetFont('notosansdevanagari', 'B', 20);
 $pdf->Cell(0, 12, mb_strtoupper($businessName), 0, 1, 'C');
 $pdf->SetFont('dejavusans', '', 10);
 $pdf->Cell(0, 6, $businessAddress, 0, 1, 'C');
