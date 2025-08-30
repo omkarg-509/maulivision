@@ -70,6 +70,7 @@
 <script>
   // Expose BASE_URL to JS for consistent routing
   var BASE_URL = "<?= BASE_URL ?>";
+  console.log("BASE_URL:", BASE_URL);
   function showLoginAlert(type, msg){
     const el = $('#loginMessage');
     el.removeClass('d-none alert-danger alert-success').addClass('alert alert-' + (type === 'success' ? 'success' : 'danger'));
