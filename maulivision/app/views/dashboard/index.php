@@ -11,8 +11,8 @@
 
         
              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-              <div class="card card-statistic-1"><a href="../loan/loan.php">
-                <i class="fas fa-book-open card-icon col-green"></i>
+              <div class="card card-statistic-1"><a href="vendor">
+                <i class="fas fa-users card-icon col-green"></i>
                 <div class="card-wrap">
                   <div class="padding-20">
                     <div class="text-end">
