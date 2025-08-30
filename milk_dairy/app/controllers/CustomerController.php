@@ -153,7 +153,7 @@ if (file_exists($fontPath)) {
 
             // Header - Use vendor info
             $pdf->SetFont('notosansdevanagari', 'B', 22);
-            $pdf->Cell(0, 12, $vendor['business_name'], 0, 1, 'C');
+            $pdf->Cell(0, 12, $vendor['business_name'], 0, 1);
             $pdf->SetFont('notosansdevanagari', '', 12);
             $pdf->Cell(0, 6, $vendor['business_address'], 0, 1, 'C');
             $pdf->Cell(0, 6, 'Phone: ' . $vendor['business_number'], 0, 1, 'C');
