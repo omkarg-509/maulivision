@@ -516,7 +516,7 @@ ${vendor.address}
 दैनंदिन तपशील:
 ${dailySummary}
 
-आपल्या व्यवसायाबद्दल धन्यवाद!
+धन्यवाद!
   `.trim();
 
   const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
