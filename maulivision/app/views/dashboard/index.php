@@ -5,8 +5,8 @@
   <div class="loader"></div>
   <div id="app"> 
 
-        <section class="section">
-    
+        <section class="section m-5">
+
          <div class="row">
 
         
