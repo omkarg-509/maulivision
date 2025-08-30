@@ -3,7 +3,7 @@
 
 <div class="main-content">
   <div class="loader"></div>
-  <div id="app">
+  <div id="app"> 
 
         <section class="section">
     
@@ -52,6 +52,4 @@
    
       </section>
     
-  </div>
- </div>
   </div>
