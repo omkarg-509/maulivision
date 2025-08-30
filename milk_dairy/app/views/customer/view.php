@@ -432,7 +432,7 @@ function generateBill() {
     showBillModal(billData);
 }
 
- // Send WhatsApp message
+// Send WhatsApp message (Professional/Classic format)
 function sendWhatsApp() {
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;
@@ -482,40 +482,39 @@ function sendWhatsApp() {
     const d = dailyData[dateStr];
     dayCount++;
     const dayTotal = d.cow + d.buffalo;
-    dailySummary += `\n${dayCount}. ${formatDate(dateStr)}: 🐄 ${d.cow.toFixed(1)}L | 🐃 ${d.buffalo.toFixed(1)}L = ${dayTotal.toFixed(1)}L`;
+    dailySummary += `\n${dayCount}. ${formatDate(dateStr)} | Cow: ${d.cow.toFixed(2)}L | Buffalo: ${d.buffalo.toFixed(2)}L | Total: ${dayTotal.toFixed(2)}L`;
   });
 
   // Calculate amounts
   const cowAmount = totalCowForPeriod * cowRate;
   const buffaloAmount = totalBuffaloForPeriod * buffaloRate;
   const totalAmount = cowAmount + buffaloAmount;
+  const avgPerDay = dayCount > 0 ? ((totalCowForPeriod + totalBuffaloForPeriod) / dayCount).toFixed(2) : 0;
 
   const message = `
-🥛 *${vendor.business_name} Bill*
+${vendor.business_name}
+${vendor.address}
+Contact: ${vendor.number}
 
-👤 Customer: ${customerData.name}
-📋 Bill ID: ${customerData.billId}
-📅 Period: ${formatDate(startDate)} to ${formatDate(endDate)}
+Customer: ${customerData.name}
+Bill ID: ${customerData.billId}
+Period: ${formatDate(startDate)} to ${formatDate(endDate)}
 
-� *Summary:*
-🐄 Cow Milk: ${totalCowForPeriod.toFixed(1)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
-🐃 Buffalo Milk: ${totalBuffaloForPeriod.toFixed(1)}L × ₹${buffaloRate} = ₹${buffaloAmount.toFixed(2)}
+--------------------------
+Summary:
+Cow Milk: ${totalCowForPeriod.toFixed(2)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
+Buffalo Milk: ${totalBuffaloForPeriod.toFixed(2)}L × ₹${buffaloRate} = ₹${buffaloAmount.toFixed(2)}
+--------------------------
+Total Liters: ${(totalCowForPeriod + totalBuffaloForPeriod).toFixed(2)}L
+Total Amount: ₹${totalAmount.toFixed(2)}
+Days: ${dayCount}
+Avg/Day: ${avgPerDay}L
 
-💰 *Total Amount: ₹${totalAmount.toFixed(2)}*
-
-📱 Total Days: ${dayCount}
-📊 Avg per Day: ${dayCount > 0 ? ((totalCowForPeriod + totalBuffaloForPeriod) / dayCount).toFixed(1) : 0}L
-
-═══════════════════════
-🗓️ *Daily Details:*
+--------------------------
+Daily Details:
 ${dailySummary}
 
-═══════════════════════
-🏪 ${vendor.business_name}
-📍 ${vendor.address}
-📞 ${vendor.number}
-
-Thank you for choosing ${vendor.business_name}! 🙏
+Thank you for your business!
   `.trim();
 
   const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
