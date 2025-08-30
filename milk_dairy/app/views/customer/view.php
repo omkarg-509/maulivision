@@ -273,13 +273,13 @@ $(document).ready(function() {
     
     filteredEntries = [...allEntries];
     
- const now = new Date();
+const now = new Date();
 
-// First day of current month
-const firstDay = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
+// First day of current month in UTC
+const firstDay = new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1));
 
-// Last day of current month
-const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+// Last day of current month in UTC
+const lastDay = new Date(Date.UTC(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59));
 
     
     // Set the date inputs to current month range
