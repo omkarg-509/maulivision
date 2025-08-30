@@ -273,23 +273,13 @@ $(document).ready(function() {
     
     filteredEntries = [...allEntries];
     
-    // Set current month as default (1st day to last day of current month)
-    const now = new Date();
-    // Set first day of current month
-    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // Set last day of current month
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    // // Set current month as default (1st day to last day of current month)
+    // const now = new Date();
+    // // Set first day of current month
+    // const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    // // Set last day of current month
+    // const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-    // Format dates as yyyy-mm-dd (Indian date format for input fields)
-    function formatDateForInput(date) {
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-      return `${year}-${month}-${day}`;
-    }
-
-    document.getElementById('startDate').value = formatDateForInput(firstDay);
-    document.getElementById('endDate').value = formatDateForInput(lastDay);
     
     // Set the date inputs to current month range
     document.getElementById('startDate').value = firstDay.toISOString().split('T')[0];
