@@ -147,15 +147,14 @@
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                  <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
-                  <div class="d-flex">
-                    <input id="entries-search" class="form-control form-control-sm me-2" placeholder="Search by name/type..." style="min-width:180px;">
-                    <button id="refreshEntries" class="btn btn-sm btn-outline-secondary me-2" title="Refresh"><i class="fa fa-sync"></i></button>
-                    <button id="exportCsv" class="btn btn-sm btn-outline-primary" title="Export CSV"><i class="fa fa-download"></i> CSV</button>
-                  </div>
-                </div>
-                <div class="card-body" id="entries-table-container">
-                  <!-- Date filter UI will be prepended here by JS -->
+                      <h4 class="m-0">Customers Details <small class="text-muted" id="entries-summary"></small></h4>
+                      <div class="d-flex">
+                        <input id="entries-search" class="form-control form-control-sm me-2" placeholder="Search by name/type..." style="min-width:180px;">
+                        <button id="refreshEntries" class="btn btn-sm btn-outline-secondary me-2" title="Refresh"><i class="fa fa-sync"></i></button>
+                        <button id="exportCsv" class="btn btn-sm btn-outline-primary" title="Export CSV"><i class="fa fa-download"></i> CSV</button>
+                      </div>
+                    </div>
+                    <div class="card-body" id="entries-table-container">
                   <table class="table table-sm">
                     <thead>
                       <tr>
@@ -293,66 +292,25 @@
                 });
               }
 
-                function loadEntriesTable(dateFilter) {
+              function loadEntriesTable() {
                 $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Loading...</td></tr>');
-                var params = {};
-                if (dateFilter) {
-                  params.entry_date = dateFilter;
-                }
                 $.ajax({
                   url: BASE_URL + 'dailyentry/list',
                   type: 'GET',
-                  data: params,
                   dataType: 'json',
                   success: function(response) {
-                  if (response.success && Array.isArray(response.data)) {
-                    renderEntries(response.data);
-                  } else {
-                    renderEntries([]);
-                  }
+                    if (response.success && Array.isArray(response.data)) {
+                      renderEntries(response.data);
+                    } else {
+                      renderEntries([]);
+                    }
                   },
                   error: function(xhr, status, error) {
-                  console.error('loadEntriesTable error:', xhr, status, error);
-                  $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
+                    console.error('loadEntriesTable error:', xhr, status, error);
+                    $('#entries-table-body').html('<tr><td colspan="5" class="text-center">Failed to load entries. Please try again.</td></tr>');
                   }
                 });
-                }
-
-                // Add date filter UI and event
-                $(function() {
-                // Insert date filter input before the table
-                var dateFilterHtml = `
-                  <div class="mb-2 d-flex align-items-center">
-                  <label for="entries-date-filter" class="me-2 mb-0">Filter by Date:</label>
-                  <input type="date" id="entries-date-filter" class="form-control form-control-sm" style="max-width:160px;">
-                  <button id="clear-date-filter" class="btn btn-sm btn-outline-secondary ms-2" title="Clear Date Filter"><i class="fa fa-times"></i></button>
-                  </div>
-                `;
-                $('#entries-table-container').prepend(dateFilterHtml);
-
-                // Set default date to today
-                var today = new Date();
-                var yyyy = today.getFullYear();
-                var mm = String(today.getMonth() + 1).padStart(2, '0');
-                var dd = String(today.getDate()).padStart(2, '0');
-                var todayStr = `${yyyy}-${mm}-${dd}`;
-                $('#entries-date-filter').val(todayStr);
-
-                // Initial load with today's date
-                loadEntriesTable(todayStr);
-
-                // On date change, reload table
-                $('#entries-date-filter').on('change', function() {
-                  var val = $(this).val();
-                  loadEntriesTable(val);
-                });
-
-                // Clear date filter
-                $('#clear-date-filter').on('click', function() {
-                  $('#entries-date-filter').val('');
-                  loadEntriesTable();
-                });
-                });
+              }
 
               $(document).ready(function () {
                 // Bind events

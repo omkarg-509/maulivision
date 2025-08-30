@@ -20,42 +20,7 @@ class DailyEntry extends Database
             return $result->fetch_all(MYSQLI_ASSOC);
         }
     }
-    public function getAllGroupedByDate($vid = null)
-    {
-        if ($vid !== null) {
-            $stmt = $this->db->prepare("
-                SELECT 
-                    DATE(daily_entries.selected_date) as entry_date,
-                    customers.name AS customer_name,
-                    daily_entries.milktype,
-                    SUM(daily_entries.milkliter) as total_liter
-                FROM daily_entries
-                JOIN customers ON daily_entries.cid = customers.id
-                WHERE daily_entries.vid = ?
-                GROUP BY entry_date, customers.name, daily_entries.milktype
-                ORDER BY entry_date DESC, customers.name ASC, daily_entries.milktype ASC
-            ");
-            $stmt->bind_param("i", $vid);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $entries = $result->fetch_all(MYSQLI_ASSOC);
-            $stmt->close();
-            return $entries;
-        } else {
-            $result = $this->db->query("
-                SELECT 
-                    DATE(daily_entries.selected_date) as entry_date,
-                    customers.name AS customer_name,
-                    daily_entries.milktype,
-                    SUM(daily_entries.milkliter) as total_liter
-                FROM daily_entries
-                JOIN customers ON daily_entries.cid = customers.id
-                GROUP BY entry_date, customers.name, daily_entries.milktype
-                ORDER BY entry_date DESC, customers.name ASC, daily_entries.milktype ASC
-            ");
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-    }
+    
 
     public function insert($data)
     {
