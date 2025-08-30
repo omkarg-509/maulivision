@@ -165,7 +165,7 @@ if (file_exists($fontPath)) {
             $pdf->Ln(5);
 
             // Customer Info - English only
-            $pdf->SetFont('helvetica', '', 11);
+            $pdf->SetFont('notosansdevanagari', '', 11);
             $pdf->Cell(95, 8, 'Customer: ' . $customer['name'], 1, 0);
             $pdf->Cell(95, 8, 'Address: ' . ($customer['address'] ?? 'Gaywadi Nal'), 1, 1);
             $pdf->Cell(95, 8, 'Bill No: ' . $customer['bill_id'], 1, 0);
@@ -189,11 +189,11 @@ if (file_exists($fontPath)) {
             // Daily milk table - English only
             $html = '
             <style>
-            body { font-family: helvetica; }
+            body { font-family: notosansdevanagari; }
             table.milk-table {
                 width: 100%;
                 border-collapse: collapse;
-                font-family: helvetica;
+                font-family: notosansdevanagari;
             }
             table.milk-table th, table.milk-table td {
                 border: 1px solid #000;
@@ -307,11 +307,11 @@ if (file_exists($fontPath)) {
             $pdf->SetLineWidth(0.3);
             $pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
             $pdf->Ln(3);
-            $pdf->SetFont('helvetica', 'I', 9);
+            $pdf->SetFont('notosansdevanagari', 'I', 9);
             $pdf->Cell(0, 5, 'Please arrange to pay the bill amount immediately.', 0, 1, 'C');
 
             $pdf->Ln(5);
-            $pdf->SetFont('helvetica', '', 8);
+            $pdf->SetFont('notosansdevanagari', '', 8);
             $pdf->Cell(95, 5, 'Customer Signature: ________________', 0, 0);
             $pdf->Cell(95, 5, 'Shop Signature: ________________', 0, 1);
 
