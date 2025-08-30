@@ -158,29 +158,6 @@ if (file_exists($fontPath)) {
             $pdf->SetFont('notosansdevanagari', '', 12);
             $pdf->Cell(0, 6, $vendor['business_address'], 0, 1, 'C');
             $pdf->Cell(0, 6, 'Phone: ' . $vendor['business_number'], 0, 1, 'C');
-// ==== HEADING TEXT TO IMAGE ====
-$headingText = "श्री कृष्णा डेअरी & स्वीट";
-$fontPath = __DIR__ . "/../lib/fonts/NotoSerifDevanagari-Regular.ttf"; // फॉन्ट path adjust कर
-
-// Image तयार करतो
-$im = imagecreatetruecolor(600, 100);
-$white = imagecolorallocate($im, 255, 255, 255);
-$black = imagecolorallocate($im, 0, 0, 0);
-
-// Background पांढरा
-imagefilledrectangle($im, 0, 0, 600, 100, $white);
-
-// UTF-8 मराठी टेक्स्ट लिहा
-imagettftext($im, 28, 0, 20, 60, $black, $fontPath, $headingText);
-
-// Temporary PNG save करा
-$headingImage = __DIR__ . "/../tmp/heading.png";
-imagepng($im, $headingImage);
-imagedestroy($im);
-
-// ==== ADD IMAGE TO PDF ====
-$pdf->Image($headingImage, 40, 15, 130, 0, 'PNG'); // x=40, y=15, width=130mm
-$pdf->Ln(40); // खाली थोडी जागा सोड
 
             // Line separator
             $pdf->Ln(3);
