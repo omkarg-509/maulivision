@@ -434,13 +434,13 @@ function generateBill() {
     showBillModal(billData);
 }
 
-// Send WhatsApp message (Professional/Classic format)
+// Send WhatsApp message (Marathi format)
 function sendWhatsApp() {
   const startDate = document.getElementById('startDate').value;
   const endDate = document.getElementById('endDate').value;
 
   if (!startDate || !endDate) {
-    toastr.error('Please select date range first');
+    toastr.error('कृपया दिनांक निवडा');
     return;
   }
 
@@ -483,7 +483,7 @@ function sendWhatsApp() {
   sortedDates.forEach((dateStr, idx) => {
     const d = dailyData[dateStr];
     const dayTotal = d.cow + d.buffalo;
-    dailySummary += `\n${idx + 1}. ${formatDate(dateStr)} | Cow: ${d.cow.toFixed(2)}L | Buffalo: ${d.buffalo.toFixed(2)}L | Total: ${dayTotal.toFixed(2)}L`;
+    dailySummary += `\n${idx + 1}. ${formatDate(dateStr)} | गाय: ${d.cow.toFixed(2)}L | म्हैस: ${d.buffalo.toFixed(2)}L | एकूण: ${dayTotal.toFixed(2)}L`;
   });
   dayCount = sortedDates.length;
 
@@ -496,27 +496,27 @@ function sendWhatsApp() {
   const message = `
 ${vendor.business_name}
 ${vendor.address}
-Contact: ${vendor.number}
+संपर्क: ${vendor.number}
 
-Customer: ${customerData.name}
-Bill ID: ${customerData.billId}
-Period: ${formatDate(startDate)} to ${formatDate(endDate)}
-
---------------------------
-Summary:
-Cow Milk: ${totalCowForPeriod.toFixed(2)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
-Buffalo Milk: ${totalBuffaloForPeriod.toFixed(2)}L × ₹${buffaloRate} = ₹${buffaloAmount.toFixed(2)}
---------------------------
-Total Liters: ${(totalCowForPeriod + totalBuffaloForPeriod).toFixed(2)}L
-Total Amount: ₹${totalAmount.toFixed(2)}
-Days: ${dayCount}
-Avg/Day: ${avgPerDay}L
+ग्राहक: ${customerData.name}
+बिल आयडी: ${customerData.billId}
+कालावधी: ${formatDate(startDate)} ते ${formatDate(endDate)}
 
 --------------------------
-Daily Details:
+सारांश:
+गाय दूध: ${totalCowForPeriod.toFixed(2)}L × ₹${cowRate} = ₹${cowAmount.toFixed(2)}
+म्हैस दूध: ${totalBuffaloForPeriod.toFixed(2)}L × ₹${buffaloRate} = ₹${buffaloAmount.toFixed(2)}
+--------------------------
+एकूण लिटर: ${(totalCowForPeriod + totalBuffaloForPeriod).toFixed(2)}L
+एकूण रक्कम: ₹${totalAmount.toFixed(2)}
+दिवस: ${dayCount}
+सरासरी/दिवस: ${avgPerDay}L
+
+--------------------------
+दैनंदिन तपशील:
 ${dailySummary}
 
-Thank you for your business!
+आपल्या व्यवसायाबद्दल धन्यवाद!
   `.trim();
 
   const whatsappUrl = `https://wa.me/${customerData.mobile}?text=${encodeURIComponent(message)}`;
