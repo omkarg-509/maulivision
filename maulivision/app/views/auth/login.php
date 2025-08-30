@@ -68,6 +68,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <script>
+  // Expose BASE_URL to JS for consistent routing
+  var BASE_URL = "<?= BASE_URL ?>";
   function showLoginAlert(type, msg){
     const el = $('#loginMessage');
     el.removeClass('d-none alert-danger alert-success').addClass('alert alert-' + (type === 'success' ? 'success' : 'danger'));
@@ -102,14 +104,14 @@
     $('#loginSpinner').removeClass('d-none');
 
     $.ajax({
-      url: '/public/auth/login',
+      url: BASE_URL + 'auth/login',
       type: 'POST',
       data: $(this).serialize(),
       dataType: 'json'
     }).done(function(response){
       if(response && response.status === 'success'){
         showLoginAlert('success', response.message || 'Login successful. Redirecting...');
-        setTimeout(function(){ window.location.href = response.redirect || '/public'; }, 800);
+        setTimeout(function(){ window.location.href = response.redirect || BASE_URL; }, 800);
       } else {
         if(response && response.message) showLoginAlert('error', response.message);
         else showLoginAlert('error', 'Invalid credentials.');
