@@ -101,12 +101,23 @@ class CustomerController extends Controller
             // Create PDF with proper error handling
             $pdf = new TCPDF();
 
-            // Register and use NotoSansDevanagari font for Marathi
-            $fontPath = __DIR__ . '/../lib/tcpdf/fonts/notosansdevanagari.php';
-            if (file_exists($fontPath)) {
-                $pdf->AddFont('notosansdevanagari', '', 'notosansdevanagari.php');
-            }
-            $pdf->SetFont('notosansdevanagari', 'B', 20);
+            // // Register and use NotoSansDevanagari font for Marathi
+            // $fontPath = __DIR__ . '/../lib/tcpdf/fonts/notosansdevanagari.php';
+            // if (file_exists($fontPath)) {
+            //     $pdf->AddFont('notosansdevanagari', '', 'notosansdevanagari.php');
+            // }
+            // $pdf->SetFont('notosansdevanagari', 'B', 20);
+$fontPath = __DIR__ . '/../lib/tcpdf/fonts/NotoSansDevanagari-Regular.ttf';
+if (file_exists($fontPath)) {
+    $fontname = TCPDF_FONTS::addTTFfont($fontPath, 'TrueTypeUnicode', '', 32);
+}
+// Marathi Customer Name
+$pdf->SetFont('notosansdevanagari', '', 11);
+$pdf->Cell(95, 8, 'Customer: ' . $customer['name'], 1, 0);
+
+// English Bill No
+$pdf->SetFont('helvetica', '', 11);
+$pdf->Cell(95, 8, 'Bill No: ' . $customer['bill_id'], 1, 0);
 
             $pdf->SetCreator($businessName . ' System');
             $pdf->SetAuthor($businessName);
