@@ -284,7 +284,6 @@
                 var liters = entries.reduce(function(s, e){ return s + (parseFloat(e.milkliter) || 0); }, 0);
                 $('#entries-summary').text(` — ${total} entries, ${liters} L total`);
               }
-
               function renderEntries(entries) {
                 lastEntries = entries || [];
                 updateSummary(lastEntries);
@@ -294,15 +293,37 @@
                 }
                 $('#entries-table-body').empty();
                 lastEntries.forEach(function(entry, idx) {
-                  let customerName = entry.customer_name || entry.name || 'Unknown Customer';
+                  // Show only first and last name (split by space, take first and last parts)
+                  let fullName = entry.customer_name || entry.name || 'Unknown Customer';
+                  let nameParts = fullName.trim().split(/\s+/);
+                  let displayName = nameParts.length > 1
+                    ? nameParts[0] + ' ' + nameParts[nameParts.length - 1]
+                    : nameParts[0];
+
+                  // Milk type in Marathi
                   let milkType = (entry.milktype === 'buffalo') ? 'म्हैस' : (entry.milktype === 'cow' ? 'गाय' : (entry.milktype || 'Unknown'));
-                  let dateVal = entry.selected_date || (entry.created_at ? entry.created_at.substring(0,10) : '');
+
+                  // Show only number in liter (no "L")
+                  let milkLiter = entry.milkliter || '0';
+
+                  // Show date as "MM-DD"
+                  let dateVal = '';
+                  if (entry.selected_date || entry.created_at) {
+                    let d = (entry.selected_date || entry.created_at).substring(0, 10);
+                    let parts = d.split('-');
+                    if (parts.length === 3) {
+                      dateVal = parts[1] + '-' + parts[2];
+                    } else {
+                      dateVal = d;
+                    }
+                  }
+
                   $('#entries-table-body').append(
-                    `<tr data-name="${(customerName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
+                    `<tr data-name="${(displayName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
                        <td>${idx + 1}</td>
-                       <td>${customerName}</td>
+                       <td>${displayName}</td>
                        <td>${milkType}</td>
-                       <td>${entry.milkliter || '0'} L</td>
+                       <td>${milkLiter}</td>
                        <td>${dateVal}</td>
                        <td>
                          <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
