@@ -44,7 +44,7 @@ class DailyEntry extends Database
         } else {
             $result = $this->db->query("
                 SELECT 
-                    DATE(daily_entries.created_at) as entry_date,
+                    DATE(daily_entries.selected_date) as entry_date,
                     customers.name AS customer_name,
                     daily_entries.milktype,
                     SUM(daily_entries.milkliter) as total_liter
