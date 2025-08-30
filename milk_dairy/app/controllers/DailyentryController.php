@@ -25,7 +25,7 @@ class DailyentryController extends Controller
                 'cid' => $_POST['cid'] ?? '',
                 'milktype' => $_POST['milktype'] ?? '',
                 'milkliter' => $_POST['milkliter'] ?? '',
-                'entry_date' => $_POST['selected_date'] ?? date('Y-m-d'),
+                'entry_date' => $_POST['entry_date'] ?? date('Y-m-d'),
             ];
 
             // Debug: Check if all required fields are present
