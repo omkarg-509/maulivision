@@ -32,13 +32,13 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-              <ul class="navbar-nav me-auto">
-            <li class="nav-item">
+              <!-- <ul class="navbar-nav me-auto">
+            <li class="nav-item"> -->
               <a href="<?=BASE_URL?>dailyentry/" class="nav-link nav-link-lg nav-link-user">
                 <img alt="logo" src="<?=BASE_URL?>assets/img/logo-1.png" style="height:40px;">
               </a>
-            </li>
-          </ul>
+            <!-- </li>
+          </ul> -->
             <a href="index.html">
   <span class="logo-name"  style="font-size:12px !important">
     <?= htmlspecialchars($vendor['business_name']) ?>
