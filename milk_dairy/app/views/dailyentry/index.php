@@ -180,8 +180,7 @@
                         <th scope="col">प्रकार</th>
                         <th scope="col">लिटर</th>
         <th scope="col">Date</th>
-                        <th scope="col">Action</th>
-                      </tr>
+                    
                     </thead>
                     <tbody id="entries-table-body">
                       <!-- Table rows will be loaded here by loadEntriesTable() via AJAX -->
@@ -325,9 +324,6 @@
                        <td>${milkType}</td>
                        <td>${milkLiter}</td>
                        <td>${dateVal}</td>
-                       <td>
-                         <button class="btn btn-danger btn-sm delete-entry" data-id="${entry.id}">Delete</button>
-                       </td>
                      </tr>`
                   );
                 });
