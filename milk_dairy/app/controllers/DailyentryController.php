@@ -108,8 +108,8 @@ class DailyentryController extends Controller
         }
         
         if ($vid !== null) {
-            // Get daily entries for the specific vendor
-            $dailyEntries = $dailyEntryModel->getAll($vid);
+            // Get daily entries for the specific vendor, grouped by date
+            $dailyEntries = $dailyEntryModel->getAllGroupedByDate($vid);
         } else {
             // If no vendor ID, return empty array
             $dailyEntries = [];
