@@ -275,9 +275,9 @@ $(document).ready(function() {
     
     // Set current month as default (1st day to last day of current month)
     const now = new Date();
-    // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (1st date of current month)
+    // Set first day of current month
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // चालू महिन्याचा शेवटचा दिवस (last date of current month)
+    // Set last day of current month
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
     // Set the date inputs to current month range
