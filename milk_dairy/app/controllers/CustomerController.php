@@ -20,12 +20,12 @@ class CustomerController extends Controller
         $customerId = $_GET['customer_id'] ?? $customerId ?? null;
         $startDate = $_GET['start_date'] ?? $startDate ?? date('Y-m-01');
         $endDate = $_GET['end_date'] ?? $endDate ?? date('Y-m-t');
-    // manual rates allowed (including 0 and decimals)
-    $cowRate = (isset($_GET['cow_rate']) && is_numeric($_GET['cow_rate'])) ? (float)$_GET['cow_rate'] : 50.0;
-    $buffaloRate = (isset($_GET['buffalo_rate']) && is_numeric($_GET['buffalo_rate'])) ? (float)$_GET['buffalo_rate'] : 60.0;
-    // sanitize currency (allow simple text/symbols)
-    $currency = $_GET['currency'] ?? 'Rs';
-    $currency = htmlspecialchars(substr($currency, 0, 10), ENT_QUOTES, 'UTF-8');
+        // manual rates allowed (including 0 and decimals)
+        $cowRate = (isset($_GET['cow_rate']) && is_numeric($_GET['cow_rate'])) ? (float)$_GET['cow_rate'] : 50.0;
+        $buffaloRate = (isset($_GET['buffalo_rate']) && is_numeric($_GET['buffalo_rate'])) ? (float)$_GET['buffalo_rate'] : 60.0;
+        // sanitize currency (allow simple text/symbols)
+        $currency = $_GET['currency'] ?? 'Rs';
+        $currency = htmlspecialchars(substr($currency, 0, 10), ENT_QUOTES, 'UTF-8');
 
         // ensure valid dates and order
         if (strtotime($startDate) === false || strtotime($endDate) === false) {
@@ -100,7 +100,14 @@ class CustomerController extends Controller
 
             // Create PDF with proper error handling
             $pdf = new TCPDF();
-          
+
+            // Register and use NotoSansDevanagari font for Marathi
+            $fontPath = __DIR__ . '/../lib/tcpdf/fonts/notosansdevanagari.php';
+            if (file_exists($fontPath)) {
+                $pdf->addTTFfont(__DIR__ . '/../lib/tcpdf/fonts/NotoSansDevanagari-Regular.ttf', 'TrueTypeUnicode', '', 32);
+            }
+            $pdf->SetFont('notosansdevanagari', 'B', 20);
+
             $pdf->SetCreator($businessName . ' System');
             $pdf->SetAuthor($businessName);
             $pdf->SetTitle('दूध बिल - ' . $customer['name']);
@@ -141,9 +148,9 @@ class CustomerController extends Controller
             $totalAmount = $cowAmount + $buffaloAmount;
 
             // Header - Use vendor info
-            $pdf->SetFont('helvetica', 'B', 22);
+            $pdf->SetFont('notosansdevanagari', 'B', 22);
             $pdf->Cell(0, 12, $businessName, 0, 1, 'C');
-            $pdf->SetFont('helvetica', '', 12);
+            $pdf->SetFont('notosansdevanagari', '', 12);
             $pdf->Cell(0, 6, $businessAddress, 0, 1, 'C');
             $pdf->Cell(0, 6, 'Phone: ' . $businessNumber, 0, 1, 'C');
 
