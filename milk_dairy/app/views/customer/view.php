@@ -273,12 +273,12 @@ $(document).ready(function() {
     
     filteredEntries = [...allEntries];
     
-    // // Set current month as default (1st day to last day of current month)
-    // const now = new Date();
-    // // Set first day of current month
-    // const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // // Set last day of current month
-    // const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    // Set current month as default (1st day to last day of current month)
+    const now = new Date();
+    // Set first day of current month
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    // Set last day of current month
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
     
     // Set the date inputs to current month range
