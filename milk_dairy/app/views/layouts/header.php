@@ -12,7 +12,7 @@
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='<?= BASE_URL ?>assets/img/logo-1.png' />
-  <title>Milk Dairy Management</title>
+  <title> <?= htmlspecialchars($vendor['business_name']) ?></title>
 </head>
 
 
