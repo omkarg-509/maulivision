@@ -305,17 +305,20 @@
                   // Show only number in liter (no "L")
                   let milkLiter = entry.milkliter || '0';
 
-                  // Show date as "MM-DD"
-                  let dateVal = '';
-                  if (entry.selected_date || entry.created_at) {
+                    // Show date as "DD-MM"
+                    let dateVal = '';
+                    if (entry.selected_date || entry.created_at) {
                     let d = (entry.selected_date || entry.created_at).substring(0, 10);
                     let parts = d.split('-');
                     if (parts.length === 3) {
-                      dateVal = parts[1] + '-' + parts[2];
+                      // Reverse: DD-MM, remove leading zero from day
+                      let day = parts[2].replace(/^0+/, '');
+                      let month = parts[1];
+                      dateVal = day + '-' + month;
                     } else {
                       dateVal = d;
                     }
-                  }
+                    }
 
                   $('#entries-table-body').append(
                     `<tr data-name="${(displayName+'').toLowerCase()}" data-type="${(entry.milktype||'').toLowerCase()}">
