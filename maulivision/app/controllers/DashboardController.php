@@ -7,7 +7,8 @@ class DashboardController extends Controller
         $this->view('dashboard/index');
     
     }
-    public function index()
+
+    public function vendors()
     {
 
         $this->view('dashboard/vendors');
