@@ -35,7 +35,7 @@ class DailyEntry extends Database
             $created_at = date('Y-m-d H:i:s');
         }
 
-        $stmt = $this->db->prepare("INSERT INTO daily_entries (vid,cid,milktype,milkliter,selected_date,created_at) VALUES (?,?,?,?,?,?)");
+        $stmt = $this->db->prepare("INSERT INTO daily_entries (vid,cid,milktype,milkliter,selected_date,created_at) VALUES (?,?,?,?,?,?,?)");
         $stmt->bind_param("iisdss", $data['vid'], $data['cid'], $data['milktype'], $data['milkliter'],$data['entrydate'], $created_at);
         $success = $stmt->execute();
         $stmt->close();
