@@ -11,7 +11,7 @@
 
         
              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-              <div class="card card-statistic-1"><a href="vendors">
+              <div class="card card-statistic-1"><a href="dashboard/vendors">
                 <i class="fas fa-users card-icon col-green"></i>
                 <div class="card-wrap">
                   <div class="padding-20">
