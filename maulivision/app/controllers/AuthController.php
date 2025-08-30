@@ -113,7 +113,7 @@ if (empty($email_or_number) || empty($password)) {
      */
     private function redirectToDashboard()
     {
-    $redirectUrl = defined('BASE_URL') ? BASE_URL : '/dashboard';
+    $redirectUrl = defined('BASE_URL') ? BASE_URL . 'dashboard' : '/dashboard';
     header('Location: ' . $redirectUrl);
         exit;
     }

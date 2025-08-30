@@ -11,4 +11,8 @@ class HomeController extends Controller
     {
         $this->view('home/about');
     }
+    public function dashboard()
+    {
+        $this->view('dashboard/index');
+    }
 }
