@@ -7,7 +7,7 @@
 
         <section class="section">
     
-         <!-- <div class="row">
+         <div class="row">
 
         
              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
@@ -40,7 +40,7 @@
 
         
             
-          </div> -->
+          </div>
           
 
 
@@ -49,55 +49,7 @@
  
         </div>
 
-        <?php
-        // Example translations, you should replace with your actual translation logic
-        $lang = isset($vendor['lng']) ? $vendor['lng'] : 'en';
-        $translations = [
-          'en' => [
-            'daily_entry' => 'Daily Entry',
-            'customers' => 'Customers',
-            'history' => 'History',
-          ],
-            'hi' => [
-            'daily_entry' => 'दैनिक प्रविष्टि',
-            'customers' => 'ग्राहक',
-            'history' => 'इतिहास',
-            ],
-            'mr' => [
-            'daily_entry' => 'दैनंदिन नोंद',
-            'customers' => 'ग्राहक',
-            'history' => 'इतिहास',
-            ],
-          // Add more languages as needed
-        ];
-        $t = $translations[$lang];
-        ?>
-        <div class="row mt-5">
-          <div class="col-6 col-md-3 col-lg-3">
-            <div class="card btn btn-default">
-              <a class="card-body text-center mt-4 mb-2" href="dailyentry/index">
-                <i class="fas fa-edit" style="font-size:30px;"></i>
-              </a>
-              <a><?= $t['daily_entry']; ?></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-3 col-lg-3">
-            <div class="card btn btn-default">
-              <a class="card-body text-center mt-4 mb-2" href="customer/index">
-                <i class="fas fa-users" style="font-size:30px;"></i>
-              </a>
-              <a><?= $t['customers']; ?></a>
-            </div>
-          </div>
-          <div class="col-6 col-md-3 col-lg-3">
-            <div class="card btn btn-default">
-              <a class="card-body text-center mt-4 mb-2" href="dailyentry/history">
-                <i class="fas fa-history" style="font-size:30px;"></i>
-              </a>
-              <a><?= $t['history']; ?></a>
-            </div>
-          </div>
-        </div>
+   
       </section>
     
   </div>
