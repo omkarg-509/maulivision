@@ -277,7 +277,7 @@ $(document).ready(function() {
     const now = new Date();
     // पहिला दिवस म्हणजे चालू महिन्याचा पहिला दिवस (1st date of current month)
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    // शेवटचा दिवस म्हणजे चालू महिन्याचा शेवटचा दिवस (last date of current month)
+    // चालू महिन्याचा शेवटचा दिवस (last date of current month)
     const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
     // Set the date inputs to current month range
