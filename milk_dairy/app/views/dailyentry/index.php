@@ -70,11 +70,11 @@
                       <label class="col-sm-3 col-form-label text-center">Use date for</label>
                       <div class="col-sm-9 d-flex flex-wrap align-items-center">
                         <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_selected_date" value="selected_date" checked>
+                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_selected_date" value="selected_date" >
                           <label class="form-check-label" for="use_selected_date">Selected date</label>
                         </div>
                         <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_created_at" value="created_at">
+                          <input class="form-check-input" type="radio" name="date_use_mode" id="use_created_at" value="created_at" checked>
                           <label class="form-check-label" for="use_created_at">Created at (now)</label>
                         </div>
                         <div class="form-check">
