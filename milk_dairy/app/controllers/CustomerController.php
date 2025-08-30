@@ -61,26 +61,26 @@ class CustomerController extends Controller
             $vendor = $_SESSION['vendor'] ?? [];
             $vendorId = $vendor['id'] ?? 1;
             // Convert business name, number, and address to English if not already
-            $businessName = $vendor['business_name'] ?? '';
-            $businessNumber = $vendor['business_number'] ?? '';
-            $businessAddress = $vendor['business_address'] ?? '';
+            // $businessName = $vendor['business_name'] ?? '';
+            // $businessNumber = $vendor['business_number'] ?? '';
+            // $businessAddress = $vendor['business_address'] ?? '';
 
-            // Marathi to English transliteration (if not already English)
-            if (!preg_match('/^[\x20-\x7E]+$/', $businessName)) {
-                if (function_exists('transliterator_transliterate')) {
-                    $businessName = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessName);
-                }
-            }
-            if (!preg_match('/^[\x20-\x7E]+$/', $businessAddress)) {
-                if (function_exists('transliterator_transliterate')) {
-                    $businessAddress = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessAddress);
-                }
-            }
-            if (!preg_match('/^[\x20-\x7E]+$/', $businessNumber)) {
-                if (function_exists('transliterator_transliterate')) {
-                    $businessNumber = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessNumber);
-                }
-            }
+            // // Marathi to English transliteration (if not already English)
+            // if (!preg_match('/^[\x20-\x7E]+$/', $businessName)) {
+            //     if (function_exists('transliterator_transliterate')) {
+            //         $businessName = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessName);
+            //     }
+            // }
+            // if (!preg_match('/^[\x20-\x7E]+$/', $businessAddress)) {
+            //     if (function_exists('transliterator_transliterate')) {
+            //         $businessAddress = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessAddress);
+            //     }
+            // }
+            // if (!preg_match('/^[\x20-\x7E]+$/', $businessNumber)) {
+            //     if (function_exists('transliterator_transliterate')) {
+            //         $businessNumber = transliterator_transliterate('Any-Latin; Latin-ASCII', $businessNumber);
+            //     }
+            // }
 
             // Get milk entries for the date range
             $milkEntries = $dailyEntryModel->getEntriesByDateRange($customerId, $startDate, $endDate, $vendorId);
@@ -112,8 +112,8 @@ if (file_exists($fontPath)) {
 }
             $pdf->SetFont('notosansdevanagari', 'B', 20);
 
-            $pdf->SetCreator($businessName . ' System');
-            $pdf->SetAuthor($businessName);
+            $pdf->SetCreator($vendor['business_name']);
+            $pdf->SetAuthor($vendor['business_name']);
             $pdf->SetTitle('दूध बिल - ' . $customer['name']);
             $pdf->SetSubject('Milk Bill - ' . $customer['name']);
 
@@ -153,10 +153,10 @@ if (file_exists($fontPath)) {
 
             // Header - Use vendor info
             $pdf->SetFont('notosansdevanagari', 'B', 22);
-            $pdf->Cell(0, 12, $businessName, 0, 1, 'C');
+            $pdf->Cell(0, 12, $vendor['business_name'], 0, 1, 'C');
             $pdf->SetFont('notosansdevanagari', '', 12);
-            $pdf->Cell(0, 6, $businessAddress, 0, 1, 'C');
-            $pdf->Cell(0, 6, 'Phone: ' . $businessNumber, 0, 1, 'C');
+            $pdf->Cell(0, 6, $vendor['business_address'], 0, 1, 'C');
+            $pdf->Cell(0, 6, 'Phone: ' . $vendor['business_number'], 0, 1, 'C');
 
             // Line separator
             $pdf->Ln(3);
