@@ -108,7 +108,7 @@ class CustomerController extends Controller
             // }
             $fontPath = __DIR__ . '/../lib/tcpdf/fonts/NotoSansDevanagari-Regular.ttf';
 if (file_exists($fontPath)) {
-    $pdf = TCPDF_FONTS::addTTFfont($fontPath, 'TrueTypeUnicode', '', 32);
+    TCPDF_FONTS::addTTFfont($fontPath, 'TrueTypeUnicode', '', 32);
 }
             $pdf->SetFont('notosansdevanagari', 'B', 20);
 
