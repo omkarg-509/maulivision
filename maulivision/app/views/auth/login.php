@@ -102,7 +102,7 @@
     $('#loginSpinner').removeClass('d-none');
 
     $.ajax({
-      url: '/public/auth/login',
+      url: <?= BASE_URL ?>'/public/auth/login',
       type: 'POST',
       data: $(this).serialize(),
       dataType: 'json'
