@@ -1,6 +1,6 @@
 <?php
-$vendor = isset($_SESSION['vendor']) ?    
-  $_SESSION['vendor'] : null;
+$admin = isset($_SESSION['admin']) ?    
+  $_SESSION['admin'] : null;
   ?>
 <!DOCTYPE html>
 <html lang="en">
