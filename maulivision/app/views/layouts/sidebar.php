@@ -32,9 +32,10 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">
+              <a href="index.html">
   <span class="logo-name"  style="font-size:12px !important">
-  
+      <img alt="logo" src="<?=BASE_URL?>assets/img/logo-1.png" style="height:40px;">
+    <?= htmlspecialchars($vendor['business_name']) ?>
 </span>
             </a>
           
