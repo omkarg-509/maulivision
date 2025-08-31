@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function login()
     {
         // If cookie exists but session does not, logout and exit
-        // if (isset($_COOKIE['superadmin']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['superadmin']))) {
+        // if (isset($_COOKIE['admin']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['admin']))) {
         //     Auth::logout();
         //     exit;
         // }
@@ -45,16 +45,16 @@ if (empty($email_or_number) || empty($password)) {
 }
 
             $userModel = $this->model('User');
-            $superadmin = $userModel->findByEmailOrNumber($email_or_number);
+            $admin = $userModel->findByEmailOrNumber($email_or_number);
 
             // Use password_verify if passwords are hashed
-            // if ($superadmin && password_verify($password, $superadmin['password'])) {
-            if ($superadmin && $password === $superadmin['password']) {
+            // if ($admin && password_verify($password, $admin['password'])) {
+            if ($admin && $password === $admin['password']) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
-                $_SESSION['superadmin'] = $superadmin;
-                setcookie("superadmin", $superadmin['id'], time() + (7 * 24 * 60 * 60), "/");
+                $_SESSION['admin'] = $admin;
+                setcookie("admin", $admin['id'], time() + (7 * 24 * 60 * 60), "/");
 
                 echo json_encode([
                     'status' => 'success',
@@ -94,16 +94,16 @@ if (empty($email_or_number) || empty($password)) {
         }
 
         // If session is set, user is logged in
-        if (isset($_SESSION['superadmin']) && !empty($_SESSION['superadmin'])) {
+        if (isset($_SESSION['admin']) && !empty($_SESSION['admin'])) {
             return true;
         }
 
         // Check cookie if session doesn't exist and hydrate session; do NOT redirect here
-        if (isset($_COOKIE['superadmin']) && !empty($_COOKIE['superadmin'])) {
+        if (isset($_COOKIE['admin']) && !empty($_COOKIE['admin'])) {
             $userModel = $this->model('User');
-            $superadmin = $userModel->findById($_COOKIE['superadmin']);
-            if ($superadmin) {
-                $_SESSION['superadmin'] = $superadmin;
+            $admin = $userModel->findById($_COOKIE['admin']);
+            if ($admin) {
+                $_SESSION['admin'] = $admin;
                 return true;
             }
         }
