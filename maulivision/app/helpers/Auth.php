@@ -16,12 +16,12 @@ class Auth
 
     public static function isLoggedIn()
     {
-        return isset($_SESSION['vendor']);
+        return isset($_SESSION['superadmin']);
     }
 
     public static function user()
     {
-        return $_SESSION['vendor'] ?? null;
+        return $_SESSION['superadmin'] ?? null;
     }
 
     public static function logout()
@@ -29,8 +29,8 @@ class Auth
         session_start();
         session_destroy();
 
-        if (isset($_COOKIE['vendor'])) {
-            setcookie("vendor", "", time() - 3600, "/");
+        if (isset($_COOKIE['superadmin'])) {
+            setcookie("superadmin", "", time() - 3600, "/");
         }
 
     $base = defined('BASE_URL') ? BASE_URL : '/';
