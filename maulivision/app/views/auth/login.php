@@ -69,7 +69,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <script>
   // Expose BASE_URL to JS for consistent routing
-  var BASE_URL = "<?= BASE_URL ?>";
+  <?php if(defined('BASE_URL')): ?>
+    var BASE_URL = "<?= BASE_URL ?>";
+  <?php else: ?>
+    var BASE_URL = "/";
+  <?php endif; ?>
   console.log("BASE_URL:", BASE_URL);
   function showLoginAlert(type, msg){
     const el = $('#loginMessage');
