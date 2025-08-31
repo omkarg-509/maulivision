@@ -69,98 +69,68 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <script>
   // Expose BASE_URL to JS for consistent routing
-  <?php if(defined('BASE_URL')): ?>
+  
     var BASE_URL = "<?= BASE_URL ?>";
-  <?php else: ?>
-    var BASE_URL = "/";
-  <?php endif; ?>
-  console.log("BASE_URL:", BASE_URL);
 
   function showLoginAlert(type, msg){
-    const el = document.getElementById('loginMessage');
-    el.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
-    el.classList.remove('d-none');
-    el.textContent = msg;
+    const el = $('#loginMessage');
+    el.removeClass('d-none alert-danger alert-success').addClass('alert alert-' + (type === 'success' ? 'success' : 'danger'));
+    el.text(msg);
   }
-  function hideLoginAlert(){
-    const el = document.getElementById('loginMessage');
-    el.className = 'd-none';
-    el.textContent = '';
-  }
+  function hideLoginAlert(){ $('#loginMessage').addClass('d-none').text(''); }
 
-  document.getElementById('toggleLoginPassword').addEventListener('click', function(){
-    const inp = document.getElementById('password');
-    const icon = this.querySelector('i');
-    if(inp.type === 'password'){
-      inp.type = 'text';
-      icon.classList.remove('bi-eye');
-      icon.classList.add('bi-eye-slash');
-    } else {
-      inp.type = 'password';
-      icon.classList.remove('bi-eye-slash');
-      icon.classList.add('bi-eye');
-    }
+  $('#toggleLoginPassword').on('click', function(){
+    const inp = $('#password');
+    const type = inp.attr('type') === 'password' ? 'text' : 'password';
+    inp.attr('type', type);
+    $(this).find('i').toggleClass('bi-eye bi-eye-slash');
   });
 
-  document.getElementById('loginForm').addEventListener('submit', function(e){
+  $('#loginForm').on('submit', function(e){
     e.preventDefault();
     hideLoginAlert();
 
     // clear previous states
-    document.getElementById('email_or_number').classList.remove('is-invalid', 'is-valid');
-    document.getElementById('password').classList.remove('is-invalid', 'is-valid');
+    $('#email_or_number,#password').removeClass('is-invalid is-valid');
 
-    const identifier = document.getElementById('email_or_number').value.trim();
-    const pwd = document.getElementById('password').value;
+    const identifier = $('#email_or_number').val().trim();
+    const pwd = $('#password').val();
     let hasErr = false;
-    if(!identifier){
-      document.getElementById('email_or_number').classList.add('is-invalid');
-      hasErr = true;
-    }
-    if(!pwd || pwd.length < 6){
-      document.getElementById('password').classList.add('is-invalid');
-      hasErr = true;
-    }
+    if(!identifier){ $('#email_or_number').addClass('is-invalid'); hasErr = true; }
+    if(!pwd || pwd.length < 6){ $('#password').addClass('is-invalid'); hasErr = true; }
     if(hasErr) return;
 
     // show loading
-    document.getElementById('loginBtn').disabled = true;
-    document.getElementById('loginBtnText').textContent = 'Signing in...';
-    document.getElementById('loginSpinner').classList.remove('d-none');
+    $('#loginBtn').attr('disabled', true);
+    $('#loginBtnText').text('Signing in...');
+    $('#loginSpinner').removeClass('d-none');
 
-    // Prepare form data
-    const formData = new FormData(this);
-
-    // AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', BASE_URL + 'auth/login', true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.onreadystatechange = function(){
-      if(xhr.readyState === 4){
-        document.getElementById('loginBtn').disabled = false;
-        document.getElementById('loginBtnText').textContent = 'Login';
-        document.getElementById('loginSpinner').classList.add('d-none');
-        try {
-          const response = JSON.parse(xhr.responseText);
-          if(response && response.status === 'success'){
-            showLoginAlert('success', response.message || 'Login successful. Redirecting...');
-            setTimeout(function(){ window.location.href = response.redirect || BASE_URL; }, 800);
-          } else {
-            if(response && response.message) showLoginAlert('error', response.message);
-            else showLoginAlert('error', 'Invalid credentials.');
-            // map field errors if present
-            if(response && response.errors){
-              Object.keys(response.errors).forEach(function(field){
-                const sel = document.getElementById(field);
-                if(sel) sel.classList.add('is-invalid');
-              });
-            }
-          }
-        } catch(e){
-          showLoginAlert('error', 'Something went wrong. Please try again.');
+    $.ajax({
+      url: BASE_URL + 'auth/login',
+      type: 'POST',
+      data: $(this).serialize(),
+      dataType: 'json'
+    }).done(function(response){
+      if(response && response.status === 'success'){
+        showLoginAlert('success', response.message || 'Login successful. Redirecting...');
+        setTimeout(function(){ window.location.href = response.redirect || BASE_URL; }, 800);
+      } else {
+        if(response && response.message) showLoginAlert('error', response.message);
+        else showLoginAlert('error', 'Invalid credentials.');
+        // map field errors if present
+        if(response && response.errors){
+          Object.keys(response.errors).forEach(function(field){
+            const sel = '#'+field;
+            $(sel).addClass('is-invalid');
+          });
         }
       }
-    };
-    xhr.send(formData);
+    }).fail(function(){
+      showLoginAlert('error', 'Something went wrong. Please try again.');
+    }).always(function(){
+      $('#loginBtn').attr('disabled', false);
+      $('#loginBtnText').text('Login');
+      $('#loginSpinner').addClass('d-none');
+    });
   });
 </script>
