@@ -58,7 +58,7 @@ if (empty($email_or_number) || empty($password)) {
 
                 echo json_encode([
                     'status' => 'success',
-                    'redirect' => BASE_URL + 'dashboard'
+                    'redirect' => (defined('BASE_URL') ? BASE_URL : '/') . 'dashboard'
                 ]);
                 exit;
             } else {

@@ -26,15 +26,17 @@ class Auth
 
     public static function logout()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         session_destroy();
 
         if (isset($_COOKIE['admin'])) {
             setcookie("admin", "", time() - 3600, "/");
         }
 
-    $base = defined('BASE_URL') ? BASE_URL : '/';
-    header("Location: {$base}auth/login");
+        $base = defined('BASE_URL') ? BASE_URL : '/';
+        header("Location: {$base}auth/login");
         exit;
     }
 }
