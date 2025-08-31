@@ -56,10 +56,7 @@
                 
               </ul>
             </li>
-            <li>
-              <a href="<?=BASE_URL?>dailyentry/history" class="nav-link"><i class="fas fa-history"></i><span>History</span></a>
-            </li>
-          
+           
           <li class="">
               <a href="<?=BASE_URL?>auth/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
           </li>
