@@ -35,7 +35,7 @@
               <a href="index.html">
   <span class="logo-name"  style="font-size:12px !important">
       <img alt="logo" src="<?=BASE_URL?>assets/img/logo-1.png" style="height:40px;">
-    <?= htmlspecialchars($superadmin['business_name']) ?>
+    <?= htmlspecialchars($admin['business_name']) ?>
 </span>
             </a>
           

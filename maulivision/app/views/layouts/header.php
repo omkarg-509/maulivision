@@ -1,3 +1,7 @@
+<?php
+$vendor = isset($_SESSION['vendor']) ?    
+  $_SESSION['vendor'] : null;
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
