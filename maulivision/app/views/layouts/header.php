@@ -1,6 +1,5 @@
 <?php
-$admin = isset($_SESSION['admin']) ?    
-  $_SESSION['admin'] : null;
+$admin = isset($_SESSION['admin']) ? $_SESSION['admin'] : null;
   ?>
 <!DOCTYPE html>
 <html lang="en">
