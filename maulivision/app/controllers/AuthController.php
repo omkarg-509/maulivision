@@ -22,13 +22,17 @@ class AuthController extends Controller
         // }
 
 
-        // If already logged in, redirect to dashboard
-        if ($this->isUserLoggedIn()) {
-            $this->redirectToDashboard();
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
+
+            // If already logged in via session/cookie, return JSON success instead of redirect (avoid AJAX parse errors)
+            if ($this->isUserLoggedIn()) {
+                echo json_encode([
+                    'status' => 'success',
+                    'redirect' => defined('BASE_URL') ? BASE_URL : '/'
+                ]);
+                exit;
+            }
 
           $email_or_number = isset($_POST['email_or_number']) ? trim($_POST['email_or_number']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
@@ -65,6 +69,10 @@ if (empty($email_or_number) || empty($password)) {
                 exit;
             }
         } else {
+            // GET request: if already logged in, redirect to dashboard; otherwise show login view
+            if ($this->isUserLoggedIn()) {
+                $this->redirectToDashboard();
+            }
             $this->view('auth/login');
         }
     }
@@ -85,22 +93,17 @@ if (empty($email_or_number) || empty($password)) {
             session_start();
         }
 
-        // If session is set, redirect to dashboard
+        // If session is set, user is logged in
         if (isset($_SESSION['superadmin']) && !empty($_SESSION['superadmin'])) {
-            $this->redirectToDashboard();
             return true;
         }
 
-        // Check cookie if session doesn't exist
+        // Check cookie if session doesn't exist and hydrate session; do NOT redirect here
         if (isset($_COOKIE['superadmin']) && !empty($_COOKIE['superadmin'])) {
-            // Validate cookie by fetching user from database
             $userModel = $this->model('User');
             $superadmin = $userModel->findById($_COOKIE['superadmin']);
-            
             if ($superadmin) {
-                // Restore session from cookie
                 $_SESSION['superadmin'] = $superadmin;
-                $this->redirectToDashboard();
                 return true;
             }
         }
