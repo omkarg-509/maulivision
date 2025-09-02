@@ -8,7 +8,7 @@ class Dashboard extends Database
     {
         $result = $this->db->query("SELECT COUNT(*) AS count FROM superadmin");
         $row = $result->fetch_assoc();
-        return $row['count'];
+        return $row;
     }
 
    
