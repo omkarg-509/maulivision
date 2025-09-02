@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../helpers/Auth.php';
-require_once __DIR__ . '/../models/Dashboard.php';
 
 class DashboardController extends Controller
 {
