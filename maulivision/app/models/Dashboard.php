@@ -4,12 +4,14 @@ require_once '../core/Database.php';
 
 class Dashboard extends Database
 {
- 
-      public function getAllVendors()
+ public function getAll()
     {
-        $stmt = $this->db->prepare("SELECT count(*) FROM superadmin");
-        $stmt->execute();
+    
+            $stmt = $this->db2->prepare("SELECT * FROM vendor");
+          $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc()['count(*)'];
+        $vendor = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $vendor;
     }
 }
