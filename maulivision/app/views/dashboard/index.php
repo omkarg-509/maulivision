@@ -19,7 +19,7 @@
                       <div class="text-muted small">Vendors</div>
                     <h5 class="font-light mb-0 text-dark">
   <i class="ti-arrow-up text-success"></i>
-  <?= isset($superadminData['count']) ? (int)$superadminData['count'] : 0 ?>
+  <?= isset($superadminCount) ? (int)$superadminCount : 0 ?>
 </h5>
 
                     </div>
