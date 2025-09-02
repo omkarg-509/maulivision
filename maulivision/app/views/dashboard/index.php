@@ -18,7 +18,7 @@
                     <div class="text-end">
                       <h5 class="font-light mb-0 text-dark">
                         <i class="ti-arrow-up text-success"></i>
-                        <?php echo isset($vendorCount) ? $vendorCount : '0'; ?>
+                        <?= $vendorCount; ?>
                     </div>
                   </div>
                 </div> </a>
