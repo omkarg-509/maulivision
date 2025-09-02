@@ -7,9 +7,9 @@ class Dashboard extends Database
  
       public function getAllVendors()
     {
-        $stmt = $this->db->prepare("SELECT * FROM superadmin");
+        $stmt = $this->db->prepare("SELECT count(*) FROM superadmin");
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        return $result->fetch_assoc()['count(*)'];
     }
 }
