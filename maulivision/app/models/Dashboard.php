@@ -6,8 +6,13 @@ class Dashboard extends Database
 {
     public function vendorCount()
     {
+        // Check if db2 connection exists and is successful
+        if (!isset($this->db2) || !$this->db2) {
+            return 0;
+        }
+
         // Use db2 (milk_dairy) and the vendor table
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM superadmin");
+        $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
         if (!$stmt) {
             return 0;
         }
