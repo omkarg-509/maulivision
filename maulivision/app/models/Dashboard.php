@@ -6,7 +6,7 @@ class Dashboard extends Database
 {
     public function getSuperAdminCount()
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM superadmin");
+        $stmt = $this->db->prepare("SELECT COUNT(id) AS count FROM superadmin");
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
