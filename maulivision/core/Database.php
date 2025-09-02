@@ -12,8 +12,6 @@ class Database
         }
     }
 
-    public function isConnected()
-    {
-        return $this->db && $this->db->ping();
-    }
+    
 }
+
