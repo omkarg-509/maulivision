@@ -6,7 +6,8 @@ class DashboardController extends Controller
     {
         Auth::check(); // ✅ session check
         $dashboardModel = $this->model('Dashboard');
-        $vendorCount = $dashboardModel->getAllVendors();
+        $vendors = $dashboardModel->getAllVendors();
+        $vendorCount = is_array($vendors) ? count($vendors) : 0;
         $this->view('dashboard/index', ['vendorCount' => $vendorCount]);
     }
 
