@@ -1,5 +1,5 @@
 <?php
-require_once '../app/helpers/Auth.php';
+require_once __DIR__ . '/../helpers/Auth.php';
 class DashboardController extends Controller
 {
     public function index()
