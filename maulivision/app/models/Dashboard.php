@@ -7,7 +7,7 @@ class Dashboard extends Database
     public function vendorCount()
     {
         // Use db2 (milk_dairy) and the vendor table
-        $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM superadmin");
         if (!$stmt) {
             return 0;
         }
