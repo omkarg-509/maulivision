@@ -8,7 +8,7 @@ class Auth
             session_start();
         }
         if (!self::isLoggedIn()) {
-            header("Location: /maulivision/public/auth/logout");
+            header("Location: ". BASE_URL ."auth/logout");
             exit;
         }
     }
@@ -32,7 +32,7 @@ class Auth
             setcookie("admin", "", time() - 3600, "/");
         }
 
-        header("Location: /maulivision/public/auth/login");
+        header("Location: ". BASE_URL ."auth/login");
         exit;
     }
 }
