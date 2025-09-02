@@ -4,6 +4,10 @@ require_once '../core/Database.php';
 
 class Dashboard extends Database
 {
+    // Declare inherited properties for static analysis clarity
+    protected $db;
+    protected $db2;
+
     public function countSuperAdmins()
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM superadmin");
@@ -28,7 +32,7 @@ class Dashboard extends Database
 
     public function vendorCount()
     {
-        $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
+    $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
         if (!$stmt) {
             return 0;
         }
