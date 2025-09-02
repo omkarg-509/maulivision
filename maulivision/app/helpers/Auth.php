@@ -32,7 +32,7 @@ class Auth
             setcookie("admin", "", time() - 3600, "/");
         }
 
-        header("Location: /public/auth/login");
+        header("Location: {$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/public/auth/login");
         exit;
     }
 }
