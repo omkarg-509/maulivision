@@ -5,15 +5,14 @@ class DashboardController extends Controller
     public function index()
     {
         Auth::check(); // ✅ session check
-        $dashboardModel = $this->model('Dashboard');
-        $vendorCount = (int) $dashboardModel->vendorCount();
-        $this->view('dashboard/index', compact('vendorCount'));
+        
+        $this->view('dashboard/index');
     }
 
     public function vendors()
     {
-        Auth::check();
-        $this->view('dashboard/vendors');
+    Auth::check();
+    $this->view('dashboard/vendors');
 
     }
 }
