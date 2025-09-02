@@ -12,9 +12,6 @@ class Database
         }
     }
 
-    public function getConnection()
-    {
-        return $this->db;
-    }
+  
 }
 
