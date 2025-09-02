@@ -3,11 +3,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-    Auth::check(); // ✅ session check
-    $dashboardModel = $this->model('Dashboard');
-    $vendorCount = (int) $dashboardModel->vendorCount();
-    $this->view('dashboard/index', compact('vendorCount'));
-
+        Auth::check(); // ✅ session check
+        $dashboardModel = $this->model('Dashboard');
+        $vendorCount = (int) $dashboardModel->vendorCount();
+        $this->view('dashboard/index', compact('vendorCount'));
     }
 
     public function vendors()
