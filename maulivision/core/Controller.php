@@ -10,10 +10,6 @@ class Controller
 
     public function view($view, $data = [])
 {
-    // Make passed data available as individual variables in views
-    if (is_array($data) && !empty($data)) {
-        extract($data, EXTR_SKIP);
-    }
     require_once "../app/views/layouts/header.php";
     require_once '../app/views/' . $view . '.php';
     require_once "../app/views/layouts/footer.php";
