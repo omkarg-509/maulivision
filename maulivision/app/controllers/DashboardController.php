@@ -5,7 +5,7 @@ class DashboardController extends Controller
     public function index()
     {
         Auth::check(); // ✅ session check
-        $this->view('dashboard');
+        $this->view('dashboard/index');
     }
 
     public function vendors()
