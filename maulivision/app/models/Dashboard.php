@@ -6,11 +6,10 @@ class Dashboard extends Database
 {
     public function getSuperAdminCount()
     {
-        $result = $this->db->query("SELECT COUNT(*) AS count FROM superadmin");
-        if ($result && $row = $result->fetch_assoc()) {
-            return $row['count'];
-        }
-        return 0;
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM superadmin");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['count'];
     }
 
  
