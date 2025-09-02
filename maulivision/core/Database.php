@@ -17,4 +17,12 @@ class Database
         die("Database milk_dairy connection failed: " . $this->db2->connect_error);
     }
     }
+    public function getConnection()
+    {
+        return $this->db;
+    }
+    public function getConnection2()
+    {
+        return $this->db2;
+    }
 }
