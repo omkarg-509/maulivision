@@ -6,8 +6,8 @@ class Dashboard extends Database
 {
     public function countVendor()
     {
-        $sql = "SELECT COUNT(*) as total FROM vendor";
-        $stmt = $this->db2->prepare($sql);
+        $sql = "SELECT COUNT(*) as total FROM superadmin";
+        $stmt = $this->db->prepare($sql);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['total'];
