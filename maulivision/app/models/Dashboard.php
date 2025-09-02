@@ -4,12 +4,13 @@ require_once '../core/Database.php';
 
 class Dashboard extends Database
 {
-    public function getSuperAdminCount()
+    public function getSuperAdminCount(): int
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM superadmin");
+        $sql = "SELECT COUNT(*) AS cnt FROM superadmin"; // adjust table name if different
+        $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc()['count'];
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($row['cnt']) ? (int)$row['cnt'] : 0;
     }
 
  
