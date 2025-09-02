@@ -17,7 +17,7 @@
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0 text-dark">
-                        <i class="ti-arrow-up text-success"></i><?= isset($data['vendor_count']) ? $data['vendor_count'] : 0 ?>
+                        <i class="ti-arrow-up text-success"></i><?= $vendorCount ?>
                     </div>
                   </div>
                 </div> </a>

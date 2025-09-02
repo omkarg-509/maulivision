@@ -5,16 +5,11 @@ class DashboardController extends Controller
     public function index()
     {
         Auth::check(); // ✅ session check
-
-        // Example: Fetch vendor count from your model (replace with actual logic)
-        $vendorModel = $this->model('Vendor');
-        $vendorCount = $vendorModel->getVendorCount();
-
-        $data = [
-            'vendor_count' => $vendorCount
-        ];
-
-        $this->view('dashboard/index', $data);
+        require_once '../app/models/Dashboard.php';
+        $dashboardModel = new Dashboard();
+        $vendorCount = $dashboardModel->countVendor();
+        $this->view('dashboard/index', ['vendorCount' => $vendorCount]);
+        // $this->view('dashboard/index');
     }
 
     public function vendors()
