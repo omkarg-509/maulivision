@@ -7,8 +7,8 @@ class DashboardController extends Controller
 {
     Auth::check();
     $dashboardModel = $this->model('Dashboard');
-    $superadminCount = $dashboardModel->getSuperAdminCount();
-    $this->view('dashboard/index', ['superadminCount' => $superadminCount]);
+    $vendorCount = $dashboardModel->getVendorCount();
+    $this->view('dashboard/index', ['vendorCount' => $vendorCount]);
 }
 
 public function vendors()
