@@ -19,7 +19,7 @@
                       <div class="text-muted small">Vendors</div>
                       <h5 class="font-light mb-0 text-dark">
                         <i class="ti-arrow-up text-success"></i>
-                        <?=$superadminData['id'] ?>
+                        <?= $superadminData['id'] ?>
                       </h5>
                     </div>
                   </div>
