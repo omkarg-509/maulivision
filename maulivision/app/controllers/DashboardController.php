@@ -3,7 +3,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        Auth::check(); // ✅ session check
+        //Auth::check(); // ✅ session check
 
         $this->view('dashboard/index');
     }
