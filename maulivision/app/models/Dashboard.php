@@ -6,9 +6,52 @@ class Dashboard extends Database
 {
     public function countSuperAdmins()
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM superadmin");
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM superadmin");
+        if (!$stmt) {
+            return 0;
+        }
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? (int)$result['total'] : 0;
+        // Prefer get_result when available (mysqlnd), else fallback to bind_result
+        if (method_exists($stmt, 'get_result')) {
+            $result = $stmt->get_result();
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return isset($row['total']) ? (int)$row['total'] : 0;
+            }
+            return 0;
+        }
+        $total = 0;
+        $stmt->bind_result($total);
+        $stmt->fetch();
+        return (int)$total;
+    }
+
+    public function vendorCount()
+    {
+        $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
+        if (!$stmt) {
+            return 0;
+        }
+        $stmt->execute();
+        if (method_exists($stmt, 'get_result')) {
+            $result = $stmt->get_result();
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return isset($row['total']) ? (int)$row['total'] : 0;
+            }
+            return 0;
+        }
+        $total = 0;
+        $stmt->bind_result($total);
+        $stmt->fetch();
+        return (int)$total;
+    }
+
+    public function connectionStatus(): array
+    {
+        return [
+            'db' => $this->db instanceof mysqli ? (bool)$this->db->ping() : false,
+            'db2' => $this->db2 instanceof mysqli ? (bool)$this->db2->ping() : false,
+        ];
     }
 }
