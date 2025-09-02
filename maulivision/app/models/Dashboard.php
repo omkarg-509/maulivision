@@ -6,7 +6,7 @@ class Dashboard extends Database
 {
         public function vendorCount()
     {
-        $stmt = $this->db2->prepare("SELECT COUNT(*) as total FROM superadmin");
+        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM superadmin");
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc()['total'];
