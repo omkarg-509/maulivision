@@ -11,14 +11,14 @@
 
         
              <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-              <div class="card card-statistic-1"><a href="dashboard/vendors">
+              <div class="card card-statistic-1"><a href="<?= BASE_URL ?>dashboard/vendors">
                 <i class="fas fa-users card-icon col-green"></i>
                 <div class="card-wrap">
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0 text-dark">
                         <i class="ti-arrow-up text-success"></i>
-                        <?php echo isset($vendorCount) ? $vendorCount : '0'; ?>
+                        <?= isset($vendorCount) ? (int)$vendorCount : 0; ?>
                     </div>
                   </div>
                 </div> </a>
