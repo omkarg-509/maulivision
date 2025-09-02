@@ -17,10 +17,11 @@
                   <div class="padding-20">
                     <div class="text-end">
                       <div class="text-muted small">Vendors</div>
-                      <h5 class="font-light mb-0 text-dark">
-                        <i class="ti-arrow-up text-success"></i>
-                        <?= isset($superadminData) ? htmlspecialchars($superadminData) : '0' ?>
-                      </h5>
+                    <h5 class="font-light mb-0 text-dark">
+  <i class="ti-arrow-up text-success"></i>
+  <?= isset($superadminData['count']) ? (int)$superadminData['count'] : 0 ?>
+</h5>
+
                     </div>
                   </div>
                 </div> </a>
