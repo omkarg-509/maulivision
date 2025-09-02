@@ -8,8 +8,7 @@ class Auth
             session_start();
         }
         if (!self::isLoggedIn()) {
-            $base = defined('BASE_URL') ? BASE_URL : '/';
-            header("Location: {$base}auth/logout");
+            header("Location: /public/auth/logout");
             exit;
         }
     }
@@ -26,17 +25,14 @@ class Auth
 
     public static function logout()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        session_start();
         session_destroy();
 
         if (isset($_COOKIE['admin'])) {
             setcookie("admin", "", time() - 3600, "/");
         }
 
-        $base = defined('BASE_URL') ? BASE_URL : '/';
-        header("Location: {$base}auth/login");
+        header("Location: /public/auth/login");
         exit;
     }
 }
