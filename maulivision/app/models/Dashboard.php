@@ -4,12 +4,19 @@ require_once '../core/Database.php';
 
 class Dashboard extends Database
 {
-    public function countVendor()
+    public function vendorCount()
     {
-        $sql = "SELECT COUNT(*) as total FROM superadmin";
-        $stmt = $this->db->prepare($sql);
+        // Use db2 (milk_dairy) and the vendor table
+        $stmt = $this->db2->prepare("SELECT COUNT(*) AS total FROM vendor");
+        if (!$stmt) {
+            return 0;
+        }
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row['total'];
+        $result = $stmt->get_result();
+        if ($result) {
+            $row = $result->fetch_assoc();
+            return isset($row['total']) ? (int)$row['total'] : 0;
+        }
+        return 0;
     }
 }
