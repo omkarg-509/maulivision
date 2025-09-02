@@ -19,7 +19,7 @@
                       <div class="text-muted small">Vendors</div>
                       <h5 class="font-light mb-0 text-dark">
                         <i class="ti-arrow-up text-success"></i>
-                      <?= $data['count'] ?>
+                        <?= isset($data['count']) ? (int)$data['count'] : 0 ?>
                       </h5>
                     </div>
                   </div>
@@ -61,5 +61,5 @@
     
   </div>
   <span class="badge bg-primary">
-  <?= isset($superadminCount) ? (int)$superadminCount : 0 ?>
+  <?= isset($data['superadminCount']) ? (int)$data['superadminCount'] : 0 ?>
 </span>
