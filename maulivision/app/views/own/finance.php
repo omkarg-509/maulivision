@@ -5,6 +5,15 @@
       <h1 class="mb-0">Finance Manager</h1>
     </div>
 
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Daily Chart</h4>
+      </div>
+      <div class="card-body" style="height:300px;">
+        <canvas id="fin-chart"></canvas>
+        <div id="chart-empty" class="text-muted small mt-2 d-none">No data.</div>
+      </div>
+    </div>
     <div class="card mb-4">
       <div class="card-body">
         <form id="finance-form" class="row g-2 align-items-end" autocomplete="off">
@@ -119,15 +128,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="mb-0">Daily Chart</h4>
-      </div>
-      <div class="card-body" style="height:300px;">
-        <canvas id="fin-chart"></canvas>
-        <div id="chart-empty" class="text-muted small mt-2 d-none">No data.</div>
-      </div>
-    </div>
   </section>
 </div>
 
