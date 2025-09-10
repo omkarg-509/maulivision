@@ -22,7 +22,10 @@ class Todo extends Database
     {
         $stmt = $this->db->prepare("INSERT INTO todos (admin_id, title, is_done, created_at) VALUES (?, ?, 0, NOW())");
         $stmt->bind_param('is', $adminId, $title);
-        return $stmt->execute();
+        if($stmt->execute()) {
+            return (int)$this->db->insert_id;
+        }
+        return 0;
     }
 
     public function toggle($id, $adminId)

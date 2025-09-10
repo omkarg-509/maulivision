@@ -58,10 +58,10 @@
       .then(r=>r.json())
       .then(data=>{
         if(data.ok){
-          // Prepend new item (optimistic without id fetch)
           const li = document.createElement('li');
           li.className='list-group-item d-flex justify-content-between align-items-center new-item';
-          li.innerHTML='<div><input type="checkbox" class="form-check-input me-2 todo-toggle"> <span class="todo-title">'+title.replace(/</g,'&lt;')+'</span></div><button class="btn btn-sm btn-outline-danger todo-delete"><i class="fas fa-trash"></i></button>';
+          li.setAttribute('data-id', data.id);
+          li.innerHTML='<div><input type="checkbox" class="form-check-input me-2 todo-toggle"> <span class="todo-title">'+data.title+'</span></div><button class="btn btn-sm btn-outline-danger todo-delete"><i class="fas fa-trash"></i></button>';
           list.prepend(li);
           setTimeout(()=>li.classList.remove('new-item'),1300);
           input.value='';

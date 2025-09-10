@@ -22,8 +22,12 @@ class OwnController extends Controller
             return;
         }
         $todoModel = $this->model('Todo');
-        $ok = $todoModel->create($admin['id'], $title);
-        echo json_encode(['ok' => (bool)$ok]);
+        $id = $todoModel->create($admin['id'], $title);
+        echo json_encode([
+            'ok' => $id > 0,
+            'id' => $id,
+            'title' => htmlspecialchars($title, ENT_QUOTES, 'UTF-8')
+        ]);
     }
 
     public function toggle($id = null)
