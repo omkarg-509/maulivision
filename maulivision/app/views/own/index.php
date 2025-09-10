@@ -11,7 +11,7 @@
     <div class="section-header">
       <h1>Your To‑Do List</h1>
     </div>
-    <div class="card">
+    <div class="card mb-4">
       <div class="card-body">
         <form id="todo-form" class="row g-2 mb-3" autocomplete="off">
           <div class="col-sm-9 col-md-10">
@@ -33,6 +33,21 @@
             </li>
           <?php endforeach; ?>
         </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header d-flex flex-wrap align-items-end gap-2">
+        <h4 class="mb-0 me-auto">Progress (Daily)</h4>
+        <div class="d-flex gap-2 flex-wrap">
+          <input type="date" id="stat-from" class="form-control form-control-sm" style="min-width:150px">
+          <input type="date" id="stat-to" class="form-control form-control-sm" style="min-width:150px">
+          <button id="stat-apply" class="btn btn-sm btn-outline-primary">Apply</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="todo-chart" height="140"></canvas>
+        <div id="stats-empty" class="text-muted small mt-2 d-none">No data in range.</div>
       </div>
     </div>
   </section>
@@ -95,6 +110,66 @@
     }
   });
 
+  // Stats / Chart
+  const fromInput = document.getElementById('stat-from');
+  const toInput = document.getElementById('stat-to');
+  const applyBtn = document.getElementById('stat-apply');
+  const statsEmpty = document.getElementById('stats-empty');
+  let chart;
+
+  function defaultDates(){
+    const today = new Date();
+    const past = new Date(Date.now() - 6*24*3600*1000);
+    fromInput.value = past.toISOString().slice(0,10);
+    toInput.value = today.toISOString().slice(0,10);
+  }
+
+  function loadStats(){
+    const f = fromInput.value;
+    const t = toInput.value;
+    fetch(`${BASE}own/stats?from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`)
+      .then(r=>r.json())
+      .then(json=>{
+        if(!json.ok) return;
+        const rows = json.data;
+        if(!rows.length){
+          statsEmpty.classList.remove('d-none');
+          if(chart){ chart.destroy(); chart=null; }
+          return;
+        }
+        statsEmpty.classList.add('d-none');
+        const labels = rows.map(r=>r.day);
+        const totals = rows.map(r=>r.total);
+        const dones = rows.map(r=>r.done);
+        const ctx = document.getElementById('todo-chart').getContext('2d');
+        if(chart){ chart.destroy(); }
+        chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [
+              {label: 'Total', data: totals, backgroundColor: 'rgba(54, 162, 235, 0.6)'},
+              {label: 'Done', data: dones, backgroundColor: 'rgba(40, 167, 69, 0.7)'}
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {legend:{position:'bottom'}},
+            scales: {y:{beginAtZero:true, precision:0}}
+          }
+        });
+      });
+  }
+
+  applyBtn.addEventListener('click', function(e){ e.preventDefault(); loadStats(); });
+
   toggleEmpty();
+  defaultDates();
+  // Load Chart.js dynamically (use CDN)
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+  script.onload = loadStats;
+  document.head.appendChild(script);
 })();
 </script>

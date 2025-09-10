@@ -59,4 +59,16 @@ class OwnController extends Controller
         $ok = $todoModel->delete($id, $admin['id']);
         echo json_encode(['ok' => (bool)$ok]);
     }
+
+    public function stats()
+    {
+        Auth::check();
+        header('Content-Type: application/json');
+        $admin = Auth::user();
+        $from = isset($_GET['from']) ? $_GET['from'] : null;
+        $to = isset($_GET['to']) ? $_GET['to'] : null;
+        $todoModel = $this->model('Todo');
+        $rows = $todoModel->getDailyStats($admin['id'], $from, $to);
+        echo json_encode(['ok' => true, 'data' => $rows]);
+    }
 }

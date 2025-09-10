@@ -41,4 +41,29 @@ class Todo extends Database
         $stmt->bind_param('ii', $id, $adminId);
         return $stmt->execute();
     }
+
+    public function getDailyStats($adminId, $fromDate, $toDate)
+    {
+        // Default date range if missing
+        if(!$fromDate){ $fromDate = date('Y-m-d', strtotime('-7 days')); }
+        if(!$toDate){ $toDate = date('Y-m-d'); }
+        $sql = "SELECT DATE(created_at) as day, COUNT(*) as total, SUM(is_done=1) as done
+                FROM todos
+                WHERE admin_id = ? AND DATE(created_at) BETWEEN ? AND ?
+                GROUP BY day
+                ORDER BY day ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('iss', $adminId, $fromDate, $toDate);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $rows = [];
+        while($row = $res->fetch_assoc()) {
+            $rows[] = [
+                'day' => $row['day'],
+                'total' => (int)$row['total'],
+                'done' => (int)$row['done']
+            ];
+        }
+        return $rows;
+    }
 }
