@@ -9,7 +9,7 @@
 <div class="main-content mt-5 pt-4">
   <section class="section">
     <div class="section-header d-flex align-items-center flex-wrap gap-2">
-      <h1 class="mb-0">Your To‑Do List <span class="badge bg-info ms-2">v1.1</span></h1>
+      <h1 class="mb-0">Your To‑Do List</h1>
       <small class="text-muted">Live stats auto-update</small>
     </div>
     <div class="card mb-4">
