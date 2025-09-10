@@ -12,6 +12,24 @@
       <h1 class="mb-0">Your To‑Do List</h1>
       <small class="text-muted">Live stats auto-update</small>
     </div>
+
+      <div class="card">
+      <div class="card-header d-flex flex-wrap align-items-end gap-2">
+        <h4 class="mb-0 me-auto">Progress (Daily)</h4>
+        <div class="d-flex gap-2 flex-wrap">
+          <input type="date" id="stat-from" class="form-control form-control-sm" style="min-width:150px">
+          <input type="date" id="stat-to" class="form-control form-control-sm" style="min-width:150px">
+          <button id="stat-apply" class="btn btn-sm btn-outline-primary">Apply</button>
+          <div id="stats-loading" class="spinner-border spinner-border-sm text-primary d-none" role="status"><span class="visually-hidden">Loading...</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <canvas id="todo-chart" height="140"></canvas>
+        <div id="stats-empty" class="text-muted small mt-2 d-none">No data in range.</div>
+      </div>
+    </div>
+
+    
     <div class="card mb-4">
       <div class="card-body">
         <form id="todo-form" class="row g-2 mb-3" autocomplete="off">
@@ -37,21 +55,7 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header d-flex flex-wrap align-items-end gap-2">
-        <h4 class="mb-0 me-auto">Progress (Daily)</h4>
-        <div class="d-flex gap-2 flex-wrap">
-          <input type="date" id="stat-from" class="form-control form-control-sm" style="min-width:150px">
-          <input type="date" id="stat-to" class="form-control form-control-sm" style="min-width:150px">
-          <button id="stat-apply" class="btn btn-sm btn-outline-primary">Apply</button>
-          <div id="stats-loading" class="spinner-border spinner-border-sm text-primary d-none" role="status"><span class="visually-hidden">Loading...</span></div>
-        </div>
-      </div>
-      <div class="card-body">
-        <canvas id="todo-chart" height="140"></canvas>
-        <div id="stats-empty" class="text-muted small mt-2 d-none">No data in range.</div>
-      </div>
-    </div>
+  
   </section>
 </div>
 
