@@ -57,11 +57,10 @@
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>Own system</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-user"></i><span>Own System</span></a>
               <ul class="dropdown-menu">
-                <li class=""><a class="nav-link" href="<?=BASE_URL?>own/">To Do List</a></li>
-                <li><a class="nav-link" href="<?=BASE_URL?>own/">Customers Details</a></li>
-
+                <li><a class="nav-link" href="<?=BASE_URL?>own/">To Do List</a></li>
+                <!-- Future: add more personal tools here -->
               </ul>
             </li>
            
