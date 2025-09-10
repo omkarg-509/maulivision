@@ -45,7 +45,7 @@
              
 
 
-            <li class="active">
+            <li class="">
               <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
                   <li class="dropdown">
