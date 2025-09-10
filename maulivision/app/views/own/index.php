@@ -8,8 +8,9 @@
 </style>
 <div class="main-content mt-5 pt-4">
   <section class="section">
-    <div class="section-header">
-      <h1>Your To‑Do List</h1>
+    <div class="section-header d-flex align-items-center flex-wrap gap-2">
+      <h1 class="mb-0">Your To‑Do List <span class="badge bg-info ms-2">v1.1</span></h1>
+      <small class="text-muted">Live stats auto-update</small>
     </div>
     <div class="card mb-4">
       <div class="card-body">
@@ -43,6 +44,7 @@
           <input type="date" id="stat-from" class="form-control form-control-sm" style="min-width:150px">
           <input type="date" id="stat-to" class="form-control form-control-sm" style="min-width:150px">
           <button id="stat-apply" class="btn btn-sm btn-outline-primary">Apply</button>
+          <div id="stats-loading" class="spinner-border spinner-border-sm text-primary d-none" role="status"><span class="visually-hidden">Loading...</span></div>
         </div>
       </div>
       <div class="card-body">
@@ -124,7 +126,14 @@
     toInput.value = today.toISOString().slice(0,10);
   }
 
+  let statsTimer;
+  function debounceLoad(){
+    clearTimeout(statsTimer);
+    statsTimer = setTimeout(loadStats, 350);
+  }
+
   function loadStats(){
+    statsLoading(true);
     const f = fromInput.value;
     const t = toInput.value;
     fetch(`${BASE}own/stats?from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`)
@@ -135,6 +144,7 @@
         if(!rows.length){
           statsEmpty.classList.remove('d-none');
           if(chart){ chart.destroy(); chart=null; }
+          statsLoading(false);
           return;
         }
         statsEmpty.classList.add('d-none');
@@ -159,6 +169,7 @@
             scales: {y:{beginAtZero:true, precision:0}}
           }
         });
+        statsLoading(false);
       });
   }
 
@@ -167,9 +178,28 @@
   toggleEmpty();
   defaultDates();
   // Load Chart.js dynamically (use CDN)
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
-  script.onload = loadStats;
-  document.head.appendChild(script);
+  function statsLoading(state){
+    const el = document.getElementById('stats-loading');
+    if(!el) return; 
+    if(state) el.classList.remove('d-none'); else el.classList.add('d-none');
+  }
+
+  function initChartLib(){
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+    script.onload = loadStats;
+    document.head.appendChild(script);
+  }
+
+  // Hook CRUD events to refresh stats automatically
+  function hookLiveUpdates(){
+    // When a new task added
+    form.addEventListener('submit', ()=> debounceLoad());
+    // Delegate for toggle/delete (already captured above, just refresh after promise resolution by slight delay)
+    list.addEventListener('click', ()=> debounceLoad());
+  }
+
+  hookLiveUpdates();
+  initChartLib();
 })();
 </script>
