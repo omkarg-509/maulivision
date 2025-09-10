@@ -13,7 +13,7 @@ return new class {
             INDEX idx_admin_date (admin_id, entry_date),
             INDEX idx_type (type),
             INDEX idx_method (method),
-            CONSTRAINT fk_finance_admin FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE
+            CONSTRAINT fk_finance_admin FOREIGN KEY (admin_id) REFERENCES superadmin(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
         $db->query($sql);
     }

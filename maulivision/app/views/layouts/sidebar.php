@@ -61,6 +61,7 @@
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="<?=BASE_URL?>own/">To Do List</a></li>
                 <li><a class="nav-link" href="<?=BASE_URL?>own/finance">Finance Manager</a></li>
+                <li><a class="nav-link" href="<?=BASE_URL?>own/tiffin">Tiffin Manager</a></li>
                 <!-- Future: add more personal tools here -->
               </ul>
             </li>

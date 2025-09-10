@@ -124,4 +124,57 @@ class OwnController extends Controller
         $summary = $financeModel->summaryTotals($admin['id'],$from,$to);
         echo json_encode(['ok'=>true,'daily'=>$daily,'summary'=>$summary]);
     }
+
+    /* Tiffin Section */
+    public function tiffin()
+    {
+        Auth::check();
+        $admin = Auth::user();
+        $tiffinModel = $this->model('Tiffin');
+        $entries = $tiffinModel->list($admin['id']);
+        $this->view('own/tiffin', ['entries'=>$entries]);
+    }
+
+    public function tiffinAdd()
+    {
+        Auth::check(); header('Content-Type: application/json');
+        $admin=Auth::user();
+        $date = $_POST['entry_date'] ?? date('Y-m-d');
+        $time = trim($_POST['tiffin_time'] ?? 'morning');
+        $qty = max(1, (int)($_POST['quantity'] ?? 1));
+        $rate = (float)($_POST['rate'] ?? 0);
+        $paid = isset($_POST['paid']) ? 1 : 0;
+        if($rate <= 0){ echo json_encode(['ok'=>false,'error'=>'Invalid rate']); return; }
+        $validTimes = ['morning','evening','night','lunch','dinner'];
+        if(!in_array($time,$validTimes)) $time='other';
+        $tiffinModel = $this->model('Tiffin');
+        $id = $tiffinModel->create($admin['id'],$date,$time,$qty,$rate,$paid);
+        echo json_encode(['ok'=>$id>0,'id'=>$id,'entry_date'=>$date,'tiffin_time'=>$time,'quantity'=>$qty,'rate'=>$rate,'paid'=>$paid, 'total'=>$qty*$rate]);
+    }
+
+    public function tiffinDelete($id=null)
+    {
+        Auth::check(); header('Content-Type: application/json');
+        $admin=Auth::user(); $id=(int)$id; if($id<=0){ echo json_encode(['ok'=>false]); return; }
+        $tiffinModel=$this->model('Tiffin'); $ok=$tiffinModel->delete($id,$admin['id']);
+        echo json_encode(['ok'=>(bool)$ok]);
+    }
+
+    public function tiffinTogglePaid($id=null)
+    {
+        Auth::check(); header('Content-Type: application/json');
+        $admin=Auth::user(); $id=(int)$id; if($id<=0){ echo json_encode(['ok'=>false]); return; }
+        $tiffinModel=$this->model('Tiffin'); $ok=$tiffinModel->togglePaid($id,$admin['id']);
+        echo json_encode(['ok'=>(bool)$ok]);
+    }
+
+    public function tiffinStats()
+    {
+        Auth::check(); header('Content-Type: application/json');
+        $admin=Auth::user(); $from=$_GET['from']??null; $to=$_GET['to']??null;
+        $tiffinModel=$this->model('Tiffin');
+        $daily=$tiffinModel->dailyStats($admin['id'],$from,$to);
+        $summary=$tiffinModel->summary($admin['id'],$from,$to);
+        echo json_encode(['ok'=>true,'daily'=>$daily,'summary'=>$summary]);
+    }
 }
