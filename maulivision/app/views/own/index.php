@@ -10,7 +10,7 @@
   <section class="section">
     <div class="section-header d-flex align-items-center flex-wrap gap-2">
       <h1 class="mb-0">Your To‑Do List</h1>
-      <small class="text-muted">Live stats auto-update</small>
+      
     </div>
 
       <div class="card">
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    
+
     <div class="card mb-4">
       <div class="card-body">
         <form id="todo-form" class="row g-2 mb-3" autocomplete="off">
