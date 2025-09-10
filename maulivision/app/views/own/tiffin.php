@@ -25,11 +25,11 @@
           </div>
           <div class="col-md-2">
             <label class="form-label small mb-1">Quantity</label>
-            <input type="number" min="1" name="quantity" id="tf-qty" class="form-control" value="1" required>
+            <input type="number" min="1" name="quantity" id="tf-qty" class="form-control" value="2" required>
           </div>
           <div class="col-md-2">
             <label class="form-label small mb-1">Rate</label>
-            <input type="number" step="0.01" min="0" name="rate" id="tf-rate" class="form-control" placeholder="0.00" required>
+            <input type="number" step="0.01" min="0" name="rate" id="tf-rate" class="form-control" placeholder="0.00"  value="70" required>
           </div>
           <div class="col-md-2 form-check mt-4 ps-4">
             <input class="form-check-input" type="checkbox" id="tf-paid" name="paid"> <label class="form-check-label" for="tf-paid">Paid</label>
