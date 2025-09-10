@@ -2,8 +2,7 @@
 <div class="main-content mt-5 pt-4">
   <section class="section">
     <div class="section-header d-flex align-items-center flex-wrap gap-2">
-      <h1 class="mb-0">Finance Manager <span class="badge bg-info ms-2">v1.0</span></h1>
-      <small class="text-muted">Track income, expense, borrow, repay</small>
+      <h1 class="mb-0">Finance Manager</h1>
     </div>
 
     <div class="card mb-4">
