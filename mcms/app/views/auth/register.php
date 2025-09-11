@@ -13,16 +13,23 @@
 
                             <form id="registerForm">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input id="name" type="text" class="form-control" name="name"  tabindex="1" required autofocus>
+                                    <label for="full_name">Full Name</label>
+                                    <input id="full_name" type="text" class="form-control" name="full_name"  tabindex="1" required autofocus>
+                                </div>
+                              
+                            
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input id="phone" type="text" class="form-control" name="phone"  tabindex="3" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
+                                    <label for="email" class="control-label">Email</label>
                                     <input id="email" type="email" class="form-control" name="email"  tabindex="2" required>
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label for="password" class="control-label">Password</label>
-                                    <input id="password" type="password" class="form-control" name="password"  tabindex="3" required>
+                                    <label for="username" class="control-label">Username</label>
+                                    <input id="username" type="text" class="form-control" name="username"  tabindex="3" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password_confirm" class="control-label">Confirm Password</label>
