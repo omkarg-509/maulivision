@@ -18,7 +18,28 @@
           <div class="col-md-4"><label class="form-label small">Business Number</label><input name="business_number" class="form-control"></div>
           <div class="col-md-4"><label class="form-label small">Business Address</label><textarea name="business_address" class="form-control" rows="2"></textarea></div>
           <div class="col-md-4"><label class="form-label small">Username</label><input name="username" class="form-control" required></div>
-          <div class="col-md-4"><label class="form-label small">Password *</label><input type="password" name="password" class="form-control" required></div>
+          <div class="col-md-4">
+            <label class="form-label small">Password *</label>
+            <div class="input-group">
+              <input type="password" name="password" class="form-control" id="passwordInput" required>
+              <button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="togglePasswordVisibility()">
+                <span id="togglePasswordIcon">&#128065;</span>
+              </button>
+            </div>
+          </div>
+          <script>
+          function togglePasswordVisibility() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('togglePasswordIcon');
+            if (input.type === 'password') {
+              input.type = 'text';
+              icon.textContent = '🙈';
+            } else {
+              input.type = 'password';
+              icon.textContent = '👁️';
+            }
+          }
+          </script>
           <div class="col-12 d-flex justify-content-end"><button class="btn btn-primary">Save Vendor</button></div>
         </form>
       </div>
