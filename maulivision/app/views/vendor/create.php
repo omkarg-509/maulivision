@@ -11,11 +11,14 @@
         <form method="post" action="<?= BASE_URL ?>vendor/store" class="row g-3" autocomplete="off">
           <div class="col-md-4"><label class="form-label small">Full Name *</label><input name="full_name" class="form-control" required></div>
           <div class="col-md-4"><label class="form-label small">Phone *</label><input name="phone" class="form-control" required></div>
+          <div class="col-md-4"><label class="form-label small">Email</label><input type="email" name="email" class="form-control"></div>
+
           <div class="col-md-4"><label class="form-label small">Business Name *</label><input name="business_name" class="form-control" required></div>
           <div class="col-md-4"><label class="form-label small">Business Role</label><input name="business_role" class="form-control"></div>
           <div class="col-md-4"><label class="form-label small">Business Number</label><input name="business_number" class="form-control"></div>
-          <div class="col-md-6"><label class="form-label small">Address</label><textarea name="address" class="form-control" rows="2"></textarea></div>
           <div class="col-md-6"><label class="form-label small">Business Address</label><textarea name="business_address" class="form-control" rows="2"></textarea></div>
+          <div class="col-md-4"><label class="form-label small">Username</label><input name="username" class="form-control" required></div>
+          <div class="col-md-4"><label class="form-label small">Password *</label><input type="password" name="password" class="form-control" required></div>
           <div class="col-12 d-flex justify-content-end"><button class="btn btn-primary">Save Vendor</button></div>
         </form>
       </div>
