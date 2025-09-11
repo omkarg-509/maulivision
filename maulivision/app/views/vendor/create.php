@@ -22,23 +22,23 @@
             <label class="form-label small">Password *</label>
             <div class="input-group">
               <input type="password" name="password" class="form-control" id="passwordInput" required>
-              <button type="button" class="btn btn-outline-secondary" tabindex="-1" onclick="togglePasswordVisibility()">
-                <span id="togglePasswordIcon">&#128065;</span>
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword" tabindex="-1">
+                <i class="bi bi-eye" id="togglePasswordIcon"></i>
               </button>
             </div>
           </div>
           <script>
-          function togglePasswordVisibility() {
-            const input = document.getElementById('passwordInput');
-            const icon = document.getElementById('togglePasswordIcon');
-            if (input.type === 'password') {
-              input.type = 'text';
-              icon.textContent = '🙈';
-            } else {
-              input.type = 'password';
-              icon.textContent = '👁️';
-            }
-          }
+            document.addEventListener('DOMContentLoaded', function() {
+              const passwordInput = document.getElementById('passwordInput');
+              const togglePassword = document.getElementById('togglePassword');
+              const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+              togglePassword.addEventListener('click', function () {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                togglePasswordIcon.classList.toggle('bi-eye');
+                togglePasswordIcon.classList.toggle('bi-eye-slash');
+              });
+            });
           </script>
           <div class="col-12 d-flex justify-content-end"><button class="btn btn-primary">Save Vendor</button></div>
         </form>
