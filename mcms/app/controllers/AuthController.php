@@ -8,57 +8,6 @@ class AuthController extends Controller
         Auth::isLoggedIn();
         $this->view('auth/login');
     }
-    public function register()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            header('Content-Type: application/json');
-            $name = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
-
-            $password = isset($_POST['password']) ? $_POST['password'] : '';
-            $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
-
-            if (empty($name) || empty($password) || empty($email)) {
-                echo json_encode([
-                    'status' => 'error',
-                    'message' => 'All fields are required and email must be valid.'
-                ]);
-                exit;
-            }
-
-            $userModel = $this->model('User');
-            if ($userModel->findByEmail($email)) {
-                echo json_encode([
-                    'status' => 'error',
-                    'message' => 'Email already exists.'
-                ]);
-                exit;
-            }
-
-            // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $hashedPassword = $password; // Use plain password for now
-
-            $userId = $userModel->create([
-                'name' => $name,
-                'password' => $hashedPassword,
-                'email' => $email
-            ]);
-
-            if ($userId) {
-                echo json_encode([
-                    'status' => 'success',
-                    'redirect' => BASE_URL . 'login'
-                ]);
-            } else {
-                echo json_encode([
-                    'status' => 'error',
-                    'message' => 'Registration failed.'
-                ]);
-            }
-            exit;
-        } else {
-            $this->view('auth/register');
-        }
-    }
 public function login()
 {
     Auth::isLoggedIn();
