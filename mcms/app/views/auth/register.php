@@ -26,6 +26,10 @@
                                     <label for="email" class="control-label">Email</label>
                                     <input id="email" type="email" class="form-control" name="email"  tabindex="2" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="bussines_name" class="control-label">Business Name</label>
+                                    <input id="bussines_name" type="text" class="form-control" name="bussines_name"  tabindex="3" required>
+                                </div>
                                 
                                 <div class="form-group">
                                     <label for="username" class="control-label">Username</label>
