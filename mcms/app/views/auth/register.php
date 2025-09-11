@@ -30,6 +30,10 @@
                                     <label for="bussines_name" class="control-label">Business Name</label>
                                     <input id="bussines_name" type="text" class="form-control" name="bussines_name"  tabindex="3" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="bussines_address" class="control-label">Business Address</label>
+                                    <input id="bussines_address" type="text" class="form-control" name="bussines_address"  tabindex="3" required>
+                                </div>
                                 
                                 <div class="form-group">
                                     <label for="username" class="control-label">Username</label>
