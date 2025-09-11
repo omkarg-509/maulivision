@@ -14,35 +14,65 @@ public function login()
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json'); // JSON response
+        $identifier = isset($_POST['email']) ? trim($_POST['email']) : ''; // reused input field
+        $password  = isset($_POST['password']) ? $_POST['password'] : '';
 
-        // $username = isset($_POST['username']) ? htmlspecialchars(trim($_POST['username'])) : '';
-        $email = isset($_POST['email']) ? filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL) : '';
-        $password = isset($_POST['password']) ? $_POST['password'] : '';
+        if ($identifier === '' || $password === '') {
+            echo json_encode(['status' => 'error', 'message' => 'Missing credentials.']);
+            exit;
+        }
 
         $userModel = $this->model('User');
-        $vendor = $userModel->findByEmail($email);
+        $vendor = null;
 
-        // if ($vendor && password_verify($password, $vendor['password'])) {
-          if ($vendor && $password == $vendor['password']) {
+        // If identifier looks like an email try direct email search first for efficiency.
+        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            $vendor = $userModel->findByEmail($identifier);
+        }
+        if (!$vendor) {
+            $vendor = $userModel->findByIdentifier($identifier);
+        }
+
+        // Password check (plain fallback). Replace with password_verify when hashes deployed.
+        $valid = $vendor && (
+            (isset($vendor['password']) && $vendor['password'] === $password)
+            || (isset($vendor['password']) && password_get_info($vendor['password'])['algo'] !== 0 && password_verify($password, $vendor['password']))
+        );
+
+        if ($valid) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            $_SESSION['vendor'] = $vendor;
+            // Basic session hardening
+            session_regenerate_id(true);
+            $_SESSION['vendor'] = [
+                'id' => $vendor['id'],
+                'email' => $vendor['email'] ?? null,
+                'username' => $vendor['username'] ?? null,
+                'mobile' => $vendor['mobile'] ?? ($vendor['phone'] ?? null),
+                'role' => $vendor['role'] ?? 'vendor'
+            ];
 
-            setcookie("vendor", $vendor['id'], time() + (7 * 24 * 60 * 60), "/");
+            // Secure-ish cookie (adjust secure flag in HTTPS environments)
+            setcookie('vendor', $vendor['id'], [
+                'expires' => time() + 604800,
+                'path' => '/',
+                'httponly' => true,
+                'samesite' => 'Lax'
+            ]);
 
             echo json_encode([
                 'status' => 'success',
                 'redirect' => BASE_URL . 'dashboard'
             ]);
             exit;
-        } else {
-            echo json_encode([
-                'status' => 'error',
-                'redirect' => BASE_URL . 'login'
-            ]);
-            exit;
         }
+
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Invalid credentials.'
+        ]);
+        exit;
     } else {
         $this->view('auth/login');
     }
