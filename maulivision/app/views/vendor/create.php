@@ -14,7 +14,6 @@
           <div class="col-md-4"><label class="form-label small">Business Name *</label><input name="business_name" class="form-control" required></div>
           <div class="col-md-4"><label class="form-label small">Business Role</label><input name="business_role" class="form-control"></div>
           <div class="col-md-4"><label class="form-label small">Business Number</label><input name="business_number" class="form-control"></div>
-          <div class="col-md-4"><label class="form-label small">Phone / Alt Contact</label><input name="business_contact" class="form-control" disabled placeholder="(unused)"></div>
           <div class="col-md-6"><label class="form-label small">Address</label><textarea name="address" class="form-control" rows="2"></textarea></div>
           <div class="col-md-6"><label class="form-label small">Business Address</label><textarea name="business_address" class="form-control" rows="2"></textarea></div>
           <div class="col-12 d-flex justify-content-end"><button class="btn btn-primary">Save Vendor</button></div>
