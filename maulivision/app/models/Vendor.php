@@ -5,12 +5,6 @@ class Vendor extends Database
 {
     protected $db;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->db = $this->getConnection();
-    }
-
     public function listByAdmin($adminId)
     {
         $stmt = $this->db->prepare("SELECT id, full_name, phone, business_name, business_role, status, created_at FROM vendors WHERE admin_id=? ORDER BY id DESC");
