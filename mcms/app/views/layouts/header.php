@@ -12,6 +12,16 @@
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom.css">
   <link rel='shortcut icon' type='image/x-icon' href='<?= BASE_URL ?>assets/img/logo-1.png' />
+  <style>
+    link[rel="shortcut icon"] + style,
+    link[rel="icon"] + style {
+      /* fallback for favicon, not applicable */
+    }
+    /* Round the logo in the page header if used as an <img> */
+    .logo-img, .favicon-img {
+      border-radius: 50%;
+    }
+  </style>
 </head>
 
 
