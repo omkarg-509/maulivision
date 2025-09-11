@@ -6,7 +6,7 @@
           <div class="card card-primary">
             <div class="col-12 text-center mt-2">
             <div class="col-12 text-center mt-4 mb-2">
-  <img src="/public/assets/logo-1.png" alt="Logo" style="max-width:120px;">
+  <img src="<?=BASE_URL?>/assets/img/logo-1.png" alt="Logo" style="max-width:120px;">
 </div>
 
             </div>
