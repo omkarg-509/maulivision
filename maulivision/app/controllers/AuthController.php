@@ -16,10 +16,10 @@ class AuthController extends Controller
     public function login()
     {
         // If cookie exists but session does not, logout and exit
-        // if (isset($_COOKIE['admin']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['admin']))) {
-        //     Auth::logout();
-        //     exit;
-        // }
+        if (isset($_COOKIE['admin']) && (session_status() === PHP_SESSION_NONE || !isset($_SESSION['admin']))) {
+            Auth::logout();
+            exit;
+        }
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
