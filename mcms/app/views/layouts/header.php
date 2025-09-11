@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/components.css">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='<?= BASE_URL ?>assets/img/logo-1.png' />
+  
   <style>
     link[rel="shortcut icon"] + style,
     link[rel="icon"] + style {
@@ -22,6 +22,7 @@
       border-radius: 50%;
     }
   </style>
+  <link rel='shortcut icon' type='image/x-icon' href='<?= BASE_URL ?>assets/img/logo-1.png' />
 </head>
 
 
