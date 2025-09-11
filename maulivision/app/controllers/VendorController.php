@@ -22,7 +22,9 @@ class VendorController extends Controller
         Auth::check(); $admin=Auth::user();
         $full = trim($_POST['full_name']??'');
         $phone = trim($_POST['phone']??'');
-        $address = trim($_POST['address']??'');
+        $email = trim($_POST['email']??'');
+        $username = trim($_POST['username']??'');
+        $password = trim($_POST['password']??'');
         $bname = trim($_POST['business_name']??'');
         $brole = trim($_POST['business_role']??'');
         $bnum = trim($_POST['business_number']??'');
@@ -32,7 +34,7 @@ class VendorController extends Controller
             header('Location: '.BASE_URL.'vendor/create'); return;
         }
         $vendorModel=$this->model('Vendor');
-        $id=$vendorModel->create($admin['id'],$full,$phone,$address,$bname,$brole,$bnum,$baddr);
+        $id=$vendorModel->create($admin['id'],$full,$phone,$email,$username,$password,$bname,$brole,$bnum,$baddr);
         header('Location: '.BASE_URL.'vendor/index');
     }
 
