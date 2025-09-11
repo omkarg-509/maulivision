@@ -24,8 +24,7 @@ class CustomersController extends Controller
     {
         $customersModel = $this->model('Customers');
         $customersModel->insert($_POST);
-    header('Location: '.BASE_URL.'customers/index');
-    exit;                                                                                                                                                                                                                                                                                                                                                                                                                                            
+        $this->view('customers/index');                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }
 
     public function delete($id)

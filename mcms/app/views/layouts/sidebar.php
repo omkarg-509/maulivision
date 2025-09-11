@@ -36,8 +36,8 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
               <ul class="dropdown-menu">
-                <li class=""><a class="nav-link" href="<?=BASE_URL?>customers/index">Create Customers</a></li>
-                <li><a class="nav-link" href="<?=BASE_URL?>customers/history">Customers Details</a></li>
+                <li class=""><a class="nav-link" href="<?=BASE_URL?>customer/create">Create Customers</a></li>
+                <li><a class="nav-link" href="<?=BASE_URL?>customer/index">Customers Details</a></li>
               </ul>
             </li>
 
