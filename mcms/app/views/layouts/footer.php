@@ -2,7 +2,7 @@
 </body>
     <!-- <script src="<?//= BASE_URL ?>js/script.js"></script> -->
    <!-- General JS Scripts -->
-  <!-- <script src="<?//=BASE_URL?>assets/js/app.min.js"></script> -->
+  <script src="<?=BASE_URL?>assets/js/app.min.js"></script>
   <!-- JS Libraies -->
   <script src="<?=BASE_URL?>assets/bundles/chartjs/chart.min.js"></script>
   <script src="<?=BASE_URL?>assets/bundles/apexcharts/apexcharts.min.js"></script>
