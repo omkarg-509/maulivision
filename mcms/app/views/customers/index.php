@@ -16,7 +16,7 @@
                   </div>
                 <form id="customerForm" method="POST" action="<?= BASE_URL ?>customers/store">
                   <div class="card-body">
-                    <input type="hidden" class="form-control" name="vid" value="<?php echo htmlspecialchars($_SESSION['vendor']['id'] ?? ''); ?>" readonly>
+                    <!-- vid is set server-side from session; no client-provided vid -->
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">

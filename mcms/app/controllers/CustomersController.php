@@ -6,10 +6,11 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        Auth::check();  // ✅ session check
-        $customersModel = $this->model('Customers');
-        $customers = $customersModel->getAll();
-        $this->view('customers/index', ['customers' => $customers]);
+    Auth::check();  // ✅ session check
+    $customersModel = $this->model('Customers');
+    $vid = $_SESSION['vendor']['id'] ?? null;
+    $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
+    $this->view('customers/index', ['customers' => $customers]);
     }
 
     public function history()
@@ -33,7 +34,12 @@ class CustomersController extends Controller
         // Ajax-friendly store
         $customersModel = $this->model('Customers');
         try {
-            $id = $customersModel->insert($_POST);
+            // Trust server-side session for vendor scoping
+            $payload = $_POST;
+            if (isset($_SESSION['vendor']['id'])) {
+                $payload['vid'] = (int)$_SESSION['vendor']['id'];
+            }
+            $id = $customersModel->insert($payload);
             // If request expects JSON
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 header('Content-Type: application/json');
@@ -41,12 +47,12 @@ class CustomersController extends Controller
                     'status' => 'success',
                     'data' => [
                         'id' => $id,
-                        'name' => $_POST['name'] ?? '',
-                        'mobile' => $_POST['mobile'] ?? '',
-                        'in_time' => $_POST['in_time'] ?? '',
-                        'amount' => $_POST['amount'] ?? '',
-                        'staff' => $_POST['staff'] ?? '',
-                        'payment_method' => $_POST['payment_method'] ?? ''
+                        'name' => $payload['name'] ?? '',
+                        'mobile' => $payload['mobile'] ?? '',
+                        'in_time' => $payload['in_time'] ?? '',
+                        'amount' => $payload['amount'] ?? '',
+                        'staff' => $payload['staff'] ?? '',
+                        'payment_method' => $payload['payment_method'] ?? ''
                     ]
                 ]);
                 return;
