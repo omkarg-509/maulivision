@@ -42,6 +42,7 @@
               <ul class="dropdown-menu">
                 <li class=""><a class="nav-link" href="<?=BASE_URL?>customers/index">New Customers</a></li>
                 <li><a class="nav-link" href="<?=BASE_URL?>customers/history">History</a></li>
+                <li><a class="nav-link" href="<?=BASE_URL?>customers/customers">All Customers</a></li>
               </ul>
             </li>
 
