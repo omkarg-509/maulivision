@@ -22,9 +22,10 @@ class CustomersController extends Controller
     }
     public function customers(){
         Auth::check();  // ✅ session check
-        $customersModel = $this->model('Customers');
-        $customers = $customersModel->getAll();
-        $this->view('customers/customers', ['customers' => $customers]);
+    $customersModel = $this->model('Customers');
+    $vid = $_SESSION['vendor']['id'] ?? null;
+    $customers = $vid ? $customersModel->getByVendorUniqueMobile((int)$vid) : [];
+    $this->view('customers/customers', ['customers' => $customers]);
     }
 
     public function store()
