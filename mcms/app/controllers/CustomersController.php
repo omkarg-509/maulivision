@@ -22,9 +22,40 @@ class CustomersController extends Controller
 
     public function store()
     {
+        // Ajax-friendly store
         $customersModel = $this->model('Customers');
-        $customersModel->insert($_POST);
-        $this->view('customers/index');                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        try {
+            $id = $customersModel->insert($_POST);
+            // If request expects JSON
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                echo json_encode([
+                    'status' => 'success',
+                    'data' => [
+                        'id' => $id,
+                        'name' => $_POST['name'] ?? '',
+                        'mobile' => $_POST['mobile'] ?? '',
+                        'in_time' => $_POST['in_time'] ?? '',
+                        'amount' => $_POST['amount'] ?? '',
+                        'staff' => $_POST['staff'] ?? '',
+                        'payment_method' => $_POST['payment_method'] ?? ''
+                    ]
+                ]);
+                return;
+            }
+            // Fallback to redirect on non-AJAX
+            header('Location: ' . BASE_URL . 'customers/index');
+            exit;
+        } catch (Exception $e) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to save.']);
+                return;
+            }
+            header('Location: ' . BASE_URL . 'customers/index');
+            exit;
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                           
     }
 
     public function delete($id)
