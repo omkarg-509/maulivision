@@ -26,7 +26,7 @@
             <?php
               $vendor = $_SESSION['vendor'] ?? [];
               $logoName = $vendor['bussines_name']
-                ?? ($vendor['business_name'] ?? ($vendor['business_name'] ?? ($vendor['business_name'] ?? 'Massage Center')));
+                ?? ($vendor['bussiness_name'] ?? ($vendor['bussiness_name'] ?? ($vendor['bussiness_name'] ?? 'Massage Center')));
             ?>
             <span class="logo-name"><?= htmlspecialchars($logoName) ?></span>
             </a>
