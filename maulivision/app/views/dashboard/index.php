@@ -10,7 +10,7 @@
          <div class="row">
 
         
-             <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+             <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
               <div class="card card-statistic-1"><a href="<?= BASE_URL ?>dashboard/vendors">
                 <i class="fas fa-users card-icon col-green"></i>
                 <div class="card-wrap">
@@ -19,14 +19,14 @@
                       <div class="text-muted small">Vendors</div>
                     <h5 class="font-light mb-0 text-dark">
   <i class="ti-arrow-up text-success"></i>
-  <?= isset($vendorCount) ? (int)$vendorCount : 0 ?>
+  <?//= isset($vendorCount) ? (int)$vendorCount : 0 ?>
 </h5>
 
                     </div>
                   </div>
                 </div> </a>
               </div>
-            </div>
+            </div> -->
             <div class="col-lg-6 col-md-12">
               <div class="card h-100">
                 <div class="card-header py-2"><h6 class="mb-0">Recent Vendors</h6></div>
