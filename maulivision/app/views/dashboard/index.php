@@ -51,7 +51,7 @@
                 <div class="card-footer py-2 text-end"><a href="<?= BASE_URL ?>vendor/index" class="small">View all</a></div>
               </div>
             </div>
-               <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+               <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
               <div class="card card-statistic-1"><a href="#">
                 <i class="fas fa-rupee-sign card-icon col-green"></i>
                 <div class="card-wrap">
@@ -60,14 +60,14 @@
                       <div class="text-muted small">Revenue</div>
                       <h5 class="font-light mb-0 text-dark">
                         <i class="ti-arrow-up text-success"></i>
-                        <!-- TODO: Wire a real metric here -->
+                        TODO: Wire a real metric here
                         0
                       </h5>
                     </div>
                   </div>
                 </div> </a>
               </div>
-            </div>
+            </div> -->
         
 
         
