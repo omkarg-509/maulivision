@@ -61,8 +61,15 @@ class CustomersController extends Controller
     public function delete($id)
     {
         $customersModel = $this->model('Customers');
-        $customersModel->delete($id);
-        header("Location: " . $_SERVER['HTTP_REFERER']);
+        $deleted = $customersModel->delete($id);
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        if ($isAjax) {
+            header('Content-Type: application/json');
+            echo json_encode(['status' => $deleted ? 'success' : 'error']);
+            return;
+        }
+        $back = $_SERVER['HTTP_REFERER'] ?? (BASE_URL . 'customers/index');
+        header("Location: " . $back);
         exit;
     }
 }

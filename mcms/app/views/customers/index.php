@@ -110,7 +110,7 @@
                               <a href="<?= BASE_URL ?>customers/delete/<?= urlencode($cust['id']) ?>"
                                  onclick="return confirm('Are you sure you want to delete this milk Entries?');"
                                  title="Delete">
-                                <i class="fa fa-trash text-danger"></i>
+                                <i class="fa fa-trash text-danger delete-btn" data-id="<?= htmlspecialchars($cust['id']) ?>"></i>
                               </a>
                             </td>
                           </tr>
@@ -184,6 +184,39 @@
         alert('Network error. Try again.');
       }).always(function(){
         $btn.prop('disabled', false).text('Submit');
+      });
+    });
+
+    // Delegate delete click (no page refresh)
+    $('#customersTbody').on('click', 'a', function(e){
+      const $icon = $(this).find('.delete-btn');
+      const idAttr = $icon.data('id');
+      const href = $(this).attr('href');
+      // if no icon or data-id, let default happen
+      if(!idAttr) { return; }
+      e.preventDefault();
+      if(!confirm('Are you sure you want to delete this entry?')) return;
+      $.ajax({
+        url: href,
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        dataType: 'json'
+      }).done(function(res){
+        if(res.status === 'success'){
+          const $row = $icon.closest('tr');
+          $row.remove();
+          // reindex first column
+          $('#customersTbody tr').each(function(i){
+            $(this).find('td:first').text(i+1);
+          });
+          if($('#customersTbody tr').length === 0){
+            $('#customersTbody').append('<tr><td colspan="8" class="text-center">No customers found for today.</td></tr>');
+          }
+        } else {
+          alert('Failed to delete.');
+        }
+      }).fail(function(){
+        alert('Network error. Try again.');
       });
     });
   </script>
