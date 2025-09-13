@@ -1,0 +1,21 @@
+{
+    "name": "lms/laundry-management-system",
+    "description": "Laundry Management System - Modular Content Management System",
+    "type": "library",
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "lms\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "lms Team",
+            "email": "team@lms.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "license": "Apache-2.0"
+}
