@@ -69,6 +69,25 @@
               <div class="card">
                 <div class="card-header">
                   <h4>Customers Details</h4>
+                  <?php
+                    // Compute today's totals once for header display
+                    $today = date('Y-m-d');
+                    $totalCustomers = 0;
+                    $totalAmount = 0.0;
+                    if (!empty($data['customers'])) {
+                      foreach ($data['customers'] as $tc) {
+                        $entryDateTmp = isset($tc['created_at']) ? date('Y-m-d', strtotime($tc['created_at'])) : '';
+                        if ($entryDateTmp === $today) {
+                          $totalCustomers++;
+                          $totalAmount += (float)($tc['amount'] ?? 0);
+                        }
+                      }
+                    }
+                  ?>
+                  <div class="card-header-action">
+                    <span class="badge badge-primary mr-2">Total: <span id="totalCustomers"><?= (int)$totalCustomers ?></span></span>
+                    <span class="badge badge-success">Amount: <span id="totalAmount"><?= number_format($totalAmount, 2) ?></span></span>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -87,19 +106,16 @@
                       </thead>
                       <tbody id="customersTbody">
                         <?php
-
-                        $today = date('Y-m-d');
                         $hasTodayEntries = false;
-
                         if (!empty($data['customers'])):
-                          foreach ($data['customers'] as $index => $cust):
-                            // Check if created_at is today
+                          $counter = 1;
+                          foreach ($data['customers'] as $cust):
                             $entryDate = isset($cust['created_at']) ? date('Y-m-d', strtotime($cust['created_at'])) : '';
                             if ($entryDate === $today):
                               $hasTodayEntries = true;
                         ?>
                           <tr>
-                            <td><?= $index + 1 ?></td>
+                            <td><?= $counter++ ?></td>
                             <td><?= htmlspecialchars($cust['name']) ?></td>
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
@@ -107,10 +123,8 @@
                             <td><?= htmlspecialchars($cust['staff']) ?></td>
                             <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                             <td>
-                              <a href="<?= BASE_URL ?>customers/delete/<?= urlencode($cust['id']) ?>"
-                                 onclick="return confirm('Are you sure you want to delete this milk Entries?');"
-                                 title="Delete">
-                                <i class="fa fa-trash text-danger delete-btn" data-id="<?= htmlspecialchars($cust['id']) ?>"></i>
+                              <a href="<?= BASE_URL ?>customers/delete/<?= urlencode($cust['id']) ?>" title="Delete">
+                                <i class="fa fa-trash text-danger delete-btn" data-id="<?= htmlspecialchars($cust['id']) ?>" data-amount="<?= htmlspecialchars($cust['amount']) ?>"></i>
                               </a>
                             </td>
                           </tr>
@@ -129,7 +143,8 @@
                           <tr>
                             <td colspan="8" class="text-center">No customers found.</td>
                           </tr>
-                        <?php endif; ?>   </tbody>
+                        <?php endif; ?>
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -177,6 +192,14 @@
           if($empty.length){ $empty.remove(); }
           $tbody.prepend(row);
           $('#customerForm')[0].reset();
+          // update totals
+          const totalCustomersEl = $('#totalCustomers');
+          const totalAmountEl = $('#totalAmount');
+          const newCount = parseInt(totalCustomersEl.text()||'0',10) + 1;
+          totalCustomersEl.text(newCount);
+          const currentAmount = parseFloat((totalAmountEl.text()||'0').replace(/,/g,'')) || 0;
+          const addAmount = parseFloat(d.amount||0) || 0;
+          totalAmountEl.text((currentAmount + addAmount).toFixed(2));
         } else {
           alert(res.message || 'Failed to save');
         }
@@ -191,6 +214,7 @@
     $('#customersTbody').on('click', 'a', function(e){
       const $icon = $(this).find('.delete-btn');
       const idAttr = $icon.data('id');
+      const amountAttr = parseFloat($icon.data('amount')||0) || 0;
       const href = $(this).attr('href');
       // if no icon or data-id, let default happen
       if(!idAttr) { return; }
@@ -212,6 +236,14 @@
           if($('#customersTbody tr').length === 0){
             $('#customersTbody').append('<tr><td colspan="8" class="text-center">No customers found for today.</td></tr>');
           }
+          // update totals
+          const totalCustomersEl = $('#totalCustomers');
+          const totalAmountEl = $('#totalAmount');
+          const newCount = Math.max(0, parseInt(totalCustomersEl.text()||'0',10) - 1);
+          totalCustomersEl.text(newCount);
+          const currentAmount = parseFloat((totalAmountEl.text()||'0').replace(/,/g,'')) || 0;
+          const newAmt = Math.max(0, currentAmount - amountAttr);
+          totalAmountEl.text(newAmt.toFixed(2));
         } else {
           alert('Failed to delete.');
         }
