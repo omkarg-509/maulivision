@@ -22,8 +22,13 @@
                 </tr>
               </thead>
               <tbody>
-                <?php if (!empty($data['customers'])): ?>
-                  <?php $i = 1; foreach ($data['customers'] as $c): ?>
+                <?php
+                  $rows = array_values(array_filter($data['customers'] ?? [], function($r){
+                    return !empty($r['mobile']);
+                  }));
+                ?>
+                <?php if (!empty($rows)): ?>
+                  <?php $i = 1; foreach ($rows as $c): ?>
                     <tr>
                       <td><?= $i++ ?></td>
                       <td><?= htmlspecialchars($c['name']) ?></td>

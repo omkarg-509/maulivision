@@ -46,7 +46,7 @@ class Customers extends Database
         return $rows;
     }
 
-        // Get unique customers by mobile for a vendor (latest row per mobile). Includes entries with empty mobile as separate rows.
+            // Get unique customers by mobile for a vendor (latest row per mobile). Excludes null/empty mobile.
         public function getByVendorUniqueMobile(int $vid): array
         {
             // Subquery picks latest id per mobile for the vendor where mobile is not empty/null
@@ -58,17 +58,11 @@ class Customers extends Database
                     WHERE vid = ? AND mobile IS NOT NULL AND mobile <> ''
                     GROUP BY mobile
                 ) AS t ON t.max_id = c.id
-                WHERE c.vid = ?
-        
-                UNION ALL
-        
-                SELECT * FROM mcms_customers
-                WHERE vid = ? AND (mobile IS NULL OR mobile = '')
-        
-                ORDER BY created_at DESC, id DESC";
+                    WHERE c.vid = ?
+                    ORDER BY c.created_at DESC, c.id DESC";
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->bind_param("iii", $vid, $vid, $vid);
+                $stmt = $this->db->prepare($sql);
+                $stmt->bind_param("ii", $vid, $vid);
             $stmt->execute();
             $res = $stmt->get_result();
             $rows = $res->fetch_all(MYSQLI_ASSOC);
