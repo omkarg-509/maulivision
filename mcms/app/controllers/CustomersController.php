@@ -15,9 +15,10 @@ class CustomersController extends Controller
     public function history()
     {
         Auth::check();
-        $customersModel = $this->model('Customers');
-        $customers = $customersModel->getAll();
-        $this->view('customers/history', ['customers' => $customers]);
+    $customersModel = $this->model('Customers');
+    $vid = $_SESSION['vendor']['id'] ?? null;
+    $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
+    $this->view('customers/customers', ['customers' => $customers]);
     }
 
     public function store()

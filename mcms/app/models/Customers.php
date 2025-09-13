@@ -35,6 +35,17 @@ class Customers extends Database
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getByVendor(int $vid): array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM mcms_customers WHERE vid = ? ORDER BY created_at DESC, id DESC");
+        $stmt->bind_param("i", $vid);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $rows = $res->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $rows;
+    }
+
     public function insert($data)
     {
         $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?,?,?,?,?,?,?)";
