@@ -29,7 +29,7 @@ class Auth
             if (!empty($_SESSION['vendor']['id'])) {
                 require_once __DIR__ . '/../models/User.php';
                 $userModel = new User();
-                $userModel->setStatusById((int)$_SESSION['vendor']['id'], 0);
+                $userModel->setStatusById((string)$_SESSION['vendor']['id'], 'inactive');
             }
         } catch (\Throwable $e) {}
 

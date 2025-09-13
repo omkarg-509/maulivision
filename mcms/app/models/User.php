@@ -29,10 +29,10 @@ class User extends Database
         return $result->fetch_assoc();
     }
 
-    public function setStatusById(int $id, int $status): bool
+    public function setStatusById(int $id, string $status): bool
     {
         $stmt = $this->db->prepare("UPDATE vendors SET status = ? WHERE id = ?");
-        $stmt->bind_param("ii", $status, $id);
+        $stmt->bind_param("si", $status, $id);
         $stmt->execute();
         $ok = $stmt->affected_rows >= 0; // update may affect 0 if same value
         $stmt->close();
