@@ -46,6 +46,36 @@ class Customers extends Database
         return $rows;
     }
 
+        // Get unique customers by mobile for a vendor (latest row per mobile). Includes entries with empty mobile as separate rows.
+        public function getByVendorUniqueMobile(int $vid): array
+        {
+            // Subquery picks latest id per mobile for the vendor where mobile is not empty/null
+            $sql = "
+                SELECT c.* FROM mcms_customers c
+                INNER JOIN (
+                    SELECT mobile, MAX(id) AS max_id
+                    FROM mcms_customers
+                    WHERE vid = ? AND mobile IS NOT NULL AND mobile <> ''
+                    GROUP BY mobile
+                ) AS t ON t.max_id = c.id
+                WHERE c.vid = ?
+        
+                UNION ALL
+        
+                SELECT * FROM mcms_customers
+                WHERE vid = ? AND (mobile IS NULL OR mobile = '')
+        
+                ORDER BY created_at DESC, id DESC";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("iii", $vid, $vid, $vid);
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $rows = $res->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $rows;
+        }
+
     public function insert($data)
     {
         $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?,?,?,?,?,?,?)";
