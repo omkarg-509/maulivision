@@ -18,7 +18,7 @@ class CustomersController extends Controller
     $customersModel = $this->model('Customers');
     $vid = $_SESSION['vendor']['id'] ?? null;
     $customers = $vid ? $customersModel->getByVendorUniqueMobile((int)$vid) : [];
-    $this->view('customers/customers', ['customers' => $customers]);
+    $this->view('customers/history', ['customers' => $customers]);
     }
     public function customers(){
         Auth::check();  // ✅ session check
