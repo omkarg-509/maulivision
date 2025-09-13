@@ -49,6 +49,7 @@ public function login()
                 'id' => $vendor['id'],
                 'email' => $vendor['email'] ?? null,
                 'username' => $vendor['username'] ?? null,
+                'bussiness_name' => $vendor['business_name'] ?? ($vendor['bussines_name'] ?? ($vendor['bussiness_name'] ?? ($vendor['bussines_name'] ?? ''))),
                 'mobile' => $vendor['mobile'] ?? ($vendor['phone'] ?? null),
                 'role' => $vendor['role'] ?? 'vendor'
             ];
