@@ -21,12 +21,22 @@ class User extends Database
     public function findByIdentifier($identifier)
     {
         // Decide which column(s) to try; use one prepared statement with OR to keep it simple.
-        $stmt = $this->db->prepare("SELECT * FROM vendors WHERE email = ? OR username = ? OR phone = ? LIMIT 1");
-        // Bind same identifier to each possible field (unused columns will just not match)
-        $stmt->bind_param("sss", $identifier, $identifier, $identifier);
+        $stmt = $this->db->prepare("SELECT * FROM vendors WHERE email = ? OR username = ? OR phone = ? OR mobile = ? LIMIT 1");
+        // Bind same identifier to each possible field
+        $stmt->bind_param("ssss", $identifier, $identifier, $identifier, $identifier);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
+    }
+
+    public function setStatusById(int $id, int $status): bool
+    {
+        $stmt = $this->db->prepare("UPDATE vendors SET status = ? WHERE id = ?");
+        $stmt->bind_param("ii", $status, $id);
+        $stmt->execute();
+        $ok = $stmt->affected_rows >= 0; // update may affect 0 if same value
+        $stmt->close();
+        return $ok;
     }
   
 }

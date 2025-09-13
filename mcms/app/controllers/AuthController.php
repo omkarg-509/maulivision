@@ -53,6 +53,11 @@ public function login()
                 'role' => $vendor['role'] ?? 'vendor'
             ];
 
+            // Mark vendor active
+            try {
+                $userModel->setStatusById((int)$vendor['id'], 1);
+            } catch (Exception $e) {}
+
             // Secure-ish cookie (adjust secure flag in HTTPS environments)
             setcookie('vendor', $vendor['id'], [
                 'expires' => time() + 604800,

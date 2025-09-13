@@ -24,6 +24,15 @@ class Auth
     public static function logout()
     {
         session_start();
+        // Attempt to mark vendor inactive
+        try {
+            if (!empty($_SESSION['vendor']['id'])) {
+                require_once __DIR__ . '/../models/User.php';
+                $userModel = new User();
+                $userModel->setStatusById((int)$_SESSION['vendor']['id'], 0);
+            }
+        } catch (\Throwable $e) {}
+
         session_destroy();
 
         if (isset($_COOKIE['vendor'])) {
