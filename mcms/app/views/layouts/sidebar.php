@@ -23,8 +23,7 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-             
-              <span class="logo-name"><?= htmlspecialchars($bussines_name ?? 'Massage Center') ?></span>
+            <span class="logo-name"><?= htmlspecialchars($data['customers']['bussines_name'] ?? 'Massage Center') ?></span>
             </a>
           </div>
           <ul class="sidebar-menu">
