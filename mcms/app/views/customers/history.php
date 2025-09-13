@@ -48,6 +48,8 @@
                         $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
                         $hasEntries = false;
                         $totalAmount = 0;
+                        $totalCustomers = 0;
+                        $rowNum = 0;
 
                         if (!empty($data['customers'])):
                           foreach ($data['customers'] as $index => $cust):
@@ -56,18 +58,28 @@
                             if ($entryDate === $selectedDate):
                               $hasEntries = true;
                               $totalAmount += floatval($cust['amount']);
+                              $totalCustomers++;
+                              $rowNum++;
                         ?>
                               <tr>
-                                <td><?= $index + 1 ?></td>
-                                <td><?= htmlspecialchars($cust['name']) ?></td>
-                                <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                                <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                                <td><?= $rowNum ?></td>
+                                <td><?= htmlspecialchars($cust['name'] ?? '') ?></td>
+                                <td>
+                                  <?php if (!empty($cust['mobile'])): ?>
+                                    <a href="tel:<?= htmlspecialchars($cust['mobile']) ?>" title="Call">
+                                      <?= htmlspecialchars($cust['mobile']) ?>
+                                    </a>
+                                  <?php else: ?>
+                                    <span class="text-muted">—</span>
+                                  <?php endif; ?>
+                                </td>
+                                <td><?= htmlspecialchars(isset($cust['in_time']) ? ucfirst($cust['in_time']) : '') ?></td>
                                 <td><?= htmlspecialchars($cust['amount']) ?></td>
-                                <td><?= htmlspecialchars($cust['staff']) ?></td>
-                                <td><?= htmlspecialchars($cust['payment_method']) ?></td>
+                                <td><?= htmlspecialchars($cust['staff'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($cust['payment_method'] ?? '') ?></td>
                                 <td>
                                   <a href="/public/customers/delete/<?= urlencode($cust['id']) ?>"
-                                     onclick="return confirm('Are you sure you want to delete this milk Entries?');"
+                                     onclick="return confirm('Are you sure you want to delete this customer entry?');"
                                      title="Delete">
                                     <i class="fa fa-trash text-danger"></i>
                                   </a>
@@ -78,6 +90,12 @@
                           endforeach;
                           if ($hasEntries):
                         ?>
+                              <tr>
+                                <td colspan="3" class="text-right font-weight-bold">Total Customers</td>
+                                <td class="font-weight-bold"><?= (int)$totalCustomers ?></td>
+                                <td class="font-weight-bold">—</td>
+                                <td colspan="3"></td>
+                              </tr>
                               <tr>
                                 <td colspan="4" class="text-right font-weight-bold">Total Amount</td>
                                 <td class="font-weight-bold"><?= htmlspecialchars(number_format($totalAmount, 2)) ?></td>
