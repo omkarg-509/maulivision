@@ -17,7 +17,7 @@ class CustomersController extends Controller
         Auth::check();
     $customersModel = $this->model('Customers');
     $vid = $_SESSION['vendor']['id'] ?? null;
-    $customers =  $customersModel->getAll();
+    $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
     $this->view('customers/history', ['customers' => $customers]);
     }
     public function customers(){

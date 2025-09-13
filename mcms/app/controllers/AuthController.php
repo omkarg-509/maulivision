@@ -25,12 +25,18 @@ public function login()
         $userModel = $this->model('User');
         $vendor = null;
 
-        // If identifier looks like an email try direct email search first for efficiency.
+        // Try email first if it looks like an email
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
             $vendor = $userModel->findByEmail($identifier);
         }
+        // Try phone/mobile if not found yet and identifier is numeric-ish (allow +, -, spaces)
+        if (!$vendor && preg_match('/^[+\-\s0-9]{6,}$/', $identifier)) {
+            $vendor = $userModel->findByPhone($identifier);
+        }
+        // Finally try username (or any identifier fallback)
         if (!$vendor) {
-            $vendor = $userModel->findByIdentifier($identifier);
+            // Prefer explicit username lookup; fall back to generic identifier to cover edge schemas
+            $vendor = $userModel->findByUsername($identifier) ?: $userModel->findByIdentifier($identifier);
         }
 
         // Password check (plain fallback). Replace with password_verify when hashes deployed.

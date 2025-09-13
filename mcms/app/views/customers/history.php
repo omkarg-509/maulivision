@@ -24,8 +24,26 @@
      
             <div class="col-lg-12 col-md-12 col-12 col-sm-12">
               <div class="card">
-                <div class="card-header">
-                  <h4>Customers Details</h4>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h4 class="mb-0">Customers Details</h4>
+                  <?php
+                    $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+                    $totalCount = 0;
+                    $totalAmount = 0.0;
+                    if (!empty($data['customers'])) {
+                      foreach ($data['customers'] as $tc) {
+                        $entryDateTmp = isset($tc['created_at']) ? date('Y-m-d', strtotime($tc['created_at'])) : '';
+                        if ($entryDateTmp === $selectedDate) {
+                          $totalCount++;
+                          $totalAmount += (float)($tc['amount'] ?? 0);
+                        }
+                      }
+                    }
+                  ?>
+                  <div class="card-header-action">
+                    <span class="badge badge-primary mr-2">Total: <?= (int)$totalCount ?></span>
+                    <span class="badge badge-success">Amount: <?= htmlspecialchars(number_format($totalAmount, 2)) ?></span>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -36,6 +54,7 @@
                           <th scope="col">Customer name</th>
                           <th scope="col">Number</th>
                           <th scope="col">In time</th>
+                          
                           <th scope="col">Amount</th>
                           <th scope="col">Staff</th>
                           <th scope="col">Payment Method</th>
@@ -48,6 +67,7 @@
                         $selectedDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
                         $hasEntries = false;
                         $totalAmount = 0;
+                        $rowNum = 1;
 
                         if (!empty($data['customers'])):
                           foreach ($data['customers'] as $index => $cust):
@@ -58,16 +78,16 @@
                               $totalAmount += floatval($cust['amount']);
                         ?>
                               <tr>
-                                <td><?= $index + 1 ?></td>
+                                <td><?= $rowNum++ ?></td>
                                 <td><?= htmlspecialchars($cust['name']) ?></td>
                                 <td><?= htmlspecialchars($cust['mobile']) ?></td>
-                                <td><?= htmlspecialchars(ucfirst($cust['in_time'])) ?></td>
+                                <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                                 <td><?= htmlspecialchars($cust['amount']) ?></td>
                                 <td><?= htmlspecialchars($cust['staff']) ?></td>
                                 <td><?= htmlspecialchars($cust['payment_method']) ?></td>
                                 <td>
-                                  <a href="/public/customers/delete/<?= urlencode($cust['id']) ?>"
-                                     onclick="return confirm('Are you sure you want to delete this milk Entries?');"
+                                  <a href="<?= BASE_URL ?>customers/delete/<?= urlencode($cust['id']) ?>"
+                                     onclick="return confirm('Are you sure you want to delete this entry?');"
                                      title="Delete">
                                     <i class="fa fa-trash text-danger"></i>
                                   </a>

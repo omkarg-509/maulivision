@@ -14,6 +14,26 @@ class User extends Database
         return $result->fetch_assoc();
     }
     
+    /** Find by username */
+    public function findByUsername(string $username)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM vendors WHERE username = ? LIMIT 1");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+    /** Find by phone or mobile */
+    public function findByPhone(string $phone)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM vendors WHERE phone = ? OR mobile = ? LIMIT 1");
+        $stmt->bind_param("ss", $phone, $phone);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+    
     /**
      * Find a vendor by any of: email, username, or mobile/phone number.
      * Accepts a single identifier string and tries to match in priority order: email -> username -> phone.
