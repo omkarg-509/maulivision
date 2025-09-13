@@ -23,7 +23,12 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="index.html">
-            <span class="logo-name"><?= htmlspecialchars($data['customers']['bussines_name'] ?? 'Massage Center') ?></span>
+            <?php
+              $vendor = $_SESSION['vendor'] ?? [];
+              $logoName = $vendor['bussines_name']
+                ?? ($vendor['business_name'] ?? ($vendor['name'] ?? ($vendor['username'] ?? 'Massage Center')));
+            ?>
+            <span class="logo-name"><?= htmlspecialchars($logoName) ?></span>
             </a>
           </div>
           <ul class="sidebar-menu">
