@@ -20,6 +20,12 @@ class CustomersController extends Controller
     $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
     $this->view('customers/customers', ['customers' => $customers]);
     }
+    public function customers(){
+        Auth::check();  // ✅ session check
+        $customersModel = $this->model('Customers');
+        $customers = $customersModel->getAll();
+        $this->view('customers/customers', ['customers' => $customers]);
+    }
 
     public function store()
     {
