@@ -165,7 +165,8 @@
         url: $(this).attr('action'),
         method: 'POST',
         data: $(this).serialize(),
-        dataType: 'json'
+        dataType: 'json',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
       }).done(function(res){
         if(res.status === 'success'){
           const d = res.data;
@@ -182,8 +183,8 @@
               <td>${$('<div/>').text(d.staff||'').html()}</td>
               <td>${$('<div/>').text(d.payment_method||'').html()}</td>
               <td>
-                <a href="<?= BASE_URL ?>customers/delete/${encodeURIComponent(d.id)}" onclick="return confirm('Are you sure you want to delete this entry?');" title="Delete">
-                  <i class="fa fa-trash text-danger"></i>
+                <a href="<?= BASE_URL ?>customers/delete/${encodeURIComponent(d.id)}" title="Delete">
+                  <i class="fa fa-trash text-danger delete-btn" data-id="${$('<div/>').text(d.id).html()}" data-amount="${$('<div/>').text(d.amount||'0').html()}"></i>
                 </a>
               </td>
             </tr>`;
