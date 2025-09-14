@@ -31,45 +31,81 @@ class CustomersController extends Controller
 
     public function store()
     {
-        // Ajax-friendly store
+        // Ensure session and auth so $_SESSION['vendor'] is available
+        Auth::check();
+
         $customersModel = $this->model('Customers');
-        try {
-            // Trust server-side session for vendor scoping
-            $payload = $_POST;
-            if (isset($_SESSION['vendor']['id'])) {
-                $payload['vid'] = (int)$_SESSION['vendor']['id'];
-            }
-            $id = $customersModel->insert($payload);
-            // If request expects JSON
+
+        // Normalize payload and vendor scoping
+        $payload = [
+            'name' => $_POST['name'] ?? '',
+            'mobile' => $_POST['mobile'] ?? '',
+            'in_time' => $_POST['in_time'] ?? '',
+            'amount' => isset($_POST['amount']) ? (float)$_POST['amount'] : 0,
+            'staff' => $_POST['staff'] ?? '',
+            'payment_method' => $_POST['payment_method'] ?? ''
+        ];
+
+        if (isset($_SESSION['vendor']['id'])) {
+            $payload['vid'] = (int)$_SESSION['vendor']['id'];
+        } else {
+            // No vendor in session — cannot save
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 header('Content-Type: application/json');
+                http_response_code(401);
+                echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+                return;
+            }
+            header('Location: ' . BASE_URL . 'auth/login');
+            exit;
+        }
+
+        // Basic required fields validation
+        if ($payload['name'] === '' || $payload['in_time'] === '' || $payload['staff'] === '') {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                http_response_code(422);
+                echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
+                return;
+            }
+            header('Location: ' . BASE_URL . 'customers/index');
+            exit;
+        }
+
+        // Attempt insert
+        $id = 0;
+        try {
+            $id = (int)$customersModel->insert($payload);
+        } catch (\Throwable $e) {
+            $id = 0;
+        }
+
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        if ($isAjax) {
+            header('Content-Type: application/json');
+            if ($id > 0) {
                 echo json_encode([
                     'status' => 'success',
                     'data' => [
                         'id' => $id,
-                        'name' => $payload['name'] ?? '',
-                        'mobile' => $payload['mobile'] ?? '',
-                        'in_time' => $payload['in_time'] ?? '',
-                        'amount' => $payload['amount'] ?? '',
-                        'staff' => $payload['staff'] ?? '',
-                        'payment_method' => $payload['payment_method'] ?? ''
+                        'name' => $payload['name'],
+                        'mobile' => $payload['mobile'],
+                        'in_time' => $payload['in_time'],
+                        'amount' => (string)$payload['amount'],
+                        'staff' => $payload['staff'],
+                        'payment_method' => $payload['payment_method']
                     ]
                 ]);
-                return;
-            }
-            // Fallback to redirect on non-AJAX
-            header('Location: ' . BASE_URL . 'customers/index');
-            exit;
-        } catch (Exception $e) {
-            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                header('Content-Type: application/json');
+            } else {
                 http_response_code(500);
-                echo json_encode(['status' => 'error', 'message' => 'Failed to save.']);
-                return;
+                echo json_encode(['status' => 'error', 'message' => 'Failed to save']);
             }
-            header('Location: ' . BASE_URL . 'customers/index');
-            exit;
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                           
+            return;
+        }
+
+        // Non-AJAX fallback
+        header('Location: ' . BASE_URL . 'customers/index');
+        exit;                                                                                                                                                                                                                                                                                                                                                                                                                                            
     }
 
     public function delete($id)
