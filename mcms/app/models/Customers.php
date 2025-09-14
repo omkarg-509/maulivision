@@ -72,7 +72,8 @@ class Customers extends Database
 
     public function insert($data)
     {
-        $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?,?,?,?,?,?,?)";
+        // Use NULLIF to store NULL when mobile is an empty string
+        $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?, ?, NULLIF(?, ''), ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param(
             "isssdss",

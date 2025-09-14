@@ -37,13 +37,17 @@ class CustomersController extends Controller
         $customersModel = $this->model('Customers');
 
         // Normalize payload and vendor scoping
+        $name = isset($_POST['name']) ? trim((string)$_POST['name']) : '';
+        if ($name === '') { $name = 'Guest'; }
+        $mobile = isset($_POST['mobile']) ? trim((string)$_POST['mobile']) : '';
         $payload = [
-            'name' => $_POST['name'] ?? 'Guest',
-            'mobile' => $_POST['mobile'] ?? '',
-            'in_time' => $_POST['in_time'] ?? '',
+            'name' => $name,
+            // leave as '' and let DB NULLIF convert to NULL
+            'mobile' => $mobile,
+            'in_time' => isset($_POST['in_time']) ? trim((string)$_POST['in_time']) : '',
             'amount' => isset($_POST['amount']) ? (float)$_POST['amount'] : 0,
-            'staff' => $_POST['staff'] ?? '',
-            'payment_method' => $_POST['payment_method'] ?? ''
+            'staff' => isset($_POST['staff']) ? trim((string)$_POST['staff']) : '',
+            'payment_method' => isset($_POST['payment_method']) ? trim((string)$_POST['payment_method']) : ''
         ];
 
         if (isset($_SESSION['vendor']['id'])) {
@@ -60,8 +64,8 @@ class CustomersController extends Controller
             exit;
         }
 
-        // Basic required fields validation
-        if ($payload['name'] === '' || $payload['in_time'] === '' || $payload['staff'] === '') {
+    // Basic required fields validation (name can be auto 'Guest')
+    if ($payload['in_time'] === '' || $payload['staff'] === '') {
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 header('Content-Type: application/json');
                 http_response_code(422);
