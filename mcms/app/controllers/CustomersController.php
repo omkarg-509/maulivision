@@ -31,85 +31,45 @@ class CustomersController extends Controller
 
     public function store()
     {
-        // Ensure session and auth so $_SESSION['vendor'] is available
-        Auth::check();
-
+        // Ajax-friendly store
         $customersModel = $this->model('Customers');
-
-        // Normalize payload and vendor scoping
-        $name = isset($_POST['name']) ? trim((string)$_POST['name']) : '';
-        if ($name === '') { $name = 'Guest'; }
-        $mobile = isset($_POST['mobile']) ? trim((string)$_POST['mobile']) : '';
-        $payload = [
-            'name' => $name,
-            // leave as '' and let DB NULLIF convert to NULL
-            'mobile' => $mobile,
-            'in_time' => isset($_POST['in_time']) ? trim((string)$_POST['in_time']) : '',
-            'amount' => isset($_POST['amount']) ? (float)$_POST['amount'] : 0,
-            'staff' => isset($_POST['staff']) ? trim((string)$_POST['staff']) : '',
-            'payment_method' => isset($_POST['payment_method']) ? trim((string)$_POST['payment_method']) : ''
-        ];
-
-        if (isset($_SESSION['vendor']['id'])) {
-            $payload['vid'] = (int)$_SESSION['vendor']['id'];
-        } else {
-            // No vendor in session — cannot save
-            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                header('Content-Type: application/json');
-                http_response_code(401);
-                echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-                return;
-            }
-            header('Location: ' . BASE_URL . 'auth/login');
-            exit;
-        }
-
-    // Basic required fields validation (name can be auto 'Guest')
-    if ($payload['in_time'] === '' || $payload['staff'] === '') {
-            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-                header('Content-Type: application/json');
-                http_response_code(422);
-                echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
-                return;
-            }
-            header('Location: ' . BASE_URL . 'customers/index');
-            exit;
-        }
-
-        // Attempt insert
-        $id = 0;
         try {
-            $id = (int)$customersModel->insert($payload);
-        } catch (\Throwable $e) {
-            $id = 0;
-        }
-
-        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-        if ($isAjax) {
-            header('Content-Type: application/json');
-            if ($id > 0) {
+            // Trust server-side session for vendor scoping
+            $payload = $_POST;
+            if (isset($_SESSION['vendor']['id'])) {
+                $payload['vid'] = (int)$_SESSION['vendor']['id'];
+            }
+            $id = $customersModel->insert($payload);
+            // If request expects JSON
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
                 echo json_encode([
                     'status' => 'success',
                     'data' => [
                         'id' => $id,
-                        'name' => $payload['name'],
-                        'mobile' => $payload['mobile'],
-                        'in_time' => $payload['in_time'],
-                        'amount' => (string)$payload['amount'],
-                        'staff' => $payload['staff'],
-                        'payment_method' => $payload['payment_method']
+                        'name' => $payload['name'] ?? '',
+                        'mobile' => $payload['mobile'] ?? '',
+                        'in_time' => $payload['in_time'] ?? '',
+                        'amount' => $payload['amount'] ?? '',
+                        'staff' => $payload['staff'] ?? '',
+                        'payment_method' => $payload['payment_method'] ?? ''
                     ]
                 ]);
-            } else {
-                http_response_code(500);
-                echo json_encode(['status' => 'error', 'message' => 'Failed to save']);
+                return;
             }
-            return;
-        }
-
-        // Non-AJAX fallback
-        header('Location: ' . BASE_URL . 'customers/index');
-        exit;                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            // Fallback to redirect on non-AJAX
+            header('Location: ' . BASE_URL . 'customers/index');
+            exit;
+        } catch (Exception $e) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+                header('Content-Type: application/json');
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to save.']);
+                return;
+            }
+            header('Location: ' . BASE_URL . 'customers/index');
+            exit;
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                           
     }
 
     public function delete($id)

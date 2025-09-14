@@ -20,7 +20,7 @@
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name" >
+                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
@@ -44,7 +44,7 @@
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Staff</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="staff" placeholder="Staff">
+                        <input type="text" class="form-control form-control-sm" name="staff" placeholder="Staff" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
@@ -117,7 +117,7 @@
                           <tr>
                             <td><?= $counter++ ?></td>
                             <td><?= htmlspecialchars($cust['name']) ?></td>
-                            <td><?= $cust['mobile'] !== null && $cust['mobile'] !== '' ? htmlspecialchars($cust['mobile']) : '-' ?></td>
+                            <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
                             <td><?= htmlspecialchars($cust['staff']) ?></td>
@@ -171,27 +171,26 @@
         if(res.status === 'success'){
           const d = res.data;
           // prepend new row (assumes today)
-          const $tbody = $('#customersTbody');
-          const $empty = $tbody.find('td[colspan="8"]').closest('tr');
-          if($empty.length){ $empty.remove(); }
           const idx = $('#customersTbody tr').length + 1;
           const inTime = d.in_time ? new Date('1970-01-01T'+d.in_time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
-          const mobileCell = (d.mobile && String(d.mobile).trim() !== '') ? $('<div/>').text(d.mobile).html() : '-';
           const row = `
             <tr>
               <td>${idx}</td>
               <td>${$('<div/>').text(d.name||'').html()}</td>
-              <td>${mobileCell}</td>
+              <td>${$('<div/>').text(d.mobile||'').html()}</td>
               <td>${$('<div/>').text(inTime).html()}</td>
               <td>${$('<div/>').text(d.amount||'').html()}</td>
               <td>${$('<div/>').text(d.staff||'').html()}</td>
               <td>${$('<div/>').text(d.payment_method||'').html()}</td>
               <td>
                 <a href="<?= BASE_URL ?>customers/delete/${encodeURIComponent(d.id)}" title="Delete">
-                  <i class="fa fa-trash text-danger delete-btn" data-id="${Number(d.id)}" data-amount="${Number(d.amount||0)}"></i>
+                  <i class="fa fa-trash text-danger delete-btn" data-id="${$('<div/>').text(d.id).html()}" data-amount="${$('<div/>').text(d.amount||'0').html()}"></i>
                 </a>
               </td>
             </tr>`;
+          const $tbody = $('#customersTbody');
+          const $empty = $tbody.find('td[colspan="8"]').closest('tr');
+          if($empty.length){ $empty.remove(); }
           $tbody.prepend(row);
           $('#customerForm')[0].reset();
           // update totals
