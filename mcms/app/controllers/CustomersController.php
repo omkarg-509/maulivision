@@ -38,7 +38,7 @@ class CustomersController extends Controller
 
         // Normalize payload and vendor scoping
         $payload = [
-            'name' => $_POST['name'] ?? '',
+            'name' => $_POST['name'] ?? 'Guest',
             'mobile' => $_POST['mobile'] ?? '',
             'in_time' => $_POST['in_time'] ?? '',
             'amount' => isset($_POST['amount']) ? (float)$_POST['amount'] : 0,
@@ -88,7 +88,7 @@ class CustomersController extends Controller
                     'status' => 'success',
                     'data' => [
                         'id' => $id,
-                        'name' => $payload['name'] !== '' ? $payload['name'] : 'Guest',
+                        'name' => $payload['name'],
                         'mobile' => $payload['mobile'],
                         'in_time' => $payload['in_time'],
                         'amount' => (string)$payload['amount'],
