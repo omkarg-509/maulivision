@@ -88,7 +88,7 @@ class CustomersController extends Controller
                     'status' => 'success',
                     'data' => [
                         'id' => $id,
-                        'name' => $payload['name'],
+                        'name' => $payload['name'] !== '' ? $payload['name'] : 'Guest',
                         'mobile' => $payload['mobile'],
                         'in_time' => $payload['in_time'],
                         'amount' => (string)$payload['amount'],
