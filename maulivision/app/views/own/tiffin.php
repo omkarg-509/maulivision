@@ -58,8 +58,8 @@
       <div class="card-body p-0">
         <div class="table-responsive">
           <table class="table table-sm mb-0" id="tf-table">
-            <thead class="table-light"><tr><th>Date</th><th>Time</th><th class="text-end">Qty</th><th class="text-end">Rate</th><th class="text-end">Total</th><th>Paid</th><th></th></tr></thead>
-            <tbody>
+            <thead class="table-light"><tr><th>Date</th><th>Time</th><th class="text-end">Qty</th><th class="text-end">Rate</th><th class="text-end">Total</th><th></th></tr></thead>
+            <tbody id="tf-table-body">
               <?php foreach($entries as $e): $total = (float)$e['quantity'] * (float)$e['rate']; ?>
               <tr data-id="<?= (int)$e['id'] ?>">
                 <td><?= htmlspecialchars($e['entry_date']) ?></td>
@@ -67,13 +67,15 @@
                 <td class="text-end"><?= (int)$e['quantity'] ?></td>
                 <td class="text-end"><?= number_format((float)$e['rate'],2) ?></td>
                 <td class="text-end"><?= number_format($total,2) ?></td>
-                <td><input type="checkbox" class="form-check-input tf-paid-toggle" <?= $e['paid']? 'checked':'' ?>></td>
                 <td><button class="btn btn-sm btn-outline-danger tf-del"><i class="fas fa-trash"></i></button></td>
               </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
           <?php if(empty($entries)): ?><div class="p-3 text-muted small" id="tf-empty">No entries yet.</div><?php endif; ?>
+          <nav>
+            <ul class="pagination justify-content-center my-2" id="tf-pagination"></ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -99,6 +101,36 @@
 
   function toggleEmpty(){ if(tableBody.children.length===0){ if(emptyDiv) emptyDiv.classList.remove('d-none'); } else if(emptyDiv) emptyDiv.classList.add('d-none'); }
 
+  // --- Pagination ---
+  const PAGE_SIZE = 10;
+  let allRows = Array.from(tableBody.children);
+  function renderPage(page) {
+    allRows = Array.from(tableBody.children);
+    const total = allRows.length;
+    const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+    page = Math.max(1, Math.min(page, totalPages));
+    // Hide all rows
+    allRows.forEach(r => r.style.display = 'none');
+    // Show only current page
+    allRows.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE).forEach(r => r.style.display = '');
+    // Render pagination
+    const pag = document.getElementById('tf-pagination');
+    if (!pag) return;
+    pag.innerHTML = '';
+    for(let i=1; i<=totalPages; ++i){
+      const li = document.createElement('li');
+      li.className = 'page-item'+(i===page?' active':'');
+      const a = document.createElement('a');
+      a.className = 'page-link';
+      a.href = '#';
+      a.textContent = i;
+      a.addEventListener('click', e=>{e.preventDefault(); renderPage(i);});
+      li.appendChild(a);
+      pag.appendChild(li);
+    }
+  }
+  renderPage(1);
+
   form.addEventListener('submit', e=>{
     e.preventDefault();
     const fd=new FormData(form);
@@ -106,17 +138,15 @@
       if(!j.ok) return;
       const tr=document.createElement('tr');
       tr.setAttribute('data-id', j.id);
-      tr.innerHTML=`<td>${j.entry_date}</td><td>${j.tiffin_time}</td><td class='text-end'>${j.quantity}</td><td class='text-end'>${Number(j.rate).toFixed(2)}</td><td class='text-end'>${(j.total).toFixed(2)}</td><td><input type='checkbox' class='form-check-input tf-paid-toggle' ${j.paid? 'checked':''}></td><td><button class='btn btn-sm btn-outline-danger tf-del'><i class='fas fa-trash'></i></button></td>`;
-      tableBody.prepend(tr); toggleEmpty(); form.reset(); dateInput.value=new Date().toISOString().slice(0,10); refreshStatsDebounced();
+      tr.innerHTML=`<td>${j.entry_date}</td><td>${j.tiffin_time}</td><td class='text-end'>${j.quantity}</td><td class='text-end'>${Number(j.rate).toFixed(2)}</td><td class='text-end'>${(j.total).toFixed(2)}</td><td><button class='btn btn-sm btn-outline-danger tf-del'><i class='fas fa-trash'></i></button></td>`;
+      tableBody.prepend(tr); toggleEmpty(); renderPage(1); form.reset(); dateInput.value=new Date().toISOString().slice(0,10); refreshStatsDebounced();
     });
   });
 
   tableBody.addEventListener('click', e=>{
     const tr=e.target.closest('tr'); if(!tr) return; const id=tr.getAttribute('data-id');
     if(e.target.closest('.tf-del')){
-      fetch(BASE+'own/tiffinDelete/'+id).then(r=>r.json()).then(j=>{ if(j.ok){ tr.remove(); toggleEmpty(); refreshStatsDebounced(); }});
-    } else if(e.target.classList.contains('tf-paid-toggle')){
-      fetch(BASE+'own/tiffinTogglePaid/'+id).then(r=>r.json()).then(j=>{ if(j.ok){ refreshStatsDebounced(); } else { e.target.checked=!e.target.checked; } });
+      fetch(BASE+'own/tiffinDelete/'+id).then(r=>r.json()).then(j=>{ if(j.ok){ tr.remove(); toggleEmpty(); renderPage(1); refreshStatsDebounced(); }});
     }
   });
 
@@ -126,7 +156,40 @@
   const applyBtn=document.getElementById('stat-apply');
   const loader=document.getElementById('stats-loading');
   function defDates(){ const today=new Date(); const past=new Date(Date.now()-6*24*3600*1000); fromInput.value=past.toISOString().slice(0,10); toInput.value=today.toISOString().slice(0,10);} defDates();
-  let chart; let statsTimer; function refreshStatsDebounced(){ clearTimeout(statsTimer); statsTimer=setTimeout(loadStats,300);} applyBtn.addEventListener('click', e=>{e.preventDefault(); loadStats();});
+  let chart; let statsTimer; function refreshStatsDebounced(){ clearTimeout(statsTimer); statsTimer=setTimeout(loadStats,300);}
+
+  // --- Mark as Paid UI ---
+  let markPaidBtn = null;
+  applyBtn.addEventListener('click', e=>{
+    e.preventDefault();
+    loadStats();
+    // Show Mark as Paid button if both dates are selected
+    if(fromInput.value && toInput.value){
+      if(!markPaidBtn){
+        markPaidBtn = document.createElement('button');
+        markPaidBtn.className = 'btn btn-success btn-sm ms-2';
+        markPaidBtn.textContent = 'Mark All as Paid';
+        markPaidBtn.type = 'button';
+        markPaidBtn.addEventListener('click', function(){
+          markPaidBtn.disabled = true;
+          fetch(`${BASE}own/tiffinMarkPaid?from=${encodeURIComponent(fromInput.value)}&to=${encodeURIComponent(toInput.value)}`, {method:'POST'})
+            .then(r=>r.json()).then(j=>{
+              markPaidBtn.disabled = false;
+              if(j && j.ok){
+                alert('Marked as paid!');
+                loadStats();
+              } else {
+                alert('Failed to mark as paid.');
+              }
+            });
+        });
+        applyBtn.parentNode.appendChild(markPaidBtn);
+      }
+      markPaidBtn.style.display = '';
+    } else if(markPaidBtn){
+      markPaidBtn.style.display = 'none';
+    }
+  });
 
   function loadStats(){ if(loader) loader.classList.remove('d-none'); fetch(`${BASE}own/tiffinStats?from=${encodeURIComponent(fromInput.value)}&to=${encodeURIComponent(toInput.value)}`)
     .then(r=>r.json()).then(j=>{ if(loader) loader.classList.add('d-none'); if(!j.ok) return; const s=j.summary; document.getElementById('sum-qty').textContent=s.qty; document.getElementById('sum-total').textContent=s.total.toFixed(2); document.getElementById('sum-paid').textContent=s.paid.toFixed(2); document.getElementById('sum-unpaid').textContent=s.unpaid.toFixed(2); document.getElementById('sum-due').textContent=s.unpaid.toFixed(2); const rows=j.daily; const chartEmpty=document.getElementById('chart-empty'); if(!rows.length){ chartEmpty.classList.remove('d-none'); if(chart){chart.destroy(); chart=null;} return;} else { chartEmpty.classList.add('d-none'); } const labels=rows.map(r=>r.day); const qty=rows.map(r=>r.total_qty); const totalAmt=rows.map(r=>r.total_amount); const paidAmt=rows.map(r=>r.paid_amount); const unpaidAmt=rows.map(r=>r.unpaid_amount); const cumulative=[]; let run=0; rows.forEach(r=>{ run+=r.total_amount; cumulative.push(run); }); const ctx=document.getElementById('tf-chart').getContext('2d'); if(typeof Chart==='undefined'){ loadChartLib(()=> buildChart(ctx,labels,qty,totalAmt,paidAmt,unpaidAmt,cumulative)); } else { buildChart(ctx,labels,qty,totalAmt,paidAmt,unpaidAmt,cumulative); } }); }
