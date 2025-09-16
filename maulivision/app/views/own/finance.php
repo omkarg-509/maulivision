@@ -104,17 +104,27 @@
             <tbody>
               <?php foreach($entries as $e): ?>
                 <tr data-id="<?= (int)$e['id'] ?>">
-                  <td><?= htmlspecialchars($e['entry_date']) ?></td>
-                  <td><span class="badge bg-secondary text-uppercase small"><?= htmlspecialchars($e['type']) ?></span></td>
-                  <td><?= htmlspecialchars($e['method']) ?></td>
-                  <td class="text-end"><?= number_format((float)$e['amount'],2) ?></td>
-                  <td><?= htmlspecialchars($e['note']) ?></td>
-                  <td><button class="btn btn-sm btn-outline-danger fin-del"><i class="fas fa-trash"></i></button></td>
+                  <td class="fin-date"><?= htmlspecialchars($e['entry_date']) ?></td>
+                  <td class="fin-type" data-val="<?= htmlspecialchars($e['type']) ?>"><span class="badge bg-secondary text-uppercase small"><?= htmlspecialchars($e['type']) ?></span></td>
+                  <td class="fin-method" data-val="<?= htmlspecialchars($e['method']) ?>"><?= htmlspecialchars($e['method']) ?></td>
+                  <td class="fin-amount text-end" data-val="<?= number_format((float)$e['amount'],2,'.','') ?>"><?= number_format((float)$e['amount'],2) ?></td>
+                  <td class="fin-note"><?= htmlspecialchars($e['note']) ?></td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <button class="btn btn-outline-secondary fin-edit">Edit</button>
+                      <button class="btn btn-success d-none fin-save">Save</button>
+                      <button class="btn btn-warning d-none fin-cancel">Cancel</button>
+                      <button class="btn btn-outline-danger fin-del"><i class="fas fa-trash"></i></button>
+                    </div>
+                  </td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
           <?php if(empty($entries)): ?><div class="p-3 text-muted small" id="fin-empty">No entries yet.</div><?php endif; ?>
+          <nav>
+            <ul class="pagination justify-content-center my-2" id="fin-pagination"></ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -142,6 +152,26 @@
 
   function toggleEmpty(){ if(table.children.length===0){ if(!emptyDiv){return;} emptyDiv.classList.remove('d-none'); } else if(emptyDiv){ emptyDiv.classList.add('d-none'); } }
 
+  // --- Pagination ---
+  const FIN_PAGE_SIZE = 10;
+  function renderFinPage(page){
+    const rows = Array.from(table.children);
+    const total = rows.length;
+    const totalPages = Math.ceil(total/FIN_PAGE_SIZE) || 1;
+    page = Math.max(1, Math.min(page, totalPages));
+    rows.forEach(r=> r.style.display='none');
+    rows.slice((page-1)*FIN_PAGE_SIZE, page*FIN_PAGE_SIZE).forEach(r=> r.style.display='');
+    const pag=document.getElementById('fin-pagination'); if(!pag) return;
+    pag.innerHTML='';
+    for(let i=1;i<=totalPages;i++){
+      const li=document.createElement('li'); li.className='page-item'+(i===page?' active':'');
+      const a=document.createElement('a'); a.className='page-link'; a.href='#'; a.textContent=i;
+      a.addEventListener('click', e=>{e.preventDefault(); renderFinPage(i);});
+      li.appendChild(a); pag.appendChild(li);
+    }
+  }
+  renderFinPage(1);
+
   form.addEventListener('submit', e=>{
     e.preventDefault();
     const fd=new FormData(form);
@@ -153,7 +183,7 @@
         tr.setAttribute('data-id', j.id);
         tr.innerHTML=`<td>${j.entry_date}</td><td><span class="badge bg-secondary text-uppercase small">${j.type}</span></td><td>${j.method}</td><td class="text-end">${Number(j.amount).toFixed(2)}</td><td>${j.note||''}</td><td><button class="btn btn-sm btn-outline-danger fin-del"><i class="fas fa-trash"></i></button></td>`;
         table.prepend(tr);
-        toggleEmpty();
+        toggleEmpty(); renderFinPage(1);
         form.reset();
         dateInput.value=new Date().toISOString().slice(0,10);
         refreshStatsDebounced();
@@ -165,9 +195,91 @@
       const tr=e.target.closest('tr');
       const id=tr.getAttribute('data-id');
       fetch(BASE+'own/financeDelete/'+id)
-        .then(r=>r.json()).then(j=>{ if(j.ok){ tr.remove(); toggleEmpty(); refreshStatsDebounced(); } });
+        .then(r=>r.json()).then(j=>{ if(j.ok){ tr.remove(); toggleEmpty(); renderFinPage(1); refreshStatsDebounced(); } });
+    } else if(e.target.closest('.fin-edit')){
+      const tr=e.target.closest('tr'); enterEdit(tr);
+    } else if(e.target.closest('.fin-cancel')){
+      const tr=e.target.closest('tr'); exitEdit(tr, true);
+    } else if(e.target.closest('.fin-save')){
+      const tr=e.target.closest('tr'); saveEdit(tr);
     }
   });
+
+  function enterEdit(tr){
+    // Toggle buttons
+    tr.querySelector('.fin-edit').classList.add('d-none');
+    tr.querySelector('.fin-save').classList.remove('d-none');
+    tr.querySelector('.fin-cancel').classList.remove('d-none');
+    // Replace cells with inputs
+    const dateCell=tr.querySelector('.fin-date');
+    const typeCell=tr.querySelector('.fin-type');
+    const methodCell=tr.querySelector('.fin-method');
+    const amountCell=tr.querySelector('.fin-amount');
+    const noteCell=tr.querySelector('.fin-note');
+    const dateVal=dateCell.textContent.trim();
+    const typeVal=typeCell.getAttribute('data-val');
+    const methodVal=methodCell.getAttribute('data-val');
+    const amountVal=amountCell.getAttribute('data-val');
+    const noteVal=noteCell.textContent.trim();
+    dateCell.innerHTML = `<input type="date" class="form-control form-control-sm fin-edit-date" value="${dateVal}">`;
+    typeCell.innerHTML = `<select class="form-select form-select-sm fin-edit-type"><option value="income">Income</option><option value="expense">Expense</option><option value="borrow">Borrow</option><option value="repay">Repay</option></select>`;
+    typeCell.querySelector('select').value = typeVal;
+    methodCell.innerHTML = `<select class="form-select form-select-sm fin-edit-method"><option value="cash">Cash</option><option value="online">Online</option></select>`;
+    methodCell.querySelector('select').value = methodVal;
+    amountCell.innerHTML = `<input type="number" step="0.01" min="0" class="form-control form-control-sm fin-edit-amount" value="${amountVal}">`;
+    noteCell.innerHTML = `<input type="text" class="form-control form-control-sm fin-edit-note" value="${noteVal}">`;
+  }
+
+  function exitEdit(tr, revert){
+    // Toggle buttons
+    tr.querySelector('.fin-edit').classList.remove('d-none');
+    tr.querySelector('.fin-save').classList.add('d-none');
+    tr.querySelector('.fin-cancel').classList.add('d-none');
+    if(!revert) return; // if not revert, caller will re-render values
+    const dateCell=tr.querySelector('.fin-date');
+    const typeCell=tr.querySelector('.fin-type');
+    const methodCell=tr.querySelector('.fin-method');
+    const amountCell=tr.querySelector('.fin-amount');
+    const noteCell=tr.querySelector('.fin-note');
+    const dateVal=dateCell.querySelector('.fin-edit-date').value;
+    const typeVal=typeCell.querySelector('.fin-edit-type').value;
+    const methodVal=methodCell.querySelector('.fin-edit-method').value;
+    const amountVal=Number(amountCell.querySelector('.fin-edit-amount').value||0);
+    const noteVal=noteCell.querySelector('.fin-edit-note').value;
+    dateCell.textContent = dateVal;
+    typeCell.setAttribute('data-val', typeVal);
+    typeCell.innerHTML = `<span class="badge bg-secondary text-uppercase small">${typeVal}</span>`;
+    methodCell.setAttribute('data-val', methodVal);
+    methodCell.textContent = methodVal;
+    amountCell.setAttribute('data-val', amountVal.toFixed(2));
+    amountCell.textContent = amountVal.toFixed(2);
+    noteCell.textContent = noteVal;
+  }
+
+  function saveEdit(tr){
+    const id = tr.getAttribute('data-id');
+    const dateVal = tr.querySelector('.fin-edit-date').value;
+    const typeVal = tr.querySelector('.fin-edit-type').value;
+    const methodVal = tr.querySelector('.fin-edit-method').value;
+    const amountVal = tr.querySelector('.fin-edit-amount').value;
+    const noteVal = tr.querySelector('.fin-edit-note').value;
+    const fd = new FormData();
+    fd.set('entry_date', dateVal);
+    fd.set('type', typeVal);
+    fd.set('method', methodVal);
+    fd.set('amount', amountVal);
+    fd.set('note', noteVal);
+    fetch(BASE+'own/financeUpdate/'+id, {method:'POST', body: fd})
+      .then(r=>r.json()).then(j=>{
+        if(j && j.ok){
+          // Re-render with updated values
+          exitEdit(tr, true);
+          refreshStatsDebounced();
+        } else {
+          alert('Update failed');
+        }
+      });
+  }
 
   // Stats + Chart
   const fromInput=document.getElementById('stat-from');
