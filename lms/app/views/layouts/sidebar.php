@@ -16,6 +16,16 @@
             
             <li><a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
                   class="fas fa-bars"></i></a></li>
+            <li>
+              <a href="<?= BASE_URL ?>laundry/index" class="nav-link nav-link-lg" title="Laundry">
+                <i class="fas fa-soap"></i>
+              </a>
+            </li>
+            <li>
+              <a href="<?= BASE_URL ?>bill/list" class="nav-link nav-link-lg" title="Bills">
+                <i class="fas fa-receipt"></i>
+              </a>
+            </li>
            
           </ul>
       </nav>
@@ -36,6 +46,9 @@
              
             <li class="active">
               <a href="<?=BASE_URL?>dashboard" class="nav-link "><i class="fas fa-home"></i><span>Dashboard</span></a>
+            </li>
+            <li>
+              <a href="<?=BASE_URL?>laundry/index" class="nav-link"><i class="fas fa-soap"></i><span>Laundry</span></a>
             </li>
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
