@@ -34,7 +34,7 @@
       <div class="card-body p-0">
         <div class="table-responsive">
           <table class="table table-sm mb-0">
-            <thead class="table-light"><tr><th>#</th><th>Name</th><th>Phone</th><th>Start</th><th>End</th><th>Receipt</th></tr></thead>
+            <thead class="table-light"><tr><th>#</th><th>Name</th><th>Phone</th><th>Start</th><th>End</th><th>Receipt</th><th>Bill</th></tr></thead>
             <tbody>
               <?php $i=1; foreach(($customers ?? []) as $c): ?>
                 <tr>
@@ -44,10 +44,11 @@
                   <td><?= htmlspecialchars($c['start_date'] ?? '') ?></td>
                   <td><?= htmlspecialchars($c['end_date'] ?? '') ?></td>
                   <td><a class="btn btn-sm btn-outline-secondary" href="<?= BASE_URL ?>laundry/receipt/<?= (int)$c['id'] ?>">View</a></td>
+                  <td><a class="btn btn-sm btn-primary" href="<?= BASE_URL ?>bill/create/<?= (int)$c['id'] ?>">Create Bill</a></td>
                 </tr>
               <?php endforeach; ?>
               <?php if(empty($customers)): ?>
-                <tr><td colspan="6" class="text-center text-muted small p-3">No customers yet.</td></tr>
+                <tr><td colspan="7" class="text-center text-muted small p-3">No customers yet.</td></tr>
               <?php endif; ?>
             </tbody>
           </table>

@@ -46,6 +46,13 @@
               </ul>
             </li>
 
+              <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-receipt"></i><span>Bills</span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="nav-link" href="<?=BASE_URL?>bill/list">All Bills</a></li>
+                </ul>
+              </li>
+
             <!-- <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i><span>Staff</span></a>
               <ul class="dropdown-menu">
