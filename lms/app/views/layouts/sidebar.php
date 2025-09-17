@@ -13,9 +13,26 @@
           
         </div>
         <ul class="navbar-nav me-3">
-            
-            
-           
+            <li>
+              <a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+              </a>
+            </li>
+            <li>
+              <a href="<?= BASE_URL ?>" class="nav-link nav-link-lg" title="Index">
+                <i class="fas fa-home"></i>
+              </a>
+            </li>
+            <li>
+              <a href="<?= BASE_URL ?>laundry/index" class="nav-link nav-link-lg" title="Laundry">
+                <i class="fas fa-soap"></i>
+              </a>
+            </li>
+            <li>
+              <a href="<?= BASE_URL ?>bill/list" class="nav-link nav-link-lg" title="Bills">
+                <i class="fas fa-receipt"></i>
+              </a>
+            </li>
           </ul>
       </nav>
       <div class="main-sidebar sidebar-style-2">
@@ -54,18 +71,6 @@
                   <li><a class="nav-link" href="<?=BASE_URL?>bill/list">All Bills</a></li>
                 </ul>
               </li>
-<li><a href="#" data-bs-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
-                  class="fas fa-bars"></i></a></li>
-            <li>
-              <a href="<?= BASE_URL ?>laundry/index" class="nav-link nav-link-lg" title="Laundry">
-                <i class="fas fa-soap"></i>
-              </a>
-            </li>
-            <li>
-              <a href="<?= BASE_URL ?>bill/list" class="nav-link nav-link-lg" title="Bills">
-                <i class="fas fa-receipt"></i>
-              </a>
-            </li>
             <!-- <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i><span>Staff</span></a>
               <ul class="dropdown-menu">
