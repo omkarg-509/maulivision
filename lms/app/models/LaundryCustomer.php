@@ -12,14 +12,23 @@ class LaundryCustomer extends Database
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
         $this->db->query($sql);
+        if ($this->db->error) {
+            die('Table error: ' . $this->db->error);
+        }
     }
 
     public function insert(array $data): int
     {
         $this->ensureTable();
         $stmt = $this->db->prepare("INSERT INTO lms_customers (customer_name, phone_number) VALUES (?, NULLIF(?, ''))");
+        if (!$stmt) {
+            die('Prepare error: ' . $this->db->error);
+        }
         $stmt->bind_param('ss', $data['customer_name'], $data['phone_number']);
         $stmt->execute();
+        if ($stmt->error) {
+            die('Insert error: ' . $stmt->error);
+        }
         $id = $this->db->insert_id;
         $stmt->close();
         return (int)$id;
