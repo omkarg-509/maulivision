@@ -16,14 +16,19 @@ class LaundryOrder extends Database
               REFERENCES lms_customers(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
         $this->db->query($sql);
+        if ($this->db->error) {
+            die('Orders table error: ' . $this->db->error);
+        }
     }
 
     public function insert(array $data): int
     {
         $this->ensureTable();
         $stmt = $this->db->prepare("INSERT INTO lms_orders (customer_id, start_date, end_date) VALUES (?, ?, ?)");
+        if (!$stmt) { die('Orders prepare error: ' . $this->db->error); }
         $stmt->bind_param('iss', $data['customer_id'], $data['start_date'], $data['end_date']);
         $stmt->execute();
+        if ($stmt->error) { die('Orders insert error: ' . $stmt->error); }
         $id = $this->db->insert_id;
         $stmt->close();
         return (int)$id;
