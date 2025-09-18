@@ -57,7 +57,7 @@
               <a href="<?=BASE_URL?>laundry/index" class="nav-link"><i class="fas fa-soap"></i><span>Laundry</span></a>
             </li>
             <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Customers</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>1Customers</span></a>
               <ul class="dropdown-menu">
                 <li class=""><a class="nav-link" href="<?=BASE_URL?>customers/index">New Customers</a></li>
                 <li><a class="nav-link" href="<?=BASE_URL?>customers/history">History</a></li>
