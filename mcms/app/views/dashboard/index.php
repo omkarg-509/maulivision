@@ -1,6 +1,6 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
-
+<?php echo $_SESSION['vendor']['bussines_name']; ?>
 <div class="main-content">
   <div class="loader"></div>
   <div id="app">
