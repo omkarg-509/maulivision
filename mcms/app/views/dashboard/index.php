@@ -1,6 +1,6 @@
 <?php require_once '../app/views/layouts/sidebar.php';?>
 
-<?php echo $_SESSION['vendor']['bussines_name']; ?>
+
 <div class="main-content">
   <div class="loader"></div>
   <div id="app">
@@ -55,6 +55,7 @@
                             <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>customers/index"><i class="fas fa-user-plus " style="font-size:30px ;"></i> </a><a>New Customers</a>
                         </div>
                     </div>
+                    <?php echo $_SESSION['vendor']['bussines_name']; ?>
                      <div class="col-6 col-md-3 col-lg-3">
                         <div class="card  btn btn-default">
                             <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>customers/history"><i class="fas fa-clock " style="font-size:30px ;"></i> </a><a>History</a>
