@@ -48,8 +48,8 @@ if (empty($email_or_number) || empty($password)) {
             $admin = $userModel->findByEmailOrNumber($email_or_number);
 
             // Use password_verify if passwords are hashed
-            // if ($admin && password_verify($password, $admin['password'])) {
-            if ($admin && $password === $admin['password']) {
+            if ($admin && password_verify($password, $admin['password'])) {
+            // if ($admin && $password === $admin['password']) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }

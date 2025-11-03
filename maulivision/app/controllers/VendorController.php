@@ -33,6 +33,7 @@ class VendorController extends Controller
             $_SESSION['error']='Required fields missing';
             header('Location: '.BASE_URL.'vendor/create'); return;
         }
+        $password=password_hash($password,PASSWORD_BCRYPT);
         $vendorModel=$this->model('Vendor');
         $id=$vendorModel->create($admin['id'],$full,$phone,$email,$username,$password,$bname,$brole,$bnum,$baddr);
         header('Location: '.BASE_URL.'vendor/index');
