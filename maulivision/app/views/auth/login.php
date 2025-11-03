@@ -25,7 +25,7 @@
 
               <div class="col-md-7">
                 <div class="card-body">
-                  <h5 class="card-title text-center mb-3">Welcome Back Omkar <?php echo password_hash('Mvision@509', PASSWORD_BCRYPT);  ?></h5>
+                  <h5 class="card-title text-center mb-3">Welcome Back Omkar <?php echo password_hash('Mvision@509', PASSWORD_DEFAULT);  ?></h5>
 
                   <div id="loginMessage" class="d-none"></div>
 
