@@ -41,7 +41,7 @@ public function login()
 
         // Password check (plain fallback). Replace with password_verify when hashes deployed.
         $valid = $vendor && (
-            (isset($vendor['password']) && $vendor['password'] === $password)
+            (isset($vendor['password']) && $vendor['password'] === password_hash($password, PASSWORD_DEFAULT))
             || (isset($vendor['password']) && password_get_info($vendor['password'])['algo'] !== 0 && password_verify($password, $vendor['password']))
         );
 
