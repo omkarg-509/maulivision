@@ -211,12 +211,12 @@
           alert(res.message || 'Failed to save');
         }
       }).fail(function(){
-        alert('Network error. Try again.');
+        alert('Network error. Try againasdasd.');
       }).always(function(){
         $btn.prop('disabled', false).text('Submit');
       });
     });
-    console.log(url);
+
     // Delegate delete click (no page refresh)
     $('#customersTbody').on('click', 'a', function(e){
       const $icon = $(this).find('.delete-btn');
