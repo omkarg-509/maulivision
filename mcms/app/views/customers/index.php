@@ -169,10 +169,15 @@
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
       }).done(function(res){
         if(res.status === 'success'){
-          const d = res.data;
+          const d = res.data || {};
           // prepend new row (assumes today)
           const idx = $('#customersTbody tr').length + 1;
-          const inTime = d.in_time ? new Date('1970-01-01T'+d.in_time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+          let inTime = '';
+          try {
+            inTime = d.in_time ? new Date('1970-01-01T'+d.in_time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
+          } catch(e) {
+            console.error('Invalid time format:', e);
+          }
           const row = `
             <tr>
               <td>${idx}</td>
