@@ -163,7 +163,7 @@
       $btn.prop('disabled', true).text('Saving...');
       $.ajax({
         url: $(this).attr('action'),
-        console.log($(this).attr('action')),
+        
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
@@ -216,7 +216,7 @@
         $btn.prop('disabled', false).text('Submit');
       });
     });
-
+    console.log(url);
     // Delegate delete click (no page refresh)
     $('#customersTbody').on('click', 'a', function(e){
       const $icon = $(this).find('.delete-btn');
