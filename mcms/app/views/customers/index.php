@@ -163,6 +163,7 @@
       $btn.prop('disabled', true).text('Saving...');
       $.ajax({
         url: $(this).attr('action'),
+        console.log($(this).attr('action')),
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
