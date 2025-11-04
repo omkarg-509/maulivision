@@ -64,7 +64,7 @@ class CustomersController extends Controller
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
                 header('Content-Type: application/json');
                 http_response_code(500);
-                echo json_encode(['status' => 'error', 'message' => 'Failed to save.']);
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
                 return;
             }
             header('Location: ' . BASE_URL . 'customers/index');
