@@ -14,7 +14,7 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                <form id="customerForm" method="POST" action="customers/store">
+                <form id="customerForm" method="POST" action="customer/store">
                   <div class="card-body">
                     <!-- vid is set server-side from session; no client-provided vid -->
                     <div class="row mb-2 align-items-center">
