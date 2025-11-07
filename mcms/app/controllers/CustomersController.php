@@ -32,7 +32,7 @@ class CustomersController extends Controller
     public function store()
     {
         Auth::check();
-        $vid = $_SESSION['vendor']['id'] ?? null;
+      echo   $vid = $_SESSION['vendor']['id'] ?? null;
         if (!$vid) {
             $_SESSION['error'] = 'Vendor not found in session';
             header('Location: ' . BASE_URL . 'customers/index');
