@@ -68,7 +68,7 @@
                 </div>
                  <div class="col-6 col-md-3 col-lg-3">
                           <div class="card  btn btn-default">
-                              <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>contacts/number"><i class="fas fa-phone icon-flipped-horizontal" style="font-size:30px ;"></i> </a><a>Customers Number</a>
+                              <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>contacts/number"><i class="fas fa-phone icon-flipped-vertical" style="font-size:30px ;"></i> </a><a>Customers Number</a>
                           </div>
                 </div>
       </section>
