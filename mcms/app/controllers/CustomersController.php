@@ -42,7 +42,7 @@ class CustomersController extends Controller
         echo $payment_method = trim($_POST['payment_method'] ?? '');
 
         $vendorModel = $this->model('Vendor');
-        $id=$vendorModel->create($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
+        $id=$vendorModel->insert($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
         if (!$vid) {
             $_SESSION['error'] = 'Vendor not found in session';
             header('Location: ' . BASE_URL . 'customers/index');
