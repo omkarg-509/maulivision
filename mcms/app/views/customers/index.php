@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-9 offset-sm-3 text-center">
-                        <button type="submit" class="btn btn-primary btn-sm px-4" id="saveBtn">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-sm px-4" >Submit</button>
                       </div>
                     </div>
                   </div>
