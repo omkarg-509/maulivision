@@ -66,6 +66,11 @@
                               <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>customers/customers"><i class="fas fa-users " style="font-size:30px ;"></i> </a><a>All Customers</a>
                           </div>
                 </div>
+                 <div class="col-6 col-md-3 col-lg-3">
+                          <div class="card  btn btn-default">
+                              <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>contacts/number"><i class="fas fa-phone " style="font-size:30px ;"></i> </a><a>All Customers</a>
+                          </div>
+                </div>
       </section>
     
   </div>
