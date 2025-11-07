@@ -1,6 +1,6 @@
 <?php
 require_once '../app/helpers/Auth.php';
-class ContactsController extends Controller
+class NumbersController extends Controller
 {
     public function index()
     {
