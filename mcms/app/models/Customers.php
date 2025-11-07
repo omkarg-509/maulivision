@@ -76,7 +76,7 @@ class Customers extends Database
         $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?, ?, NULLIF(?, ''), ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param(
-            "isssdss",);
+            "isssdss",
             $vid,
             $name,
             $mobile,
