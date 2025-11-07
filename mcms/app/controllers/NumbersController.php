@@ -5,6 +5,6 @@ class ContactsController extends Controller
     public function index()
     {
          Auth::check(); // 🔒 Protect the home page
-        $this->view('constacts/numbers');
+        $this->view('contacts/numbers');
     }
 }
