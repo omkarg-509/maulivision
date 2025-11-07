@@ -14,7 +14,7 @@
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
-                <form id="customerForm" method="POST" action="customer/store">
+                <form id="customerForm" method="POST" action="<?= BASE_URL ?>customer/store">
                   <div class="card-body">
                     <!-- vid is set server-side from session; no client-provided vid -->
                     <div class="row mb-2 align-items-center">
@@ -155,107 +155,5 @@
      
 
   </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $('#customerForm').on('submit', function(e){
-      e.preventDefault();
-      const $btn = $('#saveBtn');
-      $btn.prop('disabled', true).text('Saving...');
-      $.ajax({
-        url: $(this).attr('action'),
-        
-        method: 'POST',
-        data: $(this).serialize(),
-        dataType: 'json',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      }).done(function(res){
-        if(res.status === 'success'){
-          const d = res.data || {};
-          // prepend new row (assumes today)
-          const idx = $('#customersTbody tr').length + 1;
-          let inTime = '';
-          try {
-            inTime = d.in_time ? new Date('1970-01-01T'+d.in_time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
-          } catch(e) {
-            console.error('Invalid time format:', e);
-          }
-          const row = `
-            <tr>
-              <td>${idx}</td>
-              <td>${$('<div/>').text(d.name||'').html()}</td>
-              <td>${$('<div/>').text(d.mobile||'').html()}</td>
-              <td>${$('<div/>').text(inTime).html()}</td>
-              <td>${$('<div/>').text(d.amount||'').html()}</td>
-              <td>${$('<div/>').text(d.staff||'').html()}</td>
-              <td>${$('<div/>').text(d.payment_method||'').html()}</td>
-              <td>
-                <a href="<?= BASE_URL ?>customers/delete/${encodeURIComponent(d.id)}" title="Delete">
-                  <i class="fa fa-trash text-danger delete-btn" data-id="${$('<div/>').text(d.id).html()}" data-amount="${$('<div/>').text(d.amount||'0').html()}"></i>
-                </a>
-              </td>
-            </tr>`;
-          const $tbody = $('#customersTbody');
-          const $empty = $tbody.find('td[colspan="8"]').closest('tr');
-          if($empty.length){ $empty.remove(); }
-          $tbody.prepend(row);
-          $('#customerForm')[0].reset();
-          // update totals
-          const totalCustomersEl = $('#totalCustomers');
-          const totalAmountEl = $('#totalAmount');
-          const newCount = parseInt(totalCustomersEl.text()||'0',10) + 1;
-          totalCustomersEl.text(newCount);
-          const currentAmount = parseFloat((totalAmountEl.text()||'0').replace(/,/g,'')) || 0;
-          const addAmount = parseFloat(d.amount||0) || 0;
-          totalAmountEl.text((currentAmount + addAmount).toFixed(2));
-        } else {
-          alert(res.message || 'Failed to save');
-        }
-      }).fail(function(){
-        alert('Network error. Try again.');
-      }).always(function(){
-        $btn.prop('disabled', false).text('Submit');
-      });
-    });
 
-    // Delegate delete click (no page refresh)
-    $('#customersTbody').on('click', 'a', function(e){
-      const $icon = $(this).find('.delete-btn');
-      const idAttr = $icon.data('id');
-      const amountAttr = parseFloat($icon.data('amount')||0) || 0;
-      const href = $(this).attr('href');
-      // if no icon or data-id, let default happen
-      if(!idAttr) { return; }
-      e.preventDefault();
-      if(!confirm('Are you sure you want to delete this entry?')) return;
-      $.ajax({
-        url: href,
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' },
-        dataType: 'json'
-      }).done(function(res){
-        if(res.status === 'success'){
-          const $row = $icon.closest('tr');
-          $row.remove();
-          // reindex first column
-          $('#customersTbody tr').each(function(i){
-            $(this).find('td:first').text(i+1);
-          });
-          if($('#customersTbody tr').length === 0){
-            $('#customersTbody').append('<tr><td colspan="8" class="text-center">No customers found for today.</td></tr>');
-          }
-          // update totals
-          const totalCustomersEl = $('#totalCustomers');
-          const totalAmountEl = $('#totalAmount');
-          const newCount = Math.max(0, parseInt(totalCustomersEl.text()||'0',10) - 1);
-          totalCustomersEl.text(newCount);
-          const currentAmount = parseFloat((totalAmountEl.text()||'0').replace(/,/g,'')) || 0;
-          const newAmt = Math.max(0, currentAmount - amountAttr);
-          totalAmountEl.text(newAmt.toFixed(2));
-        } else {
-          alert('Failed to delete.');
-        }
-      }).fail(function(){
-        alert('Network error. Try again.');
-      });
-    });
   </script>
