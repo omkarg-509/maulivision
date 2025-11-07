@@ -70,20 +70,20 @@ class Customers extends Database
             return $rows;
         }
 
-    public function insert($data)
+    public function insert($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method)
     {
         // Use NULLIF to store NULL when mobile is an empty string
         $sql = "INSERT INTO mcms_customers (vid,name,mobile,in_time,amount,staff,payment_method) VALUES (?, ?, NULLIF(?, ''), ?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param(
-            "isssdss",
-            $data['vid'],
-            $data['name'],
-            $data['mobile'],
-            $data['in_time'],
-            $data['amount'],
-            $data['staff'],
-            $data['payment_method']
+            "isssdss",);
+            $vid,
+            $name,
+            $mobile,
+            $in_time,
+            $amount,
+            $staff,
+            $payment_method
         );
         $stmt->execute();
         $newId = $this->db->insert_id;
