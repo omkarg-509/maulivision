@@ -41,7 +41,7 @@ class CustomersController extends Controller
         echo $staff = trim($_POST['staff'] ?? '');
         echo $payment_method = trim($_POST['payment_method'] ?? '');
 
-        $vendorModel = $this->model('Vendor');
+        $vendorModel = $this->model('customers');
         $id=$vendorModel->insert($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
        
             header('Location: ' . BASE_URL . 'customers/index');
