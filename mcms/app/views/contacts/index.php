@@ -15,9 +15,9 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Name</th>
+                
                   <th>Number</th>
-                  <th>Date</th>
+                 
                   <th>Call</th>
                 </tr>
               </thead>
@@ -39,7 +39,7 @@
                           <span class="text-muted">N/A</span>
                         <?php endif; ?>
                       </td>
-                      <td><?= htmlspecialchars(date('Y-m-d H:i', strtotime($c['created_at'] ?? 'now'))) ?></td>
+                    
                       <td>
                         <?php if (!empty($c['mobile'])): ?>
                           <a class="btn btn-sm btn-success" href="tel:<?= htmlspecialchars($c['mobile']) ?>">
@@ -47,7 +47,7 @@
                           </a>
                         <?php else: ?>
                           <button class="btn btn-sm btn-secondary" disabled><i class="fa fa-phone"></i> Call</button>
-                            <button class="btn btn-sm btn-secondary" disabled><i class="fa fa-trash"></i> Delete</button>
+                        
                         <?php endif; ?>
                       </td>
                     </tr>
