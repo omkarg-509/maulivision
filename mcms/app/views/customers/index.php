@@ -10,7 +10,7 @@
              
               <div class="col-12 col-md-12 col-lg-12">
              
-                <div class="card">
+                <div class="">
                   <div class="card-header">
                     <h4>Add Customer</h4>
                   </div>
