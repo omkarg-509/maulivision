@@ -18,37 +18,37 @@
                   <div class="card-body">
                     <!-- vid is set server-side from session; no client-provided vid -->
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Customer Name</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">Customer Name</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control form-control-lg" name="name" placeholder="Enter Name"  >
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label-lg text-center">Customer Number</label>
+                      <label class="col-sm-3 col-form-label-lg-lg text-center">Customer Number</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control form-control-lg" name="mobile" placeholder="Enter Number">
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">In Time</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">In Time</label>
                       <div class="col-sm-9">
                       <input type="time" class="form-control form-control-lg" name="in_time"  required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Amount</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">Amount</label>
                       <div class="col-sm-9">
                         <input type="number" step="0.01" class="form-control form-control-lg" name="amount"  placeholder="Amount Paid" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Staff</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">Staff</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control form-control-lg" name="staff" placeholder="Staff"  required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label text-center">Online Cash</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">Online Cash</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control form-control-lg" name="payment_method"  placeholder="Online Cash">
                       </div>
