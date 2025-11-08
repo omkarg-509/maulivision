@@ -24,7 +24,7 @@
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
-                      <label class="col-sm-3 col-form-label-lg-lg text-center">Customer Number</label>
+                      <label class="col-sm-3 col-form-label-lg text-center">Customer Number</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control form-control-lg" name="mobile" placeholder="Enter Number">
                       </div>
