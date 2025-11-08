@@ -5,6 +5,7 @@ class Auth
     public static function check()
     {
         session_start();
+         session_destroy();
         if (!self::isLoggedIn()) {
             header("Location: /public/auth/login");
             exit;
