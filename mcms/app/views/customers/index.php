@@ -15,7 +15,7 @@
                     <h4>Add Customer</h4>
                   </div>
                 <form id="customerForm" method="POST" action="<?= BASE_URL ?>customers/store">
-                  <div class="card-body">
+                  <div class="">
                     <!-- vid is set server-side from session; no client-provided vid -->
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label-lg text-center">Customer Name</label>
