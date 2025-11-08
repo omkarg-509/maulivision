@@ -11,7 +11,7 @@
               <div class="col-12 col-md-12 col-lg-12">
              
                 <div class="">
-                  <div class="card-header justify-content-between d-flex align-items-center">
+                  <div class="card-header col-12 justify-content-between d-flex align-items-center">
                     <h4>Add Customer</h4>
                   </div>
                 <form id="customerForm" method="POST" action="<?= BASE_URL ?>customers/store">
