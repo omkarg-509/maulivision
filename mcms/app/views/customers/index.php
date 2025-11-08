@@ -20,7 +20,7 @@
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name"  required>
+                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name"  >
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
