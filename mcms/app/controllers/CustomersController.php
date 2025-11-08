@@ -34,8 +34,7 @@ class CustomersController extends Controller
         Auth::check();
         
         $vid = $_SESSION['vendor']['id'] ?? null;
-        // $name = isset($_POST['name']) ? trim($_POST['name']) : 'om';
-        $name = 'om';
+        $name = isset($_POST['name']) ? trim($_POST['name']) : 'om';
         $mobile = isset($_POST['mobile']) ? trim($_POST['mobile']) : '';
         $in_time = isset($_POST['in_time']) ? trim($_POST['in_time']) : '';
         $amount = (float)($_POST['amount'] ?? 0);
