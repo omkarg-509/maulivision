@@ -5,12 +5,12 @@ class AuthController extends Controller
 {
  public function index()
     {
-        // Auth::isLoggedIn();
+        Auth::isLoggedIn();
         $this->view('auth/login');
     }
 public function login()
 {
-    // Auth::isLoggedIn();
+    Auth::isLoggedIn();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json'); // JSON response
