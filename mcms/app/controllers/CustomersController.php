@@ -40,16 +40,11 @@ class CustomersController extends Controller
         $amount = (float)($_POST['amount'] ?? 0);
         $staff = isset($_POST['staff']) ? trim($_POST['staff']) : '';
         $payment_method = isset($_POST['payment_method']) ? trim($_POST['payment_method']) : '';
-
         $customersModel = $this->model('Customers');
-        $id=$customersModel->create($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
-
-            header('Location: ' . BASE_URL . 'customers/index');
-            return;
-      
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                            
-    }
+        $customersModel->create($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
+        header('Location: ' . BASE_URL . 'customers/index');
+        return;
+}
 
     public function delete($id)
     {
