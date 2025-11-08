@@ -20,37 +20,37 @@
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Name</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="name" placeholder="Enter Name"  >
+                        <input type="text" class="form-control form-control-lg" name="name" placeholder="Enter Name"  >
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Customer Number</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="mobile" placeholder="Enter Number">
+                        <input type="text" class="form-control form-control-lg" name="mobile" placeholder="Enter Number">
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">In Time</label>
                       <div class="col-sm-9">
-                      <input type="time" class="form-control form-control-sm" name="in_time"  required>
+                      <input type="time" class="form-control form-control-lg" name="in_time"  required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Amount</label>
                       <div class="col-sm-9">
-                        <input type="number" step="0.01" class="form-control form-control-sm" name="amount"  placeholder="Amount Paid" required>
+                        <input type="number" step="0.01" class="form-control form-control-lg" name="amount"  placeholder="Amount Paid" required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Staff</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="staff" placeholder="Staff"  required>
+                        <input type="text" class="form-control form-control-lg" name="staff" placeholder="Staff"  required>
                       </div>
                     </div>
                     <div class="row mb-2 align-items-center">
                       <label class="col-sm-3 col-form-label text-center">Online Cash</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control form-control-sm" name="payment_method"  placeholder="Online Cash">
+                        <input type="text" class="form-control form-control-lg" name="payment_method"  placeholder="Online Cash">
                       </div>
                     </div>
                     <div class="row">
