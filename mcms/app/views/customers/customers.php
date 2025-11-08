@@ -47,6 +47,7 @@
                           </a>
                         <?php else: ?>
                           <button class="btn btn-sm btn-secondary" disabled><i class="fa fa-phone"></i> Call</button>
+                            <button class="btn btn-sm btn-secondary" disabled><i class="fa fa-trash"></i> Delete</button>
                         <?php endif; ?>
                       </td>
                     </tr>
