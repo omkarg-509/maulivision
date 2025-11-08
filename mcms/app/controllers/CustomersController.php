@@ -33,13 +33,13 @@ class CustomersController extends Controller
     {
         Auth::check();
         
-      echo $vid = $_SESSION['vendor']['id'] ?? null;
-      echo $name = trim($_POST['name'] ?? 'om');
-      echo $mobile = trim($_POST['mobile'] ?? '');
-        echo $in_time = trim($_POST['in_time'] ?? '');
-        echo $amount = (float)($_POST['amount'] ?? 0);
-        echo $staff = trim($_POST['staff'] ?? '');
-        echo $payment_method = trim($_POST['payment_method'] ?? '');
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        $name = isset($_POST['name']) ? trim($_POST['name']) : 'om';
+        $mobile = isset($_POST['mobile']) ? trim($_POST['mobile']) : '';
+        $in_time = isset($_POST['in_time']) ? trim($_POST['in_time']) : '';
+        $amount = (float)($_POST['amount'] ?? 0);
+        $staff = isset($_POST['staff']) ? trim($_POST['staff']) : '';
+        $payment_method = isset($_POST['payment_method']) ? trim($_POST['payment_method']) : '';
 
         $customersModel = $this->model('Customers');
         $id=$customersModel->create($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
