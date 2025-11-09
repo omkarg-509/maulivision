@@ -117,7 +117,7 @@
                         ?>
                           <tr>
                             <td><?= $counter++ ?></td>
-                            <td><?= issets($cust['name']) ?? htmlspecialchars($cust['name']) : 'om';  ?></td>
+                            <td><?= isset($cust['name']) ? htmlspecialchars($cust['name']) : 'om'; ?></td>
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
