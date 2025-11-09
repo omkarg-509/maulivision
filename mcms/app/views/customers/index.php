@@ -95,7 +95,7 @@
                       <thead class="thead-light">
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Customer name cd</th>
+                          <th scope="col">Customer name</th>
                           <th scope="col">Number</th>
                           <th scope="col">In time</th>
                           <th scope="col">Amount</th>
@@ -117,7 +117,7 @@
                         ?>
                           <tr>
                             <td><?= $counter++ ?></td>
-                            <td><?= htmlspecialchars($cust['name']) ?></td>
+                            <td><?= issets($cust['name']) ?? htmlspecialchars($cust['name']) : 'om';  ?></td>
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
