@@ -113,10 +113,17 @@
                             $entryDate = isset($cust['created_at']) ? date('Y-m-d', strtotime($cust['created_at'])) : '';
                             if ($entryDate === $today):
                               $hasTodayEntries = true;
+                                if($cust['name'] == ''){
+                                  $name = 'om'
+                                  echo 'empty'
+                                }else{
+                                  $name = $cust['name'];
+                                  echo 'not empty'
+                                }
                         ?>
                           <tr>
                             <td><?= $counter++ ?></td>
-                            <td><?= htmlspecialchars($cust['name']) ?></td>
+                            <td><?= htmlspecialchars($name) ?></td>
                             <td><?= htmlspecialchars($cust['mobile']) ?></td>
                             <td><?= htmlspecialchars(date('h:i A', strtotime($cust['in_time']))) ?></td>
                             <td><?= htmlspecialchars($cust['amount']) ?></td>
