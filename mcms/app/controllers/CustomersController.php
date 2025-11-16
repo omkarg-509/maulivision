@@ -21,8 +21,9 @@ class CustomersController extends Controller
     $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
     $this->view('customers/history', ['customers' => $customers]);
     }
-    public function customers(){
-        Auth::check();  // ✅ session check
+    public function customers()
+    {
+    Auth::check();  // ✅ session check
     $customersModel = $this->model('Customers');
     $vid = $_SESSION['vendor']['id'] ?? null;
     $customers = $vid ? $customersModel->getByVendorUniqueMobile((int)$vid) : [];
@@ -31,8 +32,7 @@ class CustomersController extends Controller
 
     public function store()
     {
-        Auth::check();
-        
+        // Auth::check();
         $vid = $_SESSION['vendor']['id'] ?? null;
         $name = isset($_POST['name']) ? trim($_POST['name']) : 'om';
         $mobile = isset($_POST['mobile']) ? trim($_POST['mobile']) : '';
@@ -40,11 +40,11 @@ class CustomersController extends Controller
         $amount = (float)($_POST['amount'] ?? 0);
         $staff = isset($_POST['staff']) ? trim($_POST['staff']) : '';
         $payment_method = isset($_POST['payment_method']) ? trim($_POST['payment_method']) : '';
-        $customersModel = $this->model('Customers');
+        $customersModel = $this->model('Customers');     
         $customersModel->create($vid,$name,$mobile,$in_time,$amount,$staff,$payment_method);
         header('Location: ' . BASE_URL . 'customers/index');
         return;
-}
+    }
 
     public function delete($id)
     {
