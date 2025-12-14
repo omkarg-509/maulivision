@@ -4405,7 +4405,8 @@ h6 .badge {
 }
 
 .navbar .nav-link.nav-link-user img {
-    width: 30px
+    /* width: 30px */
+    width: 71px
 }
 
 .navbar .nav-link.nav-link-user:after {

@@ -5,7 +5,7 @@
         
           <a href="<?=BASE_URL?>dashboard" 
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="">
+              <img alt="image" src="<?=BASE_URL?>/assets/img/logo-1.png" class="" >
 
             </a>
           
