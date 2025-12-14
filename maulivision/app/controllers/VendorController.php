@@ -19,7 +19,8 @@ class VendorController extends Controller
 
     public function store()
     {
-        Auth::check(); $admin=Auth::user();
+            Auth::check(); 
+        $admin=Auth::user();
         $full = trim($_POST['full_name']??'');
         $phone = trim($_POST['phone']??'');
         $email = trim($_POST['email']??'');
