@@ -1,7 +1,7 @@
 <?php
 
 require_once '../app/helpers/Auth.php';
-class OwnController extends Controller
+class ExpensesController extends Controller
 {
    
  public function finance()
@@ -9,8 +9,8 @@ class OwnController extends Controller
         Auth::check();
         $admin = Auth::user();
         $financeModel = $this->model('Expenses');
-        // $entries = $financeModel->allByAdmin($admin['id']);
-        $this->view('expenses/index');
+        $entries = $financeModel->allByAdmin($admin['id']);
+        $this->view('expenses/index', ['entries' => $entries]);
     }
 
     public function financeAdd()
