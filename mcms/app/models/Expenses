@@ -14,7 +14,7 @@ class Expenses extends Database
             $filter = ' AND entry_date BETWEEN ? AND ?';
             $params[] = $from; $params[] = $to; $types .= 'ss';
         }
-        $sql = "SELECT id, type, method, amount, note, entry_date, created_at FROM finance_entries WHERE admin_id = ?$filter ORDER BY entry_date DESC, id DESC";
+        $sql = "SELECT id, type, method, amount, note, entry_date, created_at FROM mcms_expenses WHERE vid = ?$filter ORDER BY entry_date DESC, id DESC";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param($types, ...$params);
         $stmt->execute();
@@ -26,14 +26,14 @@ class Expenses extends Database
 
     public function create($adminId, $type, $method, $amount, $note, $date)
     {
-        $stmt = $this->db->prepare("INSERT INTO finance_entries (admin_id,type,method,amount,note,entry_date) VALUES (?,?,?,?,?,?)");
+        $stmt = $this->db->prepare("INSERT INTO mcms_expenses (vid,type,method,amount,note,entry_date) VALUES (?,?,?,?,?,?)");
         $stmt->bind_param('issdss', $adminId, $type, $method, $amount, $note, $date);
         if($stmt->execute()) return (int)$this->db->insert_id; return 0;
     }
 
     public function delete($id, $adminId)
     {
-        $stmt = $this->db->prepare("DELETE FROM finance_entries WHERE id = ? AND admin_id = ?");
+        $stmt = $this->db->prepare("DELETE FROM mcms_expenses WHERE id = ? AND vid = ?");
         $stmt->bind_param('ii', $id, $adminId);
         return $stmt->execute();
     }
@@ -47,8 +47,8 @@ class Expenses extends Database
                 SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) expense,
                 SUM(CASE WHEN type='borrow' THEN amount ELSE 0 END) borrow,
                 SUM(CASE WHEN type='repay' THEN amount ELSE 0 END) repay
-            FROM finance_entries
-            WHERE admin_id = ? AND entry_date BETWEEN ? AND ?
+            FROM mcms_expenses
+            WHERE vid = ? AND entry_date BETWEEN ? AND ?
             GROUP BY day ORDER BY day ASC";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('iss', $adminId, $from, $to);
@@ -81,7 +81,7 @@ class Expenses extends Database
             SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) expense,
             SUM(CASE WHEN type='borrow' THEN amount ELSE 0 END) borrow,
             SUM(CASE WHEN type='repay' THEN amount ELSE 0 END) repay
-        FROM finance_entries WHERE admin_id=? AND entry_date BETWEEN ? AND ?";
+        FROM mcms_expenses WHERE vid=? AND entry_date BETWEEN ? AND ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param('iss', $adminId, $from, $to);
         $stmt->execute();
