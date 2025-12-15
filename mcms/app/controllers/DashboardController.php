@@ -5,10 +5,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-       
-
         Auth::check(); // If using auth
-
         $customerModel = new Customer();
         $customerCount = $customerModel->countAll();
         // $countDailyEntries = $customerModel->countDailyEntry();
