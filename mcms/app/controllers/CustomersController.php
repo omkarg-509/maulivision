@@ -4,16 +4,15 @@ require_once '../app/helpers/Auth.php';
 
 class CustomersController extends Controller
 {
-    public function index()
+     public function index()
     {
-    Auth::check();  // ✅ session check
-    $customersModel = $this->model('Customers');
-    $vid = $_SESSION['vendor']['id'] ?? null;
-    $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
-    
-    $dailyEarning = $customersModel->dailyEarning();
-    $this->view('customers/index', ['customers' => $customers, 'dailyEarning' => $dailyEarning]);
-
+        Auth::check();  // ✅ session check
+        $customersModel = $this->model('Customers');
+        $vid = $_SESSION['vendor']['id'] ?? null;
+        $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
+        
+        $dailyEarning = $customersModel->dailyEarning();
+        $this->view('customers/index', ['customers' => $customers, 'dailyEarning' => $dailyEarning]);
     }
 
 
