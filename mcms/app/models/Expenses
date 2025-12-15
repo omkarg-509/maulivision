@@ -1,0 +1,102 @@
+<?php
+require_once '../core/Database.php';
+
+class Finance extends Database
+{
+    protected $db;
+
+    public function allByAdmin($adminId, $from = null, $to = null)
+    {
+        $params = [$adminId];
+        $types = 'i';
+        $filter = '';
+        if($from && $to){
+            $filter = ' AND entry_date BETWEEN ? AND ?';
+            $params[] = $from; $params[] = $to; $types .= 'ss';
+        }
+        $sql = "SELECT id, type, method, amount, note, entry_date, created_at FROM finance_entries WHERE admin_id = ?$filter ORDER BY entry_date DESC, id DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $rows = [];
+        while($row = $res->fetch_assoc()) $rows[] = $row;
+        return $rows;
+    }
+
+    public function create($adminId, $type, $method, $amount, $note, $date)
+    {
+        $stmt = $this->db->prepare("INSERT INTO finance_entries (admin_id,type,method,amount,note,entry_date) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param('issdss', $adminId, $type, $method, $amount, $note, $date);
+        if($stmt->execute()) return (int)$this->db->insert_id; return 0;
+    }
+
+    public function delete($id, $adminId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM finance_entries WHERE id = ? AND admin_id = ?");
+        $stmt->bind_param('ii', $id, $adminId);
+        return $stmt->execute();
+    }
+
+    public function dailyStats($adminId, $from, $to)
+    {
+        if(!$from){ $from = date('Y-m-d', strtotime('-7 days')); }
+        if(!$to){ $to = date('Y-m-d'); }
+        $sql = "SELECT entry_date AS day,
+                SUM(CASE WHEN type='income' THEN amount ELSE 0 END) income,
+                SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) expense,
+                SUM(CASE WHEN type='borrow' THEN amount ELSE 0 END) borrow,
+                SUM(CASE WHEN type='repay' THEN amount ELSE 0 END) repay
+            FROM finance_entries
+            WHERE admin_id = ? AND entry_date BETWEEN ? AND ?
+            GROUP BY day ORDER BY day ASC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('iss', $adminId, $from, $to);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $rows = [];
+        while($r = $res->fetch_assoc()){
+            $income = (float)$r['income'];
+            $expense = (float)$r['expense'];
+            $borrow = (float)$r['borrow'];
+            $repay = (float)$r['repay'];
+            $rows[] = [
+                'day' => $r['day'],
+                'income' => $income,
+                'expense' => $expense,
+                'borrow' => $borrow,
+                'repay' => $repay,
+                'net' => $income - $expense
+            ];
+        }
+        return $rows;
+    }
+
+    public function summaryTotals($adminId, $from, $to)
+    {
+        if(!$from){ $from = date('Y-m-d', strtotime('-7 days')); }
+        if(!$to){ $to = date('Y-m-d'); }
+        $sql = "SELECT 
+            SUM(CASE WHEN type='income' THEN amount ELSE 0 END) income,
+            SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) expense,
+            SUM(CASE WHEN type='borrow' THEN amount ELSE 0 END) borrow,
+            SUM(CASE WHEN type='repay' THEN amount ELSE 0 END) repay
+        FROM finance_entries WHERE admin_id=? AND entry_date BETWEEN ? AND ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('iss', $adminId, $from, $to);
+        $stmt->execute();
+        $res = $stmt->get_result()->fetch_assoc();
+        $income = (float)$res['income'];
+        $expense = (float)$res['expense'];
+        $borrow = (float)$res['borrow'];
+        $repay = (float)$res['repay'];
+        return [
+            'income' => $income,
+            'expense' => $expense,
+            'borrow' => $borrow,
+            'repay' => $repay,
+            'net' => $income - $expense
+        ];
+    }
+}
+?>
