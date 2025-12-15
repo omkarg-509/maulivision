@@ -45,6 +45,14 @@
                 <li><a class="nav-link" href="<?=BASE_URL?>customers/customers">All Customers</a></li>
               </ul>
             </li>
+              <li class="dropdown">
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Expenses</span></a>
+              <ul class="dropdown-menu">
+                <li class=""><a class="nav-link" href="<?=BASE_URL?>expenses/index">New Expenses</a></lianzu
+                <li><a class="nav-link" href="<?=BASE_URL?>expenses/history">History</a></li>
+                <li><a class="nav-link" href="<?=BASE_URL?>expenses/expenses">All Expenses</a></li>
+              </ul>
+            </li>
 
             <!-- <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-user-tie"></i><span>Staff</span></a>
