@@ -43,6 +43,17 @@ public function monthlyEarning(): float
         $total = $row['total'] ?? null;
         return (float)($total ?? 0.0);
     }
+    public function yearlyEarning(): float
+    {
+         $vid = $_SESSION['vendor']['id'] ?? null;
+        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE YEAR(created_at) = YEAR(CURDATE()) AND vid = ?");
+        $stmt->bind_param("i", $vid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $total = $row['total'] ?? null;
+        return (float)($total ?? 0.0);
+    }
 
     public function getAll()
     {
