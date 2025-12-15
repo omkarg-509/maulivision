@@ -93,7 +93,7 @@
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0  text-dark">
-                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                        <i class="ti-arrow-up text-success"></i>₹ <?php echo $data['monthlyEarning'] ?></h5>
                       <span class="text-muted">Yearly Earning</span>
                     </div>
                   <!--   <p class="mb-3 text-muted pull-left text-sm">
@@ -111,7 +111,7 @@
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0  text-dark">
-                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                        <i class="ti-arrow-up text-success"></i>₹ <?php echo $data['monthlyEarning'] ?></h5>
                       <span class="text-muted">Total Expenses</span>
                     </div>
                   <!--   <p class="mb-3 text-muted pull-left text-sm">
