@@ -21,7 +21,15 @@ class Customer extends Database
         $result = $stmt->get_result();
         return $result->fetch_assoc()['total'];
     }
-
+  public function dailyEarning(): float
+    {
+        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE DATE(created_at) = CURDATE()");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $total = $row['total'] ?? null;
+        return (float)($total ?? 0.0);
+    }
 
     public function getAll()
     {

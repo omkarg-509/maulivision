@@ -8,15 +8,7 @@ class Customers extends Database
         parent::__construct();
         $this->ensureTable();
     }
-    public function dailyEarning(): float
-    {
-        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE DATE(created_at) = CURDATE()");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $total = $row['total'] ?? null;
-        return (float)($total ?? 0.0);
-    }
+  
     // Create table if missing
     private function ensureTable(): void
     {
