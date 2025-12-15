@@ -12,9 +12,14 @@ class DashboardController extends Controller
         $customerModel = new Customer();
         // $customerCount = $customerModel->countAll();
         // $countDailyEntries = $customerModel->countDailyEntry();
+         $countersModel = $this->model('Customers');
+    $dailyEarning = $countersModel->dailyEarning();
+  
+
         $this->view('dashboard/index', [
             // 'customerCount' => $customerCount,
             // 'dailyentry' => $countDailyEntries
+            'dailyEarning' => $dailyEarning
         ]);
     }
 }

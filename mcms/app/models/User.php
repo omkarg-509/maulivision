@@ -14,6 +14,7 @@ class User extends Database
         return $result->fetch_assoc();
     }
     
+    
     /** Find by username */
     public function findByUsername(string $username)
     {
