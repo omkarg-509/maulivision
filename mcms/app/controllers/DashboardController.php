@@ -8,10 +8,10 @@ class DashboardController extends Controller
         Auth::check(); // If using auth
         $customerModel = new Customer();
         $dailyEarning = $customerModel->dailyEarning();
-        // $countDailyEntries = $customerModel->countDailyEntry();
+        $monthlyEarning = $customerModel->monthlyEarning();
         $this->view('dashboard/index', [
             'dailyEarning' => $dailyEarning,
-            // 'dailyentry' => $countDailyEntries
+            'monthlyEarning' => $monthlyEarning
         ]);
     }
 }

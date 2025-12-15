@@ -32,6 +32,17 @@ class Customer extends Database
         $total = $row['total'] ?? null;
         return (float)($total ?? 0.0);
     }
+public function monthlyEarning(): float
+    {
+         $vid = $_SESSION['vendor']['id'] ?? null;
+        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND vid = ?");
+        $stmt->bind_param("i", $vid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $total = $row['total'] ?? null;
+        return (float)($total ?? 0.0);
+    }
 
     public function getAll()
     {
