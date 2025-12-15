@@ -8,7 +8,7 @@ class OwnController extends Controller
     {
         Auth::check();
         $admin = Auth::user();
-        $financeModel = $this->model('Finance');
+        $financeModel = $this->model('Expenses');
         $entries = $financeModel->allByAdmin($admin['id']);
         $this->view('expenses/index', ['entries' => $entries]);
     }
@@ -50,7 +50,7 @@ class OwnController extends Controller
         $admin = Auth::user();
         $from = $_GET['from'] ?? null;
         $to = $_GET['to'] ?? null;
-        $financeModel = $this->model('Finance');
+        $financeModel = $this->model('Expenses');
         $daily = $financeModel->dailyStats($admin['id'],$from,$to);
         $summary = $financeModel->summaryTotals($admin['id'],$from,$to);
         echo json_encode(['ok'=>true,'daily'=>$daily,'summary'=>$summary]);
