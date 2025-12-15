@@ -14,13 +14,13 @@ class Customer extends Database
 //         return $result->fetch_assoc()['total'];
 //     }
 
-    public function countAll()
-    {
-        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM mcms_customers");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc()['total'];
-    }
+    // public function countAll()
+    // {
+    //     $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM mcms_customers");
+    //     $stmt->execute();
+    //     $result = $stmt->get_result();
+    //     return $result->fetch_assoc()['total'];
+    // }
   public function dailyEarning(): float
     {
          $vid = $_SESSION['vendor']['id'] ?? null;
@@ -55,27 +55,27 @@ public function monthlyEarning(): float
         return (float)($total ?? 0.0);
     }
 
-    public function getAll()
-    {
-        $result = $this->db->query("SELECT * FROM customers ORDER BY id DESC");
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+    // public function getAll()
+    // {
+    //     $result = $this->db->query("SELECT * FROM customers ORDER BY id DESC");
+    //     return $result->fetch_all(MYSQLI_ASSOC);
+    // }
 
-        public function history($date)
-        {
-            $stmt = $this->db->prepare("SELECT * FROM customers WHERE created_at = ?");
-            $stmt->bind_param("s", $date);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
+    //     public function history($date)
+    //     {
+    //         $stmt = $this->db->prepare("SELECT * FROM customers WHERE created_at = ?");
+    //         $stmt->bind_param("s", $date);
+    //         $stmt->execute();
+    //         $result = $stmt->get_result();
+    //         return $result->fetch_all(MYSQLI_ASSOC);
+    //     }
         
-    public function insert($data)
-    {
-        $stmt = $this->db->prepare("INSERT INTO customers (vid,name, mobile, address) VALUES (?,?, ?, ?)");
-        $stmt->bind_param("isss",$data['vid'], $data['name'], $data['mobile'], $data['address']);
-        $stmt->execute();
-    }
+    // public function insert($data)
+    // {
+    //     $stmt = $this->db->prepare("INSERT INTO customers (vid,name, mobile, address) VALUES (?,?, ?, ?)");
+    //     $stmt->bind_param("isss",$data['vid'], $data['name'], $data['mobile'], $data['address']);
+    //     $stmt->execute();
+    // }
 
    
    
