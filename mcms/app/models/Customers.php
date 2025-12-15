@@ -8,7 +8,13 @@ class Customers extends Database
         parent::__construct();
         $this->ensureTable();
     }
-
+    public function countDailyEntry()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM mcms_customers WHERE DATE(created_at) = CURDATE()");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['total'];
+    }
     // Create table if missing
     private function ensureTable(): void
     {
