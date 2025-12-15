@@ -2,7 +2,7 @@
 
 require_once '../core/Database.php';
 
-class Customer extends Database
+class Dashboard extends Database
 {
 
 
