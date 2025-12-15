@@ -9,7 +9,7 @@ class DashboardController extends Controller
 
         Auth::check(); // If using auth
 
-        $customerModel = new Customer();
+        // $customerModel = new Customer();
         // $customerCount = $customerModel->countAll();
         // $countDailyEntries = $customerModel->countDailyEntry();
          $countersModel = $this->model('Customers');
