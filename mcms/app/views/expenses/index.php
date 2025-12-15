@@ -12,7 +12,7 @@
              
                 <div class="">
                   <div class="col-12 text-center mb-4">
-                    <h4>Add Customer</h4>
+                    <h4>Expenses</h4>
                   </div>
                 <form id="customerForm" method="POST" action="<?= BASE_URL ?>customers/store">
                   <div class="">
