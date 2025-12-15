@@ -9,9 +9,11 @@ class DashboardController extends Controller
         $customerModel = new Customer();
         $dailyEarning = $customerModel->dailyEarning();
         $monthlyEarning = $customerModel->monthlyEarning();
+        $yearlyEarning = $customerModel->yearlyEarning();
         $this->view('dashboard/index', [
             'dailyEarning' => $dailyEarning,
-            'monthlyEarning' => $monthlyEarning
+            'monthlyEarning' => $monthlyEarning,
+            'yearlyEarning' => $yearlyEarning
         ]);
     }
 }
