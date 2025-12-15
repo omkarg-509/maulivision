@@ -14,13 +14,13 @@ class Customer extends Database
 //         return $result->fetch_assoc()['total'];
 //     }
 
-//     public function countAll()
-//     {
-//         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM customers");
-//         $stmt->execute();
-//         $result = $stmt->get_result();
-//         return $result->fetch_assoc()['total'];
-//     }
+    public function countAll()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM customers");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc()['total'];
+    }
 
 
     public function getAll()
