@@ -11,8 +11,8 @@ class CustomersController extends Controller
     $vid = $_SESSION['vendor']['id'] ?? null;
     $customers = $vid ? $customersModel->getByVendor((int)$vid) : [];
     
-    $dailyEntry = $customersModel->countDailyEntry();
-    $this->view('customers/index', ['customers' => $customers, 'dailyEntry' => $dailyEntry]);
+    $dailyEarning = $customersModel->dailyEarning();
+    $this->view('customers/index', ['customers' => $customers, 'dailyEarning' => $dailyEarning]);
 
     }
 
