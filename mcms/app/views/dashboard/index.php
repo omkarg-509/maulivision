@@ -104,6 +104,24 @@
                 </div>
               </div>
             </div>
+                   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <i class="fas fa-rupee-sign card-icon col-red"></i>
+                <div class="card-wrap">
+                  <div class="padding-20">
+                    <div class="text-end">
+                      <h5 class="font-light mb-0  text-dark">
+                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                      <span class="text-muted">Total Expenses</span>
+                    </div>
+                  <!--   <p class="mb-3 text-muted pull-left text-sm">
+                      <span class="col-orange me-2"><i class="fa fa-arrow-down"></i> 7.5%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
                     <div class="col-6 col-md-3 col-lg-3">
                         <div class="card  btn btn-default">
                             <a class="card-body  text-center mt-4 mb-2 " href="<?= BASE_URL?>customers/index"><i class="fas fa-user-plus " style="font-size:30px ;"></i> </a><a>New Customers</a>
