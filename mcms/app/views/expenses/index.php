@@ -175,7 +175,7 @@
   form.addEventListener('submit', e=>{
     e.preventDefault();
     const fd=new FormData(form);
-    fetch(BASE+'own/financeAdd',{method:'POST', body:fd})
+    fetch(BASE+'expenses/financeAdd',{method:'POST', body:fd})
       .then(r=>r.json())
       .then(j=>{
         if(!j.ok) return;
@@ -194,7 +194,7 @@
     if(e.target.closest('.fin-del')){
       const tr=e.target.closest('tr');
       const id=tr.getAttribute('data-id');
-      fetch(BASE+'own/financeDelete/'+id)
+      fetch(BASE+'expenses/financeDelete/'+id)
         .then(r=>r.json()).then(j=>{ if(j.ok){ tr.remove(); toggleEmpty(); renderFinPage(1); refreshStatsDebounced(); } });
     } else if(e.target.closest('.fin-edit')){
       const tr=e.target.closest('tr'); enterEdit(tr);
@@ -269,7 +269,7 @@
     fd.set('method', methodVal);
     fd.set('amount', amountVal);
     fd.set('note', noteVal);
-    fetch(BASE+'own/financeUpdate/'+id, {method:'POST', body: fd})
+    fetch(BASE+'expenses/financeUpdate/'+id, {method:'POST', body: fd})
       .then(r=>r.json()).then(j=>{
         if(j && j.ok){
           // Re-render with updated values
@@ -293,7 +293,7 @@
 
   function loadStats(){
     if(loader) loader.classList.remove('d-none');
-    fetch(`${BASE}own/financeStats?from=${encodeURIComponent(fromInput.value)}&to=${encodeURIComponent(toInput.value)}`)
+    fetch(`${BASE}expenses/financeStats?from=${encodeURIComponent(fromInput.value)}&to=${encodeURIComponent(toInput.value)}`)
       .then(r=>r.json())
       .then(j=>{
         if(loader) loader.classList.add('d-none');
