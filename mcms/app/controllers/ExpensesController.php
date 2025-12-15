@@ -6,8 +6,8 @@ class ExpensesController extends Controller
    
  public function index()
     {
-        Auth::check();
-        $admin = Auth::user();
+        // Auth::check();
+        // $admin = Auth::user();
         $financeModel = $this->model('Expenses');
         // $entries = $financeModel->allByAdmin($admin['id']);
         $this->view('expenses/index');
