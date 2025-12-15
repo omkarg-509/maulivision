@@ -23,7 +23,9 @@ class Customer extends Database
     }
   public function dailyEarning(): float
     {
-        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE DATE(created_at) = CURDATE()");
+         $vid = $_SESSION['vendor']['id'] ?? null;
+        $stmt = $this->db->prepare("SELECT SUM(amount) as total FROM mcms_customers WHERE DATE(created_at) = CURDATE() AND vid = ?");
+        $stmt->bind_param("i", $vid);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
