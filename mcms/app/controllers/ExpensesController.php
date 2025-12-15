@@ -5,6 +5,6 @@ class ExpensesController extends Controller
     public function index()
     {
          Auth::check(); // 🔒 Protect the home page
-        $this->view('Expenses/index');
+        $this->view('expenses/index');
     }
 }
