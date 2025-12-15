@@ -1,5 +1,5 @@
 <?php
-// require_once '../app/models/Customer.php';
+require_once '../app/models/Customers.php';
 require_once '../app/helpers/Auth.php';
 class DashboardController extends Controller
 {
