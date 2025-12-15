@@ -1,5 +1,5 @@
 <?php
-<?php
+
 require_once '../app/helpers/Auth.php';
 class OwnController extends Controller
 {
