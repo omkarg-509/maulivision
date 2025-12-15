@@ -49,15 +49,52 @@
  
         </div>
 
-         <div class="row mt-5"><div class="col-lg-3 col-md-6 col-sm-6 col-12">
+         <div class="row mt-5">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <i class="fas fa-rupee-sign card-icon col-green"></i>
                 <div class="card-wrap">
                   <div class="padding-20">
                     <div class="text-end">
                       <h5 class="font-light mb-0  text-dark">
-                        <i class="ti-arrow-up text-success"></i> ₹61,24,581.30                      </h5>
-                      <span class="text-muted">Total Earning</span>
+                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                      <span class="text-muted">Today Earning</span>
+                    </div>
+                  <!--   <p class="mb-3 text-muted pull-left text-sm">
+                      <span class="col-orange me-2"><i class="fa fa-arrow-down"></i> 7.5%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <i class="fas fa-rupee-sign card-icon col-green"></i>
+                <div class="card-wrap">
+                  <div class="padding-20">
+                    <div class="text-end">
+                      <h5 class="font-light mb-0  text-dark">
+                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                      <span class="text-muted">Monthly Earning</span>
+                    </div>
+                  <!--   <p class="mb-3 text-muted pull-left text-sm">
+                      <span class="col-orange me-2"><i class="fa fa-arrow-down"></i> 7.5%</span>
+                      <span class="text-nowrap">Since last month</span>
+                    </p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <i class="fas fa-rupee-sign card-icon col-green"></i>
+                <div class="card-wrap">
+                  <div class="padding-20">
+                    <div class="text-end">
+                      <h5 class="font-light mb-0  text-dark">
+                        <i class="ti-arrow-up text-success"></i>₹ 00.0</h5>
+                      <span class="text-muted">Yearly Earning</span>
                     </div>
                   <!--   <p class="mb-3 text-muted pull-left text-sm">
                       <span class="col-orange me-2"><i class="fa fa-arrow-down"></i> 7.5%</span>
