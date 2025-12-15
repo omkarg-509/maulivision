@@ -6,18 +6,18 @@ class ExpensesController extends Controller
    
  public function index()
     {
-        // Auth::check();
+        Auth::check();
         // $admin = Auth::user();
         // $financeModel = $this->model('Expenses');
-        // $entries = $financeModel->allByAdmin($admin['id']);
-        $this->view('expenses/index');
+        $entries = $financeModel->allByAdmin($_SESSION['vendor']['id'] ?? null);
+        $this->view('expenses/index', ['entries' => $entries]);
     }
 
     public function financeAdd()
     {
         Auth::check();
         header('Content-Type: application/json');
-        $admin = Auth::user();
+        // $admin = Auth::user();
         $type = $_POST['type'] ?? '';
         $method = $_POST['method'] ?? 'cash';
         $amount = isset($_POST['amount']) ? (float)$_POST['amount'] : 0;
