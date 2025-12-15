@@ -27,7 +27,7 @@ class ExpensesController extends Controller
         $validMethods = ['cash','online'];
         if(!in_array($type,$validTypes) || !in_array($method,$validMethods) || $amount <= 0){
             echo json_encode(['ok'=>false,'error'=>'Invalid data']); return; }
-        $financeModel = $this->model('Finance');
+        $financeModel = $this->model('Expenses');
         $id = $financeModel->create($admin['id'],$type,$method,$amount,$note,$date);
         echo json_encode(['ok'=>$id>0,'id'=>$id,'type'=>$type,'method'=>$method,'amount'=>$amount,'note'=>htmlspecialchars($note,ENT_QUOTES,'UTF-8'),'entry_date'=>$date]);
     }
@@ -38,7 +38,7 @@ class ExpensesController extends Controller
         header('Content-Type: application/json');
         $admin = Auth::user();
         $id = (int)$id; if($id<=0){ echo json_encode(['ok'=>false]); return; }
-        $financeModel = $this->model('Finance');
+        $financeModel = $this->model('Expenses');
         $ok = $financeModel->delete($id,$admin['id']);
         echo json_encode(['ok'=>(bool)$ok]);
     }
