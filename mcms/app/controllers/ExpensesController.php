@@ -4,7 +4,7 @@ require_once '../app/helpers/Auth.php';
 class ExpensesController extends Controller
 {
    
- public function finance()
+ public function index()
     {
         Auth::check();
         $admin = Auth::user();
