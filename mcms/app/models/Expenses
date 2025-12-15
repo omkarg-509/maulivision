@@ -1,7 +1,7 @@
 <?php
 require_once '../core/Database.php';
 
-class Finance extends Database
+class Expenses extends Database
 {
     protected $db;
 
