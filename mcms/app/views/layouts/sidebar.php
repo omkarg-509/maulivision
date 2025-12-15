@@ -46,7 +46,7 @@
               </ul>
             </li>
               <li class="dropdown">
-              <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Expenses</span></a>
+              <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-holding-usd"></i><span>Expenses</span></a>
               <ul class="dropdown-menu">
                 <li class=""><a class="nav-link" href="<?=BASE_URL?>expenses/index">New Expenses</a></li>
                 <li><a class="nav-link" href="<?=BASE_URL?>expenses/history">History</a></li>
