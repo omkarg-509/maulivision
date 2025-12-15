@@ -1,5 +1,6 @@
 <?php require_once '../app/views/layouts/sidebar.php'; ?>
 <div class="main-content">
+      <div id="app">
   <section class="section">
     <div class="section-header d-flex align-items-center flex-wrap gap-2">
       <h1 class="mb-0">Finance Manager</h1>
