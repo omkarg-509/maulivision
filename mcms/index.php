@@ -1,4 +1,1 @@
-<?php
-header("Location: /public/");
-exit();
-?>
+mcms
