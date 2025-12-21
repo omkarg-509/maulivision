@@ -8,8 +8,8 @@ class ExpensesController extends Controller
     {
         Auth::check();
         // $admin = Auth::user();
-        $financeModel = $this->model('Expenses');
-        $entries = $financeModel->allByAdmin($admin['id']);
+        // $financeModel = $this->model('Expenses');
+        // $entries = $financeModel->allByAdmin($admin['id']);
 
          $customersModel = $this->model('Customers');
     $vid = $_SESSION['vendor']['id'] ?? null;
