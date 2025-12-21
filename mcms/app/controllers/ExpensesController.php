@@ -8,8 +8,12 @@ class ExpensesController extends Controller
     {
         Auth::check();
         // $admin = Auth::user();
-        // $financeModel = $this->model('Expenses');
-        $entries = $financeModel->allByAdmin($_SESSION['vendor']['id'] ?? null);
+        $financeModel = $this->model('Expenses');
+        $entries = $financeModel->allByAdmin($admin['id']);
+
+         $customersModel = $this->model('Customers');
+    $vid = $_SESSION['vendor']['id'] ?? null;
+    $entries = $vid ? $customersModel->getByVendor((int)$vid) : [];
         $this->view('expenses/index', ['entries' => $entries]);
     }
 
@@ -17,7 +21,7 @@ class ExpensesController extends Controller
     {
         Auth::check();
         header('Content-Type: application/json');
-        // $admin = Auth::user();
+        $admin = Auth::user();
         $type = $_POST['type'] ?? '';
         $method = $_POST['method'] ?? 'cash';
         $amount = isset($_POST['amount']) ? (float)$_POST['amount'] : 0;
