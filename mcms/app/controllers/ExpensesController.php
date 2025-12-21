@@ -10,4 +10,8 @@ class ExpensesController extends Controller
         $this->view('expenses/index');
     }
 
-   }
+    public function history(){
+        auth::check();
+        $this->view('expenses/history');
+    }
+}
