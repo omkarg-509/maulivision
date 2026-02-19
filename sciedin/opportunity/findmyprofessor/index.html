@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>PROFSOR </title>
+    <link rel="stylesheet" href="../../home/style.css">
+        <link rel="stylesheet" href="../../components/components.css">
+
+  <meta charset="UTF-8" />
+  <title>Find My Professor | SciEdIn</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+<!-- ================= NAVBAR ================= -->
+
+<div id="header"></div>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+  <h1>Find My Professor</h1>
+  <p>Search global researchers and academic mentors</p>
+
+  <!-- Search -->
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search by name, institute, field, country..."
+  />
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main-container">
+
+  <!-- FILTER PANEL -->
+  <aside class="filters">
+
+    <h3>Filters</h3>
+
+    <!-- Country -->
+    <label>Country</label>
+    <select id="countryFilter">
+      <option value="">All Countries</option>
+    </select>
+
+    <!-- Field -->
+    <label>Field</label>
+    <select id="fieldFilter">
+      <option value="">All Fields</option>
+    </select>
+
+    <!-- Sub Subject -->
+    <label>Sub Subject</label>
+    <select id="sub1Filter">
+      <option value="">All Sub Subjects</option>
+    </select>
+
+    <!-- Institute -->
+    <label>Institute</label>
+    <select id="instituteFilter">
+      <option value="">All Institutes</option>
+    </select>
+
+    <!-- Min Papers -->
+    <label>Min Papers</label>
+    <input
+      type="number"
+      id="minPapers"
+      placeholder="e.g. 100"
+      min="0"
+    >
+
+    <!-- Min Citations -->
+    <label>Min Citations</label>
+    <input
+      type="number"
+      id="minCitations"
+      placeholder="e.g. 5000"
+      min="0"
+    >
+
+    <!-- Clear -->
+    <button id="clearFilters">
+      Clear Filters
+    </button>
+
+  </aside>
+
+
+  <!-- PROFESSOR GRID -->
+  <section class="prof-grid" id="profGrid">
+
+    <!-- Cards injected by JS -->
+
+  </section>
+
+</div>
+
+
+<!-- ================= SCRIPT ================= -->
+
+<script src="script.js"></script>
+<script  src="./script.js"></script>  
+<script src="../../components/components.js" defer></script>
+
+<!-- ================= FOOTER ================= -->
+
+<div id="footer"></div>
+
+</body>
+</html>

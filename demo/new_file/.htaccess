@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# 1) If user tries .php directly -> show 404
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ %1 [R=404,L]
+
+# 2) If user types /login -> open login.php
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]

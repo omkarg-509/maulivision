@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduHub — Chat</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>EduHub</b>
+          <small>Research • Opportunities • Mentors</small>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="find-professor.html">Find my Professor</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="expert-opinion.html">Expert Opinion</a>
+        <a href="paper-presentation.html">Paper Presentation</a>
+        <a href="chat.html">Chat</a>
+      </nav>
+
+      <div class="nav-right">
+        <a class="icon-btn" href="index.html#search" title="Search">
+          <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+            <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </a>
+        <a class="ghost-btn" href="login.html">Login</a>
+        <a class="primary-btn" href="login.html">Get Started</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Chat</h2>
+        <p>Connect with professors, experts, and students (demo UI).</p>
+      </div>
+      <a class="link" href="index.html">Back to Home →</a>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card" style="grid-column: span 1; min-height: 520px;">
+        <div class="section-head" style="margin-bottom:10px">
+          <div><h2 style="font-size:16px">Messages</h2><p>Recent chats</p></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="opp-row" style="padding:12px">
+            <div class="opp-left"><div class="avatar"></div><div><b>Prof. S. Iyer</b><small>“Send your topic details…”</small></div></div>
+          </div>
+          <div class="opp-row" style="padding:12px">
+            <div class="opp-left"><div class="avatar"></div><div><b>Mentor (Hackathon)</b><small>“MVP looks good. Add…”</small></div></div>
+          </div>
+          <div class="opp-row" style="padding:12px">
+            <div class="opp-left"><div class="avatar"></div><div><b>Student Group</b><small>“Let’s meet in library…”</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="grid-column: span 2; min-height: 520px;">
+        <div class="section-head" style="margin-bottom:10px">
+          <div><h2 style="font-size:16px">Conversation</h2><p>Demo messages</p></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="search-card" style="padding:12px">
+            <b style="display:block;font-size:13px">Prof. S. Iyer</b>
+            <div style="color:rgba(75,85,99,.92);font-size:12.5px;line-height:1.6;margin-top:4px">
+              Hi, share your research interest and the timeline. I will suggest papers to start.
+            </div>
+          </div>
+
+          <div class="search-card" style="padding:12px; margin-left:auto; max-width: 85%">
+            <b style="display:block;font-size:13px">You</b>
+            <div style="color:rgba(75,85,99,.92);font-size:12.5px;line-height:1.6;margin-top:4px">
+              I want to work on NLP + information retrieval for a final year project.
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; align-items:center">
+          <div class="search-input" style="flex:1">
+            <input placeholder="Type a message (demo)..." />
+          </div>
+          <button class="primary-btn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div class="logo" style="width:34px;height:34px;border-radius:12px"></div>
+          <div>
+            <b>EduHub</b>
+            <div style="color:rgba(107,114,128,.95);font-size:12px;margin-top:2px">Research • Opportunities • Mentors</div>
+          </div>
+        </div>
+        <div style="color:rgba(75,85,99,.92);font-size:12.5px;line-height:1.6">
+          A student-first platform to discover research, opportunities, and experts — without confusion.
+        </div>
+        <div class="copy">© 2026 EduHub. All rights reserved.</div>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html#research">Research</a>
+        <a href="opportunities.html">Opportunities</a>
+        <a href="find-professor.html">Find Professors</a>
+        <a href="expert-opinion.html">Expert Opinion</a>
+      </div>
+
+      <div>
+        <h4>Community</h4>
+        <a href="paper-presentation.html">Paper Presentation</a>
+        <a href="chat.html">Chat</a>
+        <a href="expert-opinion.html#anonymous">Anonymous Q&A</a>
+        <a href="index.html#saved">Saved</a>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Report</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+  const slider = document.querySelector('.slider');
+  if (slider) {
+    slider.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+  }
+</script>
+</body>
+</html>

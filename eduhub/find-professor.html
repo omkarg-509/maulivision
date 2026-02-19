@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduHub — Find My Professor</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>EduHub</b>
+            <small>Research • Opportunities • Mentors</small>
+          </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="find-professor.html">Find my Professor</a>
+          <a href="opportunities.html">Opportunities</a>
+          <a href="expert-opinion.html">Expert Opinion</a>
+          <a href="paper-presentation.html">Paper Presentation</a>
+          <a href="chat.html">Chat</a>
+        </nav>
+
+        <div class="nav-right">
+          <button class="icon-btn" title="Search">
+            <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="ghost-btn">Login</button>
+          <button class="primary-btn">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-card hero-left">
+        <div class="badge">
+          <span style="width:8px;height:8px;border-radius:99px;background:var(--good);display:inline-block"></span>
+          Smart filters • Verified profiles
+        </div>
+
+        <h1>Find the right professor in 30 seconds.</h1>
+
+        <p>Search professors by field, university, country, and research keywords. Save profiles and request mentorship in one click.</p>
+
+        <div class="hero-actions">
+          <button class="primary-btn">Search Professors</button>
+          <button class="ghost-btn">Top Universities</button>
+          <button class="ghost-btn">Saved List</button>
+        </div>
+
+        <div style="margin-top:16px;color:rgba(147,166,255,.78);font-size:12px;line-height:1.5">
+          Hackathon demo: all buttons are UI. Connect backend later.
+        </div>
+      </div>
+
+      <div class="hero-card hero-right">
+        <div class="stat">
+        <div class="top">
+          <b>Filters</b>
+          <span class="pill">Field</span>
+        </div>
+        <p>Search by AI, Medical, Civil, Mechanical, Commerce etc.</p>
+      </div>
+<div class="stat">
+        <div class="top">
+          <b>Countries</b>
+          <span class="pill">Global</span>
+        </div>
+        <p>India, USA, Germany, UK and more.</p>
+      </div>
+<div class="stat">
+        <div class="top">
+          <b>Mentorship</b>
+          <span class="pill">Request</span>
+        </div>
+        <p>Send a clean research request message template.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>Professor Directory</h2>
+        <p>Demo profiles. Backend can load real data later.</p>
+      </div>
+      <a class="link" href="#">Submit a profile →</a>
+    </div>
+
+    <div class="search-card">
+      <div class="search-row">
+        <div class="search-input">
+          <svg class="svg" viewBox="0 0 24 24" fill="none">
+            <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <input placeholder="Search name, university, domain, keywords…" />
+        </div>
+
+        <div class="filters">
+          <select><option selected>Field</option><option>AI / ML</option><option>Medical</option><option>Civil</option><option>Mechanical</option><option>Commerce</option></select>
+          <select><option selected>Country</option><option>India</option><option>USA</option><option>Germany</option><option>UK</option></select>
+          <select><option selected>University</option><option>IIT</option><option>NIT</option><option>DU</option><option>MIT</option></select>
+        </div>
+
+        <button class="primary-btn" style="height:44px;border-radius:16px">Search</button>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <div class="meta"><span class="tag">AI • NLP</span><span class="pill">Verified</span></div>
+        <h3>Prof. S. Iyer</h3>
+        <p class="desc">NLP • Information Retrieval • Student mentorship for projects & papers.</p>
+        <div class="foot">
+          <div class="author"><div class="avatar"></div><div><b>IIT (Research)</b><small>India</small></div></div>
+          <button class="mini-btn">View</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span class="tag">Medical</span><span class="pill">Top</span></div>
+        <h3>Dr. R. Thomas</h3>
+        <p class="desc">Public Health • Epidemiology • Research guidance + paper review.</p>
+        <div class="foot">
+          <div class="author"><div class="avatar"></div><div><b>University Lab</b><small>UK</small></div></div>
+          <button class="mini-btn">View</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span class="tag">Civil • Climate</span><span class="pill">Open</span></div>
+        <h3>Prof. A. Deshmukh</h3>
+        <p class="desc">Smart Cities • Flood mapping • Remote sensing research collaboration.</p>
+        <div class="foot">
+          <div class="author"><div class="avatar"></div><div><b>State University</b><small>India</small></div></div>
+          <button class="mini-btn">View</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="logo" style="width:34px;height:34px;border-radius:12px"></div>
+            <div>
+              <b>EduHub</b>
+              <div style="color:rgba(147,166,255,.75);font-size:12px;margin-top:2px">Research • Opportunities • Mentors</div>
+            </div>
+          </div>
+          <div style="color:rgba(184,198,255,.85);font-size:12.5px;line-height:1.6">
+            A student-first platform to discover research, opportunities, and experts — without confusion.
+          </div>
+          <div class="copy">© 2026 EduHub. All rights reserved.</div>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="index.html">Research</a>
+          <a href="opportunities.html">Opportunities</a>
+          <a href="#">Find Professors</a>
+          <a href="expert-opinion.html">Expert Opinion</a>
+        </div>
+
+        <div>
+          <h4>Community</h4>
+          <a href="paper-presentation.html">Paper Presentation</a>
+          <a href="chat.html">Chat</a>
+          <a href="#">Anonymous Q&A</a>
+          <a href="#">Saved</a>
+        </div>
+
+        <div>
+          <h4>Support</h4>
+          <a href="#">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Report</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal demo script (optional):
+    // Smooth scroll for sliders using mouse wheel on desktop
+    const slider = document.querySelector('.slider');
+    if (slider) {
+      slider.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          slider.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+    }
+  </script>
+</body>
+</html>

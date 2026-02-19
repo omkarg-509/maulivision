@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="../../home/style.css">
+    <link rel="stylesheet" href="../components/components.css">
+    <link rel="stylesheet" href="style.css">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SciEdIn — Research Facilities</title>
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- local CSS -->
+  <link rel="stylesheet" href="facilities.css">
+</head>
+<body>
+
+  <!-- NAV / HEADER (same brand style as home) -->
+<div id="header"></div>
+
+  <!-- HERO & FILTERS -->
+  <main class="main">
+    <section class="hero small">
+      <div class="container">
+        <h1>Research Facilities - Find equipment, labs & access</h1>
+        <p class="muted">Search shared cores, cleanrooms, supercomputing centres and instrumentation across global universities.</p>
+      </div>
+    </section>
+
+    <!-- Filter bar -->
+    <section class="filter-bar">
+      <div class="container filter-row">
+        <input id="searchInput" type="search" placeholder="Search by facility, instrument, institute or location" />
+
+        <select id="countryFilter">
+          <option value="">All countries</option>
+        </select>
+
+        <select id="instituteFilter">
+          <option value="">All institutes</option>
+        </select>
+
+        <select id="typeFilter">
+          <option value="">Any facility type</option>
+          <option value="cleanroom">Cleanroom / Nanofab</option>
+          <option value="characterisation">Characterisation</option>
+          <option value="core-lab">Core Lab</option>
+          <option value="supercomputer">Supercomputer</option>
+          <option value="photon-source">Photon / Synchrotron</option>
+          <option value="marine-station">Marine Station</option>
+        </select>
+
+        <button id="clearFilters" class="btn-outline small">Clear</button>
+      </div>
+    </section>
+
+    <!-- GRID -->
+    <section class="grid-section">
+      <div class="container">
+        <div id="resultsCount" class="results-count"></div>
+        <div id="facGrid" class="fac-grid"></div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- footer (same visual style as site footer) -->
+<div id="footer"></div>
+
+  <!-- JS -->
+  <script src="../components/components.js" defer></script>
+  <script src="facilities.js"></script>
+  <script  src="./script.js"></script>
+</body>
+</html>

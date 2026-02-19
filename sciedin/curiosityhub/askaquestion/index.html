@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Ask a Question | SciEdIn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../../components/components.css">
+</head>
+
+
+<body>
+<!-- ================= NAVBAR ================= -->
+
+<div id="header"></div>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="ask-header">
+
+  <h1>Ask a Question</h1>
+
+  <p>
+    We believe every question is important.
+    Curiosity is the beginning of science.
+  </p>
+
+</header>
+
+
+<!-- ================= FORM ================= -->
+
+<section class="ask-section">
+
+  <div class="container">
+
+    <form id="askForm" class="ask-form">
+
+      <h2>Submit Your Question</h2>
+
+
+      <!-- Email -->
+
+      <label>Your Email</label>
+
+      <input
+        type="email"
+        id="userEmail"
+        placeholder="you@example.com"
+        required
+      />
+
+
+      <!-- Question -->
+
+      <label>Your Question</label>
+
+      <textarea
+        id="userQuestion"
+        placeholder="Type your question here..."
+        required
+      ></textarea>
+
+
+      <!-- Upload -->
+
+      <label>Upload (Optional)</label>
+
+      <input
+        type="file"
+        id="fileUpload"
+        accept="audio/*,video/*"
+      />
+
+
+      <!-- Submit -->
+
+      <button type="submit" class="submit-btn">
+        Send Question
+      </button>
+
+
+    </form>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    <div id="successBox" class="success-box">
+
+      <h3>✅ We Got Your Question!</h3>
+
+      <p>
+        Thank you for reaching out.
+
+        Our experts will review your question
+        and respond as soon as possible.
+
+      </p>
+
+      <p class="note">
+
+        Please keep checking the
+        <strong>Expert Talks</strong> section
+        for updates.
+
+      </p>
+
+      <a href="https://sciedin.maulivision.in/expert-opinion/experts-talks/index.html" class="go-btn">
+        Go to Expert Talks
+      </a>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<script src="ask.js"></script>
+  
+<!-- ================= FOOTER ================= -->
+
+<div id="footer"></div>
+    <script  src="./script.js"></script>
+    <script src="../../components/components.js" defer></script>
+    
+</body>
+</html>
+

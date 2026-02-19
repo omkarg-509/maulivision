@@ -1,0 +1,1 @@
+<?php header('Location :order_add.php');?>

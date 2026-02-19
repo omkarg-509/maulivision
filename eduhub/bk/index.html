@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduHub — Home</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <b>EduHub</b>
+            <small>Research • Opportunities • Mentors</small>
+          </div>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#">Home</a>
+          <a href="#">Find my Professor</a>
+          <a href="#">Opportunities</a>
+          <a href="#">Expert Opinion</a>
+          <a href="#">Paper Presentation</a>
+          <!--<a href="#">Chat</a>-->
+        </nav>
+
+        <div class="nav-right">
+          <button class="icon-btn" title="Search">
+            <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="ghost-btn">Login</button>
+          <button class="primary-btn">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card hero-left">
+          <div class="badge">
+            <span style="width:8px;height:8px;border-radius:99px;background:var(--good);display:inline-block"></span>
+            Verified research + student-friendly tools
+          </div>
+
+          <h1>All research & opportunities in one place.</h1>
+
+          <p>
+            Find professors, internships, scholarships, expert help and research papers — faster.
+            Built for students who want clarity, not chaos.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-btn">Explore Research</button>
+            <button class="ghost-btn">Find My Professor</button>
+            <button class="ghost-btn">Browse Opportunities</button>
+          </div>
+
+          <div style="margin-top:16px;color:rgba(147,166,255,.78);font-size:12px;line-height:1.5">
+            Tip: Save papers, follow domains, and get weekly top picks.
+          </div>
+        </div>
+
+        <div class="hero-card hero-right">
+          <div class="stat">
+            <div class="top">
+              <b>Research of the Week</b>
+              <span class="pill">Trending</span>
+            </div>
+            <p>
+              Top papers curated from multiple domains, simplified for students.
+              Save, share, and learn.
+            </p>
+          </div>
+
+          <div class="stat">
+            <div class="top">
+              <b>Opportunities</b>
+              <span class="pill">Intern • Scholarship</span>
+            </div>
+            <p>
+              Real internships and scholarships with clean filters and deadlines.
+            </p>
+          </div>
+
+          <div class="stat">
+            <div class="top">
+              <b>Find My Professor</b>
+              <span class="pill">Directory</span>
+            </div>
+            <p>
+              Search by field, university, country and research interests.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH -->
+  <section class="search">
+    <div class="container">
+      <div class="search-card">
+        <div class="search-row">
+          <div class="search-input">
+            <svg class="svg" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input placeholder="Search papers, professors, scholarships, internships…" />
+          </div>
+
+          <div class="filters">
+            <select>
+              <option selected>Field</option>
+              <option>AI / ML</option>
+              <option>Medical</option>
+              <option>Mechanical</option>
+              <option>Civil</option>
+              <option>Commerce</option>
+            </select>
+            <select>
+              <option selected>Level</option>
+              <option>School</option>
+              <option>UG</option>
+              <option>PG</option>
+              <option>PhD</option>
+            </select>
+            <select>
+              <option selected>Country</option>
+              <option>India</option>
+              <option>USA</option>
+              <option>Germany</option>
+              <option>UK</option>
+            </select>
+          </div>
+
+          <button class="primary-btn" style="height:44px;border-radius:16px">Search</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH OF WEEK -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Research of the Week</h2>
+          <p>Curated picks — simple summaries + verified sources.</p>
+        </div>
+        <a class="link" href="#">View all →</a>
+      </div>
+
+      <div class="slider" aria-label="Research of the Week slider">
+        <!-- Slide 1 -->
+        <article class="card slide">
+          <div class="meta">
+            <span class="tag">AI • Healthcare</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Early detection of diabetes using low-cost mobile sensors</h3>
+          <p class="desc">A practical approach to detect risk early with affordable devices and smart models.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Dr. A. Sharma</b>
+                <small>Delhi University</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="card slide">
+          <div class="meta">
+            <span class="tag">Mechanical</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Energy-efficient cooling system for small industries</h3>
+          <p class="desc">Optimized design to reduce electricity usage in low-budget manufacturing setups.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Prof. M. Kulkarni</b>
+                <small>Pune Institute</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="card slide">
+          <div class="meta">
+            <span class="tag">Civil • Climate</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Flood-risk mapping for Indian cities using satellite data</h3>
+          <p class="desc">A clear map-based method for identifying high-risk zones and planning safer infra.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>R. Mehta</b>
+                <small>IIT (Research)</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <!-- Slide 4 -->
+        <article class="card slide">
+          <div class="meta">
+            <span class="tag">Commerce</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>How micro-savings apps improve financial discipline in youth</h3>
+          <p class="desc">A simple study on behavior change when students use small daily savings tools.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Neha Patil</b>
+                <small>Mumbai University</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH OF MONTH -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Research of the Month</h2>
+          <p>Best picks this month — high impact + student-friendly summaries.</p>
+        </div>
+        <a class="link" href="#">View all →</a>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <div class="meta">
+            <span class="tag">AI • Education</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Local-language tutoring improves retention in rural students</h3>
+          <p class="desc">Students learn faster when explanations are in their mother tongue with examples.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Team EduLab</b>
+                <small>India</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">Cybersecurity</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Phishing patterns in student emails and campus networks</h3>
+          <p class="desc">A practical list of patterns to detect scam emails, links, and fake internship traps.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Cyber Research</b>
+                <small>Open Community</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">Civil • Materials</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Low-cost bricks using recycled plastic for better insulation</h3>
+          <p class="desc">An eco-friendly alternative for small housing projects with measurable benefits.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Prof. J. Singh</b>
+                <small>Research Group</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">Medical</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Affordable mental health screening for college students</h3>
+          <p class="desc">A short questionnaire + guided help improves early support and reduces stigma.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Campus Health</b>
+                <small>India</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">Agriculture</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>Plant disease detection with smartphone images (low data)</h3>
+          <p class="desc">Works even on slow internet: compress + predict + give quick treatment steps.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Agri AI</b>
+                <small>Prototype</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="meta">
+            <span class="tag">Business</span>
+            <button class="save" title="Save">
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+          <h3>How students can build income with micro-freelancing</h3>
+          <p class="desc">A simple model for offering small services like abstracts, formatting and design.</p>
+          <div class="foot">
+            <div class="author">
+              <div class="avatar"></div>
+              <div>
+                <b>Community</b>
+                <small>EduHub</small>
+              </div>
+            </div>
+            <button class="mini-btn">Read</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITIES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Trending Opportunities</h2>
+          <p>Internships, scholarships and conferences — sorted by deadlines.</p>
+        </div>
+        <a class="link" href="#">View all →</a>
+      </div>
+
+      <div class="opp">
+        <div class="opp-row">
+          <div class="opp-left">
+            <div class="opp-ic">
+              <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+                <path d="M8 7V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 7h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>AI Internship — Remote (Paid)</b>
+              <small>Work on real datasets. Requires basic Python + ML. Certificate included.</small>
+            </div>
+          </div>
+          <div class="opp-right">
+            <span class="deadline">Deadline: 15 Feb</span>
+            <button class="mini-btn">Apply</button>
+          </div>
+        </div>
+
+        <div class="opp-row">
+          <div class="opp-left">
+            <div class="opp-ic">
+              <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3 2 8l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M2 8v8l10 5 10-5V8" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <b>Scholarship — UG Students (India)</b>
+              <small>For students with strong academics and low income. Apply with documents checklist.</small>
+            </div>
+          </div>
+          <div class="opp-right">
+            <span class="deadline">Deadline: 22 Feb</span>
+            <button class="mini-btn">View</button>
+          </div>
+        </div>
+
+        <div class="opp-row">
+          <div class="opp-left">
+            <div class="opp-ic">
+              <svg class="svg svg-lg" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 10v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 7h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>Conference — Student Paper Presentation</b>
+              <small>Present your paper with a guided template + feedback from reviewers.</small>
+            </div>
+          </div>
+          <div class="opp-right">
+            <span class="deadline">Deadline: 05 Mar</span>
+            <button class="mini-btn">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>About the Team</h2>
+          <p>Built by students, for students — focused on clarity and trust.</p>
+        </div>
+      </div>
+
+      <div class="team">
+        <div class="team-card">
+          <div class="avatar"></div>
+          <div>
+            <b>Team Member 1</b>
+            <small>Frontend • UI/UX</small>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="avatar"></div>
+          <div>
+            <b>Team Member 2</b>
+            <small>Backend • Database</small>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="avatar"></div>
+          <div>
+            <b>Team Member 3</b>
+            <small>Research • Content</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div class="logo" style="width:34px;height:34px;border-radius:12px"></div>
+            <div>
+              <b>EduHub</b>
+              <div style="color:rgba(147,166,255,.75);font-size:12px;margin-top:2px">Research • Opportunities • Mentors</div>
+            </div>
+          </div>
+          <div style="color:rgba(184,198,255,.85);font-size:12.5px;line-height:1.6">
+            A student-first platform to discover research, opportunities, and experts — without confusion.
+          </div>
+          <div class="copy">© 2026 EduHub. All rights reserved.</div>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <a href="#">Research</a>
+          <a href="#">Opportunities</a>
+          <a href="#">Find Professors</a>
+          <a href="#">Expert Opinion</a>
+        </div>
+
+        <div>
+          <h4>Community</h4>
+          <a href="#">Paper Presentation</a>
+          <a href="#">Chat</a>
+          <a href="#">Anonymous Q&A</a>
+          <a href="#">Saved</a>
+        </div>
+
+        <div>
+          <h4>Support</h4>
+          <a href="#">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+          <a href="#">Report</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal demo script (optional):
+    // Smooth scroll for sliders using mouse wheel on desktop
+    const slider = document.querySelector('.slider');
+    if (slider) {
+      slider.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          slider.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+    }
+  </script>
+</body>
+</html>

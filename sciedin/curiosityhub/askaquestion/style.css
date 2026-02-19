@@ -1,0 +1,198 @@
+/* =============== GLOBAL =============== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #0b0f1a;
+  color: #e6e6e6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+}
+/* ================= HEADER ================= */
+
+.header {
+  text-align: center;
+  padding: 50px 20px;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+.header h1 {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.header input {
+  width: 420px;
+  max-width: 90%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #020617;
+  color: #fff;
+  border: 1px solid #334155;
+}
+
+
+/* =============== HEADER =============== */
+
+.ask-header {
+
+  text-align: center;
+
+  padding: 80px 20px;
+
+  background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+.ask-header h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.ask-header p {
+  color: #cbd5f5;
+  max-width: 600px;
+  margin: auto;
+}
+
+
+/* =============== SECTION =============== */
+
+.ask-section {
+  padding: 60px 0;
+}
+
+
+/* =============== FORM =============== */
+
+.ask-form {
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.02)
+  );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  border-radius: 20px;
+
+  padding: 35px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.ask-form h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+/* Inputs */
+
+.ask-form input,
+.ask-form textarea {
+
+  background: #020617;
+
+  border: 1px solid #334155;
+
+  border-radius: 8px;
+
+  padding: 10px 12px;
+
+  color: #fff;
+
+  font-size: 14px;
+}
+
+.ask-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.ask-form input:focus,
+.ask-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+
+/* Button */
+
+.submit-btn {
+
+  margin-top: 10px;
+
+  padding: 10px;
+
+  border-radius: 20px;
+
+  border: 1px solid #3b82f6;
+
+  background: transparent;
+
+  color: #3b82f6;
+
+  cursor: pointer;
+
+  font-weight: 500;
+
+  transition: 0.25s;
+}
+
+.submit-btn:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+
+/* =============== SUCCESS =============== */
+
+.success-box {
+
+  display: none;
+
+  background: rgba(34,197,94,0.1);
+
+  border: 1px solid rgba(34,197,94,0.4);
+
+  border-radius: 20px;
+
+  padding: 35px;
+
+  text-align: center;
+}
+
+.success-box h3 {
+  color: #22c55e;
+  margin-bottom: 10px;
+}
+
+.success-box p {
+  color: #cbd5f5;
+  margin-bottom: 10px;
+}
+
+.note {
+  font-size: 14px;
+  color: #94a3b8;
+}

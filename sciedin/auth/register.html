@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SciEdIn | Register</title>
+ <link rel="stylesheet" href="../style.css">
+    
+    <link rel="stylesheet" href="../components/components.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<section class="auth section-sm">
+  <div class="container">
+    <div class="auth-grid">
+      <div class="auth-card">
+        <div class="auth-top">
+          <div class="auth-badge">
+            <span class="dot"></span>
+            Create your account
+          </div>
+          <h1>Register</h1>
+          <p>Join SciEdIn to discover research, mentors, and opportunities.</p>
+        </div>
+
+        <form class="auth-form" action="home" method="GET">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" placeholder="Your name" required>
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input type="password" placeholder="Create a password" required>
+          </div>
+
+          <div class="field">
+            <label>Confirm password</label>
+            <input type="password" placeholder="Re-enter password" required>
+          </div>
+
+          <label class="check mt">
+            <input type="checkbox" required>
+            <span>I agree to the Terms & Privacy</span>
+          </label>
+
+          <button class="btn-primary w-full" type="submit">Create account</button>
+
+          <div class="muted">
+            Already have an account?
+            <a class="link" href="login.html">Login</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="auth-side">
+        <div class="side-card">
+          <h3>Student-first platform</h3>
+          <p>
+            We keep everything simple: research, professor discovery, opportunities, and expert guidance —
+            in one clean place.
+          </p>
+        </div>
+
+        <div class="side-card highlight">
+          <h3>Tip</h3>
+          <p>Use demo data in hackathon. Judges love clean UI + clear flow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="script.js"></script>
+<script src="../components/components.js" defer></script>
+
+</body>
+</html>

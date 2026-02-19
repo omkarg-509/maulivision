@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SciEdIn | Login</title>
+ <link rel="stylesheet" href="../style.css">
+    
+    <link rel="stylesheet" href="../components/components.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<section class="auth section-sm">
+  <div class="container">
+    <div class="auth-grid">
+      <div class="auth-card">
+        <div class="auth-top">
+          <div class="auth-badge">
+            <span class="dot"></span>
+            Welcome back
+          </div>
+          <h1>Login</h1>
+          <p>Sign in to save research, apply to opportunities, and ask experts.</p>
+        </div>
+
+        <form class="auth-form" action="../home/" method="GET">
+          <div class="field">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••" required>
+          </div>
+
+          <div class="row">
+            <label class="check">
+              <input type="checkbox">
+              <span>Remember me</span>
+            </label>
+
+            <a class="link" href="forgot.html">Forgot password?</a>
+          </div>
+
+          <button class="btn-primary w-full" type="submit">Login</button>
+
+          <div class="muted">
+            Don’t have an account?
+            <a class="link" href="register.html">Create account</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="auth-side">
+        <div class="side-card">
+          <h3>Why SciEdIn?</h3>
+          <ul>
+            <li>Verified research (weekly + monthly)</li>
+            <li>Find professors by domain & country</li>
+            <li>Scholarships + internships tracking</li>
+            <li>Expert opinions for your doubts</li>
+          </ul>
+        </div>
+
+        <div class="side-card highlight">
+          <h3>Hackathon Demo Mode</h3>
+          <p>This login page is UI-only. Clicking login will redirect to Home.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<script src="script.js"></script>
+<script src="../components/components.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Scholarships</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../components/components.css">
+
+  <meta charset="UTF-8" />
+  <title>Science Scholarships | SciEdIn</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="scholarships.css">
+</head>
+
+<body>
+<!-- ================= NAVBAR ================= -->
+
+<div id="header"></div>
+
+<!-- ================= HEADER ================= -->
+
+<header class="scholar-header">
+
+  <h1>Science Scholarships</h1>
+
+  <p id="quoteBox">
+    "Scholarships open doors to discovery."
+  </p>
+
+</header>
+
+
+<!-- ================= FILTERS ================= -->
+
+<section class="filter-bar">
+
+  <div class="container filter-container">
+
+    <!-- Country -->
+    <select id="countryFilter">
+      <option value="">All Countries</option>
+    </select>
+
+    <!-- Funding -->
+    <select id="fundFilter">
+      <option value="">All Types</option>
+      <option value="paid">Funded</option>
+      <option value="partial">Partial</option>
+    </select>
+
+    <!-- Degree Level -->
+    <select id="levelFilter">
+      <option value="">All Levels</option>
+      <option value="ug">Undergraduate</option>
+      <option value="pg">Postgraduate</option>
+      <option value="phd">PhD</option>
+    </select>
+
+    <!-- Clear -->
+    <button id="clearFilters">
+      Clear
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MAIN ================= -->
+
+<section class="scholar-section">
+
+  <div class="container" id="scholarGrid">
+
+    <!-- Cards injected by JS -->
+
+  </div>
+
+</section>
+
+
+<!-- ================= SCRIPT ================= -->
+<script  src="./script.js"></script>
+<script src="scholarships.js"></script>
+<script src="../../components/components.js" defer></script>
+<!-- ================= FOOTER ================= -->
+
+<div id="footer"></div>
+</body>
+</html>

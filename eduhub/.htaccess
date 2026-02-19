@@ -1,0 +1,11 @@
+# # Remove index.php from URLs
+# RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.php[/?]([^\s]*)\sHTTP/
+# RewriteRule ^index\.php/?(.*)$ /$1 [R=301,L]
+
+# # Internally rewrite requests to index.php
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php?$1 [L]
+# # Redirect any .php URL to 404
+# RewriteCond %{REQUEST_URI} \.php
+# RewriteRule ^ - [R=404,L]
