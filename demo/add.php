@@ -1,10 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 $success = $_GET['success'] ?? '';
 $error = $_GET['error'] ?? '';
@@ -170,6 +166,8 @@ $error = $_GET['error'] ?? '';
             <?php } ?>
 
             <form method="POST" action="customer_save.php" autocomplete="off">
+
+                <?php echo csrf_field(); ?>
 
                 <div class="row">
                     <div>

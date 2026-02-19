@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 
@@ -180,11 +174,11 @@ $error = $_GET['error'] ?? '';
             <div class="page-title">Update Customer</div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <a class="btn btn-dark" href="list.php">← Back</a>
-                <a class="btn btn-danger"
-                   href="customer_delete.php?id=<?php echo (int)$customer['id']; ?>"
-                   onclick="return confirm('Delete this customer?');">
-                   Delete
-                </a>
+                <form method="POST" action="customer_delete.php" style="display:inline;" onsubmit="return confirm('Delete this customer?');">
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" name="id" value="<?php echo (int)$customer['id']; ?>" />
+                    <button type="submit" class="btn btn-danger" style="border:none;">Delete</button>
+                </form>
             </div>
         </div>
 
@@ -199,6 +193,8 @@ $error = $_GET['error'] ?? '';
             <?php } ?>
 
             <form method="POST" action="customer_update.php" autocomplete="off">
+
+                <?php echo csrf_field(); ?>
 
                 <input type="hidden" name="id" value="<?php echo (int)$customer['id']; ?>" />
 

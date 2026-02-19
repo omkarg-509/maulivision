@@ -1,10 +1,7 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/bootstrap.php';
 
-// सर्व session data remove
-session_unset();
-session_destroy();
+logout_user();
 
-// login page ला redirect
 header("Location: login.php");
 exit;

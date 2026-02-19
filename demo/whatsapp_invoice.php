@@ -1,8 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) { header("Location: invoices_list.php"); exit; }

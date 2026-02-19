@@ -1,17 +1,13 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: invoice_create.php");
     exit;
 }
+
+require_csrf_token();
 
 $invoice_no   = trim($_POST['invoice_no'] ?? '');
 $invoice_date = trim($_POST['invoice_date'] ?? '');

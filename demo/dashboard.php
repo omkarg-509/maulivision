@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 // Counts
 $totalCustomers = 0;
@@ -175,7 +169,7 @@ if ($q5) {
             <div class="user">
                 Hi, <?php echo htmlspecialchars($_SESSION['user_name'] ?? "User"); ?>
             </div>
-            <a class="logout" href="logout">Logout</a>
+            <a class="logout" href="logout.php">Logout</a>
         </div>
     </div>
 

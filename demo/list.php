@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 // Search
 $search = trim($_GET['search'] ?? '');
@@ -273,11 +267,11 @@ if ($totalPages < 1) $totalPages = 1;
                                 <td>
                                     <div class="actions">
                                         <a class="btn btn-primary small" href="edit.php?id=<?php echo (int)$c['id']; ?>">Edit</a>
-                                        <a class="btn btn-danger small"
-                                           href="customer_delete.php?id=<?php echo (int)$c['id']; ?>"
-                                           onclick="return confirm('Delete this customer?');">
-                                           Delete
-                                        </a>
+                                        <form method="POST" action="customer_delete.php" style="display:inline;" onsubmit="return confirm('Delete this customer?');">
+                                            <?php echo csrf_field(); ?>
+                                            <input type="hidden" name="id" value="<?php echo (int)$c['id']; ?>" />
+                                            <button type="submit" class="btn btn-danger small" style="border:none;">Delete</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

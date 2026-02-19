@@ -1,17 +1,13 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: add.php");
     exit;
 }
+
+require_csrf_token();
 
 $name = trim($_POST['name'] ?? '');
 $mobile = trim($_POST['mobile'] ?? '');

@@ -1,21 +1,21 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: list.php");
     exit;
 }
 
-require_once 'db.php';
+require_csrf_token();
 
-$id = (int)($_GET['id'] ?? 0);
+$id = (int)($_POST['id'] ?? 0);
 
 if ($id <= 0) {
     header("Location: list.php");
     exit;
 }
 
-// Delete customer
 $stmt = $conn->prepare("DELETE FROM customers WHERE id=?");
 $stmt->bind_param("i", $id);
 

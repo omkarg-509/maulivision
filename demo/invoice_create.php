@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 // Fetch orders for dropdown (latest first)
 $orders = [];
@@ -224,6 +218,8 @@ $error = $_GET['error'] ?? '';
             </div>
 
             <form method="POST" action="invoice_save.php" autocomplete="off">
+
+                <?php echo csrf_field(); ?>
 
                 <div class="row">
                     <div>

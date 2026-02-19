@@ -1,19 +1,16 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/bootstrap.php';
 
-// echo password_hash("12345", PASSWORD_DEFAULT);
-
-// जर आधीच login असेल तर dashboard ला जा
+// Already logged in? go to dashboard
 if (isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit;
 }
 
-require_once 'db.php';
-
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_csrf_token();
 
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
@@ -22,28 +19,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Please enter username and password.";
     } else {
 
-        // SQL Injection safe (Prepared Statement)
         $stmt = $conn->prepare("SELECT id, name, username, password_hash, role FROM users WHERE username = ? LIMIT 1");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result && $result->num_rows === 1) {
-
             $user = $result->fetch_assoc();
 
-            // if (password_verify($password, $user['password_hash'])) {
-                if ($password==$user['password_hash']) {
+            $isValid = false;
+            $needsRehash = false;
+            $stored = $user['password_hash'] ?? '';
 
-                // Login Success
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['name'];
-                $_SESSION['user_username'] = $user['username'];
-                $_SESSION['user_role'] = $user['role'];
+            if ($stored !== '' && password_verify($password, $stored)) {
+                $isValid = true;
+                $needsRehash = password_needs_rehash($stored, PASSWORD_DEFAULT);
+            } elseif ($stored !== '' && hash_equals($stored, $password)) { // legacy plain-text fallback
+                $isValid = true;
+                $needsRehash = true;
+            }
+
+            if ($isValid) {
+                if ($needsRehash) {
+                    $newHash = password_hash($password, PASSWORD_DEFAULT);
+                    $stmtUpdate = $conn->prepare("UPDATE users SET password_hash=? WHERE id=?");
+                    $stmtUpdate->bind_param("si", $newHash, $user['id']);
+                    $stmtUpdate->execute();
+                    $stmtUpdate->close();
+                }
+
+                login_user($user);
 
                 header("Location: index.php");
                 exit;
-
             } else {
                 $error = "Invalid username or password.";
             }
@@ -164,6 +172,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php } ?>
 
         <form method="POST" action="login.php" autocomplete="off">
+
+            <?php echo csrf_field(); ?>
 
             <label>Username / Mobile</label>
             <input type="text" name="username" placeholder="Enter username or mobile"

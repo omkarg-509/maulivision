@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) {
@@ -303,6 +297,8 @@ if (count($items) === 0) {
             <?php } ?>
 
             <form method="POST" action="order_update.php" autocomplete="off">
+
+                <?php echo csrf_field(); ?>
 
                 <input type="hidden" name="id" value="<?php echo (int)$order['id']; ?>" />
 

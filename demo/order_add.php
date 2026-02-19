@@ -1,12 +1,6 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
-
-require_once 'db.php';
+require_once __DIR__ . '/includes/bootstrap.php';
+require_login();
 
 // Fetch customers for dropdown
 $customers = [];
@@ -254,6 +248,8 @@ $error = $_GET['error'] ?? '';
             <?php } ?>
 
             <form method="POST" action="order_save.php" autocomplete="off">
+
+                <?php echo csrf_field(); ?>
 
                 <div class="section-title">Customer Details</div>
 
