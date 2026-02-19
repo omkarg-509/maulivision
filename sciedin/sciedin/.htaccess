@@ -1,9 +1,0 @@
-RewriteEngine On
-
-# If file/folder exists, open it directly
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# Remove .php from URL (example: /home -> pages/home.php)
-RewriteRule ^([a-zA-Z0-9_-]+)$ pages/$1.php [L]
